@@ -1,0 +1,80 @@
+<div class="page">
+  <h1 class="header">Welcome to
+    <strong>Servo Bot Automation System</strong>
+  </h1>
+
+  <div class="content">
+
+    <p class="text-justify">Servo Bot Automation System uses Behavior Trees for bots and automation development, with a
+      visual architecture, open
+      code and reusable AI.</p>
+
+    <br> Servo is built for developers, by developers
+    <br>
+    <br>
+    <div class="login-buttons">
+      <!-- <a ng-click="home.fbLogin()" ng-hide="home.user.loggedIn || !home.allowFacebookLogin">
+        <div class="btn btn-facebook">
+          <i class="fa fa-facebook"></i>
+          Sign in with Facebook
+        </div>
+      </a> -->
+
+      <a ng-click="home.anonymousLogin()" ng-hide="home.user.loggedIn">
+        <div class="btn btn-fake">
+          <i class="fa fa-user"></i>
+          Sign in anonymously
+        </div>
+      </a>
+
+      <a href="{{home.githubLogin}}" ng-hide="true">
+        <div class="btn btn-github">
+          <i class="fa fa-github"></i>
+          Sign in with Github
+        </div>
+      </a>
+    </div>
+
+    <div>
+
+    </div>
+
+    <div>
+      <div class="split-animate-wrap">
+        <h1 class="quote"> </h1>
+      </div>
+
+      <br>
+      <br>
+      <br>
+
+      <div style="color:midnightblue;padding: 0em;" class="panel panel-default">
+        <div class="panel-heading">
+          <strong>BUILD INFO</strong>
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-4">
+                <strong>Version:</strong>
+              </div>
+              <div class="col-xs-8">[BUILD_VERSION]
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-xs-4">
+                <strong>Build date:</strong>
+              </div>
+              <div class="col-xs-8">[BUILD_DATE]</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+
+
+  </div>
+</div>

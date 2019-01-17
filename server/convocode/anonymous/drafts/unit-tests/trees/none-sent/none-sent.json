@@ -1,0 +1,183 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "none-sent",
+	"name": "none-sent",
+	"title": "none-sent",
+	"description": "",
+	"root": "4dc7d12f-aa7e-43ee-8ed7-6130dc4c907b",
+	"properties": {
+		"channels": "chatsim",
+		"defaultHelpPrompt": [
+			"I don't understand"
+		],
+		"defaultLang": "xx"
+	},
+	"nodes": {
+		"4dc7d12f-aa7e-43ee-8ed7-6130dc4c907b": {
+			"id": "4dc7d12f-aa7e-43ee-8ed7-6130dc4c907b",
+			"name": "AskAndMap",
+			"title": "layer 0 funnel",
+			"description": "Selects by message intent & entities the children. A context is created for each child.  Contexts may have an expected intentId (a string or a regex) and entities, or a helper:true that would occur as default, if no matching intent was found If execution has a context already, it will continue to tick the current child, unless a bottom-up context search  changes the selected child.If no child is selected, Helper child is enetered every tick.  ContextSelector is closed When no child is running. the entities from last child are  mapped to the parent, and all contexts are cleared.The target is mapped to the expected intents and entities.If more than one entity of a certain name, an entity array will be created.If no child could be selected, a FAILURE is returned",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"default": true,
+						"passThru": true
+					},
+					{
+						"background": false,
+						"intentId": "PositiveIntent",
+						"description": {
+							"en": "put context description here"
+						}
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -66,
+				"y": 180
+			},
+			"children": [
+				"991c20da-3fef-4f0a-a7a9-550057f75cf0",
+				"5eb6e49b-3842-4fa7-b013-b7f90001c12b"
+			]
+		},
+		"bc0b9b69-8308-4309-b7f7-daf490698025": {
+			"id": "bc0b9b69-8308-4309-b7f7-daf490698025",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"bad said"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -322,
+				"y": 440
+			}
+		},
+		"5eb6e49b-3842-4fa7-b013-b7f90001c12b": {
+			"id": "5eb6e49b-3842-4fa7-b013-b7f90001c12b",
+			"name": "GeneralMessage",
+			"title": "help",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"help"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 114,
+				"y": 346
+			}
+		},
+		"991c20da-3fef-4f0a-a7a9-550057f75cf0": {
+			"id": "991c20da-3fef-4f0a-a7a9-550057f75cf0",
+			"name": "AskAndMap",
+			"title": "good or bad",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"good or bad?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "BadIntent",
+						"description": {
+							"en": ""
+						}
+					},
+					{
+						"intentId": "GoodIntent",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -202,
+				"y": 304
+			},
+			"children": [
+				"bc0b9b69-8308-4309-b7f7-daf490698025",
+				"b430401e-536d-4fc0-afac-9a7d467d058f"
+			]
+		},
+		"b430401e-536d-4fc0-afac-9a7d467d058f": {
+			"id": "b430401e-536d-4fc0-afac-9a7d467d058f",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"good said"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -94,
+				"y": 448
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 101.10000008810312,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

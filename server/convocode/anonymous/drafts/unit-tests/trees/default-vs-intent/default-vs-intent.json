@@ -1,0 +1,121 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "default-vs-intent",
+	"name": "default-vs-intent",
+	"title": "default-vs-intent",
+	"description": "",
+	"root": "62fbce1e-d065-4714-8e22-7fae0295381e",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"f85d0bf1-15b2-4d07-8edd-d2ff983406d4": {
+			"id": "f85d0bf1-15b2-4d07-8edd-d2ff983406d4",
+			"name": "GeneralMessage",
+			"title": "Pricing",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": {
+					"en": [
+						"It is 80 shekels"
+					],
+					"he": [
+						"80 ש' ליחיד.\nורק ב-55 ש' לאדם שמגיע עם בן או בת זוג.\nורק 10 שקלים לילד עד גיל 18."
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 418,
+				"y": 302
+			}
+		},
+		"62fbce1e-d065-4714-8e22-7fae0295381e": {
+			"id": "62fbce1e-d065-4714-8e22-7fae0295381e",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "Selects by message intent & entities the children. A context is created for each child.  Contexts may have an expected intentId (a string or a regex) and entities, or a helper:true that would occur as default, if no matching intent was found If execution has a context already, it will continue to tick the current child, unless a bottom-up context search  changes the selected child.If no child is selected, Helper child is enetered every tick.  ContextSelector is closed When no child is running. the entities from last child are  mapped to the parent, and all contexts are cleared.The target is mapped to the expected intents and entities.If more than one entity of a certain name, an entity array will be created.If no child could be selected, a FAILURE is returned",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "ExpensiveIntent",
+						"entities": [
+							{
+								"entityName": "abstractQuantity",
+								"entityIndex": 0,
+								"expectedValue": "high"
+							}
+						]
+					},
+					{
+						"default": true,
+						"entities": [
+							{}
+						]
+					}
+				]
+			},
+			"display": {
+				"x": 104,
+				"y": -88
+			},
+			"children": [
+				"82ca845d-7238-47ab-911f-93837c7a8517",
+				"f85d0bf1-15b2-4d07-8edd-d2ff983406d4"
+			]
+		},
+		"82ca845d-7238-47ab-911f-93837c7a8517": {
+			"id": "82ca845d-7238-47ab-911f-93837c7a8517",
+			"name": "GeneralMessage",
+			"title": "expensive",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"assume we solve expensive"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -56,
+				"y": 166
+			}
+		}
+	},
+	"display": {
+		"camera_x": 662.1999999191612,
+		"camera_y": 450.5000005531183,
+		"camera_z": 1,
+		"x": 120,
+		"y": -256
+	},
+	"state": "draft"
+}

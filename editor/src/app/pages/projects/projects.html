@@ -1,0 +1,67 @@
+<div class="page">
+  <h1 class="header">Projects</h1>
+
+  <nav class="page-operations">
+    <div class="page-operations-content">
+      <ul>
+        <li ng-show="projects.isDesktop">
+          <button class="btn-default" ng-click="projects.openProject()">
+            <i class="fa fa-folder-open-o"></i> Open Project</button>
+        </li>
+        <li>
+          <button class="btn-success" ng-click="projects.newProject()">
+            <i class="fa fa-plus"></i> New Project</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="content">
+
+    <!-- IF NO PROJECTS -->
+    <div ng-hide="projects.recentProjects.length">
+      <p>You don't have any project yet.</p>
+      <!-- <p><button class="btn btn-success btn-lg" ng-click="projects.newProject()"><i class="fa fa-plus"></i> New project</button></p> -->
+    </div>
+
+    <!-- IF PROJECTS -->
+    <table class="table table-striped">
+      <tr ng-repeat="item in projects.recentProjects track by $index" class="{'info':item.isOpen}">
+        <td ng-show="item.isOpen" class="info">
+          <div class="btn-group pull-right" role="group" aria-label="...">
+            <button type="button" class="btn btn-info" ui-sref="editor">
+              <i class="fa fa-arrow-circle-o-left"></i> Editor</button>
+            <button type="button" class="btn btn-success" ng-click="projects.saveProject()">
+              <i class="fa fa-save"></i> Save</button>
+            <button type="button" class="btn btn-success" ng-click="projects.publishProject()" ng-show="item.state=='draft'">
+              <i class="fa fa-cloud"></i> Publish</button>
+            <button type="button" class="btn btn-default" ng-click="projects.closeProject()">
+              <i class="fa fa-close"></i> Close</button>
+          </div>
+          <small>
+            <em>Current project</em>
+          </small>
+          <h3 class="current-project">{{item.name}}</h3>
+          <span>
+            <b>State:</b> {{item.state}}</span>
+          <br>
+          <span>
+            <b>Last saved:</b> {{item.lastSaved | date:'short'}}</span>
+          <br>
+          <span>
+            <b>Last published:</b> {{item.lastPublished | date:'short'}}</span>
+        </td>
+        <td ng-hide="item.isOpen">
+          <div title={{projects.tooltipText(item.name)}} class="btn-group pull-right" role="group" aria-label="...">
+            <button type="button" class="btn btn-info btn-sm" ng-click="projects.openProject(item.path,item.name)">
+              <i class="fa fa-folder-open-o"></i> Open</button>
+            <button ng-if="!projects.isTemplate(item.name)" type="button" class="btn btn-danger btn-sm" ng-click="projects.removeProject(item.path,item.name)">
+              <i class="fa fa-trash-o"></i> Remove</button>
+          </div>
+          <p title={{projects.tooltipText(item.name)}} ng-style="projects.nameStyle(item.name)">{{item.name}}</p>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div>
+  <div class="full-height side-panel">
+    <div class="title">Debugger {{debugpanel.connected}}</div>
+  </div>
+
+
+
+  <div class="properties">
+    <div>
+      <span>Tree:</span>&nbsp;{{debugger.selectedTree()}}</span>
+    </div>
+    <div>
+      <span>Type:</span>&nbsp;{{debugger.selected.name}}</span>
+    </div>
+    <div>
+      <span>ID:</span>&nbsp;{{debugger.selected.id.substr(0,14)+"..."}}
+
+    </div>
+    <div>
+      <span>Title:</span>&nbsp;{{debugger.selected.title}}
+    </div>
+    <div>
+      <span>Process:</span>
+      <span class="subtitle">{{debugger.debugCommService.processId()}}</span>
+    </div>
+
+    <br>
+    <hr>
+
+    <button ng-click="debugger.run()" title="Run/Continue with chat message" ng-disabled="debugger.running" class="btn btn-success btn-sm">
+      <i class="fa fa-play" aria-hidden="true"></i>
+    </button>
+    &nbsp;
+    <!-- <button title="Pre-tick breakpoint" ng-click="debugger.toggleBreakpoint('pre')" ng-disabled="true||!debugger.selected || !debugger.allowPreBreakpoint()"
+            class="btn {{debugger.breakpoints[debugger.selected.id]?'':'btn-danger'}} btn-sm">
+            <i class="fa fa-arrow-right"></i>
+            <i class="fa fa-circle"></i>
+        </button> -->
+    <button title="{{debugger.getBreakpointsMap()[debugger.selected.id]?'Unset ':'Set '}}post-tick leaf breakpoint"
+      ng-click="debugger.toggleBreakpoint('post')" ng-disabled="!debugger.selected || !debugger.allowBreakpoint()"
+      class="btn {{debugger.getBreakpointsMap()[debugger.selected.id]?'btn-warning':'btn-danger'}} btn-sm">
+      <i class="fa fa-circle"></i>
+      <i class="fa fa-arrow-right"></i>
+    </button>
+    <button title="Step" title="Step/Continue without chat message" ng-click="debugger.step()" ng-disabled="!debugger.allowStep()"
+      class="btn btn-success btn-sm">
+      <i class="fa fa-step-forward "></i>
+    </button>
+    <button title="Stop" ng-click="debugger.stop()" ng-disabled="!debugger.running" class="btn btn-danger btn-sm">
+      <i class="fa fa-stop"></i>
+    </button>
+    <button title="Clear all breakpoints" ng-click="debugger.clearAllBreakpoints()" class="btn btn-warning btn-sm">
+      <i class="fa fa-remove"></i>
+    </button>
+    <hr>
+    <div ng-if="debugger.processData">
+      <div id="processData" ng-jsoneditor ng-model="debugger.processData" style="height: 200px;width:100%; background-color:whitesmoke;"
+        options="debugger.options">
+      </div>
+    </div>
+
+  </div>
+</div>

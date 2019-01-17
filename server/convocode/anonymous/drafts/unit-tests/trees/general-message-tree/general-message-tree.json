@@ -1,0 +1,46 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "general-message-tree",
+	"name": "general-message-tree",
+	"title": "general-message-tree",
+	"description": "",
+	"root": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+	"properties": {
+		"channels": "chatsim",
+		"resetMemory": 1,
+		"defaultLang": "en"
+	},
+	"nodes": {
+		"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25": {
+			"id": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "test general message",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 0,
+				"y": 130
+			}
+		}
+	},
+	"display": {
+		"camera_x": 761,
+		"camera_y": 326,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

@@ -1,0 +1,6 @@
+{ 
+  "pipeline": "spacy_sklearn",
+  "path" : "./projects",
+  "data" : "./expressions.json",
+  "emulate1" : "wit"
+}

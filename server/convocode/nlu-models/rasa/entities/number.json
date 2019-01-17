@@ -1,0 +1,11 @@
+{
+  "data" : {
+    "lookups" : [ ],
+    "name" : "number",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "number",
+    "doc" : "{\"spanless\":false,\"short_desc\":\"measure of a number\",\"long_desc\":\"Extrapolates number from free text, like `six`,`twelve`, `16`, `1.10` and `23K`\",\"examples\":[{\"expression\":[\"i need\",\"5\",\"items\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"number\\\" : [ {\\n        \\\"type\\\" : \\\"value\\\",\\n        \\\"value\\\" : 5\\n      } ]\\n    }\",\"$$hashKey\":\"05G\"},{\"expression\":[\"book\",\"ten\",\"tickets\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"number\\\" : [ {\\n        \\\"type\\\" : \\\"value\\\",\\n        \\\"value\\\" : 10\\n      } ]\\n    }\",\"$$hashKey\":\"084\"},{\"expression\":[\"\",\"23K\",\"visitors per month\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"number\\\" : [ {\\n        \\\"type\\\" : \\\"value\\\",\\n        \\\"value\\\" : 23000\\n      } ]\\n    },\",\"$$hashKey\":\"086\"}],\"similar_wisps\":[{\"name\":\"wit/ordinal\",\"$$hashKey\":\"05I\"}]}",
+    "builtin" : true
+  }
+}

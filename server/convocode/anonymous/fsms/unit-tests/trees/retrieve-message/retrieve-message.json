@@ -1,0 +1,92 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "retrieve-message",
+	"name": "retrieve-message",
+	"title": "retrieve-message",
+	"description": "",
+	"root": "7088adfb-281f-453d-82fb-717106485177",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"7088adfb-281f-453d-82fb-717106485177": {
+			"id": "7088adfb-281f-453d-82fb-717106485177",
+			"name": "AskAndMap",
+			"title": "yes/no",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"yes or no?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": true,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "",
+								"entityName": "",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -34,
+				"y": 40
+			},
+			"children": [
+				"67259219-80d4-4509-a9cf-66877c4f7d9a"
+			]
+		},
+		"67259219-80d4-4509-a9cf-66877c4f7d9a": {
+			"id": "67259219-80d4-4509-a9cf-66877c4f7d9a",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"intent is <%=message.intentId%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -98,
+				"y": 190
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 361.5,
+		"camera_z": 1,
+		"x": 0,
+		"y": -114
+	},
+	"state": "draft"
+}

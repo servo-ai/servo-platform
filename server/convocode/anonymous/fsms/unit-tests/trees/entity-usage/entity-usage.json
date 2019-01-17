@@ -1,0 +1,193 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "entity-usage",
+	"name": "entity-usage",
+	"title": "entity-usage",
+	"description": "",
+	"root": "7a2ee166-4c14-47b0-8459-74effc895822",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"7a2ee166-4c14-47b0-8459-74effc895822": {
+			"id": "7a2ee166-4c14-47b0-8459-74effc895822",
+			"name": "AskAndMap",
+			"title": "layer 0 AIC",
+			"description": "Selects by message intent & entities the children. A context is created for each child.  Contexts may have an expected intentId (a string or a regex) and entities, or a helper:true that would occur as default, if no matching intent was found If execution has a context already, it will continue to tick the current child, unless a bottom-up context search  changes the selected child.If no child is selected, Helper child is enetered every tick.  ContextSelector is closed When no child is running. the entities from last child are  mapped to the parent, and all contexts are cleared.The target is mapped to the expected intents and entities.If more than one entity of a certain name, an entity array will be created.If leaveIfNoEntity is set, the previous context field will remain if currently there is no such entity.If no child could be selected, a FAILURE is returned",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"helper": false,
+						"timeout": false,
+						"background": false,
+						"description": {
+							"en": ""
+						},
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "HelloIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				]
+			},
+			"display": {
+				"x": -58,
+				"y": -58
+			},
+			"children": [
+				"381f28bc-1d7e-4c52-8452-0e4dae17eb4a",
+				"a23cb0c2-d1c8-4125-8af6-7dd6ec78d096"
+			]
+		},
+		"381f28bc-1d7e-4c52-8452-0e4dae17eb4a": {
+			"id": "381f28bc-1d7e-4c52-8452-0e4dae17eb4a",
+			"name": "GeneralMessage",
+			"title": "hi answered",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"hi answered"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -146,
+				"y": 98
+			}
+		},
+		"a23cb0c2-d1c8-4125-8af6-7dd6ec78d096": {
+			"id": "a23cb0c2-d1c8-4125-8af6-7dd6ec78d096",
+			"name": "AskAndMap",
+			"title": "yes or help",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"yes or help"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "PositiveIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": 80,
+				"y": 114
+			},
+			"children": [
+				"2d75207c-a578-4d16-ae91-f82e984a11cb",
+				"88d6cbc6-91ad-4f8a-8b1b-185d1b79d751"
+			]
+		},
+		"2d75207c-a578-4d16-ae91-f82e984a11cb": {
+			"id": "2d75207c-a578-4d16-ae91-f82e984a11cb",
+			"name": "GeneralMessage",
+			"title": "yes answered",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"yes answered"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -96,
+				"y": 296
+			}
+		},
+		"88d6cbc6-91ad-4f8a-8b1b-185d1b79d751": {
+			"id": "88d6cbc6-91ad-4f8a-8b1b-185d1b79d751",
+			"name": "GeneralMessage",
+			"title": "help",
+			"description": "should repsond hi to first hi\nthen should ask 'yes or help' \nand respond 'yes' or 'help'\n\nshould respond 'yes answered' to first 'yes'",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"help"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 130,
+				"y": 248
+			}
+		}
+	},
+	"display": {
+		"camera_x": 769,
+		"camera_y": 363.5,
+		"camera_z": 1,
+		"x": -50,
+		"y": -184
+	},
+	"state": "draft"
+}

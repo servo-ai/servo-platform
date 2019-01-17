@@ -1,0 +1,45 @@
+{
+  "data" : {
+    "lookups" : [
+      "trait"
+    ],
+    "name" : "intent",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "intent",
+    "values" : [
+      {
+        "value" : "BalanceIntent"
+      },
+      {
+        "value" : "BranchIntent"
+      },
+      {
+        "value" : "CancelIntent"
+      },
+      {
+        "value" : "HelloIntent"
+      },
+      {
+        "value" : "LangIntent"
+      },
+      {
+        "value" : "LastIntent"
+      },
+      {
+        "value" : "NegativeIntent"
+      },
+      {
+        "value" : "PositiveIntent"
+      },
+      {
+        "value" : "WireIntent"
+      },
+      {
+        "value" : "transferListIntent"
+      }
+    ],
+    "doc" : "User-defined entity",
+    "builtin" : false
+  }
+}

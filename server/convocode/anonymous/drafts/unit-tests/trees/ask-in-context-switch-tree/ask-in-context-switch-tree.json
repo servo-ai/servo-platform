@@ -1,0 +1,290 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "ask-in-context-switch-tree",
+	"name": "ask-in-context-switch-tree",
+	"title": "ask-in-context-switch-tree",
+	"description": "",
+	"root": "638418e4-005b-4e98-870f-790b75369d4b",
+	"properties": {
+		"channels": "chatsim",
+		"resetMemory": 1,
+		"defaultLang": "en"
+	},
+	"nodes": {
+		"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25": {
+			"id": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": "ask yes or not?",
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "PositiveIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "NegativeIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -78,
+				"y": 50
+			},
+			"children": [
+				"72138b01-c7f5-47dd-9a78-6aca1d3959c6",
+				"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22"
+			]
+		},
+		"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22": {
+			"id": "6f20eb7c-bad8-45e9-bfcb-372f3e82dd22",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "No!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 86,
+				"y": 278
+			}
+		},
+		"638418e4-005b-4e98-870f-790b75369d4b": {
+			"id": "638418e4-005b-4e98-870f-790b75369d4b",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -62,
+				"y": -152
+			},
+			"children": [
+				"c3eeba7b-22ed-4f92-8a85-1df6298d7c8a",
+				"3c26800f-6c1b-4f56-a08b-be09b9bb853e"
+			]
+		},
+		"c3eeba7b-22ed-4f92-8a85-1df6298d7c8a": {
+			"id": "c3eeba7b-22ed-4f92-8a85-1df6298d7c8a",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "global.done",
+				"operator": "===",
+				"right": "true"
+			},
+			"display": {
+				"x": -418,
+				"y": 42
+			}
+		},
+		"3c26800f-6c1b-4f56-a08b-be09b9bb853e": {
+			"id": "3c26800f-6c1b-4f56-a08b-be09b9bb853e",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 144,
+				"y": -62
+			},
+			"children": [
+				"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+				"0f7d2013-2a51-435c-99ca-647a1dc64eac"
+			]
+		},
+		"0f7d2013-2a51-435c-99ca-647a1dc64eac": {
+			"id": "0f7d2013-2a51-435c-99ca-647a1dc64eac",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.done",
+				"fieldValue": "true"
+			},
+			"display": {
+				"x": 406,
+				"y": 108
+			}
+		},
+		"72138b01-c7f5-47dd-9a78-6aca1d3959c6": {
+			"id": "72138b01-c7f5-47dd-9a78-6aca1d3959c6",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": "hi or help?",
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "HelloIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "HelpIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -192,
+				"y": 238
+			},
+			"children": [
+				"96a6b21e-3ec0-4287-91ef-e6643926b6e6",
+				"b63713c7-7a64-4e6d-8791-cf899866a73e"
+			]
+		},
+		"96a6b21e-3ec0-4287-91ef-e6643926b6e6": {
+			"id": "96a6b21e-3ec0-4287-91ef-e6643926b6e6",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "Yes!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -450,
+				"y": 438
+			}
+		},
+		"b63713c7-7a64-4e6d-8791-cf899866a73e": {
+			"id": "b63713c7-7a64-4e6d-8791-cf899866a73e",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "No!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -32,
+				"y": 462
+			}
+		}
+	},
+	"display": {
+		"camera_x": 1055.6999999955297,
+		"camera_y": 417.30000000610016,
+		"camera_z": 1,
+		"x": 96,
+		"y": -250
+	},
+	"state": "draft"
+}

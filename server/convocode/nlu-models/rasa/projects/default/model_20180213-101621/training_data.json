@@ -1,0 +1,484 @@
+{
+  "rasa_nlu_data": {
+    "common_examples": [
+      {
+        "intent": "transferListIntent",
+        "entities": [],
+        "text": " list of last transfers"
+      },
+      {
+        "entities": [
+          {
+            "entity": "number",
+            "value": "11223223",
+            "start": 0,
+            "end": 8
+          }
+        ],
+        "text": "11223223"
+      },
+      {
+        "intent": "LangIntent",
+        "entities": [],
+        "text": "Change language"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "I want to wire"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "I'd like to know my balance"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "I'd like to send some money"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "I'd like to transfer money"
+      },
+      {
+        "intent": "BranchIntent",
+        "entities": [],
+        "text": "What branches"
+      },
+      {
+        "intent": "CancelIntent",
+        "entities": [],
+        "text": "cancel"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "correct "
+      },
+      {
+        "intent": "BranchIntent",
+        "entities": [],
+        "text": "could you give me information about the branches?"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "dough in wallet"
+      },
+      {
+        "intent": "CancelIntent",
+        "entities": [],
+        "text": "exit"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "find out the balance "
+      },
+      {
+        "intent": "HelloIntent",
+        "entities": [],
+        "text": "hello"
+      },
+      {
+        "intent": "HelloIntent",
+        "entities": [],
+        "text": "hi"
+      },
+      {
+        "intent": "HelloIntent",
+        "entities": [],
+        "text": "how are you?"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "554544",
+            "start": 36,
+            "end": 42
+          }
+        ],
+        "text": "how much money do I have in account 554544"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "how much money do I have?"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "how much money do i have"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "112121",
+            "start": 36,
+            "end": 42
+          }
+        ],
+        "text": "how much money do i have in account 112121?"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "i do not"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "i don't"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "i don't think so"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "i dont"
+      },
+      {
+        "intent": "CancelIntent",
+        "entities": [],
+        "text": "i'd like to cancel"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "77700",
+            "start": 17,
+            "end": 22
+          },
+          {
+            "entity": "number",
+            "value": "22",
+            "role": "toAccountNumber",
+            "start": 34,
+            "end": 36
+          }
+        ],
+        "text": "i'd like to send 77700 to account 22"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "11212",
+            "role": "amount",
+            "start": 18,
+            "end": 23
+          },
+          {
+            "entity": "number",
+            "value": "334333",
+            "role": "toAccountNumber",
+            "start": 35,
+            "end": 41
+          }
+        ],
+        "text": "i'd like to wire $11212 to account 334333"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "indeed "
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "last action"
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "last one"
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "last transfer"
+      },
+      {
+        "intent": "transferListIntent",
+        "entities": [],
+        "text": "list of transfers"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "money transfer"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "2223232",
+            "role": "toAccountNumber",
+            "start": 23,
+            "end": 30
+          }
+        ],
+        "text": "move money to  account 2223232 "
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "naa"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "never"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "no"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "nope"
+      },
+      {
+        "intent": "NegativeIntent",
+        "entities": [],
+        "text": "not at all"
+      },
+      {
+        "intent": "CancelIntent",
+        "entities": [],
+        "text": "please cancel all"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "please let me know my balance"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "right"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "8000",
+            "start": 5,
+            "end": 9
+          },
+          {
+            "entity": "number",
+            "value": "4433300",
+            "role": "toAccountNumber",
+            "start": 21,
+            "end": 28
+          }
+        ],
+        "text": "send 8000 to account 4433300"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "33333",
+            "role": "toAccountNumber",
+            "start": 22,
+            "end": 27
+          }
+        ],
+        "text": "send funds to account 33333"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "send money"
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "take from the last one"
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "take from the last transfer"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "that's right "
+      },
+      {
+        "intent": "LastIntent",
+        "entities": [],
+        "text": "the last one"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "300",
+            "start": 10,
+            "end": 13
+          },
+          {
+            "entity": "number",
+            "value": "99988877",
+            "role": "toAccountNumber",
+            "start": 25,
+            "end": 33
+          }
+        ],
+        "text": "transfer $300 to account 99988877"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "888",
+            "start": 10,
+            "end": 13
+          },
+          {
+            "entity": "number",
+            "value": "3434444",
+            "role": "toAccountNumber",
+            "start": 25,
+            "end": 32
+          }
+        ],
+        "text": "transfer $888 to account 3434444"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "33339",
+            "start": 9,
+            "end": 14
+          },
+          {
+            "entity": "number",
+            "value": "119990000",
+            "role": "toAccountNumber",
+            "start": 26,
+            "end": 35
+          }
+        ],
+        "text": "transfer 33339 to account 119990000"
+      },
+      {
+        "intent": "transferListIntent",
+        "entities": [
+          {
+            "entity": "location",
+            "value": "list",
+            "start": 9,
+            "end": 13
+          }
+        ],
+        "text": "transfer list"
+      },
+      {
+        "intent": "BranchIntent",
+        "entities": [
+          {
+            "entity": "location",
+            "value": "london",
+            "start": 21,
+            "end": 27
+          }
+        ],
+        "text": "what branches are in london?"
+      },
+      {
+        "intent": "BranchIntent",
+        "entities": [
+          {
+            "entity": "location",
+            "value": "new york",
+            "start": 17,
+            "end": 25
+          }
+        ],
+        "text": "what branches in new york?"
+      },
+      {
+        "intent": "BalanceIntent",
+        "entities": [],
+        "text": "what's my balance?"
+      },
+      {
+        "intent": "HelloIntent",
+        "entities": [],
+        "text": "what's up?"
+      },
+      {
+        "intent": "BranchIntent",
+        "entities": [],
+        "text": "where are your branch"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [
+          {
+            "entity": "number",
+            "value": "334334",
+            "start": 6,
+            "end": 12
+          },
+          {
+            "entity": "number",
+            "value": "1111121",
+            "role": "toAccountNumber",
+            "start": 24,
+            "end": 31
+          }
+        ],
+        "text": "wire $334334 to account 1111121"
+      },
+      {
+        "intent": "WireIntent",
+        "entities": [],
+        "text": "wire transfer"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "yeah"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "yep"
+      },
+      {
+        "intent": "PositiveIntent",
+        "entities": [],
+        "text": "yes"
+      }
+    ],
+    "regex_features": [],
+    "entity_synonyms": []
+  }
+}

@@ -1,0 +1,21 @@
+Class names defenition: CamelCase starting with upper case letter
+Example:
+    class CardAction { }
+
+Filenames: snake-case
+Example:
+    card-action.js
+    
+Class instances: camelCase starting with lower case letter
+Example:
+    var cardAction = require("card-action")
+
+Global variables: camelCase starting with an underscore
+Example:
+    var _cache;
+
+Class / Module members: camelCase starting with lower case letter
+Example:
+    var profile;
+    getProfile() {
+    }

@@ -1,0 +1,176 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "prompt-ask-in-context-tree",
+	"name": "prompt-ask-in-context-tree",
+	"title": "prompt-ask-in-context-tree",
+	"description": "",
+	"root": "877f6445-a63d-449c-880c-f1d5d60edcc1",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"230937d4-27c0-4fb0-9585-f1dfdf97b6a8": {
+			"id": "230937d4-27c0-4fb0-9585-f1dfdf97b6a8",
+			"name": "RepeatUntilFailure",
+			"title": "Repeat Until Failure",
+			"description": "Repeats the child node maxLoop times, or until failure, excluding RUNNING ticks. Updates context.repeatCount",
+			"properties": {
+				"maxLoop": -1
+			},
+			"display": {
+				"x": -116,
+				"y": 112
+			},
+			"child": "c17fdc31-2ce0-4770-9fd6-d3cd6097e5fe"
+		},
+		"c17fdc31-2ce0-4770-9fd6-d3cd6097e5fe": {
+			"id": "c17fdc31-2ce0-4770-9fd6-d3cd6097e5fe",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "ddd",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"test aic1",
+					"test aic2"
+				],
+				"cyclePrompts": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "",
+								"entityName": "intentId",
+								"expectedValue": "PositiveIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -172,
+				"y": 216
+			},
+			"children": [
+				"f6e9108c-c611-4d0a-8f33-8b9fb74809e7"
+			]
+		},
+		"ffd888c0-ae5e-4285-ab4f-65421a4901fb": {
+			"id": "ffd888c0-ae5e-4285-ab4f-65421a4901fb",
+			"name": "SetFieldAction",
+			"title": "counter=0",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.counter",
+				"fieldValue": "0"
+			},
+			"display": {
+				"x": -338,
+				"y": 116
+			}
+		},
+		"877f6445-a63d-449c-880c-f1d5d60edcc1": {
+			"id": "877f6445-a63d-449c-880c-f1d5d60edcc1",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -196,
+				"y": 6
+			},
+			"children": [
+				"ffd888c0-ae5e-4285-ab4f-65421a4901fb",
+				"230937d4-27c0-4fb0-9585-f1dfdf97b6a8"
+			]
+		},
+		"f386697d-8aee-45ee-8384-1edf1edde7df": {
+			"id": "f386697d-8aee-45ee-8384-1edf1edde7df",
+			"name": "SetFieldAction",
+			"title": "counter++",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.counter",
+				"fieldValue": "global.counter+1"
+			},
+			"display": {
+				"x": -368,
+				"y": 430
+			}
+		},
+		"f6e9108c-c611-4d0a-8f33-8b9fb74809e7": {
+			"id": "f6e9108c-c611-4d0a-8f33-8b9fb74809e7",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -228,
+				"y": 318
+			},
+			"children": [
+				"f386697d-8aee-45ee-8384-1edf1edde7df",
+				"b84ffc1b-9d51-4e9e-87e1-671714bf818d"
+			]
+		},
+		"b84ffc1b-9d51-4e9e-87e1-671714bf818d": {
+			"id": "b84ffc1b-9d51-4e9e-87e1-671714bf818d",
+			"name": "FieldCompareCondition",
+			"title": "counter<=3",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "global.counter",
+				"operator": "<=",
+				"right": "3"
+			},
+			"display": {
+				"x": -170,
+				"y": 456
+			}
+		}
+	},
+	"display": {
+		"camera_x": 769,
+		"camera_y": 210.99999982118607,
+		"camera_z": 1,
+		"x": -210,
+		"y": -106
+	},
+	"state": "draft"
+}

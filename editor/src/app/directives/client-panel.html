@@ -1,0 +1,53 @@
+<div class="full-height side-panel">
+  <div class="title" style="color:{{clientpanel.connected()?'limegreen':''}}">Client
+    {{clientpanel.connected()?'connected':'offline'}}</div>
+</div>
+<div style="position: relative;    height: 30%;            top: 10%;    width: 100%;">
+  Use NLU:
+  <input type="checkbox" ng-disabled="clientpanel.voice" ng-model="clientpanel.to.useNLU">&nbsp;Voice:
+  <input type="checkbox" ng-disabled="!clientpanel.to.useNLU" ng-model="clientpanel.voice">
+
+  <div ng-if="!clientpanel.to.useNLU">
+    <div id="clientpanel.to" ng-jsoneditor ng-model="clientpanel.to" style="height: 100%;width:100%;" options="clientpanel.options">
+    </div>
+
+    <button ng-click="clientpanel.toggleView()" label="toggle view" class="btn btn-default btn-xs">
+      <i title="Code/Tree View" class="{{clientpanel.options.mode==='tree'?'fa fa-code':'fa fa-tree'}}" aria-hidden="true"></i>
+    </button>
+  </div>
+
+</div>
+
+<div style="margin:2%;height:40%;width:96%;">
+  <br>
+  <div>
+    <label for="title">Chat</label>
+    <span class="subtitle">Scroll down to see messages</span>
+    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    <a>
+      <i title="Clear All" class="fa fa-remove" aria-hidden="true" ng-click="clientpanel.clearMessages()"></i>
+    </a>
+    <!-- <div ng-jsoneditor ng-model="clientpanel.from" style="height: 100%; width:100%;" options="clientpanel.options"> -->
+    <ng-chatbox ng-model="clientpanel.messages"></ng-chatbox>
+  </div>
+</div>
+
+<div style="margin:1%;color:black;">
+  <input type="text" id="chat-text" ng-disabled="!clientpanel.connected() || !clientpanel.to.useNLU || clientpanel.voice"
+    ng-model="clientpanel.to.utterance" ng-keypress="clientpanel.onKeyPress($event)" onClick="this.select();">
+  <button ng-click="clientpanel.send() " ng-disabled="!clientpanel.connected() || clientpanel.voice" class="btn btn-success btn-sm ">
+    <i class="fa fa-paper-plane" aria-hidden="true"></i>
+  </button>
+</div>
+<div style="margin-top:10%;margin-left:45%;{{clientpanel.listening && clientpanel.connected()?'color:red;':'color:black'}}"
+  ng-if="clientpanel.voice">
+  <i class="fa fa-microphone fa-3x" aria-hidden="true"></i>
+</div>
+
+
+
+
+</div>
+
+
+</div>

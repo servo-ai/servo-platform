@@ -1,0 +1,192 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "past-target-answer-current-question",
+	"name": "past-target-answer-current-question",
+	"title": "past-target-answer-current-question",
+	"description": "",
+	"root": "a95c1ab4-363d-4986-897e-e4ab1186349a",
+	"properties": {},
+	"nodes": {
+		"a95c1ab4-363d-4986-897e-e4ab1186349a": {
+			"id": "a95c1ab4-363d-4986-897e-e4ab1186349a",
+			"name": "AskAndMap",
+			"title": "weight question",
+			"description": "1. first answer color, then weight, should still get you passed\n2. if you answer weight and color together, you should get passed without the color question",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"what is the weight?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "weight",
+								"entityName": "weightEntity",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -62,
+				"y": 92
+			},
+			"children": [
+				"5dd3fa29-ba62-4f57-9a59-892c91524e03",
+				"0e19c1a9-6a15-4576-8955-3083b117b700"
+			]
+		},
+		"5dd3fa29-ba62-4f57-9a59-892c91524e03": {
+			"id": "5dd3fa29-ba62-4f57-9a59-892c91524e03",
+			"name": "AskAndMap",
+			"title": "color question",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"what is the color?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "",
+								"entityName": "",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": -230,
+				"y": 234
+			},
+			"children": [
+				"d16ed35c-ff01-48b8-8aab-d45f296fd869",
+				"4c6506c7-f930-4957-810c-3cada2e8a314"
+			]
+		},
+		"d16ed35c-ff01-48b8-8aab-d45f296fd869": {
+			"id": "d16ed35c-ff01-48b8-8aab-d45f296fd869",
+			"name": "GeneralMessage",
+			"title": "color and weight",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"color is <%=context.color%>, weight is  <%=context.weight%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -394,
+				"y": 386
+			}
+		},
+		"4c6506c7-f930-4957-810c-3cada2e8a314": {
+			"id": "4c6506c7-f930-4957-810c-3cada2e8a314",
+			"name": "GeneralMessage",
+			"title": "help 2",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"help 2"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -72,
+				"y": 406
+			}
+		},
+		"0e19c1a9-6a15-4576-8955-3083b117b700": {
+			"id": "0e19c1a9-6a15-4576-8955-3083b117b700",
+			"name": "GeneralMessage",
+			"title": "help 1",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"help 1"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 74,
+				"y": 226
+			}
+		}
+	},
+	"display": {
+		"camera_x": 957,
+		"camera_y": 468,
+		"camera_z": 1,
+		"x": 10,
+		"y": -86
+	},
+	"state": "draft"
+}

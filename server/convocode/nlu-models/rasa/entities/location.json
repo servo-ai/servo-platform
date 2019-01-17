@@ -1,0 +1,13 @@
+{
+  "data" : {
+    "lookups" : [
+      "free-text"
+    ],
+    "name" : "location",
+    "lang" : "en",
+    "exotic" : false,
+    "id" : "location",
+    "doc" : "{\"spanless\":false,\"short_desc\":\"specific position or address\",\"long_desc\":\"Capture free text that's a typical location, place or address like `350 Cambridge Ave Palo Alto`, `925 Alma Street`, `SFO`, and `Sausalito, CA`.\\nUse wit/local_search_query for local place like `my flower shopt` and `Peet's`\",\"examples\":[{\"expression\":[\"meet me at\",\"350 Cambridge Ave Palo Alto\",\"at noon\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"location\\\" : [ {\\n        \\\"value\\\" : \\\"350 Cambridge Ave Palo Alto\\\"\\n      } ]\\n    }\",\"$$hashKey\":\"070\"},{\"expression\":[\"go to\",\"925 Alma street\",\"\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"location\\\" : [ {\\n        \\\"value\\\" : \\\"925 Alma street\\\"\\n      } ]\\n    }\",\"$$hashKey\":\"07Z\"},{\"expression\":[\"i need a ride to\",\"Sausalito, CA\",\"\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"location\\\" : [ {\\n        \\\"value\\\" : \\\"Sausalito, CA\\\"\\n      } ]\\n    }\",\"$$hashKey\":\"081\"},{\"expression\":[\"I came from\",\"SFO\",\"?\"],\"response\":\"\\\"entities\\\" : {\\n      \\\"location\\\" : [ {\\n        \\\"value\\\" : \\\"SFO\\\"\\n      } ]\\n    }\",\"$$hashKey\":\"083\"}],\"similar_wisps\":[{\"name\":\"wit/local_search_query\",\"$$hashKey\":\"072\"}]}",
+    "builtin" : true
+  }
+}

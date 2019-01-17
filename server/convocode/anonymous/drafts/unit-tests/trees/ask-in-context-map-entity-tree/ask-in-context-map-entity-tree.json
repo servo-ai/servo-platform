@@ -1,0 +1,137 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "ask-in-context-map-entity-tree",
+	"name": "ask-in-context-map-entity-tree",
+	"title": "ask-in-context-map-entity-tree",
+	"description": "",
+	"root": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+	"properties": {
+		"channels": "chatsim",
+		"resetMemory": 1,
+		"defaultLang": "en"
+	},
+	"nodes": {
+		"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25": {
+			"id": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": "ask yes or not with a number",
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "PositiveIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							},
+							{
+								"contextFieldName": "accountNumber",
+								"entityName": "number",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "intentId",
+								"entityName": "intentId",
+								"expectedValue": "NegativeIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": 2,
+				"y": 130
+			},
+			"children": [
+				"95707461-ca9c-414a-8937-e8fc595411e0",
+				"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22"
+			]
+		},
+		"95707461-ca9c-414a-8937-e8fc595411e0": {
+			"id": "95707461-ca9c-414a-8937-e8fc595411e0",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "Yes <%=context.accountNumber%>!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -104,
+				"y": 260
+			}
+		},
+		"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22": {
+			"id": "6f20eb7c-bad8-45e9-bfcb-372f3e82dd22",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "No!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 104,
+				"y": 260
+			}
+		}
+	},
+	"display": {
+		"camera_x": 957,
+		"camera_y": 468,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

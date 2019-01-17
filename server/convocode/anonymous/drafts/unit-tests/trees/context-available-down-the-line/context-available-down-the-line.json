@@ -1,0 +1,240 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "context-available-down-the-line",
+	"name": "context-available-down-the-line",
+	"title": "context-available-down-the-line",
+	"description": "",
+	"root": "781831a2-70fe-4d85-84c1-485ec88e66b0",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"91ae6e0c-10c8-4032-8a0d-f8ce8f80831e": {
+			"id": "91ae6e0c-10c8-4032-8a0d-f8ce8f80831e",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"how much?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"entities": [
+							{
+								"contextFieldName": "ctx1Field",
+								"entityName": "number",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				],
+				"dontRemoveUnusedTarget": false,
+				"intents": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"entities": [
+							{
+								"contextFieldName": "ctx1Field",
+								"entityName": "number",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				]
+			},
+			"display": {
+				"x": -114,
+				"y": 210
+			},
+			"children": [
+				"d4454f2c-28b0-4344-8acf-f79f15058758",
+				"4c253384-9b1c-4602-8d74-0263004813bb"
+			]
+		},
+		"4c253384-9b1c-4602-8d74-0263004813bb": {
+			"id": "4c253384-9b1c-4602-8d74-0263004813bb",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "a field set in one context should be available automatically to all other contexts further in the conversation",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "context.ctx2Field",
+				"fieldValue": "124"
+			},
+			"display": {
+				"x": 174,
+				"y": 402
+			}
+		},
+		"d4454f2c-28b0-4344-8acf-f79f15058758": {
+			"id": "d4454f2c-28b0-4344-8acf-f79f15058758",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -200,
+				"y": 344
+			},
+			"children": [
+				"eba90276-a471-422c-8f88-c798b634966b",
+				"1c5fc828-c675-4e75-848e-d57d7a268035",
+				"5ef4c57c-654e-44e5-9302-f0452c1bc550",
+				"b5bf5b8b-1e41-441e-85a4-953f93009c3d"
+			]
+		},
+		"eba90276-a471-422c-8f88-c798b634966b": {
+			"id": "eba90276-a471-422c-8f88-c798b634966b",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "context.ctx1Field",
+				"operator": "===",
+				"right": "123"
+			},
+			"display": {
+				"x": -458,
+				"y": 454
+			}
+		},
+		"1c5fc828-c675-4e75-848e-d57d7a268035": {
+			"id": "1c5fc828-c675-4e75-848e-d57d7a268035",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"123 found"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -284,
+				"y": 546
+			}
+		},
+		"87320919-1906-4688-8673-1b078b674885": {
+			"id": "87320919-1906-4688-8673-1b078b674885",
+			"name": "RepeatUntilFailure",
+			"title": "Repeat Until Failure",
+			"description": "Repeats the child node maxLoop times, or until failure, excluding RUNNING ticks. Updates context.repeatCount",
+			"properties": {
+				"maxLoop": -1
+			},
+			"display": {
+				"x": -118,
+				"y": 102
+			},
+			"child": "91ae6e0c-10c8-4032-8a0d-f8ce8f80831e"
+		},
+		"5ef4c57c-654e-44e5-9302-f0452c1bc550": {
+			"id": "5ef4c57c-654e-44e5-9302-f0452c1bc550",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"<%=context.ctx2Field%> found"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -98,
+				"y": 554
+			}
+		},
+		"b5bf5b8b-1e41-441e-85a4-953f93009c3d": {
+			"id": "b5bf5b8b-1e41-441e-85a4-953f93009c3d",
+			"name": "Failer",
+			"title": "Failer",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true
+			},
+			"display": {
+				"x": 92,
+				"y": 562
+			}
+		},
+		"781831a2-70fe-4d85-84c1-485ec88e66b0": {
+			"id": "781831a2-70fe-4d85-84c1-485ec88e66b0",
+			"name": "Inverter",
+			"title": "Inverter",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -128,
+				"y": -6
+			},
+			"child": "87320919-1906-4688-8673-1b078b674885"
+		}
+	},
+	"display": {
+		"camera_x": 725.6999999955297,
+		"camera_y": 140.00000000186265,
+		"camera_z": 1,
+		"x": -132,
+		"y": -86
+	},
+	"state": "draft"
+}

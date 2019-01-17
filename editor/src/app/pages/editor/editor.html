@@ -1,0 +1,38 @@
+<ng-include src="'pages/editor/components/menubar.html'"></ng-include>
+
+<div class="sidebar left">
+  <b3-tabset active-tab="editor.settings.leftSelectedTab" class="content has-menubar" on-click="editor.debuggerActivated()">
+    <b3-tab heading="Nodes">
+      <div class="content">
+        <ng-include src="'pages/editor/components/nodespanel.html'" />
+      </div>
+    </b3-tab>
+    <b3-tab heading="Debugger">
+      <div class="">
+        <debugpanel></debugpanel>
+      </div>
+    </b3-tab>
+  </b3-tabset>
+</div>
+
+<div class="sidebar right content" ng-if="editor.blockSelected || editor.settingsModel.clientPanel.showClient">
+  <b3-tabset active-tab="editor.settings.rightSelectedTab" class="content has-menubar">
+    <b3-tab heading="Properties">
+      <div class="">
+        <b3-properties-panel></b3-properties-panel>
+      </div>
+
+    </b3-tab>
+    <b3-tab heading="chat sim">
+
+      <div class="">
+        <client-panel></client-panel>
+      </div>
+
+    </b3-tab>
+
+  </b3-tabset>
+</div>
+<div class="editor-page">
+  <div ui-view class="editor-anim"></div>
+</div>

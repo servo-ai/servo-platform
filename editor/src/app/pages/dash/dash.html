@@ -1,0 +1,30 @@
+<div class="sidebar left">
+  <div class="header-button" ng-show="dash.project">
+    <a ui-sref="editor">
+      <i class="fa fa-arrow-circle-o-left"></i> Editor</a>
+  </div>
+
+  <div class="content" ng-class="{'no-header':!dash.project}">
+    <ul class="dash-menu">
+      <li>
+        <a ui-sref-active="active" ui-sref="dash.home">Home</a>
+      </li>
+      <li ng-show="dash.user().loggedIn">
+        <a ui-sref-active="active" ui-sref="dash.projects">Projects</a>
+      </li>
+      <li ng-show="dash.user().loggedIn">
+        <a ui-sref-active="active" ui-sref="dash.settings">Settings</a>
+      </li>
+      <li ng-show="dash.user().loggedIn">
+        <a ui-sref-active="active" ui-sref="dash.log">Log</a>
+      </li>
+      <li>
+        <a href="/outdocs/index.html" target="_blank">Documents</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="dash-page">
+  <div ui-view class="dash-anim"></div>
+</div>

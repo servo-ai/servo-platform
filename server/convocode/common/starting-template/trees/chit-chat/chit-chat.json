@@ -1,0 +1,482 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "chit-chat",
+	"name": "chit-chat",
+	"title": "chit-chat",
+	"description": "",
+	"root": "aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1",
+	"properties": {},
+	"nodes": {
+		"a1a139e3-4d30-407c-8a1c-b657e8439bc9": {
+			"id": "a1a139e3-4d30-407c-8a1c-b657e8439bc9",
+			"name": "GeneralMessage",
+			"title": "dont use this word",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"😲",
+						"Hmmm... I rather not answer that 😲",
+						"I think I'm speechless 🤐",
+						"Hmmm... I rather not respond 😲"
+					],
+					"he": [
+						"אני חושב שלא אגיב 🤐",
+						"😲",
+						"אשמח שנשנה נושא 🤐"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 2290,
+				"y": 1198
+			}
+		},
+		"bba72160-030b-4c91-8372-7b9f770f8a3e": {
+			"id": "bba72160-030b-4c91-8372-7b9f770f8a3e",
+			"name": "GeneralMessage",
+			"title": "Hi",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"Hello there!",
+						"Hi there!",
+						"Hello Hello",
+						"Howdy!"
+					],
+					"he": [
+						"שלום",
+						"הי",
+						"אהלן"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 206,
+				"y": 942
+			}
+		},
+		"b43361f6-1936-4776-8f08-11c15d6582a1": {
+			"id": "b43361f6-1936-4776-8f08-11c15d6582a1",
+			"name": "GeneralMessage",
+			"title": "Im good",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"I'm fine, thanks for asking! 👍",
+						"All is well, much obliged 🙂",
+						"Let me think about that 👈"
+					],
+					"he": [
+						"סוחבים, תודה ששאלת 👍",
+						"הכל בסדר 🙂",
+						"המממ... אני אחזור אליך לגבי זה 👈"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 474,
+				"y": 980
+			}
+		},
+		"08a7837b-0899-4b77-81b4-c5f0c4da7ec3": {
+			"id": "08a7837b-0899-4b77-81b4-c5f0c4da7ec3",
+			"name": "GeneralMessage",
+			"title": "Thank you",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"No, thank you!👈",
+						"Glad to be of service😳",
+						"You're welcome! 👍",
+						"Just doing my job 😎"
+					],
+					"he": [
+						"לא, תודה לך! 👈",
+						"שמחתי לעזור 😳",
+						"בבקשה 👍",
+						"רק עושה את עבודתי 😎"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 1128,
+				"y": 1248
+			}
+		},
+		"f28b5b93-5535-49b8-843b-9262dceaa666": {
+			"id": "f28b5b93-5535-49b8-843b-9262dceaa666",
+			"name": "GeneralMessage",
+			"title": "Im servo",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"I'm an artificial inteligence assistant built by Servo Labs",
+						"To be or not to be, that is the real question"
+					],
+					"he": [
+						"אני עוזרת וירטואלית מבוססת בינה מלאכותית שנבנתה על ידי סרבו לאבס",
+						"להיות או לא להיות, זו היא השאלה שצריכה להישאל"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 744,
+				"y": 1050
+			}
+		},
+		"ae79e4b2-28cf-407a-8294-ce3be09a0da5": {
+			"id": "ae79e4b2-28cf-407a-8294-ce3be09a0da5",
+			"name": "GeneralMessage",
+			"title": "To be",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"To be ofcourse! What a funny question is that?"
+					],
+					"he": [
+						"ברור שלהיות, איזו מן שאלה זו בכלל?"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 1376,
+				"y": 1116
+			}
+		},
+		"e5cadeed-fa56-4ecb-bdf6-2454a9aafe10": {
+			"id": "e5cadeed-fa56-4ecb-bdf6-2454a9aafe10",
+			"name": "GeneralMessage",
+			"title": "Love you",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"Thanks, what a nice thing to say 😳",
+						"You bearly know me, but thanks :)"
+					],
+					"he": [
+						"תודה רבה  👍",
+						"😳די, זה מרגש אותי "
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 1848,
+				"y": 1264
+			}
+		},
+		"bffee0ca-0720-47d0-85be-0a2fa5474db8": {
+			"id": "bffee0ca-0720-47d0-85be-0a2fa5474db8",
+			"name": "GeneralMessage",
+			"title": "love you",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"Owwweee, thanks so much. You're not too bad yourself 🙂",
+						"I love it, keep it going 🙂",
+						"K, thanks! 👍"
+					],
+					"he": [
+						"👍",
+						" 🙂 תודה, אתה גם לא כזה רע",
+						"אני שמח שאני גורם לך להרגיש כך 😎"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 1654,
+				"y": 1272
+			}
+		},
+		"a0747ab2-8c46-40ec-8a59-a1619aac2bff": {
+			"id": "a0747ab2-8c46-40ec-8a59-a1619aac2bff",
+			"name": "GeneralMessage",
+			"title": "dont use this word",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": "",
+				"prompt": {
+					"en": [
+						"😲",
+						"Hmmm... I rather not answer that 😲",
+						"I think I'm speechless 🤐",
+						"Hmmm... I rather not respond 😲"
+					],
+					"he": [
+						"אני חושב שלא אגיב 🤐",
+						"😲",
+						"אשמח שנשנה נושא 🤐"
+					]
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": ""
+			},
+			"display": {
+				"x": 2446,
+				"y": 1312
+			}
+		},
+		"aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1": {
+			"id": "aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1",
+			"name": "AskAndMap",
+			"title": "ask chitchat",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"what's on your mind?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"contexts": [
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "",
+						"description": {
+							"en": "put context description here"
+						},
+						"entities": [
+							{
+								"entityName": "greetings",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							},
+							{
+								"entityName": "intentId",
+								"expectedValue": "HelloIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "HowAreYouIntent",
+						"description": {
+							"en": "put context description here"
+						}
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"entityName": "intentId",
+								"expectedValue": "WhoAreYouIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"entityName": "intentId",
+								"expectedValue": "ThankYouIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"entityName": "intentId",
+								"expectedValue": "ToBeOrNotToBeIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"entityName": "intentId",
+								"expectedValue": "LoveAgentIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "FlatterIntent",
+						"description": {
+							"en": "put context description here"
+						}
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "BadWordIntent",
+						"description": {
+							"en": "put context description here"
+						},
+						"entities": [
+							{
+								"entityName": "intentId",
+								"expectedValue": "BadWordIntent",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							},
+							{
+								"entityName": "badWordType",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": false,
+						"timeout": false,
+						"intentId": "VeryBadWordIntent",
+						"description": {
+							"en": "put context description here"
+						},
+						"entities": [
+							{
+								"entityName": "veryBadWordType",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					}
+				],
+				"passThru": false,
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": 668,
+				"y": 522
+			},
+			"children": [
+				"bba72160-030b-4c91-8372-7b9f770f8a3e",
+				"b43361f6-1936-4776-8f08-11c15d6582a1",
+				"f28b5b93-5535-49b8-843b-9262dceaa666",
+				"08a7837b-0899-4b77-81b4-c5f0c4da7ec3",
+				"ae79e4b2-28cf-407a-8294-ce3be09a0da5",
+				"bffee0ca-0720-47d0-85be-0a2fa5474db8",
+				"e5cadeed-fa56-4ecb-bdf6-2454a9aafe10",
+				"a1a139e3-4d30-407c-8a1c-b657e8439bc9",
+				"a0747ab2-8c46-40ec-8a59-a1619aac2bff"
+			]
+		}
+	},
+	"display": {
+		"camera_x": 377.5250008943258,
+		"camera_y": -302.1149998429464,
+		"camera_z": 0.75,
+		"x": 926,
+		"y": 240
+	},
+	"state": "draft"
+}

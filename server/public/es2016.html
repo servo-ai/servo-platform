@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ES6 starter</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        //document.write('<base href="' + document.location.origin + '" />');
+    </script>
+	<base href="http://localhost/xxxxx/"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.25/system-polyfills.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/0.19.25/system.js"></script>
+    <script type="text/javascript" src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+    <script>
+        System.config({
+        transpiler: 'traceur',
+        babelOptions: {},
+        packages: {'src': {defaultExtension: 'js'}}
+      });
+      System.import('src/main')
+            .then(null, console.error.bind(console));
+    </script>
+</head>
+<body>
+    <div id="content">
+	hellow
+    </div>
+</body>
+</html>

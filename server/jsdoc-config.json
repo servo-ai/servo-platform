@@ -1,0 +1,34 @@
+{
+  "plugins": [],
+  "recurseDepth": 10,
+  "source": {
+    "exclude": ["./node_modules/**/*.js",
+      "FSM/*.js"
+    ],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(^|\\/|\\\\)_|node_modules|^((?!FSM).)*$"
+  },
+  "sourceType": "module",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "templates-braintree": {
+    "cleverLinks": false,
+    "monospaceLinks": false,
+    "search-need-to-generate-and-upload-index": {
+      "apiKey": "287c2dc290acc286386a5dafdf20aab0",
+      "appId": "CTY6HXJLLA",
+      "indexName": "HelpDocs",
+      "hitsPerPage": "7"
+    }
+  },
+  "templates": {
+    "systemName": "Servo Bot Automation",
+    "copyright": "(c) 2017 Servo Labs Inc",
+    "theme": "cyborg",
+    "linenums": true,
+    "sort": true,
+    "search": true
+  }
+}

@@ -1,0 +1,213 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "lang-convo-change",
+	"name": "lang-convo-change",
+	"title": "lang-convo-change",
+	"description": "",
+	"root": "0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd",
+	"properties": {},
+	"nodes": {
+		"118ebf5d-dfbf-461a-866d-98520546d17f": {
+			"id": "118ebf5d-dfbf-461a-866d-98520546d17f",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in payload (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": false,
+				"prompt": {
+					"en": "Switched to english",
+					"he": "שפה שונתה לעברית"
+				},
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": false
+			},
+			"display": {
+				"x": 64,
+				"y": -84
+			}
+		},
+		"0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd": {
+			"id": "0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -118,
+				"y": -214
+			},
+			"children": [
+				"b74db364-5905-45ec-8453-666cbc3aa0eb",
+				"118ebf5d-dfbf-461a-866d-98520546d17f"
+			]
+		},
+		"b74db364-5905-45ec-8453-666cbc3aa0eb": {
+			"id": "b74db364-5905-45ec-8453-666cbc3aa0eb",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -300,
+				"y": -84
+			},
+			"children": [
+				"90c70a9e-b3dd-4a79-8c5c-dce622b4aab6",
+				"0850b420-17a1-4be7-91fb-70f78b9be3e2"
+			]
+		},
+		"c966e480-5630-47ff-85e0-6c17da8216bc": {
+			"id": "c966e480-5630-47ff-85e0-6c17da8216bc",
+			"name": "SetFieldAction",
+			"title": "global.lang en",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.lang",
+				"fieldValue": "'en'"
+			},
+			"display": {
+				"x": -358,
+				"y": 222
+			}
+		},
+		"fffa5910-dd57-4a65-8035-a1ba91b729be": {
+			"id": "fffa5910-dd57-4a65-8035-a1ba91b729be",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "fsm.defaultLang",
+				"operator": "==",
+				"right": "'he'"
+			},
+			"display": {
+				"x": -560,
+				"y": 176
+			}
+		},
+		"90c70a9e-b3dd-4a79-8c5c-dce622b4aab6": {
+			"id": "90c70a9e-b3dd-4a79-8c5c-dce622b4aab6",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -456,
+				"y": 46
+			},
+			"children": [
+				"fffa5910-dd57-4a65-8035-a1ba91b729be",
+				"c966e480-5630-47ff-85e0-6c17da8216bc",
+				"d6046056-3413-4e1b-99c1-12de55fc5b37"
+			]
+		},
+		"605a1fb5-efe1-453a-849e-2d965d3f3cc3": {
+			"id": "605a1fb5-efe1-453a-849e-2d965d3f3cc3",
+			"name": "SetFieldAction",
+			"title": "global.lang he",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.lang",
+				"fieldValue": "'he'"
+			},
+			"display": {
+				"x": 82,
+				"y": 148
+			}
+		},
+		"d6046056-3413-4e1b-99c1-12de55fc5b37": {
+			"id": "d6046056-3413-4e1b-99c1-12de55fc5b37",
+			"name": "SetFieldAction",
+			"title": "fsm.defaultLang en",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "fsm.defaultLang",
+				"fieldValue": "'en'"
+			},
+			"display": {
+				"x": -150,
+				"y": 204
+			}
+		},
+		"0850b420-17a1-4be7-91fb-70f78b9be3e2": {
+			"id": "0850b420-17a1-4be7-91fb-70f78b9be3e2",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -124,
+				"y": 16
+			},
+			"children": [
+				"2428d697-ed61-4745-b1f9-6bc1f22d6e63",
+				"605a1fb5-efe1-453a-849e-2d965d3f3cc3"
+			]
+		},
+		"2428d697-ed61-4745-b1f9-6bc1f22d6e63": {
+			"id": "2428d697-ed61-4745-b1f9-6bc1f22d6e63",
+			"name": "SetFieldAction",
+			"title": "fsm.defaultLang he",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "fsm.defaultLang",
+				"fieldValue": "'he'"
+			},
+			"display": {
+				"x": -122,
+				"y": 120
+			}
+		}
+	},
+	"display": {
+		"camera_x": 1051.0999999993946,
+		"camera_y": 363.89000000059605,
+		"camera_z": 1,
+		"x": -118,
+		"y": -344
+	},
+	"state": "draft"
+}

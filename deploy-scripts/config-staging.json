@@ -1,0 +1,41 @@
+{
+     "serverBaseDomain": "chaflows.info",
+    "couchbase": {
+        "server": "couchbase://ec2-52-36-147-50.us-west-2.compute.amazonaws.com",
+        "bucket": "FSM"
+    },
+    "port": 3000,
+    "luis": {
+        "subscriptionKey": "8c930c71fc8d497698fbee4911b309ef",
+        "apiUrl": "https://api.projectoxford.ai/luis/v1/application",
+        "applications": {
+            "servoAI": {
+                "id": "a157d09b-430d-45e2-a656-ade3b609d35f"
+            }
+        }
+    },
+    "msbot1-old": {
+        "appId": "flightStatus",
+        "appSecret": "207a2d708f294732b18321cecf5c1d19"
+    },
+    "twilio": {
+        "ACCOUNT_SID-917-number (master account)": "AC81b5dee807e98ea04e4bd67a61161f8c",
+        "AUTH_TOKEN-917-number": "934e4dd96e6268bbfb1b50e8c28de5df",
+        "ACCOUNT_SID-707-number (subaccount)": "AC73bb880adc90e3c13f8b19f2680e4fb7",
+        "AUTH_TOKEN-707-number (subaccount)": "aab768d1618145e876917c884680b012",
+        "ACCOUNT_SID": "AC73bb880adc90e3c13f8b19f2680e4fb7",
+        "AUTH_TOKEN": "aab768d1618145e876917c884680b012"
+    },
+    "html2img": {
+        "generated_path": "public/html_imgs/",
+        "width": 300,
+        "custom_css": "p{text-align: center; font-family: Arial} table {font-family: Arial; width: 100%; border-collapse: separate; border-spacing: 0 5px; border: none}thead th {background-color: #006DCC; color: white; border: none; padding: 5px}tbody td {background-color: #EEEEEE; padding: 5px; border: none; text-align: center}tr td:first-child,tr th:first-child {border-top-left-radius: 6px;border-bottom-left-radius: 6px;}tr td:last-child,tr th:last-child {border-top-right-radius: 6px;border-bottom-right-radius: 6px;}"
+    },
+    "msbot": {
+        "appId" :  "ServoFlightStatusL1",
+        "appSecret" :  "9f2a8c5bdf1d4ad5bb2498ea9c21a8a8",
+        "appPassword": "A7tZorQh13iVwJrG7XhpFu9"
+    }
+
+
+}

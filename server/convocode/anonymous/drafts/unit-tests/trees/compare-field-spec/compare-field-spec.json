@@ -1,0 +1,377 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "compare-field-spec",
+	"name": "compare-field-spec",
+	"title": "compare-field-spec",
+	"description": "",
+	"root": "84ad3d9c-600b-4ea2-86a7-192cb7a62096",
+	"properties": {
+		"channels": "chatsim",
+		"resetMemory": 1,
+		"defaultLang": "en"
+	},
+	"nodes": {
+		"84ad3d9c-600b-4ea2-86a7-192cb7a62096": {
+			"id": "84ad3d9c-600b-4ea2-86a7-192cb7a62096",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -176,
+				"y": -696
+			},
+			"children": [
+				"12a103b6-8733-4167-8407-f85d1b47e182",
+				"c205d7f8-b0dc-4a6a-825c-1b393ab9466b",
+				"d462fdcc-3f97-4eb1-86c9-f00b98290ce7",
+				"d90312e6-3ff6-4211-8f52-eba42e1625af",
+				"b5cc71f7-de1c-47fe-8e9e-de7e0169d171"
+			]
+		},
+		"12a103b6-8733-4167-8407-f85d1b47e182": {
+			"id": "12a103b6-8733-4167-8407-f85d1b47e182",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.field1",
+				"fieldValue": "3-1"
+			},
+			"display": {
+				"x": -1014,
+				"y": -380
+			}
+		},
+		"7a70900e-8a63-4a14-8636-888784a29086": {
+			"id": "7a70900e-8a63-4a14-8636-888784a29086",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": false,
+				"prompt": [
+					"global field <%=global.field1%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": false
+			},
+			"display": {
+				"x": -708,
+				"y": -104
+			}
+		},
+		"d462fdcc-3f97-4eb1-86c9-f00b98290ce7": {
+			"id": "d462fdcc-3f97-4eb1-86c9-f00b98290ce7",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "context.field1",
+				"fieldValue": "global.field1+1"
+			},
+			"display": {
+				"x": -504,
+				"y": -248
+			}
+		},
+		"7c5a02a5-fddc-417d-9aab-c3f1ea8a7531": {
+			"id": "7c5a02a5-fddc-417d-9aab-c3f1ea8a7531",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": false,
+				"prompt": [
+					"context field <%=context.field1%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": false
+			},
+			"display": {
+				"x": -104,
+				"y": -94
+			}
+		},
+		"ab0b625b-802a-402f-8b5a-5d2e2cf9eb03": {
+			"id": "ab0b625b-802a-402f-8b5a-5d2e2cf9eb03",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false,
+				"view": false,
+				"prompt": [
+					"message field good"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"image": false
+			},
+			"display": {
+				"x": 542,
+				"y": -332
+			}
+		},
+		"2ff2431b-5765-411b-8228-af5c1963ff70": {
+			"id": "2ff2431b-5765-411b-8228-af5c1963ff70",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "global.field1",
+				"operator": "!=",
+				"right": "2"
+			},
+			"display": {
+				"x": -952,
+				"y": -116
+			}
+		},
+		"c205d7f8-b0dc-4a6a-825c-1b393ab9466b": {
+			"id": "c205d7f8-b0dc-4a6a-825c-1b393ab9466b",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -834,
+				"y": -242
+			},
+			"children": [
+				"2ff2431b-5765-411b-8228-af5c1963ff70",
+				"7a70900e-8a63-4a14-8636-888784a29086"
+			]
+		},
+		"d90312e6-3ff6-4211-8f52-eba42e1625af": {
+			"id": "d90312e6-3ff6-4211-8f52-eba42e1625af",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -54,
+				"y": -354
+			},
+			"children": [
+				"5ce0cf58-5a2f-4aec-8f90-5b41c43520a2",
+				"3c9e3416-a4b4-41de-876c-9cb1c6fafc92"
+			]
+		},
+		"94c0ff54-2c4c-4a87-815f-8941006de159": {
+			"id": "94c0ff54-2c4c-4a87-815f-8941006de159",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "context.field1",
+				"operator": "===",
+				"right": "3"
+			},
+			"display": {
+				"x": -314,
+				"y": -94
+			}
+		},
+		"5ce0cf58-5a2f-4aec-8f90-5b41c43520a2": {
+			"id": "5ce0cf58-5a2f-4aec-8f90-5b41c43520a2",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -210,
+				"y": -224
+			},
+			"children": [
+				"94c0ff54-2c4c-4a87-815f-8941006de159",
+				"7c5a02a5-fddc-417d-9aab-c3f1ea8a7531"
+			]
+		},
+		"3c9e3416-a4b4-41de-876c-9cb1c6fafc92": {
+			"id": "3c9e3416-a4b4-41de-876c-9cb1c6fafc92",
+			"name": "Failer",
+			"title": "Failer",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 0,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": false
+			},
+			"display": {
+				"x": 102,
+				"y": -224
+			}
+		},
+		"b6f3e218-6386-4a4b-8f9a-8ab51271ef25": {
+			"id": "b6f3e218-6386-4a4b-8f9a-8ab51271ef25",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "message.intentId",
+				"operator": "===",
+				"right": "'testIntent'"
+			},
+			"display": {
+				"x": 292,
+				"y": -342
+			}
+		},
+		"b5cc71f7-de1c-47fe-8e9e-de7e0169d171": {
+			"id": "b5cc71f7-de1c-47fe-8e9e-de7e0169d171",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"enter a message"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "testIntent",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "",
+								"entityName": "",
+								"entityIndex": 0,
+								"leaveIfNoEntity": true
+							}
+						]
+					},
+					{
+						"helper": true
+					}
+				],
+				"dontRemoveUnusedTarget": false
+			},
+			"display": {
+				"x": 484,
+				"y": -606
+			},
+			"children": [
+				"eaa01bde-00f7-4b5a-8bba-5b89d2692d94",
+				"fa704716-6f17-4a38-80df-f916219941cb"
+			]
+		},
+		"eaa01bde-00f7-4b5a-8bba-5b89d2692d94": {
+			"id": "eaa01bde-00f7-4b5a-8bba-5b89d2692d94",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 412,
+				"y": -482
+			},
+			"children": [
+				"b6f3e218-6386-4a4b-8f9a-8ab51271ef25",
+				"ab0b625b-802a-402f-8b5a-5d2e2cf9eb03"
+			]
+		},
+		"fa704716-6f17-4a38-80df-f916219941cb": {
+			"id": "fa704716-6f17-4a38-80df-f916219941cb",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"ccccccc"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 712,
+				"y": -398
+			}
+		}
+	},
+	"display": {
+		"camera_x": 814.8999997377396,
+		"camera_y": 767.7000001349952,
+		"camera_z": 0.75,
+		"x": -144,
+		"y": -872
+	},
+	"state": "draft"
+}

@@ -1,0 +1,17 @@
+<div class="page">
+  <h1 class="header">Log</h1>
+
+  <nav class="page-operations">
+    <div class="page-operations-content">
+    </div>
+  </nav>
+
+  <div class="content log-viewport">
+    <h2>{{ selectedFile }}</h2>
+    <select name="logFile" ng-model="selectedFile" ng-options="filename for filename in files" ng-change="reloadRows()"></select>
+    <input type="button" value="Reload" ng-click="reloadRows()" />
+    <br>
+    <i class="fa fa-gear fa-spin" ng-show="isLoading"></i>
+    <div ag-grid="gridOptions" class="ag-fresh" style="height:800px;" ng-show="!isLoading"></div>
+  </div>
+</div>

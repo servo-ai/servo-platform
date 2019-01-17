@@ -1,0 +1,44 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "unit-tests",
+	"name": "unit-tests",
+	"title": "unit-tests",
+	"description": "",
+	"root": "2ba3f984-6bde-4011-82e4-502d1a8a9ed9",
+	"properties": {},
+	"nodes": {
+		"2ba3f984-6bde-4011-82e4-502d1a8a9ed9": {
+			"id": "2ba3f984-6bde-4011-82e4-502d1a8a9ed9",
+			"name": "GeneralMessage",
+			"title": "introduction",
+			"description": "a container project for unit-tests",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"A dummy project to serve as a collection of all unit tests"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -218,
+				"y": 374
+			}
+		}
+	},
+	"display": {
+		"camera_x": 960,
+		"camera_y": 469.5,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

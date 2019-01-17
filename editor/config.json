@@ -1,0 +1,7 @@
+{
+  "serverBaseDomain": "localhost",
+  "allowFacebookLogin":true,
+  "baseUrl": "",
+  "openSSL": false,
+  "port": 3000
+}

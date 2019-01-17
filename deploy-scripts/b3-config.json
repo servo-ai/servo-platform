@@ -1,0 +1,6 @@
+{
+    "serverBaseDomain": "www.chatflows.com",
+    "baseUrl": "",
+    "openSSL": false,
+    "port": 3000
+}

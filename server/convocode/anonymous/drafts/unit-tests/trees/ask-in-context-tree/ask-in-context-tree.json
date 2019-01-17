@@ -1,0 +1,185 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "ask-in-context-tree",
+	"name": "ask-in-context-tree",
+	"title": "ask-in-context-tree",
+	"description": "",
+	"root": "638418e4-005b-4e98-870f-790b75369d4b",
+	"properties": {
+		"channels": "chatsim",
+		"resetMemory": 1,
+		"defaultLang": "en"
+	},
+	"nodes": {
+		"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25": {
+			"id": "b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": "ask yes or not?",
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"passThru": false,
+				"contexts": [
+					{
+						"intentId": "PositiveIntent"
+					},
+					{
+						"intentId": "NegativeIntent"
+					}
+				],
+				"dontRemoveUnusedTarget": false,
+				"intents": [
+					{
+						"intentId": "PositiveIntent"
+					},
+					{
+						"intentId": "NegativeIntent"
+					}
+				]
+			},
+			"display": {
+				"x": 158,
+				"y": 78
+			},
+			"children": [
+				"95707461-ca9c-414a-8937-e8fc595411e0",
+				"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22"
+			]
+		},
+		"95707461-ca9c-414a-8937-e8fc595411e0": {
+			"id": "95707461-ca9c-414a-8937-e8fc595411e0",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "Yes!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 44,
+				"y": 178
+			}
+		},
+		"6f20eb7c-bad8-45e9-bfcb-372f3e82dd22": {
+			"id": "6f20eb7c-bad8-45e9-bfcb-372f3e82dd22",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": "No!",
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 252,
+				"y": 178
+			}
+		},
+		"638418e4-005b-4e98-870f-790b75369d4b": {
+			"id": "638418e4-005b-4e98-870f-790b75369d4b",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -8,
+				"y": -82
+			},
+			"children": [
+				"c3eeba7b-22ed-4f92-8a85-1df6298d7c8a",
+				"3c26800f-6c1b-4f56-a08b-be09b9bb853e"
+			]
+		},
+		"c3eeba7b-22ed-4f92-8a85-1df6298d7c8a": {
+			"id": "c3eeba7b-22ed-4f92-8a85-1df6298d7c8a",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "global.done",
+				"operator": "===",
+				"right": "true"
+			},
+			"display": {
+				"x": -164,
+				"y": 48
+			}
+		},
+		"3c26800f-6c1b-4f56-a08b-be09b9bb853e": {
+			"id": "3c26800f-6c1b-4f56-a08b-be09b9bb853e",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 218,
+				"y": -16
+			},
+			"children": [
+				"b4d6d4de-0e81-4ace-b3ac-7a258e4cae25",
+				"0f7d2013-2a51-435c-99ca-647a1dc64eac"
+			]
+		},
+		"0f7d2013-2a51-435c-99ca-647a1dc64eac": {
+			"id": "0f7d2013-2a51-435c-99ca-647a1dc64eac",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.done",
+				"fieldValue": "true"
+			},
+			"display": {
+				"x": 406,
+				"y": 108
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 367,
+		"camera_z": 1,
+		"x": -8,
+		"y": -212
+	},
+	"state": "draft"
+}

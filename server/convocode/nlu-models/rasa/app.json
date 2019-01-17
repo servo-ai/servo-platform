@@ -1,0 +1,9 @@
+{
+  "version" : 20160513,
+  "zip-command" : "zip BankDemoEnglish.zip BankDemoEnglish/app.json BankDemoEnglish/entities/*.json BankDemoEnglish/actions.json BankDemoEnglish/stories.json BankDemoEnglish/expressions.json",
+  "data" : {
+    "name" : "BankDemoEnglish",
+    "description" : "",
+    "lang" : "en"
+  }
+}

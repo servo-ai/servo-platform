@@ -1,11 +1,6 @@
 var config = require('../config');
 var utils = require('../utils/utils');
-var client = require('twilio')(config.twilio.ACCOUNT_SID, config.twilio.AUTH_TOKEN)
-//(
-////        /*'ACCOUNT_SID'*/'AC81b5dee807e98ea04e4bd67a61161f8c',
-////        /*'AUTH_TOKEN'*/'934e4dd96e6268bbfb1b50e8c28de5df'); ==> +1 917-525-4961 917 number staging
-//        /*'ACCOUNT_SID'*/'AC73bb880adc90e3c13f8b19f2680e4fb7',
-//       /*'AUTH_TOKEN'*/'aab768d1618145e876917c884680b012'); //==> 707 number production
+var client = require('twilio')(config.twilio.ACCOUNT_SID, config.twilio.AUTH_TOKEN);
 var Promise = require('promise');
 
 var dblogger = require('../utils/dblogger');

@@ -11,7 +11,7 @@
     "start": "npm run dev",
     "publish-test": "cp -rR ./convocode/anonymous/drafts/unit-tests ./convocode/anonymous/fsms/",
     "test": "jasmine",
-    "doc": "jsdoc ./ -r -c ./jsdoc-config.json  -d ./outdocs -t ./ink-docstrap/template -R ./README.md",
+    "doc": "jsdoc ./ -r -c ./jsdoc-config.json  -d ../docs -t ./ink-docstrap/template -R ./README.md",
     "publish-doc": "cp -rR ./outdocs ../client/b3/build/",
     "nlu": "python -m rasa_nlu.server -c ./convocode/nlu-models/rasa/config_spacy.json",
     "install-nlu": "pip install rasa_nlu;pip install rasa_nlu[spacy];python -m spacy download en_core_web_md;python -m spacy link en_core_web_md en"

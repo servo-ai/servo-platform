@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Servo Bot Automation Class: LUISModel</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cyborg.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Servo Bot Automation</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-Actions.html">Actions</a></li><li><a href="module-Composites.html">Composites</a></li><li><a href="module-Conditions.html">Conditions</a></li><li><a href="module-Core.html">Core</a></li><li><a href="module-Decorators.html">Decorators</a></li><li><a href="module-MLModels.html">MLModels</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="GoogleSpeechModel.html">GoogleSpeechModel</a></li><li><a href="GoogleVisionModel.html">GoogleVisionModel</a></li><li><a href="module-Actions.AddEntity.html">Actions.AddEntity</a></li><li><a href="module-Actions.AddTarget.html">Actions.AddTarget</a></li><li><a href="module-Actions.ArrayQueryAction.html">Actions.ArrayQueryAction</a></li><li><a href="module-Actions.AskAndWait.html">Actions.AskAndWait</a></li><li><a href="module-Actions.ClearAllContexts.html">Actions.ClearAllContexts</a></li><li><a href="module-Actions.ClearContext.html">Actions.ClearContext</a></li><li><a href="module-Actions.CloseAllContexts.html">Actions.CloseAllContexts</a></li><li><a href="module-Actions.Error.html">Actions.Error</a></li><li><a href="module-Actions.Failer.html">Actions.Failer</a></li><li><a href="module-Actions.GeneralMessage.html">Actions.GeneralMessage</a></li><li><a href="module-Actions.MapEntitiesToContextAction.html">Actions.MapEntitiesToContextAction</a></li><li><a href="module-Actions.MapEntitiesToParentAction.html">Actions.MapEntitiesToParentAction</a></li><li><a href="module-Actions.PostAction.html">Actions.PostAction</a></li><li><a href="module-Actions.RemoveTargetAction.html">Actions.RemoveTargetAction</a></li><li><a href="module-Actions.ResetAll.html">Actions.ResetAll</a></li><li><a href="module-Actions.RetrieveJSONAction.html">Actions.RetrieveJSONAction</a></li><li><a href="module-Actions.Runner.html">Actions.Runner</a></li><li><a href="module-Actions.SetFieldAction.html">Actions.SetFieldAction</a></li><li><a href="module-Actions.SetTimeOfDay.html">Actions.SetTimeOfDay</a></li><li><a href="module-Actions.SetUIAction.html">Actions.SetUIAction</a></li><li><a href="module-Actions.Succeeder.html">Actions.Succeeder</a></li><li><a href="module-Actions.TrainIntentAction.html">Actions.TrainIntentAction</a></li><li><a href="module-Actions.Twilio.html">Actions.Twilio</a></li><li><a href="module-Actions.Wait.html">Actions.Wait</a></li><li><a href="module-Actions-AddScoreAction.html">Actions~AddScoreAction</a></li><li><a href="module-Composites.AskAndMap.html">Composites.AskAndMap</a></li><li><a href="module-Composites.BackgroundSequence.html">Composites.BackgroundSequence</a></li><li><a href="module-Composites.MemSequence.html">Composites.MemSequence</a></li><li><a href="module-Composites.ScoreSelector.html">Composites.ScoreSelector</a></li><li><a href="module-Composites-MemPriority.html">Composites~MemPriority</a></li><li><a href="module-Conditions.FieldCompareCondition.html">Conditions.FieldCompareCondition</a></li><li><a href="module-Conditions.FieldNotEmptyCondition.html">Conditions.FieldNotEmptyCondition</a></li><li><a href="module-Conditions.GreetingTimeOfDayCondition.html">Conditions.GreetingTimeOfDayCondition</a></li><li><a href="module-Conditions-AnyTarget.html">Conditions~AnyTarget</a></li><li><a href="module-Core.Action.html">Core.Action</a></li><li><a href="module-Core.BaseNode.html">Core.BaseNode</a></li><li><a href="module-Core.BehaviorTree.html">Core.BehaviorTree</a></li><li><a href="module-Core.Blackboard.html">Core.Blackboard</a></li><li><a href="module-Core.Composite.html">Core.Composite</a></li><li><a href="module-Core.Condition.html">Core.Condition</a></li><li><a href="module-Core.ContextManager.html">Core.ContextManager</a></li><li><a href="module-Core.Decorator.html">Core.Decorator</a></li><li><a href="module-Core.MLModel.html">Core.MLModel</a></li><li><a href="module-Core.Process.html">Core.Process</a></li><li><a href="module-Core.Target.html">Core.Target</a></li><li><a href="module-Core.Tick.html">Core.Tick</a></li><li><a href="module-Core.TreeNode.html">Core.TreeNode</a></li><li><a href="module-Core-b3.html">Core~b3</a></li><li><a href="module-Decorators.Inverter.html">Decorators.Inverter</a></li><li><a href="module-Decorators.Limiter.html">Decorators.Limiter</a></li><li><a href="module-Decorators.MaxTime.html">Decorators.MaxTime</a></li><li><a href="module-Decorators.Repeater.html">Decorators.Repeater</a></li><li><a href="module-Decorators.RepeatUntilFailure.html">Decorators.RepeatUntilFailure</a></li><li><a href="module-Decorators.RepeatUntilSuccess.html">Decorators.RepeatUntilSuccess</a></li><li><a href="module-Decorators-ContextEntityCollector.html">Decorators~ContextEntityCollector</a></li><li><a href="module-MLModels.WitModel.html">MLModels.WitModel</a></li><li><a href="module-MLModels-LUISModel.html">MLModels~LUISModel</a></li><li><a href="Parallel.html">Parallel</a></li><li><a href="RetrieveXMLAction.html">RetrieveXMLAction</a></li><li><a href="RunSubtreeAction.html">RunSubtreeAction</a></li><li><a href="TensorFlowModel.html">TensorFlowModel</a></li><li><a href="Ticker.html">Ticker</a></li><li><a href="TimeFromConvoLastRun.html">TimeFromConvoLastRun</a></li><li><a href="TimeFromMyLastRun.html">TimeFromMyLastRun</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#_">_</a></li><li><a href="global.html#_RUNNING_TIMEOUT_SEC">_RUNNING_TIMEOUT_SEC</a></li><li><a href="global.html#b3">b3</a></li><li><a href="global.html#ContextManagerKeys">ContextManagerKeys</a></li><li><a href="global.html#dblogger">dblogger</a></li><li><a href="global.html#deepClone">deepClone</a></li><li><a href="global.html#findStateIndex">findStateIndex</a></li><li><a href="global.html#getFullFsmId">getFullFsmId</a></li><li><a href="global.html#lastTargetId">lastTargetId</a></li><li><a href="global.html#passedThruPipe">passedThruPipe</a></li><li><a href="global.html#processModel">processModel</a></li><li><a href="global.html#runEntryProcessors">runEntryProcessors</a></li><li><a href="global.html#startOneProcess">startOneProcess</a></li><li><a href="global.html#statsManager">statsManager</a></li><li><a href="global.html#targetObjs">targetObjs</a></li><li><a href="global.html#title">title</a></li><li><a href="global.html#unusedTargetObjs">unusedTargetObjs</a></li><li><a href="global.html#uuid">uuid</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	<h1 class="page-title">Class: LUISModel</h1>
+<section>
+
+<header>
+    
+        <h2>
+            <span class="ancestors"><a href="module-MLModels.html">MLModels</a>~</span>
+        
+        LUISModel
+        </h2>
+        
+            <div class="class-description">LUIS machine learning model - NLU classifier</div>
+        
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+<hr>
+<dt>
+    <h4 class="name" id="LUISModel"><span class="type-signature"></span>new LUISModel()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<hr>
+<dt class="name" id="parameters">
+    <h4 id="parameters"><span class="type-signature"></span>parameters<span class="type-signature"> :Object</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        Node parameters.
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Object</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    <dl>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>parameters</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <h6>Properties</h6>
+
+<table class="props table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nlu</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">this gets added onto the process properties to get used for NLU. Use language code as a key: {'en': {
+               "engine": "luis-strong",
+               "app_id": '',
+               "subscription_key": ''}}</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+</dl>
+
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="validators"><span class="type-signature"></span>validators()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;<a href="global.html#Validator">Validator</a>></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	(c) 2017 Servo Labs Inc
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on 2019-01-21T00:10:06+02:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

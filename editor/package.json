@@ -16,8 +16,8 @@
     "editor-serve": "cd ../editor && gulp serve",
     "editor-dev": "cd ../editor && gulp dev && node clientapp.js",
     "server": "cd ../server && node app.js",
-    "dev": "(start npm run editor-serve) && (start npm run server) && (start http://localhost:8000)",
-    "prod": "(start npm run editor-dev) && (start npm run server)",
+    "dev": "concurrently --kill-others  \"npm run editor-serve\" \"npm run server\"",
+    "prod": "concurrently --kill-others  \"start npm run editor-dev\" \"start npm run server\"",
     "start": "npm run dev",
     "publish-test": "cp -rR ./convocode/anonymous/drafts/unit-tests ./convocode/anonymous/fsms/",
     "test": "jasmine",
@@ -27,6 +27,7 @@
     "install-nlu": "pip install rasa_nlu;pip install rasa_nlu[spacy];python -m spacy download en_core_web_md;python -m spacy link en_core_web_md en"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "gulp": "~3.9.0",
     "gulp-angular-templatecache": "~1.7.0",
     "gulp-concat": "~2.6.0",

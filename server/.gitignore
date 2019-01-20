@@ -37,7 +37,5 @@ dev
 docs
 test
 tools/typings/tsd
-./config.json
 outdocs
-config.json
 loki-servo-db.json

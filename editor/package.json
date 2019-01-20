@@ -16,7 +16,7 @@
     "editor-serve": "cd ../editor && gulp serve",
     "editor-dev": "cd ../editor && gulp dev && node clientapp.js",
     "server": "cd ../server && node app.js",
-   "dev": "concurrently --kill-others  \"npm run editor-serve\" \"npm run server\"",
+    "dev": "concurrently --kill-others  \"npm run editor-serve\" \"npm run server\"",
     "prod": "concurrently --kill-others  \"start npm run editor-dev\" \"start npm run server\"",
     "start": "npm run dev",
     "publish-test": "cp -rR ./convocode/anonymous/drafts/unit-tests ./convocode/anonymous/fsms/",

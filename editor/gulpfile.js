@@ -24,13 +24,13 @@ var _ = require('underscore');
 
 gulp.task("_buildB3", function () {
   // add this path to requires
-  require('app-module-path').addPath('../../server');
-  require('app-module-path').addPath('../../server/FSM/composites/');
-  require('app-module-path').addPath('../../server/FSM/decorators/');
-  require('app-module-path').addPath('../../server/FSM/actions/');
-  require('app-module-path').addPath('../../server/FSM/core/');
-  require('app-module-path').addPath('../../server/FSM/conditions/');
-  require('app-module-path').addPath('../../server/convocode/');
+  require('app-module-path').addPath('../server');
+  require('app-module-path').addPath('../server/FSM/composites/');
+  require('app-module-path').addPath('../server/FSM/decorators/');
+  require('app-module-path').addPath('../server/FSM/actions/');
+  require('app-module-path').addPath('../server/FSM/core/');
+  require('app-module-path').addPath('../server/FSM/conditions/');
+  require('app-module-path').addPath('../server/convocode/');
   // TODO: CREATE AUTOMATICALLY
   var b3Classes = require('./b3classes');
   var b3LibTemplate = fs.readFileSync('./b3libs.template.js').toString();

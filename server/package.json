@@ -6,7 +6,7 @@
     "editor-serve": "cd ../editor && gulp serve",
     "editor-dev": "cd ../editor && gulp dev && node clientapp.js",
     "server": "cd ../server && node app.js",
-    "dev": "(start npm run editor-serve) && (start npm run server) && (start http://localhost:8000)",
+    "dev": "(npm run editor-serve) && (npm run server) && (start http://localhost:8000)",
     "prod": "(start npm run editor-dev) && (start npm run server)",
     "start": "npm run dev",
     "publish-test": "cp -rR ./convocode/anonymous/drafts/unit-tests ./convocode/anonymous/fsms/",

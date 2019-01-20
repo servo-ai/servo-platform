@@ -8,11 +8,6 @@ var morgan = require('morgan');
 
 var app = express();
 app.use(morgan('combined'));
-  var basicAuth = require('basic-auth-connect');
-     app.use(basicAuth('servoai', 'bestbots'));
-
-
-//var routes = require('./routes/index');
 // view engine setup
 //
 app.set('views', path.join(__dirname, 'views'));
@@ -25,10 +20,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-   var basicAuth = require('basic-auth-connect');
-//   app.use(basicAuth('servoai', 'bestbots'));
-    
-//app.use('/', routes);
 app.use(function (req, res, next) {
  	if (path.extname(req.path).length > 0) {
 	// normal static file request

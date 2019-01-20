@@ -27,7 +27,7 @@ b3.push({
   title: "MemPriority",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5},
   description: "",
-  id: "2bf14285-b679-46f4-bdef-eabfb4448a05",
+  id: "e1ee6552-f533-46a9-87b2-3b3384c1e27d",
   category: "composite",
   validators: (function validators(node) {
     return [{
@@ -42,7 +42,7 @@ b3.push({
   title: "MemSequence",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5},
   description: "",
-  id: "ef75c3f9-d3d6-41ad-ad1b-bfb3dbf9fe68",
+  id: "469fd8d7-4acc-4a9b-ab6e-dc036d7e84dc",
   category: "composite",
   validators: (function validators(node) {
     return [{
@@ -57,7 +57,7 @@ b3.push({
   title: "GeneralMessage",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"view":false,"prompt":[],"cyclePrompts":true,"pushMessageOut":false,"imageHTML":false,"imageDataArrayName":""},
   description: "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-  id: "627e9656-f339-46bd-8a7e-a8568b782283",
+  id: "5ce9de5c-1517-4f12-9bf6-e5e41408e7c0",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -79,7 +79,7 @@ b3.push({
   title: "Failer",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true},
   description: "",
-  id: "bd86509c-aae6-4175-ac33-e3faaef98030",
+  id: "9a636de5-0a2f-40cb-8ebf-2a701cefbf89",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -94,7 +94,7 @@ b3.push({
   title: "Succeeder",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true},
   description: "",
-  id: "30259184-9a36-434a-b1be-d9475ef94c3a",
+  id: "ea4e99f9-1b1b-4f3b-82b1-ee1e277043f5",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -109,7 +109,7 @@ b3.push({
   title: "Inverter",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5},
   description: "",
-  id: "69c630b7-4724-4805-b79d-51e69e960126",
+  id: "4c27f90a-1375-4ffb-9058-8a4e70071ee4",
   category: "decorator",
   validators: (function validators(node) {
     return [{
@@ -124,7 +124,7 @@ b3.push({
   title: "FieldCompareCondition",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"left":"","operator":"","right":""},
   description: "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
-  id: "f27b8d73-6a2c-4793-bb1b-afbe32bc3c2d",
+  id: "1723674b-0976-4f6a-a29c-abcbe89031b9",
   category: "condition",
   validators: (function validators(node) {
 
@@ -145,7 +145,7 @@ b3.push({
   title: "Max <maxTime>ms",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"maxTime":0},
   description: "Sets a maximum milliseconds time, after which it returns failure.",
-  id: "2ca985ef-10a4-4851-90b4-c92373a051a7",
+  id: "4cbbfbab-2525-4fed-a073-021e9929fa31",
   category: "decorator",
   validators: (function validators(node) {
     return [{
@@ -163,7 +163,7 @@ b3.push({
   title: "RemoveTargetAction",
   parameters: {},
   description: "",
-  id: "be1e0d11-dc6d-42d8-b059-a18f2c184c03",
+  id: "c4160bf2-afcd-47a4-8310-dc88c2d6af03",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -178,7 +178,7 @@ b3.push({
   title: "SetFieldAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"fieldName":"","fieldValue":""},
   description: "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
-  id: "f282397e-ae93-4b18-ac98-ee08056d94ed",
+  id: "549990b9-1356-4fa4-bb29-feb84002a060",
   category: "action",
   validators: (function validators(node) {
 
@@ -202,7 +202,7 @@ b3.push({
   title: "AnyTarget",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5},
   description: "return SUCCESS if any intent is present on the target",
-  id: "ac527a6a-5ee8-412c-a449-a1ebd095a129",
+  id: "858b0958-068f-4d9d-8ccd-41fb524522e7",
   category: "condition",
   validators: (function validators(node) {
     return [{
@@ -217,7 +217,7 @@ b3.push({
   title: "ResetAll",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"dontEndSession":false,"dontRemoveTarget":false,"emptyGlobalMemory":false},
   description: "",
-  id: "c77ae527-95cb-4032-b7bb-fad9e66ca133",
+  id: "8b50c161-22f4-4c2e-9cfa-cf4866afe5f8",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -232,7 +232,7 @@ b3.push({
   title: "Repeat Until Failure",
   parameters: {"maxLoop":-1},
   description: "Repeats the child node maxLoop times, or until failure, excluding RUNNING ticks. Updates context.repeatCount",
-  id: "a56cc975-57a6-42f5-9d91-1375885f73ce",
+  id: "c3c7374b-7ff0-4ed2-83e0-f6b26a23e837",
   category: "decorator",
   validators: (function validators(node) {
     return [{
@@ -250,7 +250,7 @@ b3.push({
   title: "Repeat Until Success",
   parameters: {"maxLoop":-1},
   description: "Repeat the child until a success, or maxLoop count has been reached. If child returns running, it does not count.. Updates context.repeatCount",
-  id: "1935ff23-10c4-4e24-b2d8-8e046a9ce7d6",
+  id: "624008e6-bf5e-4b46-a8de-8a9711b14215",
   category: "decorator",
   validators: (function validators(node) {
     return [{
@@ -268,7 +268,7 @@ b3.push({
   title: "Repeat <maxLoop>x",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"maxLoop":-1},
   description: "Repeats the child node maxLoop times, excluding RUNNING ticks. Updates context.repeatCount",
-  id: "e8619a9e-a3b1-4f7c-aa22-d9718a31fd0a",
+  id: "3ed9560a-0496-4a1f-8fff-e29aaa5fa389",
   category: "decorator",
   validators: (function validators(node) {
     return [{
@@ -286,7 +286,7 @@ b3.push({
   title: "MapEntitiesToContextAction",
   parameters: {"map":[{"contextFieldName":"","entityName":"","entityIndex":0}]},
   description: "Define here a map from message entities to context entities. If more than one entity of a certain name, an entity array will be created. ",
-  id: "f2ee6f6c-aa19-43d7-ac6e-ab06eb865d7f",
+  id: "f994252f-0863-461d-a48b-3f3047b88e8a",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -301,7 +301,7 @@ b3.push({
   title: "FieldNotEmptyCondition",
   parameters: {"fieldName":""},
   description: "Succeeds if global, context, message or volatile fieldName is not empty",
-  id: "0bd56f0b-b087-4b7d-9720-1bd947b32efc",
+  id: "55865f6d-c385-41a4-ba25-76c4fd637f53",
   category: "condition",
   validators: (function validators(node) {
 
@@ -328,7 +328,7 @@ b3.push({
   title: "BackgroundSequence",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5},
   description: "Runs all children synchronuously, always starting from first child",
-  id: "7ef0d605-bf87-44c7-aae2-753afd9e970f",
+  id: "f406677d-be8c-47ca-8ffd-3c09a3fa977c",
   category: "composite",
   validators: (function validators(node) {
     return [{
@@ -343,7 +343,7 @@ b3.push({
   title: "MapEntitiesToParentAction",
   parameters: {"map":[{"contextFieldName":""}]},
   description: "Define a map from current context to fitst parent context fields.",
-  id: "170bea8c-27b5-41f7-ba27-f9339436b924",
+  id: "47bd70e4-e5aa-4d08-90af-dc36d64261a4",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -358,7 +358,7 @@ b3.push({
   title: "ArrayQueryAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"sourceFieldName":"","targetFieldName":"","query":"","resultIndex":null},
   description: "Use mongoDB's find(query) on an array provided in sourceFieldName. May apply sort afterwords and use resultIndex to select one item from the result set.",
-  id: "5b9217d4-bacf-4a41-b903-da3be0c68b01",
+  id: "553bbd98-410f-4c49-b0ec-4e4733f479a4",
   category: "action",
   validators: (function validators(node) {
 
@@ -384,7 +384,7 @@ b3.push({
   title: "RetrieveJSONAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"url":"","fieldName":"","headers":""},
   description: "This sets fieldName to object of the returned json.",
-  id: "52c7e283-1700-4bad-90cc-9bc305c5160b",
+  id: "2be5e826-b340-42d2-9099-a539809cac5e",
   category: "action",
   validators: (function validators(node) {
     function validCompositeField(field) {
@@ -406,7 +406,7 @@ b3.push({
   title: "ClearContextAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true},
   description: "Clears the memory of current context",
-  id: "864996c8-48e5-48ba-a48c-4d3448cb344a",
+  id: "6eca7ae2-a126-43e7-bbd9-96a52b49a1ac",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -421,7 +421,7 @@ b3.push({
   title: "AddTarget",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"text":"","intentId":"","entities":{"name":"value"}},
   description: "Add a new message to the FSM, as if it came from the user. text, entity name, value and intentId are strings - meaning, if a template is needed use <%= %>",
-  id: "f60c492b-2871-4cd4-96bb-cf71c18b48ce",
+  id: "5fee140f-9e09-4a64-9b61-2027161c7fcb",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -436,7 +436,7 @@ b3.push({
   title: "AskAndMap",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"view":false,"prompt":[],"cyclePrompts":true,"imageHTML":false,"imageDataArrayName":"","replayActionOnReturnFromContextSwitch":true,"contexts":[{"intentId":"","description":{"en":""},"passThru":false,"helper":false,"timeout":false,"default":false,"entities":[{"contextFieldName":"","entityName":"","expectedValue":"","entityIndex":0}]}]},
   description: "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
-  id: "ea44ae02-639d-42c7-9a73-f41c959cee65",
+  id: "e7ef2341-e867-47e9-90b2-db956b9829f4",
   category: "composite",
   validators: (function validators(node) {
     var contexts = node.properties.intents || node.properties.contexts;
@@ -547,7 +547,7 @@ b3.push({
   title: "ClearAllContexts",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"leaveCurrent":false},
   description: "find current context managed node and clear all its contexts. if leaveCurrent is true, leave current context intact",
-  id: "24bf4bc5-de91-4267-9ddc-ae784f2d1835",
+  id: "6efc66f8-8845-4b1f-9b1f-1e24c258e066",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -562,7 +562,7 @@ b3.push({
   title: "PostAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"url":"","payload":{},"fieldName":"","json":true},
   description: "posts JSON payload object to the url, setting fieldName with the result",
-  id: "a2bd2717-a1a7-45a9-be00-480f6b265f66",
+  id: "54ec38f2-8ac2-4c6b-9f0c-f1ec363bbd74",
   category: "action",
   validators: (function validators(node) {
     function validCompositeField(field) {
@@ -586,7 +586,7 @@ b3.push({
   title: "Wait <milliseconds> ms",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"milliseconds":0},
   description: "",
-  id: "ca58c955-cec6-45f3-a387-8b78b7360b3a",
+  id: "cca80f63-b0dc-4e3d-b03d-0d15acc87a0f",
   category: "action",
   validators: (function validators(node) {
     return [{
@@ -601,7 +601,7 @@ b3.push({
   title: "SetUIAction",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true,"view":{"en":{"event":"","entity":"","value":""}}},
   description: "Send an event to a UI client with a value to set in a UI field. If UI has a data binding mechanism, data changes would trigger view changes, too.",
-  id: "c027b74b-f401-4b2d-9993-f740d5dae822",
+  id: "370e5757-bef7-476d-b7f9-9bc529668d48",
   category: "action",
   validators: (function validators(node) {
 
@@ -621,7 +621,7 @@ b3.push({
   title: "AddEntity",
   parameters: {"entityName":"","fieldValue":""},
   description: "Add an entity to message object from global, context, volatile and message memories",
-  id: "806a7d80-2ad4-46b2-812d-f18dd77c27cb",
+  id: "be5d2f73-6473-4c2c-ab4e-b28fcbfa3054",
   category: "action",
   validators: (function validators(node) {
 
@@ -642,7 +642,7 @@ b3.push({
   title: "CloseAllContexts",
   parameters: {"debug-log":"","runningTimeoutSec":600,"maxRetriesNumber":5,"replayActionOnReturnFromContextSwitch":true},
   description: "Close current context and all its siblings, effectively reseting all the runningChilds and allowing re-open",
-  id: "cf459d9d-2c8a-45f3-b562-65d674d7d975",
+  id: "a154d139-ca10-4e08-b541-da5770a651d8",
   category: "action",
   validators: (function validators(node) {
     return [{

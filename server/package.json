@@ -6,8 +6,8 @@
     "editor-serve": "cd ../editor && gulp serve",
     "editor-dev": "cd ../editor && gulp dev && node clientapp.js",
     "server": "cd ../server && node app.js",
-    "dev": "(npm run editor-serve) && (npm run server) && (start http://localhost:8000)",
-    "prod": "(start npm run editor-dev) && (start npm run server)",
+    "dev": "concurrently --kill-others  \"npm run editor-serve\" \"npm run server\"",
+    "prod": "concurrently --kill-others  \"start npm run editor-dev\" \"start npm run server\"",
     "start": "npm run dev",
     "publish-test": "cp -rR ./convocode/anonymous/drafts/unit-tests ./convocode/anonymous/fsms/",
     "test": "jasmine",
@@ -65,6 +65,7 @@
     "@types/node": "^8.0.9",
     "alexa-verifier": "^0.3.6",
     "app-module-path": "^2.2.0",
+    "concurrently": "^4.1.0",
     "jasmine": "^2.8.0",
     "stack-trace": "0.0.9",
     "websocket": "^1.0.24"

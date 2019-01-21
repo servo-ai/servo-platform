@@ -20,18 +20,20 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
+ * @private
  * 
  **/
 var deepClone = require('clone-deep');
 /**
  * a target class maintaining a queue of outputs from NLU classifier layers 
  *
- *@memberof module:Core
+ * @memberof module:Core
  **/
 class Target {
 
   /**
    * constructor
+   * @private
    */
   constructor() {
     /** @member {number} lastTargetId - running index of the target id*/

@@ -167,7 +167,7 @@ class Tick {
   /**
    * Callback when ticking a node (called by BaseNode).
    *
-   * @private _tickNode
+   * @private 
    * @param {Object} node The node that called this method.
    * @protected
    **/
@@ -176,7 +176,7 @@ class Tick {
   /**
    * Callback when exiting a node (called by BaseNode).
    *
-   * @private _exitNode
+   * @private 
    * @param {Object} node The node that called this method.
    * @protected
    **/

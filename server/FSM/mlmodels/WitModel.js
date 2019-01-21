@@ -4,6 +4,7 @@ var _ = require('underscore');
 /**
  * Wit.ai machine learning model - NLU classifier
  * @memberof module:MLModels
+ * @private
  */
 class WitModel extends MLModel {
 
@@ -41,6 +42,7 @@ class WitModel extends MLModel {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

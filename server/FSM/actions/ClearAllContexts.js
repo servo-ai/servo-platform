@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 /**
  * 
- * find current contextmanager and clear all its contexts.
+ * finds closest context managed ancestor and clear all its contexts. 
  *  @memberof module:Actions 
  **/
 class ClearAllContexts extends Action {
@@ -16,10 +16,9 @@ class ClearAllContexts extends Action {
 
 
     this.title = this.name = 'ClearAllContexts';
-    this.description = 'find current context managed node and clear all its contexts. if leaveCurrent is true, leave current context intact'
-    var parameters = {
-      "leaveCurrent": false
-    };
+    this.description = 'find closest context managed ancestor and clear all its contexts. ';
+
+    var parameters = {};
     this.parameters = _.extend(this.parameters, parameters);
   }
   /**
@@ -30,7 +29,7 @@ class ClearAllContexts extends Action {
    **/
   tick(tick) {
 
-    this.clearAllContexts(tick, this.parameters.leaveCurrent);
+    this.clearAllContexts(tick);
 
     return b3.SUCCESS();
   }

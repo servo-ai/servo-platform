@@ -9,6 +9,7 @@ var utils = require('utils/utils');
  * also, sets two global fields - datetimeString and speakTimeOfDay - with an english structure 
  * Language: en
  *  @memberof module:Actions
+ * @private
  */
 class SetTimeOfDay extends Action {
 
@@ -22,7 +23,7 @@ class SetTimeOfDay extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

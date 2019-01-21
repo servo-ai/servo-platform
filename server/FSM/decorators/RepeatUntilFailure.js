@@ -79,7 +79,7 @@ class RepeatUntilFailure extends Decorator {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
@@ -109,6 +109,7 @@ class RepeatUntilFailure extends Decorator {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

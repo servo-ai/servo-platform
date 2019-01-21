@@ -1,7 +1,8 @@
 /**
  * b3
  * 
- * Copyright (c) 2017 Servo Labs Inc.
+ * Copyright (c) 2017-2019 Servo Labs Inc.  
+ * Parts Copyright (c)  Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -27,7 +28,7 @@ var dblogger = require('utils/dblogger');
 
 /**
  * A collection of all base classes needed to operate the behavior tree runtime
- * @module Core
+ * @private
  */
 
 /* Servo run-time is a Behavior Tree system written in JavaScript. It provides structures and algorithms that assist you in the task of creating intelligent agents for your AI application. Check it out some features 
@@ -39,7 +40,7 @@ var dblogger = require('utils/dblogger');
  *   tree instance to handle hundreds of agents;
  * - It was **designed to load and save trees in a JSON format**, in order to 
  *   use, edit and test it in multiple environments, tools and languages;
- *
+ * @private
  **/
 var b3 = function () {};
 
@@ -50,13 +51,13 @@ var b3 = function () {};
  * @property VERSION
  * @type {string}
  */
-b3.VERSION = '0.1.0';
+b3.VERSION = '0.9.0';
 
 
 /**
  * 1 returned when a criterion has been met by a condition node or an action node
  * has been completed successfully.
- * @private SUCCESS
+ * @private 
  * @return {TickStatus}*/
 b3.SUCCESS = function () {
   return 1;
@@ -66,7 +67,7 @@ b3.SUCCESS = function () {
  * 2 returned when a criterion has not been met by a condition node or an action 
  * node could not finish its execution for any reason.
  * 
- * @private FAILURE
+ * @private 
  * @return {TickStatus}
  * */
 b3.FAILURE = function () {
@@ -77,7 +78,7 @@ b3.FAILURE = function () {
  * 3 returned when an action node has been initialized but is still waiting the 
  * its resolution.
  * 
- * @private RUNNING
+ * @private 
  * @return {TickStatus}
  * */
 b3.RUNNING = function () {
@@ -89,7 +90,7 @@ b3.RUNNING = function () {
  * programming error (trying to verify an undefined variable). Its use depends 
  * on the final implementation of the leaf nodes.
  * 
- * @private ERROR
+ * @private 
  * @return {TickStatus}
  * */
 b3.ERROR = function () {
@@ -157,6 +158,7 @@ b3.MLMODEL = 'mlmodel';
  * List of internal and helper functions in Behavior3JS.
  * 
  * @class b3
+ * @private
  **/
 
 
@@ -165,7 +167,7 @@ b3.MLMODEL = 'mlmodel';
  * 
  * (consult http://www.ietf.org/rfc/rfc4122.txt).
  *
- * @private createUUID
+ * @private 
  * @return {string} A unique ID.
  **/
 b3.createUUID = function () {

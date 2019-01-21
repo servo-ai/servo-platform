@@ -27,19 +27,17 @@ class ResetAll extends Action {
      * @property {boolean} parameters.emptyGlobalMemory - if false, ends the session
      * 
      **/
-    var parameters = {
+    this.parameters = _.extend(this.parameters, {
       dontEndSession: false,
       dontRemoveTarget: false,
       emptyGlobalMemory: false
-    };
-
-    _.extend(this.parameters, parameters);
+    });
   }
 
   /**
    * Tick method.
    *
-   * @private tick
+   * @private 
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

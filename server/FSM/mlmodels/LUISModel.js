@@ -3,6 +3,7 @@ var _ = require('underscore');
 /**
  * Machine Learning models for classifications
  * @module MLModels
+ * @private
  **/
 /**
  * LUIS machine learning model - NLU classifier
@@ -41,6 +42,7 @@ class LUISModel extends MLModel {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

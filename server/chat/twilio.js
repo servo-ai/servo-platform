@@ -4,8 +4,11 @@ var client = require('twilio')(config.twilio.ACCOUNT_SID, config.twilio.AUTH_TOK
 var Promise = require('promise');
 
 var dblogger = require('../utils/dblogger');
-var Twilio = function () {
-};
+/**
+ * twilio channel
+ * deprecated
+ */
+var Twilio = function () {};
 module.exports = Twilio;
 
 /**
@@ -22,7 +25,7 @@ Twilio.sendMessage = function (message, fromNumber, toNumber, htmlSnippet) {
                 from: fromNumber, // A number you bought from Twilio and can use for outbound communication
                 // body of the SMS message
                 // if sent text dont send again, because we are here only due to several images
-                body: textSentOnce?'-':message 
+                body: textSentOnce ? '-' : message
             };
 
             if (imgURL) {
@@ -39,10 +42,11 @@ Twilio.sendMessage = function (message, fromNumber, toNumber, htmlSnippet) {
 
                     dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 10) + '...'); // outputs "+14506667788" 'aslkasdjf'
 
-                    resolve({text:message});
+                    resolve({
+                        text: message
+                    });
 
-                }
-                else {
+                } else {
                     dblogger.error('twilio message err', err, toNumber);
                     reject(err);
                 }
@@ -50,7 +54,7 @@ Twilio.sendMessage = function (message, fromNumber, toNumber, htmlSnippet) {
         };
 
         if (images) {
-            _.each(images,function(imgUrl) {
+            _.each(images, function (imgUrl) {
                 sendMessage(imgUrl);
                 textSentOnce = true;
             });

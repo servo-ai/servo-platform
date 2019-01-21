@@ -28,7 +28,7 @@ var Action = require('../core/action')
 var _ = require('underscore');
 
 /**
- * Wait a few seconds.
+ * Wait a number of milliseconds.
  * @memberof module:Actions
  **/
 class Wait extends Action {
@@ -60,7 +60,7 @@ class Wait extends Action {
   /**
    * Open method.
    *
-   * @private open
+   * @private 
    * @param {Tick} tick A tick instance.
    **/
   open(tick) {
@@ -71,7 +71,7 @@ class Wait extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

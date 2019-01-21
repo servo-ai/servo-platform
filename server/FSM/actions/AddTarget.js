@@ -32,13 +32,13 @@ class AddTarget extends Action {
     settings = settings || {};
 
     this.description = "Add a new message to the FSM, as if it came from the user. " +
-      "text, entity name, value and intentId are strings - meaning, if a template is needed use <%= %>";
+      "text, entity name, value and intentId are Expression Strings - meaning, if a template is needed use <%= %>";
 
   }
   /**
    * Tick method.
    *
-   * @private tick
+   * @private 
    * @param {Tick} tick A tick instance.
    * @return {Constant}  return `b3.SUCCESS`.
    **/

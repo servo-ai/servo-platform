@@ -1,11 +1,11 @@
 // namespace:
 var b3 = require('../core/b3');
-var Action = require('../core/action')
-var config = require('../../config');
+var Action = require('../core/action');
+var config = require('config');
 var utils = require('../../utils/utils');
 var client = require('twilio');
 var _ = require('underscore');
-var dblogger = require('utils/dblogger')
+var dblogger = require('utils/dblogger');
 var twilioClient;
 /**
  * Send an SMS via Twilio
@@ -18,7 +18,7 @@ class Twilio extends Action {
     super();
     var accountSID = settings.accountSID || config.twilio.ACCOUNT_SID;
     var authToken = settings.authToken || config.twilio.AUTH_TOKEN;
-    twilioClient = client(accountSID, authToken)
+    twilioClient = client(accountSID, authToken);
 
     this.title = this.name = 'Twilio';
 
@@ -27,8 +27,8 @@ class Twilio extends Action {
      * Node parameters
      * @property parameters
      * @type {Object}
-     * @property {string} parameters.accountSID - twilio account credentials
-     * @property {string} parameters.authToken- twilio account credentials
+     * @property {string} parameters.accountSID - twilio account credentials. if empty, takes from config.twilio.ACCOUNT_SID
+     * @property {string} parameters.authToken- twilio account credentials. if empty, takes from config.twilio.AUTH_TOKEN
      * @prop {string} parameters.toNumber - number to which to send the sms 
      * @prop {string} parameters.fromNumber - number from which to send the sms
      * @prop {ExpressionString} parameters.prompt - message
@@ -43,7 +43,7 @@ class Twilio extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

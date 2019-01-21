@@ -23,17 +23,16 @@ class FieldCompareCondition extends Condition {
      *
      * @property parameters
      * @type {Object}
-     * @prop {ExpressionString} parameters.left
-     * @prop {Operator} parameters.operator - logical operator
-     * @prop {ExpressionString} parameters.right 
+     * @property {ExpressionString|MemoryField} parameters.left
+     * @property {Operator} parameters.operator - logical operator
+     * @property {ExpressionString|MemoryField} parameters.right 
      *  
      **/
-    var parameters = {
+    this.parameters = _.extend(this.parameters, {
       'left': '',
       'operator': '',
       'right': ''
-    };
-    _.extend(this.parameters, parameters);
+    });
     this.description = 'Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. ';
     this.description += 'Operator could be any logical operator like ===, <, <==, !==, ==> etc. ';
 
@@ -45,7 +44,7 @@ class FieldCompareCondition extends Condition {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
@@ -88,6 +87,7 @@ class FieldCompareCondition extends Condition {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

@@ -28,7 +28,7 @@ class GeneralMessage extends Action {
      * @property {boolean} parameters.cyclePrompts - if true, will show the prompts cyclicly. false: will stay on the last prompt forever.
      * @property {(ExpressionString|Object)} parameters.view - a file name of a view, or a view JSON object, to be used instead of the prompt in order to send native json
      * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
-     * @property {CompositeFieldName} parameters.imageDataArrayName - composite (message./global./context./volatile./local./fsm.) field name for an array object that contains data for the images
+     * @property {MemoryField} parameters.imageDataArrayName -  (message./global./context./volatile./local./fsm.) field name for an array object that contains data for the images
      * @property {boolean} parameters.pushMessageOut -the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver
      **/
     this.parameters = _.extend(this.parameters, parameters);
@@ -74,6 +74,7 @@ class GeneralMessage extends Action {
 
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

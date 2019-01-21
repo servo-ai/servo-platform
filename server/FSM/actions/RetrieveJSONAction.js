@@ -3,7 +3,7 @@ var Action = require('FSM/core/action');
 var _ = require('underscore');
 
 /**
- * Retrieves a JSON file from an external URL, and  sets fieldName to object of the returned json
+ * preforms a GET REST API call. Retrieves a JSON file from an external URL, and  sets fieldName to object of the returned json
  *  @memberof module:Actions
  */
 class RetrieveJSONAction extends Action {
@@ -16,7 +16,8 @@ class RetrieveJSONAction extends Action {
      * @property parameters
      * @type {Object}
      * @property {string} parameters.url
-     * @property {string} parameters.fieldName
+     * @property {MemoryField} parameters.fieldName - dot-notation name (global./context.) of field to set
+     * @property {ExpressionString|Object} parameters.headers - headers to send for the GET action
      */
     this.parameters = _.extend(this.parameters, {
       'url': '',
@@ -50,7 +51,7 @@ class RetrieveJSONAction extends Action {
         if (typeof headers !== "string") {
           headers = JSON.stringify(headers);
         }
-        headers = JSON.parse(_.template(headers)(data))
+        headers = JSON.parse(_.template(headers)(data));
       }
 
       //TODO: Implement use for method, params
@@ -73,7 +74,6 @@ class RetrieveJSONAction extends Action {
           }
 
           node.alldata(tick, node.properties.fieldName, json);
-          console.log('-------LLLLLLLLLLL', json.url, json.headers);
 
           // move to next step
           node.waitCode(tick, b3.SUCCESS());
@@ -89,6 +89,8 @@ class RetrieveJSONAction extends Action {
   }
 
   /**
+   * list of editor UI validation conditions
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

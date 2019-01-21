@@ -15,6 +15,7 @@ var ContextManager = require('FSM/contextManager');
  * This allows nesting of ScoreSelectors - actors can addscores for higher contexts. ONLY SCORERS CAN USE sub-ScoreSelectors 
  * - those include other Scorers, and AddScore-only (usually) Executors
  * @memberof module:Composites
+ * @private
  */
 class ScoreSelector extends Composite {
 
@@ -70,7 +71,7 @@ class ScoreSelector extends Composite {
   /**
    * Open method.
    *
-   * @private open
+   * @private 
    * @param {Tick} tick A tick instance.
    **/
   open(tick) {
@@ -225,7 +226,7 @@ class ScoreSelector extends Composite {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    * @private

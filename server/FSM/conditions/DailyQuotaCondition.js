@@ -26,7 +26,7 @@ class DailyQuotaCondition extends Condition {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/

@@ -104,6 +104,7 @@ class RetrieveXMLAction extends Action {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

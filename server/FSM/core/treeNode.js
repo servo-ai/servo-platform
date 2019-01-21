@@ -49,7 +49,7 @@ class TreeNode extends BaseNode {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state status.
    **/

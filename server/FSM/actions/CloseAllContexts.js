@@ -4,7 +4,7 @@ var Action = require('FSM/core/action')
 
 
 /**
- *Close current context, effectively reseting all the runningChilds and allowing re-open 
+ * Closes current context, including children. This is needed for re-entry. It resets all the runningChilds and allowing re-open 
  * 
  *  @memberof module:Actions
  **/
@@ -14,7 +14,7 @@ class CloseAllContexts extends Action {
     super();
 
     this.title = this.name = 'CloseAllContexts';
-    this.description = "Close current context and all its siblings, effectively reseting all the runningChilds and allowing re-open";
+    this.description = "Close current context and all its children, effectively reseting all the runningChilds and allowing re-open";
   }
   /**
    * Tick method.

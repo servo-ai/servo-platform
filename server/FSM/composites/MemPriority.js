@@ -23,7 +23,7 @@
  **/
 
 /**
- * Composite are nodes with more than one child. Typically the control the flow
+ * Composite are nodes with more than one child. Typically they control the flow
  * @module Composites
  **/
 
@@ -33,12 +33,10 @@ var Composite = require('../core/composite')
 var dblogger = require('../../utils/dblogger');
 
 /**
- * MemPriority is similar to Priority node, but when a child returns a 
+ * MemPriority tries to execute its children left to right, and returns SUCCESS 
+ * when first child returns SUCCESS. Otherwise, it returns FAILURE; When a child returns a 
  * `RUNNING` state, its index is recorded and in the next tick the, MemPriority 
  * calls the child recorded directly, without calling previous children again.
- *
- * 
- * 
  **/
 class MemPriority extends Composite {
 
@@ -52,7 +50,7 @@ class MemPriority extends Composite {
   /**
    * Open method.
    *
-   * @private open
+   * @private 
    * @param {Tick} tick A tick instance.
    **/
   open(tick) {
@@ -62,7 +60,7 @@ class MemPriority extends Composite {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/
@@ -86,6 +84,7 @@ class MemPriority extends Composite {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

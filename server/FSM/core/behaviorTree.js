@@ -1,7 +1,8 @@
 /**
  * BehaviorTree
  *
- * Copyright (c) 2017 Servo Labs Inc.
+ * Copyright (c) 2017-2019 Servo Labs Inc.  
+ * Parts Copyright (c) Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -27,7 +28,6 @@ var _ = require('underscore');
 var uuid = require('uuid');
 
 var dblogger = require("utils/dblogger.js");
-var utils = require("utils/utils.js");
 var config = require('config');
 
 var b3 = require('./b3');
@@ -67,6 +67,7 @@ var FSM;
 /**
  * BehaviorTree class
  * @memberof module:Core
+ * @private
  */
 class BehaviorTree {
 
@@ -585,7 +586,7 @@ class BehaviorTree {
    * target and the process objects.
    *
    * 
-   * @private tick
+   * @private
    * @param {Object} target A target object.
    * @param {Process} process An instance of process object.
    * @return {TickStatus} The tick signal status.

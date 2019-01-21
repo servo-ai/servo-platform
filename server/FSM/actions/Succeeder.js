@@ -47,7 +47,7 @@ class Succeeder extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} Always return `b3.SUCCESS`.
    **/

@@ -7,7 +7,7 @@ var dblogger = require('utils/dblogger');
 
 /**
  * maps from the context expected entities to the context memory fields, 
- * according to the map defined at the node properties
+ * according to the map defined at the node properties. Rarely used, as it happens automatically at the AskAndMap node.
  *  @memberof module:Actions
  **/
 class MapEntitiesToContextAction extends Action {

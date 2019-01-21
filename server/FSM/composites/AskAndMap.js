@@ -28,15 +28,21 @@ class AskAndMap extends Composite {
     // this is a context node for the scoreres sub trees
     this.title = this.name = 'AskAndMap';
     /**
+     * An object in the form of {"language code":"string"}. eg {"en":"my name is John"}
+     * @typedef TextObject 
+     * @property {string} string: language code
+     * @property {string} string: text
+     */
+    /**
      * @typedef ContextItem
-     * @prop {string} intentId main expected intent for this context. converted internally to an 'intentId' entity name, with expected value of intentId
-     * @prop {TextObject} description human understandable description for this context
-     * @prop {boolean} helper use for contextual help. Selected if (1) no sibling context was found and [(2) there was no default or (3) there was another child selected previously]
-     * @prop {boolean} timeout is used when question timeouts
-     * @prop {boolean} backtrack if true, this will be the child to enter on backtracking
-     * @prop {boolean} default use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
-     * @prop {boolean} passThru use when another AskAndMap is expected downwards, that uses same intent/entities. If true, dont use target on context switch
-     * @prop {Array<EntitiesToContextMapItem>} entities an array of expected entities
+     * @property {string} intentId main expected intent for this context. converted internally to an 'intentId' entity name, with expected value of intentId
+     * @property {TextObject} description human understandable description for this context
+     * @property {boolean} helper use for contextual help. Selected if (1) no sibling context was found and [(2) there was no default or (3) there was another child selected previously]
+     * @property {boolean} timeout is used when question timeouts
+     * @property {boolean} backtrack if true, this will be the child to enter on backtracking
+     * @property {boolean} default use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
+     * @property {boolean} passThru use when another AskAndMap is expected downwards, that uses same intent/entities. If true, dont use target on context switch
+     * @property {Array<EntitiesToContextMapItem>} entities an array of expected entities
      */
     /**
      * Node parameters
@@ -46,19 +52,19 @@ class AskAndMap extends Composite {
      * @property {boolean} parameters.cyclePrompts - if true, will show the prompts cyclicly. false: will stay on the last prompt forever.
      * @property {(ExpressionString|Object)} parameters.view - a file name of a view, or a view JSON object, to be used instead of the prompt in order to send native json
      * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
-     * @property {CompositeFieldName} parameters.imageDataArrayName - composite (message./global./context./volatile./local.) field name for an array object that contains data for the images
-     * @property {contexts:Array<ContextItem>} parameters.contexts  - an array of contexts, each consists of expected entities, intents and more (ContextItem)
-     * @property {boolean} replayActionOnReturnFromContextSwitch - if false, this node is not closed and re-opened when return from context switch
+     * @property {MemoryField} parameters.imageDataArrayName - composite (message./global./context./volatile./local.) field name for an array object that contains data for the images
+     * @property {Array<ContextItem>} parameters.contexts  - an array of contexts, each consists of expected entities, intents and more (ContextItem)
+     * @property {boolean}  parameters.replayActionOnReturnFromContextSwitch - if false, this node is not closed and re-opened when return from context switch
      **/
-    var parameters = {
+    this.parameters = _.extend(this.parameters, {
       "view": false,
       "prompt": [],
       "cyclePrompts": true,
       "imageHTML": false,
       "imageDataArrayName": "",
-      replayActionOnReturnFromContextSwitch: true,
+      "replayActionOnReturnFromContextSwitch": true,
 
-      contexts: [{
+      "contexts": [{
         //"_intentId": "main expected intent for this context. converted internally to an 'intentId' entity name, with expected value of intentId",
         intentId: '',
         //"_desctiption": "human understandable description for this context",
@@ -81,18 +87,8 @@ class AskAndMap extends Composite {
           'entityIndex': 0
         }]
       }]
-    };
-    /**
-     * Node parameters
-     * @property parameters
-     * @type {Object} parameters
-     * @property {(ExpressionString|Object|Array<ExpressionString>|Array<TextObject>)} parameters.prompt - a textual message to the user. can contains an array for random messages. can contain an object with "language" keys.
-     * @property {boolean} parameters.cyclePrompts - if true, will show the prompts cyclicly. false: will stay on the last prompt forever.
-     * @property {(ExpressionString|Object)} parameters.view - a file name of a view, or a view JSON object, to be used instead of the prompt in order to send native json
-     * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
-     * @property {CompositeFieldName} parameters.imageDataArrayName - composite (message./global./context./volatile./local.) field name for an array object that contains data for the images
-     **/
-    this.parameters = _.extend(this.parameters, parameters);
+    });
+
     this.description = "Send the message based on prompt or view properties. image is an html file name under images folder." +
       " imageDataArrayName is the composite field name for an array object that contains data for the images";
     this.description += ". Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map";
@@ -384,6 +380,7 @@ class AskAndMap extends Composite {
     return this.local(tick, 'step') === 1;
   }
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

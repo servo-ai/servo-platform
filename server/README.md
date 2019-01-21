@@ -1,5 +1,5 @@
 
-**Servo Bot Automation Framework** is the best framework for bots and automation. It allows developers to use visual architecture, open code and reusable AI.
+**Servo Bot Automation Framework** is the best framework around for building bots and automation flows. It allows developers to use visual architecture, open code and reusable AI.
 
 Among other things, it features:
 * A behavior tree editor
@@ -12,14 +12,15 @@ Among other things, it features:
 * Easy extention with NodeJS ES6 classes
 
 It is built for developers, by developers.
+<br>
+<hr>
+<br>
+### Tutorials
+To get started, see the wiki:
 
-# For a tutuorial, check out the Wiki:
-https://github.com/servo-ai/servo-platform/wiki
+<a href="https://github.com/servo-ai/servo-platform/wiki" target="_blank">https://github.com/servo-ai/servo-platform/wiki</a>
 
- 
-## Tutorials
-
-Some general behavior tree tutorials 
+If you are after general behavior tree tutorials: 
 <ul> 
 <li><a href="https://en.wikipedia.org/wiki/Behavior_tree_(artificial_intelligence,_robotics_and_control)" target="_blank"> Wikipedia's Behavior Tree article </a> </li>
 <li><a href="https://www.gamasutra.com/blogs/ChrisSimpson/20140717/221339/Behavior_trees_for_AI_How_they_work.php" target="_blank"> Behavior trees for AI: How they work</a></li>

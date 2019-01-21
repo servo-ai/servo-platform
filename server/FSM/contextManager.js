@@ -20,6 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
+ * @private
  **/
 var statsManager = require('FSM/statsManager');
 var _ = require('underscore');
@@ -35,11 +36,12 @@ var utils = require('utils/utils');
  * @property {string}  entityName - entity name on the message
  * @property {string} [intentId]
  * @property {string|Array} [expectedValue] - expected values for this entityName
- * @property {number}   [entityIndex=0] - for composite entities
+ * @property {number}   entityIndex - for composite entities; should default to 0
  */
 
 /**
  * reserved key names
+ * @private
  */
 const ContextManagerKeys = Object.freeze({
   CONTEXTMEM: "contextMem",
@@ -59,6 +61,7 @@ const ContextManagerKeys = Object.freeze({
  * Manages a node with child contexts. 
  * 
  * @memberof module:Core
+ * @private
  */
 class ContextManager {
 

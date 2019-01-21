@@ -1,7 +1,8 @@
 /**
  * Composite
  * 
- * Copyright (c) 2017 Servo Labs Inc.
+ * Copyright (c) 2017-2019 Servo Labs Inc.  
+ * Parts Copyright (c)  Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -93,6 +94,7 @@ class Composite extends BaseNode {
   /**
    * a composite must have children 
    * we can't use super so reuse by copy & paste for now
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

@@ -9,7 +9,7 @@ var Blackboard = require('./blackboard');
 var Target = require('FSM/core/target');
 var Tick = require('FSM/core/tick');
 /**
- * Process holds the nodes and trees memory
+ * Process holds the nodes and trees memory, and serializes/deserializes them to the database abstraction layer 
  * @memberof module:Core
  */
 class Process extends Blackboard {

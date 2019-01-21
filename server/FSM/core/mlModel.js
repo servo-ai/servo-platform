@@ -10,7 +10,8 @@ var _ = require('underscore');
  * it is a decorartor whose purpose is to change the current model used at 
  * the root of tree to a certain model. the model depends on the input type - 
  * for chat bot it would be an NLU model, for voice, ASR + NLU, for image, some image recognitions .  
- *@memberof module:Core
+ * @memberof module:Core
+ * @private
  **/
 class MLModel extends Decorator {
 
@@ -37,7 +38,7 @@ class MLModel extends Decorator {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

@@ -20,7 +20,7 @@ class RemoveTargetAction extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private 
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A state constant.
    **/

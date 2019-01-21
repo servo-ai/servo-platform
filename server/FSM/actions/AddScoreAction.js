@@ -14,7 +14,7 @@ var Tick = require('FSM/core/tick');
 /**
  * AddScoreAction sets a defined score at 
  * the nearest ScoreSelector node ancestor
- * 
+ * @private
  */
 class AddScoreAction extends Action {
 

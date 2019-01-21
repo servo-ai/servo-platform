@@ -5,7 +5,7 @@ var Action = require('FSM/core/action')
 
 /**
  * 
- * Clears the current context
+ * Clears the current context memory
  *  @memberof module:Actions
  **/
 class ClearContext extends Action {

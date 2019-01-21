@@ -5,11 +5,15 @@ var FSMManager;
 var _ = require('underscore');
 var dblogger = require('utils/dblogger');
 const utils = require('utils/utils');
-
+/**
+ * @memberof: module:Core
+ * @private
+ * @private  */
 /**
  * helper function
  * @param {*} fsm 
  * @param {*} bpData 
+ * @private
  */
 function startOneProcess(fsm, bpData) {
   FSMManager = require('FSM/fsm-manager');
@@ -38,7 +42,7 @@ function startOneProcess(fsm, bpData) {
  * return the full id based on user and id
  * @param {*} fsmId 
  * @param {*} userId 
- */
+ * @private  */
 function getFullFsmId(fsmId, userId) {
   // calculate root folder
   const pathObj = {
@@ -57,7 +61,7 @@ class DebugFSM {
   /**
    * setting a single channel for all data
    * @param {Function} breakpointReached 
-   */
+   * @private  */
   static setBreakpointReachedCallback(breakpointReached) {
     _breakpointReached = breakpointReached;
   }
@@ -65,7 +69,7 @@ class DebugFSM {
   /**
    * callback when breakpoint was reachd
    * @param {*} bpReachData 
-   */
+   * @private  */
   static breakpointReached(bpReachData) {
     FSMManager = require('FSM/fsm-manager');
     //FSMManager.tickPause(bpReachData.processId);
@@ -89,7 +93,7 @@ class DebugFSM {
   /**
    * forward to the next node
    * @param {Object} bpData 
-   */
+   * @private  */
   static step(bpData) {
     return new Promise((resolve, reject) => {
 
@@ -118,7 +122,7 @@ class DebugFSM {
   /**
    * run/continue
    * @param {*} bpData 
-   */
+   * @private  */
   static run(bpData) {
     return new Promise((resolve, reject) => {
 
@@ -155,7 +159,7 @@ class DebugFSM {
    * @param {string} fsmId 
    * @param {string} processId 
    * @param {Object} bpData 
-   */
+   * @private  */
   static setAllBreakpoints(fsmId, processId, bpData, userId) {
     return new Promise((resolve, reject) => {
       // let fullFsmId = getFullFsmId(fsmId, userId);
@@ -174,7 +178,7 @@ class DebugFSM {
   /**
    * 
    * @param {*} nodeId 
-   */
+   * @private  */
   static setBreakpoint(bpData) {
     return new Promise((resolve, reject) => {
 
@@ -198,7 +202,7 @@ class DebugFSM {
    * clear a bp for an FSM
    * @param {*} fsmId 
    * @param {*} nodeId 
-   */
+   * @private  */
   static clearBreakpoint(bpData) {
     return new Promise((resolve) => {
       let fullFsmIds = fsmModel.fsmCacheKey(bpData.userId, bpData.fsmId, '');

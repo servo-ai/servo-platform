@@ -9,6 +9,7 @@ var utils = require('utils/utils');
  * Trains an intent based on context fields whose name taken from node parameters. 
  * Intent name taken from intentNameField, using trainingTextField. Using current NLU engine
  *  @memberof module:Actions
+ * @private
  **/
 class TrainIntentAction extends Action {
 
@@ -42,7 +43,7 @@ class TrainIntentAction extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} Always return `b3.FAILURE`.
    **/

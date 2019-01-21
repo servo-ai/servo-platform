@@ -1,7 +1,8 @@
 /**
  * BaseNode
  *
- * Copyright (c) 2017 Servo Labs Inc.  
+ * Copyright (c) 2017-2019 Servo Labs Inc.  
+ * Parts Copyright (c)  Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -20,6 +21,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
+ * @private
  **/
 const _RUNNING_TIMEOUT_SEC = 3600; // an hour
 
@@ -1227,7 +1229,7 @@ class BaseNode {
    * execution of node (perform a task, call children, etc.). It is called
    * every time a node is asked to execute.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @param {Target} target A target instace
    * @return {TickStatus}
@@ -1274,6 +1276,7 @@ class BaseNode {
   **/
   /**
    * a base node should have a title
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

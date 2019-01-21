@@ -10,10 +10,14 @@ var dblogger = require('utils/dblogger');
  *  @memberof module:Actions
  */
 class SetFieldAction extends Action {
-
+  /**
+   * @typedef MemoryField
+   * @property {string}  string: (message./global./context./volatile./local./fsm.)fieldname string should have a dot notation with the memory and field names. Eg: message.chat_message, context.amount etc
+   *
+   */
   /**
    * 
-   * @param {*} settings 
+   * constructor
    */
   constructor(settings) {
     super();
@@ -24,15 +28,14 @@ class SetFieldAction extends Action {
      *
      * @property parameters
      * @type {Object}
-     * @prop {string} parameters.fieldValue
-     *  @prop {string} parameters.fieldName
+     * @property {ExpressionString|MemoryField} parameters.fieldValue - value to assign to fieldName
+     * @property {MemoryField} parameters.fieldName -  dot notation with the object name. Eg: message.chat_message, context.amount etc '
      **/
-    var parameters = {
+    this.parameters = _.extend(this.parameters, {
       'fieldName': '',
       'fieldValue': ''
 
-    };
-    _.extend(this.parameters, parameters);
+    });
     this.description = 'Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ';
     settings = settings || {};
     if (utils.isEmpty(settings.fieldName)) {
@@ -45,7 +48,7 @@ class SetFieldAction extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {TickStatus} A status constant.
    **/
@@ -69,6 +72,7 @@ class SetFieldAction extends Action {
 
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

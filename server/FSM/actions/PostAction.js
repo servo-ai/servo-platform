@@ -4,7 +4,7 @@ var Action = require('FSM/core/action');
 var _ = require('underscore');
 var dblogger = require('utils/dblogger')
 /**
- * Posts a JSON payload to a URL, and  sets fieldName to the returned object
+ * Posts a JSON payload to a URL, and sets fieldName to the returned object
  *  @memberof module:Actions
  */
 class PostAction extends Action {
@@ -17,14 +17,17 @@ class PostAction extends Action {
      * @property parameters
      * @type {Object}
      * @property {string} parameters.url - post URL
-     * @property {Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a template and parsed to a JSON object
+     * @property {ExpressionString|Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a template and parsed to a JSON object
      * @property {Boolean} parameters.json - set true to indicate application/json post action
+     * @property {string}  parameters.headers POST headers
+     * @property {MemoryField}  parameters.fieldName dot-notated field name
      */
     this.parameters = _.extend(this.parameters, {
       'url': '',
       'payload': {},
       'fieldName': '',
-      'json': true
+      'json': true,
+      'headers': ''
     });
     settings = settings || {};
 
@@ -49,12 +52,7 @@ class PostAction extends Action {
       tick.process.set('step', 1, tick.tree.id, this.id);
       node.waitCode(tick, b3.RUNNING());
       var data = this.alldata(tick);
-      data.global.xxx = {
-        x: "FFF",
-        y: {
-          z: 12
-        }
-      };
+
       //TODO: Implement use for method, params
       //var request = PipeManager.getPipe('request');
       var request = require("request");
@@ -102,6 +100,7 @@ class PostAction extends Action {
   }
 
   /**
+   * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node
    * @return {Array<Validator>}
    */
   validators(node) {

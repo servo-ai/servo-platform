@@ -29,7 +29,6 @@ var Action = require('../core/action')
 
 /**
  * This action node returns `FAILURE` always.
- * It also resets the context and target, as usually it will be on the end of a sequence
  *
  *  @memberof module:Actions
  **/

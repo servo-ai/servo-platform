@@ -29,7 +29,8 @@ var Action = require('../core/action')
 
 
 /**
- * This action node returns RUNNING always.
+ * This action node returns RUNNING always. 
+ * USE WITH CARE as it might freeze the tree 
  *  @memberof module:Actions
  **/
 class Runner extends Action {
@@ -42,7 +43,7 @@ class Runner extends Action {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private 
    * @param {Tick} tick A tick instance.
    * @return {Constant} Always return `b3.RUNNING`.
    **/

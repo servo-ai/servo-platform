@@ -1,6 +1,8 @@
 var b3 = require('FSM/core/b3');
 var Composite = require('FSM/core/composite');
-
+/**
+ * @private
+ */
 class Parallel extends Composite {
   /**
    * Node name. Default to `Sequence`.
@@ -17,7 +19,7 @@ class Parallel extends Composite {
   /**
    * Tick method.
    *
-   * @private tick
+   * @private
    * @param {Tick} tick A tick instance.
    * @return {Constant} A state constant.
    **/

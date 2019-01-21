@@ -6,7 +6,7 @@ const EXPIRE_MINUTES = 600
 
 /**
  * map the entities from context to parent, based on the map in properties. Entities 
- * will be mapped to same name on parent context
+ * will be mapped to same name on parent context. Rarely used, as it happens automatically at the AskAndMap node.
  *  @memberof module:Actions
  **/
 class MapEntitiesToParentAction extends Action {

@@ -22,7 +22,7 @@ class FieldNotEmptyCondition extends Condition {
      *
      * @property parameters
      * @type {Object}
-     * @property {CompositeFieldName} parameters.fieldName
+     * @property {MemoryField} parameters.fieldName
      **/
     this.parameters = {
       'fieldName': ''

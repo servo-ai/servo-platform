@@ -1,5 +1,8 @@
 
 # Servo.ai
+**Servo Bot Automation Framework** is the leading framework for building bots and automation flows. It allows developers to use visual architecture, open code and reusable AI.
+
+See <a href="http://dev.servolabs.org"  target="_blank">dev.servolabs.org </a> for a playground
 
 # Installation
 1. install nodejs (v8 or v9) and npm (v5.5 and above)
@@ -17,12 +20,19 @@ If you get errors during npm install, then:
 	* linux:  sudo apt-get install build-essential libssl-dev
     
 # Run Servo
- npm start
- 
-Servo uses two terminals, one for the server and one for the editor
+From server or editor folder:
+ *npm start*
 
 On the browser:
 * open localhost:8000
+
+# Tutorials
+
+A getting started tutorial could be found at the wiki: <a href="https://github.com/servo-ai/servo-platform/wiki" target="_blank">https://github.com/servo-ai/servo-platform/wiki</a>
+
+For reference documentation, see <a href="https://servo-ai.github.io/servo-platform/" target="_blank">https://servo-ai.github.io/servo-platform/</a>
+
+<hr>
 
 # Build documentation
 * cd src/server
@@ -32,6 +42,13 @@ On the browser:
 
 # Optional/advanced installations:	
 	
+## Terminals
+Servo uses two apps, one for the server and one for the editor. npm start will run them both on the same terminal. you can, however, run them in two separate terminals:
+* cd server
+ node app.js
+* cd editor
+ gulp serve
+
 ## **Database:**
 
 ### couchbase

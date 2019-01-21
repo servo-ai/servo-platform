@@ -21,7 +21,8 @@ If you get errors during npm install, then:
     
 # Run Servo
 From server or editor folder:
- *npm start*
+<br>
+ **npm start**
 
 On the browser:
 * open localhost:8000
@@ -35,8 +36,8 @@ For reference documentation, see <a href="https://servo-ai.github.io/servo-platf
 <hr>
 
 # Build documentation
-* cd src/server
-* jsdoc ./ -r -c ./jsdoc-config.json  -d ./outdocs -t ./ink-docstrap/template -R ./README.md
+* cd server
+* jsdoc ./ -r -c ./jsdoc-config.json  -d ../docs -t ./ink-docstrap/template -R ./README.md
 * npm run cpdoc
 
 
@@ -44,9 +45,9 @@ For reference documentation, see <a href="https://servo-ai.github.io/servo-platf
 	
 ## Terminals
 Servo uses two apps, one for the server and one for the editor. npm start will run them both on the same terminal. you can, however, run them in two separate terminals:
-* cd server
+* cd server && 
  node app.js
-* cd editor
+* cd editor &&
  gulp serve
 
 ## **Database:**

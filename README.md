@@ -24,15 +24,15 @@ If you get errors during npm install, then:
 	* linux:  sudo apt-get install build-essential libssl-dev
     
 # Run Servo
-From server or editor folder:
+From **server** or **editor** folder:
 <br>
- **npm start**
+ cd server && **npm start**
 
 On the browser open localhost:8000
 
 # Tutorials
 
-A getting started tutorial could be found at the wiki: <a href="https://github.com/servo-ai/servo-platform/wiki" target="_blank">https://github.com/servo-ai/servo-platform/wiki</a>
+To get started, see the wiki: <a href="https://github.com/servo-ai/servo-platform/wiki" target="_blank">https://github.com/servo-ai/servo-platform/wiki</a>
 
 For reference documentation, see <a href="https://servo-ai.github.io/servo-platform/" target="_blank">https://servo-ai.github.io/servo-platform/</a>
 

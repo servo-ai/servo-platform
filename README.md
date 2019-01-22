@@ -24,8 +24,7 @@ From server or editor folder:
 <br>
  **npm start**
 
-On the browser:
-* open localhost:8000
+On the browser open localhost:8000
 
 # Tutorials
 

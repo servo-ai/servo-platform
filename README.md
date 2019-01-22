@@ -2,7 +2,10 @@
 # Servo.ai
 **Servo Bot Automation Framework** is the leading framework for building bots and automation flows. It allows developers to use visual architecture, open code and reusable AI.
 
-See <a href="http://dev.servolabs.org"  target="_blank">dev.servolabs.org </a> for a playground
+Go to <a href="http://dev.servolabs.org"  target="_blank">dev.servolabs.org </a> for a playground
+
+Click to watch a short intro
+[![Servo](https://j.gifs.com/yol82R.gif)](https://www.youtube.com/watch?v=KREhqahVqA0)]
 
 # Installation
 1. install nodejs (v8 or v9) and npm (v5.5 and above)

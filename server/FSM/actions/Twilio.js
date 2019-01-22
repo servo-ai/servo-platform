@@ -16,8 +16,8 @@ class Twilio extends Action {
   constructor(settings) {
     settings = settings || {};
     super();
-    var accountSID = settings.accountSID || config.twilio.ACCOUNT_SID;
-    var authToken = settings.authToken || config.twilio.AUTH_TOKEN;
+    var accountSID = settings.accountSID || (config.twilio && config.twilio.ACCOUNT_SID);
+    var authToken = settings.authToken || (config.twilio && config.twilio.AUTH_TOKEN);
     twilioClient = client(accountSID, authToken);
 
     this.title = this.name = 'Twilio';

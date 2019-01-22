@@ -39,7 +39,8 @@ let Target = require('FSM/core/target');
 /**
  * A string expression to be evaluated against all memory areas.
  * if contains <%= %> with composite variables with the format of (fsm., global., context, volatile., local., message.<field name> ),
- * it will be evaluated against an object with these member objects   
+ * it will be evaluated against an object with these member objects. Otherwise, evaluated literally. 
+ * FOR A STRING, ENCLOSE WITH 'COMMAS'!
  *@typedef ExpressionString 
  */
 /**

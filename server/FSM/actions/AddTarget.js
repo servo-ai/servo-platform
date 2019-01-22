@@ -20,7 +20,8 @@ class AddTarget extends Action {
      * @property parameters
      * @type {Object}
      * @property {ExpressionString} parameters.text
-     * @property {ExpressionString} parameters.text
+     * @property {ExpressionString} parameters.intentId
+     * @property {Array<KeyValuePair>} parameters.entities
      */
     this.parameters = _.extend(this.parameters, {
       'text': '',

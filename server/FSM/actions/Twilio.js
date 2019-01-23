@@ -2,7 +2,6 @@
 var b3 = require('../core/b3');
 var Action = require('../core/action');
 var config = require('config');
-var utils = require('../../utils/utils');
 var client = require('twilio');
 var _ = require('underscore');
 var dblogger = require('utils/dblogger');

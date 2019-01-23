@@ -70,7 +70,7 @@
     }
 
     function isTemplate(projectName) {
-      return projectName === projectModel.STARTINGTEMPLATENAME;
+      return projectName === projectModel.STARTINGTEMPLATENAME || projectName === "unit-tests";
     }
 
     function newProject() {

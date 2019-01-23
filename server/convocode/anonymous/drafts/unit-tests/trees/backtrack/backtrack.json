@@ -41,7 +41,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "PositiveIntent"
@@ -50,6 +49,7 @@
 						"intentId": "NegativeIntent"
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -126,7 +126,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -157,6 +156,7 @@
 						]
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

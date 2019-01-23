@@ -1,0 +1,103 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "calc-date-diff",
+	"name": "calc-date-diff",
+	"title": "calc-date-diff",
+	"description": "",
+	"root": "be354fb7-3e20-4c69-bfbd-f5d6ada6cf16",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"6cda3167-f882-40c3-8d89-59b18e79cac6": {
+			"id": "6cda3167-f882-40c3-8d89-59b18e79cac6",
+			"name": "CalcDateDiff",
+			"title": "CalcDateDiff",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"dateTo": "context.lateAtNight",
+				"dateFrom": "'1/22/2019, 11:59:00 PM'",
+				"fieldName": "context.dateDiff"
+			},
+			"display": {
+				"x": -4,
+				"y": 290
+			}
+		},
+		"43e98bd2-31f9-4c6a-ab1f-8e7ebd930a1d": {
+			"id": "43e98bd2-31f9-4c6a-ab1f-8e7ebd930a1d",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "context.lateAtNight",
+				"fieldValue": "'Tue Jan 23 2019 01:00:00'"
+			},
+			"display": {
+				"x": -206,
+				"y": 252
+			}
+		},
+		"be354fb7-3e20-4c69-bfbd-f5d6ada6cf16": {
+			"id": "be354fb7-3e20-4c69-bfbd-f5d6ada6cf16",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -84,
+				"y": 146
+			},
+			"children": [
+				"43e98bd2-31f9-4c6a-ab1f-8e7ebd930a1d",
+				"6cda3167-f882-40c3-8d89-59b18e79cac6",
+				"12030805-2cd9-4f9b-bbee-6248d5acb4c9"
+			]
+		},
+		"12030805-2cd9-4f9b-bbee-6248d5acb4c9": {
+			"id": "12030805-2cd9-4f9b-bbee-6248d5acb4c9",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"diff is <%=context.dateDiff%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 244,
+				"y": 298
+			}
+		}
+	},
+	"display": {
+		"camera_x": 764.5,
+		"camera_y": 390,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

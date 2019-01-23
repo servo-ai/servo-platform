@@ -1,234 +1,239 @@
 {
-  "version": "0.9.0",
-  "scope": "tree",
-  "id": "pass-thru",
-  "name": "pass-thru",
-  "title": "pass-thru",
-  "description": "",
-  "root": "352799c1-3a4f-45ce-8903-741061dc7dc7",
-  "properties": {
-    "channels": "chatsim"
-  },
-  "nodes": {
-    "352799c1-3a4f-45ce-8903-741061dc7dc7": {
-      "id": "352799c1-3a4f-45ce-8903-741061dc7dc7",
-      "name": "AskAndMap",
-      "title": "what ud like to do",
-      "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "view": false,
-        "prompt": [
-          "what ud like to do?"
-        ],
-        "cyclePrompts": true,
-        "imageHTML": false,
-        "imageDataArrayName": "",
-        "replayActionOnReturnFromContextSwitch": true,
-        "passThru": false,
-        "contexts": [{
-            "intentId": "BalanceIntent"
-          },
-          {
-            "passThru": true,
-            "intentId": "HowAreYouIntent"
-          }
-        ]
-      },
-      "display": {
-        "x": 10,
-        "y": 98
-      },
-      "children": [
-        "9dac1090-8202-462e-8f08-c1d1d053bf37",
-        "6699e873-5b29-4055-8df5-c65431e98152"
-      ]
-    },
-    "9dac1090-8202-462e-8f08-c1d1d053bf37": {
-      "id": "9dac1090-8202-462e-8f08-c1d1d053bf37",
-      "name": "AskAndMap",
-      "title": "which account",
-      "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "view": false,
-        "prompt": [
-          "which account?"
-        ],
-        "cyclePrompts": true,
-        "imageHTML": false,
-        "imageDataArrayName": "",
-        "replayActionOnReturnFromContextSwitch": true,
-        "passThru": false,
-        "contexts": [{
-            "intentId": "",
-            "description": {
-              "en": ""
-            },
-            "helper": false,
-            "timeout": false,
-            "entities": [{
-              "contextFieldName": "accountNumber",
-              "entityName": "number",
-              "entityIndex": 0
-            }]
-          },
-          {
-            "default": true
-          }
-        ]
-      },
-      "display": {
-        "x": -238,
-        "y": 222
-      },
-      "children": [
-        "6e1e9236-234e-48c5-8be2-57c316e8221f",
-        "2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa"
-      ]
-    },
-    "6e1e9236-234e-48c5-8be2-57c316e8221f": {
-      "id": "6e1e9236-234e-48c5-8be2-57c316e8221f",
-      "name": "GeneralMessage",
-      "title": "balance for account number",
-      "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "replayActionOnReturnFromContextSwitch": true,
-        "view": false,
-        "prompt": [
-          "balance for account #<%=context.accountNumber%> is $10000"
-        ],
-        "cyclePrompts": true,
-        "pushMessageOut": false,
-        "imageHTML": false,
-        "imageDataArrayName": ""
-      },
-      "display": {
-        "x": -342,
-        "y": 352
-      }
-    },
-    "2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa": {
-      "id": "2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa",
-      "name": "GeneralMessage",
-      "title": "default answer",
-      "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "replayActionOnReturnFromContextSwitch": true,
-        "view": false,
-        "prompt": [
-          "default answer"
-        ],
-        "cyclePrompts": true,
-        "pushMessageOut": false,
-        "imageHTML": false,
-        "imageDataArrayName": ""
-      },
-      "display": {
-        "x": -134,
-        "y": 352
-      }
-    },
-    "6699e873-5b29-4055-8df5-c65431e98152": {
-      "id": "6699e873-5b29-4055-8df5-c65431e98152",
-      "name": "AskAndMap",
-      "title": "AskAndMap",
-      "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "view": false,
-        "prompt": [
-          "what's on your mind?"
-        ],
-        "cyclePrompts": true,
-        "imageHTML": false,
-        "imageDataArrayName": "",
-        "replayActionOnReturnFromContextSwitch": true,
-        "passThru": false,
-        "contexts": [{
-            "intentId": "HowAreYouIntent"
-          },
-          {
-            "helper": true
-          }
-        ]
-      },
-      "display": {
-        "x": 178,
-        "y": 222
-      },
-      "children": [
-        "cbf9e1b1-f98b-47be-9897-7cb2fa923d88",
-        "e5c2e482-85ba-4b88-8a9f-995394a05181"
-      ]
-    },
-    "e5c2e482-85ba-4b88-8a9f-995394a05181": {
-      "id": "e5c2e482-85ba-4b88-8a9f-995394a05181",
-      "name": "GeneralMessage",
-      "title": "default answer",
-      "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "replayActionOnReturnFromContextSwitch": true,
-        "view": false,
-        "prompt": [
-          "default answer"
-        ],
-        "cyclePrompts": true,
-        "pushMessageOut": false,
-        "imageHTML": false,
-        "imageDataArrayName": ""
-      },
-      "display": {
-        "x": 282,
-        "y": 352
-      }
-    },
-    "cbf9e1b1-f98b-47be-9897-7cb2fa923d88": {
-      "id": "cbf9e1b1-f98b-47be-9897-7cb2fa923d88",
-      "name": "GeneralMessage",
-      "title": "GeneralMessage",
-      "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-      "properties": {
-        "debug-log": "",
-        "runningTimeoutSec": 600,
-        "maxRetriesNumber": 5,
-        "replayActionOnReturnFromContextSwitch": true,
-        "view": false,
-        "prompt": [
-          "i'm good"
-        ],
-        "cyclePrompts": true,
-        "pushMessageOut": false,
-        "imageHTML": false,
-        "imageDataArrayName": ""
-      },
-      "display": {
-        "x": 74,
-        "y": 352
-      }
-    }
-  },
-  "display": {
-    "camera_x": 768,
-    "camera_y": 181.99999991431832,
-    "camera_z": 1,
-    "x": -30,
-    "y": -38
-  },
-  "state": "draft"
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "pass-thru",
+	"name": "pass-thru",
+	"title": "pass-thru",
+	"description": "",
+	"root": "352799c1-3a4f-45ce-8903-741061dc7dc7",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"352799c1-3a4f-45ce-8903-741061dc7dc7": {
+			"id": "352799c1-3a4f-45ce-8903-741061dc7dc7",
+			"name": "AskAndMap",
+			"title": "what ud like to do",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"what ud like to do?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"contexts": [
+					{
+						"intentId": "BalanceIntent"
+					},
+					{
+						"passThru": true,
+						"intentId": "HowAreYouIntent"
+					}
+				],
+				"passThru": false
+			},
+			"display": {
+				"x": 10,
+				"y": 98
+			},
+			"children": [
+				"9dac1090-8202-462e-8f08-c1d1d053bf37",
+				"6699e873-5b29-4055-8df5-c65431e98152"
+			]
+		},
+		"9dac1090-8202-462e-8f08-c1d1d053bf37": {
+			"id": "9dac1090-8202-462e-8f08-c1d1d053bf37",
+			"name": "AskAndMap",
+			"title": "which account",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"which account?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"helper": false,
+						"timeout": false,
+						"entities": [
+							{
+								"contextFieldName": "accountNumber",
+								"entityName": "number",
+								"entityIndex": 0
+							}
+						]
+					},
+					{
+						"default": true
+					}
+				],
+				"passThru": false
+			},
+			"display": {
+				"x": -238,
+				"y": 222
+			},
+			"children": [
+				"6e1e9236-234e-48c5-8be2-57c316e8221f",
+				"2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa"
+			]
+		},
+		"6e1e9236-234e-48c5-8be2-57c316e8221f": {
+			"id": "6e1e9236-234e-48c5-8be2-57c316e8221f",
+			"name": "GeneralMessage",
+			"title": "balance for account number",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"balance for account #<%=context.accountNumber%> is $10000"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -342,
+				"y": 352
+			}
+		},
+		"2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa": {
+			"id": "2acf477a-14b1-4ed4-8cfc-ddfa4e08fefa",
+			"name": "GeneralMessage",
+			"title": "default answer",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"default answer"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -134,
+				"y": 352
+			}
+		},
+		"6699e873-5b29-4055-8df5-c65431e98152": {
+			"id": "6699e873-5b29-4055-8df5-c65431e98152",
+			"name": "AskAndMap",
+			"title": "AskAndMap",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"what's on your mind?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"contexts": [
+					{
+						"intentId": "HowAreYouIntent"
+					},
+					{
+						"helper": true
+					}
+				],
+				"passThru": false
+			},
+			"display": {
+				"x": 178,
+				"y": 222
+			},
+			"children": [
+				"cbf9e1b1-f98b-47be-9897-7cb2fa923d88",
+				"e5c2e482-85ba-4b88-8a9f-995394a05181"
+			]
+		},
+		"e5c2e482-85ba-4b88-8a9f-995394a05181": {
+			"id": "e5c2e482-85ba-4b88-8a9f-995394a05181",
+			"name": "GeneralMessage",
+			"title": "default answer",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"default answer"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 282,
+				"y": 352
+			}
+		},
+		"cbf9e1b1-f98b-47be-9897-7cb2fa923d88": {
+			"id": "cbf9e1b1-f98b-47be-9897-7cb2fa923d88",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"i'm good"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 74,
+				"y": 352
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 181.99999991431832,
+		"camera_z": 1,
+		"x": -30,
+		"y": -38
+	},
+	"state": "draft"
 }

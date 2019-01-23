@@ -204,7 +204,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -222,6 +221,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -250,7 +250,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -270,6 +269,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -298,7 +298,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -318,6 +317,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

@@ -146,7 +146,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "stamintent"
@@ -159,6 +158,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -244,7 +244,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "WireIntent",
@@ -278,6 +277,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -331,7 +331,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -353,6 +352,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

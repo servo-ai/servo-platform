@@ -27,7 +27,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "PositiveIntent"
@@ -36,6 +35,7 @@
 						"intentId": "NegativeIntent"
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false,
 				"intents": [
 					{

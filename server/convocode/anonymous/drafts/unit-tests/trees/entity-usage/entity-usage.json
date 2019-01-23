@@ -25,7 +25,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"helper": false,
@@ -47,7 +46,8 @@
 					{
 						"helper": true
 					}
-				]
+				],
+				"passThru": false
 			},
 			"display": {
 				"x": -58,
@@ -99,7 +99,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -122,6 +121,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

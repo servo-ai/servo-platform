@@ -289,7 +289,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "testIntent",
@@ -311,6 +310,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

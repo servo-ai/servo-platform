@@ -123,7 +123,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"passThru": false,
@@ -141,7 +140,8 @@
 							}
 						]
 					}
-				]
+				],
+				"passThru": false
 			},
 			"display": {
 				"x": 18,

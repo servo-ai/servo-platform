@@ -37,6 +37,12 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
 				"contexts": [
 					{
 						"intentId": "WireIntent",
@@ -80,7 +86,8 @@
 			"display": {
 				"x": -286,
 				"y": -302
-			}
+			},
+			"children": []
 		},
 		"19f14c8b-006b-42e7-846f-e365d8b7a048": {
 			"id": "19f14c8b-006b-42e7-846f-e365d8b7a048",
@@ -249,7 +256,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -269,6 +275,7 @@
 						]
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false,
 				"intents": [
 					{

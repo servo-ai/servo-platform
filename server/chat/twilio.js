@@ -1,6 +1,6 @@
 var config = require('../config');
 var utils = require('../utils/utils');
-var client = require('twilio')(config.twilio.ACCOUNT_SID, config.twilio.AUTH_TOKEN);
+var client = require('twilio')(config.twilio && config.twilio.ACCOUNT_SID, config.twilio && config.twilio.AUTH_TOKEN);
 var Promise = require('promise');
 
 var dblogger = require('../utils/dblogger');

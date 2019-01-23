@@ -98,7 +98,7 @@ class CalcDateDiff extends Action {
 
             var bool1 = field && (field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
             var bool2 = field && (field.indexOf('\'') === 0 || field.indexOf('"') === 0 || !isNaN(field));
-            return bool1 && bool2;
+            return bool1 || bool2;
         }
 
         return [{

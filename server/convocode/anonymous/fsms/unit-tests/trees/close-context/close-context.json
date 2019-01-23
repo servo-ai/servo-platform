@@ -44,6 +44,12 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
 				"contexts": [
 					{
 						"helper": false,
@@ -67,7 +73,8 @@
 			"display": {
 				"x": 182,
 				"y": -124
-			}
+			},
+			"children": []
 		},
 		"361a7734-44db-4d13-9787-d5ff1281c7b6": {
 			"id": "361a7734-44db-4d13-9787-d5ff1281c7b6",
@@ -86,7 +93,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "PositiveIntent"
@@ -95,6 +101,7 @@
 						"intentId": "NegativeIntent"
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -187,7 +194,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"intentId": "PositiveIntent"
@@ -196,6 +202,7 @@
 						"intentId": "NegativeIntent"
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
@@ -309,7 +316,6 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"passThru": false,
 				"contexts": [
 					{
 						"helper": false,
@@ -332,6 +338,7 @@
 						"helper": true
 					}
 				],
+				"passThru": false,
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {

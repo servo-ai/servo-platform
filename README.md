@@ -2,7 +2,7 @@
 # Servo.ai
 **Servo Bot Automation Framework** is the leading framework for building bots and automation flows. It allows developers to use visual architecture, open code and reusable AI.
 
-Go to <a href="http://dev.servolabs.org"  target="_blank">dev.servolabs.org </a> for a playground
+Go to <a href="http://dev.servolabs.org:8081"  target="_blank">dev.servolabs.org:8081 </a> for a playground
 
 Or click to watch a short intro video:
 <br>

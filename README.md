@@ -6,7 +6,7 @@ Go to <a href="http://dev.servolabs.org:8081"  target="_blank">dev.servolabs.org
 
 Or click to watch a short intro video:
 <br>
-<span style=" margin: auto;">[![Servo](https://j.gifs.com/lxQOk1@426x240.gif)](https://www.youtube.com/watch?v=KREhqahVqA0)]</span>
+<span style="display: inline-block; margin: auto;">[![Servo](https://j.gifs.com/lxQOk1@426x240.gif)](https://www.youtube.com/watch?v=KREhqahVqA0)]</span>
 
 # Installation
 1. install nodejs (v8 or v9) and npm (v5.5 and above)

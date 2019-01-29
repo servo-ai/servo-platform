@@ -146,4 +146,5 @@ load(path, 'actions', 'AddEntity');
 load(path, 'actions', 'Twilio');
 load(path, 'actions', 'CloseAllContexts');
 load(path, 'actions', 'CalcDateDiff');
+load(path, 'conditions', 'IsValidField');
 module.exports = B3Nodes;

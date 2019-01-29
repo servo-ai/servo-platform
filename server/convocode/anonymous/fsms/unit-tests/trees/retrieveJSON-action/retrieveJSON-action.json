@@ -45,8 +45,7 @@
 				"maxRetriesNumber": 5,
 				"replayActionOnReturnFromContextSwitch": true,
 				"url": "http://httpbin.org/get",
-				"fieldName": "global.postReply",
-				"headers": ""
+				"fieldName": "global.postReply"
 			},
 			"display": {
 				"x": -324,

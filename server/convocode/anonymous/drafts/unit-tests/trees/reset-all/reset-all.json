@@ -1,0 +1,252 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "reset-all",
+	"name": "reset-all",
+	"title": "reset-all",
+	"description": "",
+	"root": "2a490b3e-1bf0-4cdd-8b01-eed47e3f9a11",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"2a490b3e-1bf0-4cdd-8b01-eed47e3f9a11": {
+			"id": "2a490b3e-1bf0-4cdd-8b01-eed47e3f9a11",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -2,
+				"y": -46
+			},
+			"children": [
+				"a4d4a4b9-001d-4ef8-8a1e-4b68ff007a77",
+				"6e16e5b7-bdd7-4fd2-a5c0-ab5e459b9b65"
+			]
+		},
+		"fdf2e64c-8073-4c28-ae18-15918d19922a": {
+			"id": "fdf2e64c-8073-4c28-ae18-15918d19922a",
+			"name": "SetFieldAction",
+			"title": "global.x 1",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.x",
+				"fieldValue": "1"
+			},
+			"display": {
+				"x": -216,
+				"y": 446
+			}
+		},
+		"4feaeff3-e80b-4849-8899-6d2119b187be": {
+			"id": "4feaeff3-e80b-4849-8899-6d2119b187be",
+			"name": "SetFieldAction",
+			"title": "fsm.x 2",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "fsm.x",
+				"fieldValue": "2"
+			},
+			"display": {
+				"x": -30,
+				"y": 452
+			}
+		},
+		"38e27fac-c1d4-485b-8bf7-b4264ff8dd2a": {
+			"id": "38e27fac-c1d4-485b-8bf7-b4264ff8dd2a",
+			"name": "ResetAll",
+			"title": "ResetAll",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"dontEndSession": false,
+				"dontRemoveTarget": false,
+				"emptyGlobalMemory": false
+			},
+			"display": {
+				"x": 296,
+				"y": 484
+			}
+		},
+		"13db71bb-5672-4a6b-a0d3-5f985f5ba175": {
+			"id": "13db71bb-5672-4a6b-a0d3-5f985f5ba175",
+			"name": "GeneralMessage",
+			"title": "fsm.x",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"fsm.x is <%=fsm.x%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -312,
+				"y": 296
+			}
+		},
+		"95847849-1a04-42d7-8d0f-1e7b6a2ae49a": {
+			"id": "95847849-1a04-42d7-8d0f-1e7b6a2ae49a",
+			"name": "FieldNotEmptyCondition",
+			"title": "FieldNotEmptyCondition",
+			"description": "Succeeds if global, context, message or volatile fieldName is not empty",
+			"properties": {
+				"fieldName": "global.x"
+			},
+			"display": {
+				"x": 138,
+				"y": 230
+			}
+		},
+		"6e16e5b7-bdd7-4fd2-a5c0-ab5e459b9b65": {
+			"id": "6e16e5b7-bdd7-4fd2-a5c0-ab5e459b9b65",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 188,
+				"y": 86
+			},
+			"children": [
+				"95847849-1a04-42d7-8d0f-1e7b6a2ae49a",
+				"04071ec8-3890-4e88-8827-3933ef4c4132"
+			]
+		},
+		"04071ec8-3890-4e88-8827-3933ef4c4132": {
+			"id": "04071ec8-3890-4e88-8827-3933ef4c4132",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"no global.x"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 374,
+				"y": 216
+			}
+		},
+		"c39e267e-1dd2-418e-8058-6e5d2dd34d4a": {
+			"id": "c39e267e-1dd2-418e-8058-6e5d2dd34d4a",
+			"name": "FieldCompareCondition",
+			"title": "FieldCompareCondition",
+			"description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "fsm.x",
+				"operator": "==",
+				"right": "2"
+			},
+			"display": {
+				"x": -488,
+				"y": 260
+			}
+		},
+		"a4d4a4b9-001d-4ef8-8a1e-4b68ff007a77": {
+			"id": "a4d4a4b9-001d-4ef8-8a1e-4b68ff007a77",
+			"name": "MemPriority",
+			"title": "MemPriority",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -270,
+				"y": 64
+			},
+			"children": [
+				"38dcd62e-02f9-4acc-8c5a-4d579460914a",
+				"04c1d860-fbf9-41a8-8f3c-a11242f43f54"
+			]
+		},
+		"38dcd62e-02f9-4acc-8c5a-4d579460914a": {
+			"id": "38dcd62e-02f9-4acc-8c5a-4d579460914a",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -394,
+				"y": 162
+			},
+			"children": [
+				"c39e267e-1dd2-418e-8058-6e5d2dd34d4a",
+				"13db71bb-5672-4a6b-a0d3-5f985f5ba175"
+			]
+		},
+		"04c1d860-fbf9-41a8-8f3c-a11242f43f54": {
+			"id": "04c1d860-fbf9-41a8-8f3c-a11242f43f54",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -98,
+				"y": 210
+			},
+			"children": [
+				"fdf2e64c-8073-4c28-ae18-15918d19922a",
+				"4feaeff3-e80b-4849-8899-6d2119b187be",
+				"38e27fac-c1d4-485b-8bf7-b4264ff8dd2a"
+			]
+		}
+	},
+	"display": {
+		"camera_x": 1066.799999859184,
+		"camera_y": 322.00000033155084,
+		"camera_z": 1,
+		"x": 10,
+		"y": -126
+	},
+	"state": "draft"
+}

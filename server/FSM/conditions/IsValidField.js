@@ -148,18 +148,22 @@ class IsValidField extends Condition {
      */
     testPhoneNumber(tick, value) {
         function phonenumber1(inputtxt) {
-            var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-            if (inputtxt.value.match(phoneno)) {
-                return true;
-            } else {
-
-                return false;
+            var phonenos = [/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/,
+                /^\+?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{3})$/,
+                /^\+?([0-9]{3})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{3})$/
+            ];
+            for (let phoneno of phonenos) {
+                if (inputtxt.match(phoneno)) {
+                    return true;
+                }
             }
+            return false;
         }
+
 
         function phonenumber(inputtxt) {
             var phoneno = /^05\d{8}$/;
-            if (inputtxt.value.match(phoneno)) {
+            if (inputtxt.match(phoneno)) {
                 return true;
             } else {
 

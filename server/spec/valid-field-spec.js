@@ -18,9 +18,21 @@ describe('load environment nodes', () => {
                 }
             }).then(() => {
                 startProcessTick.expect('valid 9 digit number').then(() => {
-                    done();
+                    startProcessTick.expect('phone?').then(() => {
+                        startProcessTick.send({
+                            entities: {
+                                "intentId": "",
+                                'number': '0546-888-401'
+                            }
+                        }).then(() => {
+                            startProcessTick.expect("valid phone number").then(() => {
+                                done();
+                            });
+                        });
+
+                    });
                 });
-            })
+            });
 
         });
     });

@@ -31,8 +31,8 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -18,
-				"y": 240
+				"x": -136,
+				"y": 388
 			}
 		},
 		"de12ed07-3ac6-4690-8538-fe7de65f1e14": {
@@ -65,11 +65,12 @@
 			},
 			"display": {
 				"x": -186,
-				"y": 150
+				"y": 148
 			},
 			"children": [
 				"de12ed07-3ac6-4690-8538-fe7de65f1e14",
-				"e7501fc9-3205-4963-88a0-3d6af8b6b03a"
+				"e7501fc9-3205-4963-88a0-3d6af8b6b03a",
+				"ad656ce4-2107-45ac-a535-1e9644b49f1f"
 			]
 		},
 		"529b8dee-fafe-48f2-b1d3-d6ab2d708855": {
@@ -117,11 +118,118 @@
 			"children": [
 				"40842239-e3d8-4d63-89d5-9d061a7ef683"
 			]
+		},
+		"ad656ce4-2107-45ac-a535-1e9644b49f1f": {
+			"id": "ad656ce4-2107-45ac-a535-1e9644b49f1f",
+			"name": "AskAndMap",
+			"title": "phone",
+			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"view": false,
+				"prompt": [
+					"phone?"
+				],
+				"cyclePrompts": true,
+				"imageHTML": false,
+				"imageDataArrayName": "",
+				"replayActionOnReturnFromContextSwitch": true,
+				"contexts": [
+					{
+						"intentId": "",
+						"description": {
+							"en": ""
+						},
+						"passThru": false,
+						"helper": false,
+						"timeout": false,
+						"default": false,
+						"entities": [
+							{
+								"contextFieldName": "",
+								"entityName": "number",
+								"expectedValue": "",
+								"entityIndex": 0
+							}
+						]
+					}
+				]
+			},
+			"display": {
+				"x": 110,
+				"y": 350
+			},
+			"children": [
+				"647ec549-5956-45d6-a1d8-96c9c8684632"
+			]
+		},
+		"7ab78a76-b031-49a2-85df-371857845ad4": {
+			"id": "7ab78a76-b031-49a2-85df-371857845ad4",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"valid phone number"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 306,
+				"y": 696
+			}
+		},
+		"f279068c-806e-4713-9a44-a01579f3194f": {
+			"id": "f279068c-806e-4713-9a44-a01579f3194f",
+			"name": "IsValidField",
+			"title": "IsValidField",
+			"description": "returns SUCCESS if the field is valid. field type is either email, credit card, phone number, or a formatted 'number' ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"fieldName": "context.number",
+				"fieldType": "phone number",
+				"numberFormat": "0XXXXXXXX"
+			},
+			"display": {
+				"x": 20,
+				"y": 664
+			}
+		},
+		"647ec549-5956-45d6-a1d8-96c9c8684632": {
+			"id": "647ec549-5956-45d6-a1d8-96c9c8684632",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 148,
+				"y": 506
+			},
+			"children": [
+				"f279068c-806e-4713-9a44-a01579f3194f",
+				"7ab78a76-b031-49a2-85df-371857845ad4"
+			]
 		}
 	},
 	"display": {
 		"camera_x": 768,
-		"camera_y": 361.5,
+		"camera_y": 27.099999978439882,
 		"camera_z": 1,
 		"x": -138,
 		"y": -140

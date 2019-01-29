@@ -23,10 +23,10 @@ class AddEntity extends Action {
      * @property {MemoryField} parameters.fieldValue value to put in
      * @property {string} parameters.entityName entity name
      **/
-    this.parameters = {
+    this.parameters = _.extend(this.parameters, {
       'entityName': '',
       'fieldValue': ''
-    };
+    });
     this.description = 'Add an entity to message object from global, context, volatile and message memories';
     settings = settings || {};
     if (utils.isEmpty(settings.entityName)) {

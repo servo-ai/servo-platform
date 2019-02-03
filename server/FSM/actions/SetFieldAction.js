@@ -6,13 +6,13 @@ var dblogger = require('utils/dblogger');
 
 /**
  * Set fields across composite (global,context, volatile, local and message) memories. 
- * fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ';
+ * fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ';
  *  @memberof module:Actions
  */
 class SetFieldAction extends Action {
   /**
    * @typedef MemoryField
-   * @property {string}  string: (message./global./context./volatile./local./fsm.)fieldname string should have a dot notation with the memory and field names. Eg: message.chat_message, context.amount etc
+   * @property {string}  string: (message./global./context./volatile./local./fsm.)fieldname string should have a dot notation with the memory and field names. Eg: message.text, context.amount etc
    *
    */
   /**
@@ -29,14 +29,14 @@ class SetFieldAction extends Action {
      * @property parameters
      * @type {Object}
      * @property {ExpressionString|MemoryField} parameters.fieldValue - value to assign to fieldName
-     * @property {MemoryField} parameters.fieldName -  dot notation with the object name. Eg: message.chat_message, context.amount etc '
+     * @property {MemoryField} parameters.fieldName -  dot notation with the object name. Eg: message.text, context.amount etc '
      **/
     this.parameters = _.extend(this.parameters, {
       'fieldName': '',
       'fieldValue': ''
 
     });
-    this.description = 'Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ';
+    this.description = 'Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ';
     settings = settings || {};
     if (utils.isEmpty(settings.fieldName)) {
       console.error("fieldName parameter in SetFieldAction is an obligatory parameter");

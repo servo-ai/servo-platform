@@ -232,7 +232,9 @@ class ApiDebug {
       data = JSON.stringify(data);
     }
     if (!connection) {
-      console.error("no connection for process " + pid);
+      // TODO: kill this process
+      dblogger.warn("no connection for process " + pid);
+
     }
 
     return connection && connection.send(data);

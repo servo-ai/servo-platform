@@ -385,7 +385,7 @@ class AskAndMap extends Composite {
    */
   validators(node) {
     var contexts = node.properties.intents || node.properties.contexts;
-    var _errContext;
+    var _errContext, _errEtt;
 
 
     function findNone(node) {
@@ -406,6 +406,28 @@ class AskAndMap extends Composite {
         }
       }
       return false;
+    }
+
+    function wrongEntityVariables(node) {
+      if (contexts) {
+        for (var i = 0; i < contexts.length; i++) {
+          if (contexts[i].helper || contexts[i].timeout || contexts[i].default ||
+            contexts[i].backtrack || (contexts[i].intentId && !contexts[i].entities)) {
+            continue;
+          }
+          for (var e = 0; contexts[i].entities && e < contexts[i].entities.length; e++) {
+            if (contexts[i] && contexts[i].entities[e] && contexts[i].entities[e].entityName && contexts[i].entities[e].entityName.indexOf('.') > -1) {
+              _errContext = i;
+              return true;
+            }
+            if (contexts[i] && contexts[i].entities[e] && contexts[i].entities[e].contextFieldName && contexts[i].entities[e].contextFieldName.indexOf('.') > -1) {
+              _errContext = i;
+              return true;
+            }
+          }
+
+        }
+      }
     }
 
     function emptyContext(node) {
@@ -452,11 +474,7 @@ class AskAndMap extends Composite {
         condition: contexts && ((node.child && contexts.length === 1) || (node.children && contexts.length === node.children.length)),
         text: "intents number should be equal to number of children"
       },
-      /*{
-             condition: (contexts &&
-               ((contexts.length > 1 && node.children) || (contexts.length == 1 && node.child && contexts[0].default))),
-             text: "a single intent must be set to be a default"
-           },*/
+
       {
         condition: (!((node.properties.prompt && Object.keys(node.properties.prompt).length) &&
           (node.properties.view && Object.keys(node.properties.view).length))),
@@ -466,7 +484,10 @@ class AskAndMap extends Composite {
         text: "None is a reserved word and cannot be used as an intentId"
       }, {
         condition: !emptyContext(node),
-        text: "An empty or incomplete context exists at context #" + _errContext
+        text: "Incomplete context at context #" + _errContext + ". Make sure entityName and entityIndex is not empty"
+      }, {
+        condition: !wrongEntityVariables(node),
+        text: "Entity members at context #" + _errEtt + " should not contain a dot ."
       }, {
         condition: !duplicatesExist("background"),
         text: "multiple background contexts"

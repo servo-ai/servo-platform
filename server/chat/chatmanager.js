@@ -8,7 +8,7 @@ var utils = require("utils/utils");
 var dblogger = require("utils/dblogger");
 var fsmEventEmitter = require('FSM/fsm-event-emitter.js');
 var ticker = require('FSM/ticker').getInst();
-
+var twilioService = require('./twilio').getInst();
 
 /**
  * Router for sending messages out to different channels
@@ -33,6 +33,11 @@ class ChatManager {
           dataObj.treeID,
           dataObj.raw);
     }
+  }
+
+  static isChannel(channelName, process) {
+    return (process.properties() && process.properties().channels && process.properties().channels.toLowerCase().indexOf(channelName) != -1);
+
   }
   /***
    * send a message depending on the context
@@ -74,7 +79,8 @@ class ChatManager {
           reject(err);
         });
       });
-    } else if (process.properties() && process.properties().channels && process.properties().channels.toLowerCase().indexOf("formbot") != -1) {
+    }
+    if (process.properties() && process.properties().channels && process.properties().channels.toLowerCase().indexOf("formbot") != -1) {
       // not working
       return new Promise(function (resolve, reject) {
         formbotDriver.sendMessage(prompt, process, tree, node).then((postObj) => {
@@ -93,7 +99,8 @@ class ChatManager {
           reject(err);
         });
       });
-    } else if (process.properties() && process.properties().channels && process.properties().channels.indexOf("mycroft") != -1) {
+    }
+    if (process.properties() && process.properties().channels && process.properties().channels.indexOf("mycroft") != -1) {
 
       return new Promise(function (resolve, reject) {
         mycroftService = mycroftService || require('./mycroft').getInst();
@@ -110,7 +117,8 @@ class ChatManager {
           reject(err);
         });
       });
-    } else if (process.properties() && process.properties().channels &&
+    }
+    if (process.properties() && process.properties().channels &&
       (process.properties().channels.toLowerCase().indexOf("chatsim") != -1)) {
       return new Promise((resolve) => {
         chatsim = require('./chatsim').getInst();
@@ -130,7 +138,8 @@ class ChatManager {
           resolve(err);
         });
       });
-    } else if (process.properties() && process.properties().channels &&
+    }
+    if (process.properties() && process.properties().channels &&
       (process.properties().channels.toLowerCase().indexOf("websocket") != -1)) {
       return new Promise(function (resolve) {
         let websocket = require('./websocket-driver').getInst();
@@ -169,7 +178,12 @@ class ChatManager {
           reject(err);
         });
       });
-    } else {
+    }
+    if (this.isChannel("twilio", process)) {
+      return twilioService.sendMessage(prompt, process.id, tree, node, process);
+    }
+
+    if (process.properties() && !process.properties().channels) {
       dblogger.error("no channel detected", process.id, node.id, tree.id);
       return new Promise((resolve) => {
         resolve("no channel detected" + process.id + "/" + node.id + "/" + tree.id);
@@ -187,14 +201,15 @@ class ChatManager {
     alexaService.startAll(app, fsms);
 
     // avoid circular ref
-    mycroftService = mycroftService || require('./mycroft').getInst();
-    mycroftService.startAll(app, fsms);
+    // mycroftService = mycroftService || require('./mycroft').getInst();
+    // mycroftService.startAll(app, fsms);
 
     // avoid circular ref
     chatsim = chatsim || require('./chatsim').getInst();
     chatsim.startAll(app, fsms);
     formbotDriver = formbotDriver || require("./formbot").getInst();
     formbotDriver.startAll(app, fsms);
+    twilioService.startAll(app, fsms);
   }
 
   /**
@@ -203,13 +218,14 @@ class ChatManager {
    */
   static stopAll(app) {
 
-    facebookChatDriver.stopAll();
+    facebookChatDriver.stopAll(app);
 
-    alexaService.stopAll();
+    alexaService.stopAll(app);
 
     // avoid circular ref
-    mycroftService = require('./mycroft').getInst();
-    mycroftService.stopAll();
+    // mycroftService = require('./mycroft').getInst();
+    // mycroftService.stopAll();
+    twilioService.stopAll(app);
 
     // avoid circular ref
     chatsim = require('./chatsim').getInst();

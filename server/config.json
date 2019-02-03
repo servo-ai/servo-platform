@@ -16,9 +16,9 @@
     "database": "<dbname>",
     "timeoutMSec": 4000
   },
- "readOnly": false,
+  "readOnly": false,
   "port": 3000,
-  
+
   "log-categories": [
     "log",
     "main",

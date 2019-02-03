@@ -31,5 +31,14 @@ If you are after general behavior tree tutorials:
 ### Videos
 For an intro video, please watch:
 <iframe src="https://player.vimeo.com/video/252196797" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+<br>
+### Trusted by:
+<div style="display: inline-block; margin: 20px;"><img width="200" height="80" src="http://www.servolabs.org/blog/wp-content/uploads/2019/01/splititGray-1024x396.png"> </div> 
 
-</div>
+<div style="display: inline-block; margin: 20px;"><img width="200" height="80" src="http://www.servolabs.org/blog/wp-content/uploads/2019/01/visa.png" ></div>
+
+<div style="display: inline-block; margin: 20px;"><img width="200" height="66" src="http://www.servolabs.org/blog/wp-content/uploads/2019/01/OracleSU.png"></div>
+
+<div style="display: inline-block; margin: 20px;"><img width="200" height="52" src="http://www.servolabs.org/blog/wp-content/uploads/2019/01/Brook.png"></div>
+
+<div style="display: inline-block; margin: 20px;"><img width="220" height="53" src="http://www.servolabs.org/blog/wp-content/uploads/2019/01/langnetGray.png"></div>

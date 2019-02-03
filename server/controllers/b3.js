@@ -257,6 +257,7 @@ const remove = (req, res) => {
 
           });
         } else {
+          FSMManager.resetBehaviorTrees(req.user.projectsDir, req.body.name);
           res.send({
             "result": true
           });

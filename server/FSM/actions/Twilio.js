@@ -73,11 +73,11 @@ class Twilio extends Action {
 
           dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 10) + '...'); // outputs "+14506667788" 'aslkasdjf'
 
-          this.waitCode(tick, b3.SUCCESS())
+          this.waitCode(tick, b3.SUCCESS());
 
         } else {
           dblogger.error('twilio message err', err, toNumber);
-          this.waitCode(tick, b3.FAILURE())
+          this.waitCode(tick, b3.FAILURE());
 
         }
       });

@@ -8,7 +8,7 @@ var dblogger = require('utils/dblogger');
  * @typedef Operator - any binary logical operator like ===, <, <==, !==, ==>
  */
 /**
- * Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc.
+ * Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.text, context.amount etc.
  * Operator could be any logical operator like ===, <, <==, !==, ==> etc. 
  * @memberof module:Conditions
  */
@@ -33,7 +33,7 @@ class FieldCompareCondition extends Condition {
       'operator': '',
       'right': ''
     });
-    this.description = 'Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. ';
+    this.description = 'Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.text, context.amount etc. ';
     this.description += 'Operator could be any logical operator like ===, <, <==, !==, ==> etc. ';
 
     settings = settings || {};

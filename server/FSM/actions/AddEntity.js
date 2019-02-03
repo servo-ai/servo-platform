@@ -6,7 +6,7 @@ var dblogger = require('utils/dblogger');
 
 /**
  * Set fields into the current message object. if entityName is intentId then it will set the intentId at the message 
- * fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc '
+ * fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc '
  *  @memberof module:Actions
  */
 class AddEntity extends Action {

@@ -5,7 +5,7 @@ var dblogger = require('../utils/dblogger');
 var https = require('https');
 var FSMManager;
 var processModel = require('../models/processmodel');
-var config = require("../config");
+var config = require("config");
 var ChatDriverInterface = require("./chat-driver-interface");
 var PipeManager = require("../pipes/pipemanager");
 var MessageModel = require("../models/message-model");
@@ -142,7 +142,7 @@ function processRequest(req, res, fsm) {
       } else {
         dblogger.error("error in getCreateProcessesAndMessages", err);
       }
-    })
+    });
   } catch (err) {
     dblogger.error("error in facebook post + /fb/" + fsm.id, req, err);
     res.send({
@@ -351,7 +351,7 @@ function postRequest(accessToken, endpoint, obj) {
  */
 function createNewProcess(fsm, messageObj, pid) {
   FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     // insert
     dblogger.info({
       cat: 'flow'
@@ -374,8 +374,8 @@ function createNewProcess(fsm, messageObj, pid) {
         index: p,
         error: err
       });
-    })
-  })
+    });
+  });
 }
 
 /**

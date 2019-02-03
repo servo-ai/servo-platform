@@ -1,5 +1,8 @@
 // GULP MODULES ===============================================================
+
 var gulp = require('gulp');
+var rm = require( 'gulp-rm' );
+var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var minifyCSS = require('gulp-minify-css');
@@ -278,6 +281,17 @@ gulp.task('_watch', ['_livereload'], function () {
 });
 
 
+
+gulp.task('cp2server', function () {
+
+     	gulp.src('build/index.html').pipe(rename('build/editor.html')).pipe(gulp.dest('.'));
+/*	 gulp.src( 'build/index.html', { read: false })
+				    .pipe( rm() )
+  */return gulp.src(['build/**/*.*'])
+    .pipe(gulp.dest('../server/public'))
+});
+
+
 gulp.task('docs', function () {
   return gulp.src('../../server/outdocs/**/*.*')
     .pipe(gulp.dest('build/outdocs'))
@@ -286,5 +300,5 @@ gulp.task('docs', function () {
 
 // COMMANDS ===================================================================
 gulp.task('build', ['_vendor', '_preload', '_app_build', 'docs']);
-gulp.task('dev', ['_vendor_dev', '_preload', '_app_dev']);
+gulp.task('dev', ['_vendor_dev', '_preload', '_app_dev','cp2server']);
 gulp.task('serve', ['_vendor_dev', '_preload', '_app_dev', 'docs', '_watch']);

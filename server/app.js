@@ -48,8 +48,6 @@ app.use(baseUrl + '/api', api);
 app.use(baseUrl + '/apidb', apidb);
 app.use(baseUrl + '/apiprocess', apiprocess);
 
-app.use(baseUrl, express.static(path.join(__dirname, 'public')));
-
 module.exports = app;
 
 // TODO: move after startAll 
@@ -82,11 +80,15 @@ if (config.openSSL) {
     console.log('server listens on 443');
     // now that we have an httpServer we can start the debug
     require('routes/apidebug').start(app);
+app.use(baseUrl, express.static(path.join(__dirname, 'public')));
+
 
   } catch (e) {
     console.error(e);
   }
 } else {
   // now that we have an httpServer we can start the debug
-  require('routes/apidebug').start(app);
+  require('routes/apidebug').start(app);app.use(baseUrl, express.static(path.join(__dirname, 'public')));
+
+
 }

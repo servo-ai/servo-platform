@@ -1,3 +1,63 @@
+<<<<<<< HEAD
+{
+    "serverBaseDomain": "www.chatflows.com",
+    "baseUrl": "",
+    "openSSL": true,
+    "runningTimeoutSec": 600,
+    "convocode": {
+        "id": "servo"
+    },
+    "db": {
+        "name": "mongo",
+        "host": "chatflows.com",
+        "username": "servoai",
+        "password": "bestbots",
+        "database": "ServoDB",
+        "timeoutMSec": 4000
+    },
+    "couchdb": {
+        "name": "servo",
+        "connectionString": "couchbase://ec2-52-36-147-50.us-west-2.compute.amazonaws.com",
+        "user": "FSM",
+        "password": "bestbots",
+        "timeoutMSec": 4000
+    },
+    "readOnly": false,
+    "port": 3000,
+   "log-categories": [
+        "log",
+        "main",
+        "flow",
+        "warn",
+        "debug"
+    ],
+   "luis": {
+        "subscriptionKey": "8c930c71fc8d497698fbee4911b309ef",
+        "apiUrl": "https://api.projectoxford.ai/luis/v1/application",
+        "applications": {
+            "servoAI": {
+                "id": "a157d09b-430d-45e2-a656-ade3b609d35f"
+            }
+        }
+    },
+    "msbot1-old": {
+        "appId": "flightStatus",
+        "appSecret": "207a2d708f294732b18321cecf5c1d19"
+    },
+    
+    "html2img": {
+        "generated_path": "public/img/",
+        "generated_url_path": "img/",
+        "width": 300,
+        "custom_css": "p{text-align: center; font-family: Arial} table {font-family: Arial; width: 100%; border-collapse: separate; border-spacing: 0 5px; border: none}thead th {background-color: #006DCC; color: white; border: none; padding: 5px}tbody td {background-color: #EEEEEE; padding: 5px; border: none; text-align: center}tr td:first-child,tr th:first-child {border-top-left-radius: 6px;border-bottom-left-radius: 6px;}tr td:last-child,tr th:last-child {border-top-right-radius: 6px;border-bottom-right-radius: 6px;}"
+    },
+    "msbot": {
+        "appId": "ServoFlightStatusL1",
+        "appSecret": "9f2a8c5bdf1d4ad5bb2498ea9c21a8a8",
+        "appPassword": "A7tZorQh13iVwJrG7XhpFu9"
+    }
+}
+=======
 {
   "serverBaseDomain": "localhost",
   "baseUrl": "",
@@ -33,3 +93,4 @@
     "custom_css": "p{text-align: center; font-family: Arial} table {font-family: Arial; width: 100%; border-collapse: separate; border-spacing: 0 5px; border: none}thead th {background-color: #006DCC; color: white; border: none; padding: 5px}tbody td {background-color: #EEEEEE; padding: 5px; border: none; text-align: center}tr td:first-child,tr th:first-child {border-top-left-radius: 6px;border-bottom-left-radius: 6px;}tr td:last-child,tr th:last-child {border-top-right-radius: 6px;border-bottom-right-radius: 6px;}"
   }
 }
+>>>>>>> b41ea2fdca2b73742922f5014f2c8e20f612df5c

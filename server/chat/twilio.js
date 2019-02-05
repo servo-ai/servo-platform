@@ -1,6 +1,3 @@
-var config = require('config');
-var express = require('express');
-var router = express.Router();
 var ChatDriverInterface = require("./chat-driver-interface");
 var utils = require('../utils/utils');
 var clientFunc = require('twilio'); // the node_modules/twilio
@@ -10,7 +7,7 @@ var MessageModel = require("../models/message-model");
 var _clients = {};
 
 
-
+// it is a singleton
 let _inst = null;
 /**
  * twilio channel
@@ -70,13 +67,19 @@ class TwilioDriver extends ChatDriverInterface {
             } else if (_.isEmpty(twilioOptions.AUTH_TOKEN)) {
                 dblogger.error('No access token for twilio messenger. FSM is ' + fsm.id);
             } else {
-                _clients[fsm.path] = clientFunc(twilioOptions && twilioOptions.ACCOUNT_SID, twilioOptions && twilioOptions.AUTH_TOKEN);
+                _clients[fsm.path] = {
+                    clientFunc: clientFunc(twilioOptions && twilioOptions.ACCOUNT_SID, twilioOptions && twilioOptions.AUTH_TOKEN),
+                    messages: []
+                };
 
                 this.listenPost(fsm);
             }
         }
     }
 
+    send1Message(msg, fsm) {
+
+    }
 
     /**
      * 
@@ -124,31 +127,42 @@ class TwilioDriver extends ChatDriverInterface {
 
             //Send an SMS text message
             try {
-                _clients[process.fsm_id].sendMessage(msg, (err, responseData) => { //this function is executed when a response is received from Twilio
+                _clients[process.fsm_id].messages.push(msg);
+                let timeoutMS = ((_clients[process.fsm_id].messages.length - 1) ? 1 : 0) * 800;
+                setTimeout(function send1Message() {
+                    let msgToSend = _clients[process.fsm_id].messages.pop();
+                    if (msgToSend) {
+                        _clients[process.fsm_id].clientFunc.sendMessage(msgToSend, (err, responseData) => { //this function is executed when a response is received from Twilio
 
-                    if (!err) { // "err" is an error received during the request, if any
+                            if (!err) { // "err" is an error received during the request, if any
 
-                        // "responseData" is a JavaScript object containing data received from Twilio.
-                        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-                        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+                                // "responseData" is a JavaScript object containing data received from Twilio.
+                                // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+                                // http://www.twilio.com/docs/api/rest/sending-sms#example-1
 
-                        dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 10) + '...'); // outputs "+14506667788" 'aslkasdjf'
+                                dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 20) + '...'); // outputs "+14506667788" 'aslkasdjf'
 
-                        resolve({
-                            text: msg
+                                resolve({
+                                    text: msg
+                                });
+
+                            } else {
+                                dblogger.error('twilio message err', err.message + ' ' + err.moreInfo, toNumber);
+                                if (_clients[process.fsm_id].messages.length == 0) {
+                                    reject(err);
+                                }
+
+                            }
                         });
-
-                    } else {
-                        dblogger.error('twilio message err', err.message + ' ' + err.moreInfo, toNumber);
-                        reject(err);
+                        setTimeout(send1Message, 1000);
                     }
-                });
+
+                }, timeoutMS);
+
             } catch (err) {
                 dblogger.error("twillio.sendMessage", err);
                 reject(err);
             }
-
-
 
         });
 

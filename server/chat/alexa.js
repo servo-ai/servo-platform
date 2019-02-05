@@ -100,7 +100,7 @@ Alexa.aggregateMessages = function (toSpeak, process, tree, node) {
           process.data('messagesAggregator', "");
 
         }
-      }, process.properties().timeout || 5500);
+      }, process.properties().aggregateTimeout || 5500);
     } else {
       // send and reset
       var messagesAggregator = process.data('messagesAggregator') || "";

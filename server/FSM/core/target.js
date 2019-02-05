@@ -244,6 +244,10 @@ class Target {
     return trg;
   }
 
+  removeTargets() {
+    this.targetObjs = [];
+  }
+
 
 }
 

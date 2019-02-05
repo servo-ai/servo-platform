@@ -666,8 +666,15 @@ class BaseNode {
       // call async
       messageBuilder.build(tick, fieldName, this).then((result) => {
 
+        // now lets send it out
         chatManager.sendMessage(result, tick.tree, tick.process, this).then((msg) => {
-          dblogger.log('chatManager.sendMessage responed done');
+          dblogger.log('chatManager.sendMessage sendMessage done');
+          // when we send messages out, we reset the incoming message queue
+          // otherwise new questions will be answered immediately and skipped
+          if (!tick.process.properties().queueIncomingMessages) {
+            dblogger.warn("losing " + tick.target.getTargets().length + " messages:", tick.target.getTargets());
+            tick.target.removeTargets();
+          }
           resolve();
 
         }).catch((err) => {

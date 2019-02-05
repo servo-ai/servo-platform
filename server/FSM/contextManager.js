@@ -45,7 +45,7 @@ var utils = require('utils/utils');
  */
 const ContextManagerKeys = Object.freeze({
   CONTEXTMEM: "contextMem",
-  SHORTTERMMEMORYDISTANCE: 3,
+  SHORTTERMMEMORYDISTANCE: 2,
   INTENTID: "intentId",
   LIFECYCLESTATE: "life-cycle-state",
   LASTCONTEXT: 'lastContext',

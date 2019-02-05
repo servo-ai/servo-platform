@@ -78,20 +78,22 @@ class ChatDriverInterface {
       let pid = this.getProccessID(messageObj);
 
       processModel.get(pid, fsm).then((processObj) => {
-        this.processNLU(messageObj, pid, processObj, fsm)
+        this.processNLU(messageObj, pid, processObj, fsm);
+        res.end();
       }).catch((err) => {
         if (err == 0) {
           // If process not found
           this.processNLU(messageObj, pid, null, fsm);
+          res.end();
         } else {
           dblogger.error('error in get process:', err);
-        };
+          res.status(500).end();
+        }
       });
+
     } catch (err) {
       dblogger.error("error in processRequest " + fsm.id, req, err);
-      res.send({
-        message: 'error'
-      });
+      res.status(500).end();
     }
   }
 

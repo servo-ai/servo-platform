@@ -23,6 +23,7 @@ class RemoveTargetAction extends Action {
     this.parameters = _.extend(this.parameters, {
       "removeAll": false
     });
+    this.description = "removes (all) target(s)";
   }
 
   /**

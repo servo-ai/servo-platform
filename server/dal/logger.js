@@ -3,7 +3,9 @@ const path = require('path');
 
 var Promise = require('promise');
 var emptyPromise = function () {
-    return new Promise(function (resolve, reject) { resolve(null); });
+    return new Promise(function (resolve, reject) {
+        resolve(null);
+    });
 }
 
 var _recording = false;
@@ -16,7 +18,8 @@ class Logger {
         return new Promise((resolve, reject) => {
             var now = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '');
             var date = now.split(" ")[0];
-            var time = now.split(" ")[1];
+            var time = logObj.substr(2, 8);
+            logObj = "[" + logObj.substr(17);
             var row = time + "\t" + type + "\t" + cat + "\t";
             row += logObj;
             row = row.replace("\n", "");

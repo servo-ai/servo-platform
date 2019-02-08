@@ -26,6 +26,7 @@ var _lastLine;
 var _lastLineCounter = 0;
 DBLogger.add = function () {
   var args = Array.prototype.slice.call(arguments);
+
   try {
     var obj = JSON.stringify(args.slice(1, args.length));
   } catch (ex) {
@@ -63,9 +64,13 @@ DBLogger.add = function () {
 DBLogger.info = function () {
   if (!shouldLog(arguments[0].cat))
     return;
-  console.info.apply(null, arguments);
+
+
   var args = Array.prototype.slice.call(arguments);
 
+
+  args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
+  console.info.apply(null, args);
   args.unshift('info');
   DBLogger.add.apply(null, args);
 }
@@ -73,10 +78,12 @@ DBLogger.info = function () {
 DBLogger.assert = function () {
   var args = Array.prototype.slice.call(arguments);
   if (!args[1]) {
+
+    args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
+    console.error.apply(null, args);
     args.unshift('assert');
     DBLogger.add.apply(null, args);
 
-    console.error.apply(null, arguments);
   }
 
 }
@@ -84,8 +91,11 @@ DBLogger.assert = function () {
 DBLogger.flow = function () {
   if (!shouldLog("flow"))
     return;
-  console.info.apply(null, arguments);
+
   var args = Array.prototype.slice.call(arguments);
+
+  args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
+  console.info.apply(null, args);
   args.unshift({
     cat: 'flow'
   });
@@ -102,10 +112,13 @@ DBLogger.warn = function () {
   if (_.isEqual(args, _lastLine)) {
     _lastLineCounter++;
   } else {
-    args.unshift(_lastLineCounter && "(Last log repeated " + _lastLineCounter + " times)\r\n");
-    args.unshift('\r\n');
+
+    _lastLineCounter && args.unshift("(Last log repeated " + _lastLineCounter + " times)\r\n");
+    // args.unshift('\r\n');
+    args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
+
+    console.warn.apply(null, args);
     args.unshift('warn');
-    console.warn.apply(null, arguments);
     DBLogger.add.apply(null, args);
     // make a new last line w/out the number
     _lastLine = _.clone(args);
@@ -123,8 +136,12 @@ DBLogger.log = function () {
   } else {
     // send number of last line 
     var thisArgs = _.clone(args);
-    args.unshift(_lastLineCounter && "(Last log repeated " + _lastLineCounter + " times)\r\n");
-    args.unshift('\r\n');
+    if (_lastLineCounter) {
+      args.unshift("(Last log repeated " + _lastLineCounter + " times)\r\n");
+    } else {
+      args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
+    }
+
     console.log.apply(null, args);
 
     args.unshift('log');
@@ -143,7 +160,7 @@ DBLogger.error = function () {
     // send number of last line 
     var thisArgs = _.clone(args);
     //args.unshift(_lastLineCounter && "(Last log repeated " + _lastLineCounter + " times)\r\n");
-
+    args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
     console.error.apply(null, args);
     console.trace();
 
@@ -189,8 +206,8 @@ DBLogger.debug = function () {
   } else {
     // send number of last line 
     var thisArgs = _.clone(args);
-    args.unshift(_lastLineCounter && "(Last log repeated " + _lastLineCounter + " times)\r\n");
-    args.unshift('\r\n');
+    _lastLineCounter && args.unshift("(Last log repeated " + _lastLineCounter + " times)\r\n");
+    args.unshift(new Date(Date.now()).toISOString().split("T")[1]);
     console.log.apply(null, args);
 
     args.unshift('log');

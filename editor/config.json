@@ -1,7 +1,6 @@
 {
-  "serverBaseDomain": "www.chatflows.com",
-  "allowFacebookLogin":true,
+  "serverBaseDomain": "localhost",
   "baseUrl": "",
-  "openSSL": true,
-  "port": 443
+  "openSSL": false,
+  "port":3000 
 }

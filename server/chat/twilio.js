@@ -4,6 +4,7 @@ var clientFunc = require('twilio'); // the node_modules/twilio
 var _ = require('underscore');
 var dblogger = require('../utils/dblogger');
 var MessageModel = require("../models/message-model");
+var config = require('config');
 var _clients = {};
 
 
@@ -30,6 +31,7 @@ class TwilioDriver extends ChatDriverInterface {
     }
 
     TwilioDriver() {
+        this.timeoutMS = config.twilio.delayMs || 800;
 
     }
 
@@ -77,13 +79,42 @@ class TwilioDriver extends ChatDriverInterface {
         }
     }
 
-    send1Message(msg, fsm) {
+    /**
+     * send 1 message or send 
+     * @param {*} msg 
+     * @param {*} process 
+     */
+    send1Message(msg, process) {
 
+        if (msg) {
+            this._timeoutSet = true;
+            _clients[process.fsm_id].clientFunc.sendMessage(msg, (err, responseData) => { //this function is executed when a response is received from Twilio
+
+                if (!err) { // "err" is an error received during the request, if any
+
+                    // "responseData" is a JavaScript object containing data received from Twilio.
+                    // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
+                    // http://www.twilio.com/docs/api/rest/sending-sms#example-1
+                    dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 20) + '...'); // outputs "+14506667788" 'aslkasdjf'
+
+
+                } else {
+                    dblogger.error('twilio message err', err.message + ' ' + err.moreInfo, msg);
+                }
+            });
+
+            // if no more to send, AND delay passed, cancel timer
+            if (_clients[process.fsm_id].messages.length) {
+                clearInterval(_clients[process.fsm_id].intervalId);
+                _clients[process.fsm_id].intervalId = undefined;
+            }
+        }
     }
+
 
     /**
      * 
-     * @param {*} message 
+     * @param {*} response 
      * @param {*} tree 
      * @param {*} node 
      * @param {*} process 
@@ -127,37 +158,21 @@ class TwilioDriver extends ChatDriverInterface {
 
             //Send an SMS text message
             try {
-                _clients[process.fsm_id].messages.push(msg);
-                let timeoutMS = ((_clients[process.fsm_id].messages.length - 1) ? 1 : 0) * 800;
-                setTimeout(function send1Message() {
-                    let msgToSend = _clients[process.fsm_id].messages.pop();
-                    if (msgToSend) {
-                        _clients[process.fsm_id].clientFunc.sendMessage(msgToSend, (err, responseData) => { //this function is executed when a response is received from Twilio
+                // if no timer yet
+                if (_clients[process.fsm_id].intervalId == undefined) {
+                    // this one, send now
+                    this.send1Message(msg, process);
+                    dblogger.log('message ' + msg.body + 'sent immediatly');
+                    // and set a timer for next ones
+                    _clients[process.fsm_id].intervalId = setInterval(this.send1Message, this.timeoutMs, null, process);
+                    resolve('sent immediatly');
+                } else {
+                    // push subsequent
+                    _clients[process.fsm_id].messages.push(msg);
 
-                            if (!err) { // "err" is an error received during the request, if any
-
-                                // "responseData" is a JavaScript object containing data received from Twilio.
-                                // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-                                // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-
-                                dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 20) + '...'); // outputs "+14506667788" 'aslkasdjf'
-
-                                resolve({
-                                    text: msg
-                                });
-
-                            } else {
-                                dblogger.error('twilio message err', err.message + ' ' + err.moreInfo, toNumber);
-                                if (_clients[process.fsm_id].messages.length == 0) {
-                                    reject(err);
-                                }
-
-                            }
-                        });
-                        setTimeout(send1Message, 1000);
-                    }
-
-                }, timeoutMS);
+                    dblogger.log('message ' + msg.body + 'queued');
+                    resolve('message queued');
+                }
 
             } catch (err) {
                 dblogger.error("twillio.sendMessage", err);
@@ -170,4 +185,5 @@ class TwilioDriver extends ChatDriverInterface {
 
     }
 }
+
 module.exports = TwilioDriver;

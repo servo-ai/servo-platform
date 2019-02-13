@@ -150,7 +150,7 @@ DBLogger.log = function () {
     _lastLine = thisArgs;
     _lastLineCounter = 0;
   }
-}
+};
 
 DBLogger.error = function () {
   var args = Array.prototype.slice.call(arguments);

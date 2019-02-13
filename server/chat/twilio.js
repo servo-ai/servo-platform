@@ -87,27 +87,20 @@ class TwilioDriver extends ChatDriverInterface {
     send1Message(msg, process) {
 
         if (msg) {
-            this._timeoutSet = true;
             _clients[process.fsm_id].clientFunc.sendMessage(msg, (err, responseData) => { //this function is executed when a response is received from Twilio
-
                 if (!err) { // "err" is an error received during the request, if any
-
                     // "responseData" is a JavaScript object containing data received from Twilio.
                     // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
                     // http://www.twilio.com/docs/api/rest/sending-sms#example-1
                     dblogger.log('twilio message sent', responseData.from, responseData.body.substring(0, 20) + '...'); // outputs "+14506667788" 'aslkasdjf'
-
-
+                    setTimeout(() => {
+                        msg = _clients[process.fsm_id].messages.pop();
+                        this.send1Message(msg, process);
+                    }, this.timeoutMs);
                 } else {
                     dblogger.error('twilio message err', err.message + ' ' + err.moreInfo, msg);
                 }
             });
-
-            // if no more to send, AND delay passed, cancel timer
-            if (_clients[process.fsm_id].messages.length) {
-                clearInterval(_clients[process.fsm_id].intervalId);
-                _clients[process.fsm_id].intervalId = undefined;
-            }
         }
     }
 
@@ -159,18 +152,16 @@ class TwilioDriver extends ChatDriverInterface {
             //Send an SMS text message
             try {
                 // if no timer yet
-                if (_clients[process.fsm_id].intervalId == undefined) {
+                if (!_clients[process.fsm_id].messages.length) {
                     // this one, send now
                     this.send1Message(msg, process);
-                    dblogger.log('message ' + msg.body + 'sent immediatly');
-                    // and set a timer for next ones
-                    _clients[process.fsm_id].intervalId = setInterval(this.send1Message, this.timeoutMs, null, process);
+                    dblogger.log('message ' + msg.body + ' sent immediatly');
                     resolve('sent immediatly');
                 } else {
                     // push subsequent
                     _clients[process.fsm_id].messages.push(msg);
 
-                    dblogger.log('message ' + msg.body + 'queued');
+                    dblogger.log('message ' + msg.body + ' queued');
                     resolve('message queued');
                 }
 

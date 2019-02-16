@@ -1,4 +1,3 @@
-var b3 = require('FSM/core/b3');
 var Condition = require('FSM/core/condition');
 var _ = require('underscore');
 var utils = require('utils/utils');
@@ -50,40 +49,7 @@ class FieldCompareCondition extends Condition {
    **/
   tick(tick) {
 
-    var data = this.alldata(tick);
-    var left = this.properties.left;
-    var operator = this.properties.operator;
-    var right = this.properties.right;
-
-    left = utils.wrapExpression(left);
-    right = utils.wrapExpression(right);
-    try {
-      left = _.template(left)(data);
-    } catch (ex) {
-      left = 0;
-    }
-    try {
-      right = _.template(right)(data);
-    } catch (ex) {
-      right = 0;
-    }
-
-    // fix a common error (especially for non-programmers)
-    if (operator === '=') {
-      operator = '===';
-    }
-
-    var result = false;
-
-    left = utils.addQuotes(left);
-    right = utils.addQuotes(right);
-    result = eval(left + operator + right);
-
-    if (result) {
-      return b3.SUCCESS();
-    } else {
-      return b3.FAILURE();
-    }
+    return utils.evalCondition(tick, this);
   }
 
   /**
@@ -91,6 +57,12 @@ class FieldCompareCondition extends Condition {
    * @return {Array<Validator>}
    */
   validators(node) {
+    function validCompositeField(field) {
+
+      var bool1 = field && (field.indexOf('message.') === 0 || field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
+      var bool2 = field && (field.indexOf('\'') === 0 || field.indexOf('"') === 0 || !isNaN(field));
+      return bool1 || bool2;
+    }
 
     function validOperator(oper) {
       oper = oper.trim();
@@ -100,6 +72,12 @@ class FieldCompareCondition extends Condition {
     return [{
       condition: validOperator(node.properties.operator),
       text: "operator should be a ==, ===, !==, !=, <, >, >= or <="
+    }, {
+      condition: validCompositeField(node.properties.right),
+      text: "right should be a memory field, a number or a string expression"
+    }, {
+      condition: validCompositeField(node.properties.left),
+      text: "right should be a memory field, a number or a string expression"
     }];
   }
 }

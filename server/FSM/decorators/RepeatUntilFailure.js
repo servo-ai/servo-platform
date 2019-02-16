@@ -1,7 +1,7 @@
 /**
  * RepeatUntilFailure
- *
-
+ * Copyright (c) 2017 Servo Labs Inc.  
+ * Copyright (c) Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -30,9 +30,9 @@ var _ = require('underscore');
 
 /**
  * RepeatUntilFailure is a decorator that repeats the tick signal until the 
- * node child returns `FAILURE`, `RUNNING` or `ERROR`. Optionally, a maximum 
+ * node child returns `FAILURE`. Optionally, a maximum 
  * number of repetitions can be defined.
- *
+ * Side effects: sets context.repeatCount
  * 
  * @memberof module:Decorators
  **/
@@ -73,7 +73,7 @@ class RepeatUntilFailure extends Decorator {
    * @param {Tick} tick A tick instance.
    **/
   open(tick) {
-    tick.process.set('i', 0, tick.tree.id, this.id);
+    this.local(tick, 'i', 0);
   }
 
   /**
@@ -88,12 +88,11 @@ class RepeatUntilFailure extends Decorator {
       return b3.ERROR();
     }
 
-    var i = tick.process.get('i', tick.tree.id, this.id);
+    var i = this.local(tick, 'i');
     this.context(tick, 'repeatCount', i);
 
     if (this.maxLoop < 0 || i < this.maxLoop) {
       var status = this.child._execute(tick);
-      //if (status !== b3.RUNNING()) console.log('------------------>repeat child status ', status);
       if (status == b3.SUCCESS()) {
         i++;
         status = b3.RUNNING();
@@ -102,7 +101,7 @@ class RepeatUntilFailure extends Decorator {
       status = b3.SUCCESS();
     }
 
-    var i = tick.process.set('i', i, tick.tree.id, this.id);
+    this.local(tick, 'i', i);
 
 
     return status;

@@ -3,7 +3,7 @@ var _ = require('underscore');
 var Action = require('FSM/core/action');
 var utils = require('utils/utils');
 var dblogger = require('utils/dblogger');
-
+var ejs = require('ejs');
 /**
  * Set fields across composite (global,context, volatile, local and message) memories. 
  * fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ';
@@ -56,7 +56,16 @@ class SetFieldAction extends Action {
     try {
       var data = this.alldata(tick);
 
-      var value = _.template(utils.wrapExpression(this.properties.fieldValue))(data);
+
+      var global = data.global;
+      var context = data.context;
+      var message = data.message;
+      var fsm = data.fsm;
+      var process = data.process;
+      var volatile = data.volatile;
+      var value = eval("(" + this.properties.fieldValue + ")");
+
+
       // if we need to parse a dot notation field
       // TODO: TEMPLATE BEFORE
       var field = this.properties.fieldName;
@@ -79,7 +88,7 @@ class SetFieldAction extends Action {
 
     function validCompositeField(field) {
 
-      return field && (field.indexOf('message.') === 0 || field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
+      return field && (field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
     }
 
     return [{

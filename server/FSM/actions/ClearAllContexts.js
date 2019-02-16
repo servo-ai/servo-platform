@@ -16,10 +16,21 @@ class ClearAllContexts extends Action {
 
 
     this.title = this.name = 'ClearAllContexts';
-    this.description = 'find closest context managed ancestor and clear all its contexts. ';
+    this.description = 'find closest context managed ancestor and clear all its contexts. If leaveCurrent is true, leaves current context intact';
 
-    var parameters = {};
-    this.parameters = _.extend(this.parameters, parameters);
+    var parameters = {
+      leaveCurrent: false
+    };
+    /** 
+     * Node parameters
+     * @property parameters
+     * @type {Object}
+     * @property  {boolean} parameters.leaveCurrent if true, leaves current context intact
+     *  
+     */
+    this.parameters = _.extend(this.parameters, {
+      leaveCurrent: false
+    });
   }
   /**
    * Tick method.
@@ -29,7 +40,7 @@ class ClearAllContexts extends Action {
    **/
   tick(tick) {
 
-    this.clearAllContexts(tick);
+    this.clearAllContexts(tick, this.properties.leaveCurrent);
 
     return b3.SUCCESS();
   }

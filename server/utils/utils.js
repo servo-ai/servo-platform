@@ -1,4 +1,4 @@
-var config = require('../config');
+var config = require('config');
 //Html to image thing using node-webshot
 var webshot = require('webshot');
 var crypto = require('crypto');
@@ -313,3 +313,45 @@ Utils.getTreeDir = (pathObj) => {
 };
 
 Utils.CONVOCODE_DIR = "./convocode";
+
+/**
+ * @param {Tick} tick
+ * @param {BaseNode} node
+ */
+Utils.evalCondition = (tick, node) => {
+  var data = node.alldata(tick);
+  var left = node.properties.left;
+  var operator = node.properties.operator;
+  var right = node.properties.right;
+
+  left = Utils.wrapExpression(left);
+  right = Utils.wrapExpression(right);
+  try {
+    left = _.template(left)(data);
+  } catch (ex) {
+    left = 0;
+  }
+  try {
+    right = _.template(right)(data);
+  } catch (ex) {
+    right = 0;
+  }
+
+  // fix a common error (especially for non-programmers)
+  if (operator === '=') {
+    operator = '===';
+  }
+
+  var result = false;
+
+  left = Utils.addQuotes(left);
+  right = Utils.addQuotes(right);
+  result = eval(left + operator + right);
+
+  var b3 = require('FSM/core/b3');
+  if (result) {
+    return b3.SUCCESS();
+  } else {
+    return b3.FAILURE();
+  }
+};

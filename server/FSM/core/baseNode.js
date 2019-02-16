@@ -2,7 +2,7 @@
  * BaseNode
  *
  * Copyright (c) 2017-2019 Servo Labs Inc.  
- * Parts Copyright (c)  Renato de Pontes Pereira.  
+ * Copyright(c)  Renato de Pontes Pereira.  
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to 
@@ -702,7 +702,6 @@ class BaseNode {
 
     if (!this.waitCode(tick)) {
       this.waitCode(tick, b3.RUNNING());
-
       this.wait(this.outputMessage, [tick, fieldName], -1).then(() => {
         this.waitCode(tick, b3.SUCCESS());
         //  save on next tick, so (1) we wont get stuck on running (2) we get all composites to reflect right child indexes 
@@ -800,11 +799,12 @@ class BaseNode {
   /**
    * clear all the sibling contexts of this node 
    * @param {Tick} tick 
+   * @param {boolean} leaveCurrent
    */
-  clearAllContexts(tick) {
+  clearAllContexts(tick, leaveCurrent) {
     var contextManagerEtts = this.findContextManagerEntities(tick);
     var contextManager = contextManagerEtts.node && contextManagerEtts.node.contextManager;
-    contextManager.clearAllContexts(contextManagerEtts.tick);
+    contextManager.clearAllContexts(contextManagerEtts.tick, leaveCurrent);
   }
 
   /**

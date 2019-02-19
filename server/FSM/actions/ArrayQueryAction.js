@@ -24,6 +24,8 @@ class ArrayQueryAction extends Action {
      * @property {Object} settings 
      * @property {string} settings.sourceFieldName
      * @property {string} settings.targetFieldName
+     * @property {string} [settings.sort] - asc or desc
+     * @property {string} [settings.sortFieldName] - the field name on which to apply the sort
      * @property {number} settings.resultIndex
      * @property {ExpressionString} settings.query - an expression with the query 
      * 
@@ -32,13 +34,12 @@ class ArrayQueryAction extends Action {
       'sourceFieldName': '',
       'targetFieldName': '',
       'query': '',
+      'sort': '',
+      'sortFieldName': '',
       'resultIndex': null
 
     });
     settings = settings || {};
-    if (_.isEmpty(settings.arrayFieldName)) {
-      console.error("sourceFieldName/targetFieldName are obligatory parameters");
-    }
   }
 
   /**
@@ -77,14 +78,26 @@ class ArrayQueryAction extends Action {
         results = collection;
       }
       results = results || {};
+      // '$loki' cant be saved on db
       if (results.map) {
+        if (this.properties.sort) {
+          results.sort((item1, item2) => {
+            if (this.properties.sort.toLowerCase() == 'desc')
+              return item1[this.properties.sortFieldName] > item2[this.properties.sortFieldName];
+            else return item1[this.properties.sortFieldName] < item2[this.properties.sortFieldName];
+          });
+        }
+
 
         results.map((result) => {
           if (result) delete result.$loki
-        })
+        });
       } else {
         delete results.$loki;
       }
+
+      // sort if needed
+
       this.alldata(tick, targetField, results);
 
 
@@ -112,6 +125,9 @@ class ArrayQueryAction extends Action {
     return [{
       condition: validCompositeField(node.properties.sourceFieldName),
       text: "sourceFieldName should start with message., context., global., fsm. or volatile."
+    }, {
+      condition: node.properties.query != "",
+      text: "query should no tbe empty"
     }, {
       condition: validCompositeField(node.properties.targetFieldName),
       text: "targetFieldName should start with message., context., global., fsm. or volatile."

@@ -1,0 +1,127 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "set-field-object",
+	"name": "set-field-object",
+	"title": "set-field-object",
+	"description": "",
+	"root": "770d5f97-f72e-48df-8675-274d10c68634",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"770d5f97-f72e-48df-8675-274d10c68634": {
+			"id": "770d5f97-f72e-48df-8675-274d10c68634",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "1",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -124,
+				"y": 122
+			},
+			"children": [
+				"d89a0978-f466-4235-aed5-db4156470abc",
+				"dd03f863-227b-4372-81f8-8eeaf596de02",
+				"54bde1f1-fdc6-48c2-8101-0d0f7dfa1e16",
+				"0f99e098-50c3-4213-8d6f-a1e6446accd3"
+			]
+		},
+		"d89a0978-f466-4235-aed5-db4156470abc": {
+			"id": "d89a0978-f466-4235-aed5-db4156470abc",
+			"name": "SetFieldAction",
+			"title": "Sets a literal object",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.myobj",
+				"fieldValue": "{x:11,y:12}"
+			},
+			"display": {
+				"x": -404,
+				"y": 202
+			}
+		},
+		"dd03f863-227b-4372-81f8-8eeaf596de02": {
+			"id": "dd03f863-227b-4372-81f8-8eeaf596de02",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"my object is <%=global.myobj.x%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": -214,
+				"y": 266
+			}
+		},
+		"54bde1f1-fdc6-48c2-8101-0d0f7dfa1e16": {
+			"id": "54bde1f1-fdc6-48c2-8101-0d0f7dfa1e16",
+			"name": "SetFieldAction",
+			"title": "Set evaluated object",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.evaluatedObject",
+				"fieldValue": "global.myobj.x"
+			},
+			"display": {
+				"x": -16,
+				"y": 298
+			}
+		},
+		"0f99e098-50c3-4213-8d6f-a1e6446accd3": {
+			"id": "0f99e098-50c3-4213-8d6f-a1e6446accd3",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"my evaluated object is <%=global.evaluatedObject%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 232,
+				"y": 304
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 361.5,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

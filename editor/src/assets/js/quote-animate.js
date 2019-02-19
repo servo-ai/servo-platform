@@ -2,8 +2,20 @@
 
 var quotes = [{
     text: "“To be or not to be, that is the question” ",
-    source: "William Shakespeare",
+    source: "— William Shakespeare",
     imageURL: "/imgs/ai-expert.jpg"
+  }, {
+    text: "“I'm hungry” ",
+    source: "— Artist Unknown",
+    imageURL: "/imgs/sandwich.png"
+  }, {
+    text: "How to write good code",
+    source: "— Randall Munroe",
+    imageURL: "/imgs/codingFlowChart.png"
+  }, {
+    text: "Thou shalt make thy program's purpose and structure clear",
+    source: "Artist Unknown",
+    imageURL: "/imgs/anError.png"
   }, {
     text: "“Whether we are based on carbon or on silicon makes no fundamental difference; we should each be treated with appropriate respect.” ",
     source: "—  Arthur C. Clarke, 2010: Odyssey Two",

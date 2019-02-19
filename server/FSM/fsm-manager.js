@@ -401,7 +401,6 @@ class FSMManager {
     function tickItNow(pid, fsm_id) {
 
       function tickIt() {
-        var queueAfterDoneRunningObj = null;
         try {
           var thisProcess = processModel.getFromCache(pid);
 

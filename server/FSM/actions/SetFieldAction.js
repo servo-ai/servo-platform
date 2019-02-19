@@ -3,7 +3,6 @@ var _ = require('underscore');
 var Action = require('FSM/core/action');
 var utils = require('utils/utils');
 var dblogger = require('utils/dblogger');
-
 /**
  * Set fields across composite (global,context, volatile, local and message) memories. 
  * fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ';
@@ -56,7 +55,8 @@ class SetFieldAction extends Action {
     try {
       var data = this.alldata(tick);
 
-      var value = _.template(utils.wrapExpression(this.properties.fieldValue))(data);
+      var value = utils.evalMemoryField(data, this.properties.fieldValue);
+
       // if we need to parse a dot notation field
       // TODO: TEMPLATE BEFORE
       var field = this.properties.fieldName;

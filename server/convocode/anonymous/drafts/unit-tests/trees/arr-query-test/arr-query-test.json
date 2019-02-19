@@ -1,0 +1,160 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "arr-query-test",
+	"name": "arr-query-test",
+	"title": "arr-query-test",
+	"description": "",
+	"root": "0cddb649-c22d-4840-8042-5d5c5d65aa5c",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"0cddb649-c22d-4840-8042-5d5c5d65aa5c": {
+			"id": "0cddb649-c22d-4840-8042-5d5c5d65aa5c",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 6,
+				"y": 78
+			},
+			"children": [
+				"57f08d56-6b3f-4193-a92e-22a21814ec0a",
+				"a57c0741-ecfa-4cb0-8660-a75b37ae71b6",
+				"9983b6de-94e2-494f-8c4b-f2599797bbe2",
+				"6f9341e6-00b9-4117-8ded-a9a15f619caf",
+				"906c6cd2-5f86-40bc-9b7c-58541e729b78",
+				"2a819706-ab3f-4d18-982e-6f575ee5ef5f"
+			]
+		},
+		"57f08d56-6b3f-4193-a92e-22a21814ec0a": {
+			"id": "57f08d56-6b3f-4193-a92e-22a21814ec0a",
+			"name": "SetFieldAction",
+			"title": "initialize",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders",
+				"fieldValue": "[]"
+			},
+			"display": {
+				"x": -514,
+				"y": 208
+			}
+		},
+		"a57c0741-ecfa-4cb0-8660-a75b37ae71b6": {
+			"id": "a57c0741-ecfa-4cb0-8660-a75b37ae71b6",
+			"name": "SetFieldAction",
+			"title": "add pizza",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders[0]",
+				"fieldValue": "{timestamp:Date.now(),day:new Date(Date.now()).getDay(),item:'pizza'}"
+			},
+			"display": {
+				"x": -306,
+				"y": 208
+			}
+		},
+		"9983b6de-94e2-494f-8c4b-f2599797bbe2": {
+			"id": "9983b6de-94e2-494f-8c4b-f2599797bbe2",
+			"name": "SetFieldAction",
+			"title": "another pizza",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders[1]",
+				"fieldValue": "{timestamp:Date.now(),day:new Date(Date.now()).getDay()+1,item:'pizza'}"
+			},
+			"display": {
+				"x": -98,
+				"y": 208
+			}
+		},
+		"906c6cd2-5f86-40bc-9b7c-58541e729b78": {
+			"id": "906c6cd2-5f86-40bc-9b7c-58541e729b78",
+			"name": "ArrayQueryAction",
+			"title": "ArrayQueryAction",
+			"description": "Use mongoDB's find(query) on an array provided in sourceFieldName. May apply sort afterwords and use resultIndex to select one item from the result set.",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"sourceFieldName": "global.orders",
+				"targetFieldName": "global.pizzaArray",
+				"query": "{\"day\":{\"$eq\":<%=new Date(Date.now()).getDay()%>}}",
+				"resultIndex": null
+			},
+			"display": {
+				"x": 318,
+				"y": 208
+			}
+		},
+		"6f9341e6-00b9-4117-8ded-a9a15f619caf": {
+			"id": "6f9341e6-00b9-4117-8ded-a9a15f619caf",
+			"name": "SafeEval",
+			"title": "SafeEval",
+			"description": "Evaluates codeLine as JavaScript against all memory fields (message, global, context, fsm, volatile,local). uses several basic mechanisms to protect against file system use. codeLine length limited to 255 characters",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"codeLine": "global.orders.push({timestamp:Date.now(),day:new Date(Date.now()).getDay(),item:'pasta'})"
+			},
+			"display": {
+				"x": 110,
+				"y": 208
+			}
+		},
+		"2a819706-ab3f-4d18-982e-6f575ee5ef5f": {
+			"id": "2a819706-ab3f-4d18-982e-6f575ee5ef5f",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"<%=global.pizzaArray.length%> pizza today"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 526,
+				"y": 208
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 361,
+		"camera_z": 1,
+		"x": 6,
+		"y": -52
+	},
+	"state": "draft"
+}

@@ -105,8 +105,8 @@ class Repeater extends Decorator {
       return b3.ERROR();
     }
 
-    var i = tick.process.get('i', tick.tree.id, this.id);
-    this.context(tick, 'repeatCount', i);
+    var i = this.local(tick, 'i');
+    this.local(tick, 'repeatCount', i);
     var status = b3.SUCCESS();
 
     if (this.maxLoop < 0 || i < this.maxLoop) {
@@ -118,7 +118,7 @@ class Repeater extends Decorator {
       }
     }
 
-    i = tick.process.set('i', i, tick.tree.id, this.id);
+    this.local(tick, 'i', i);
     return status;
   }
 

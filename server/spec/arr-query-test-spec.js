@@ -10,7 +10,7 @@ fdescribe('set an object field', () => {
     });
 
     it('should show all fields of the object', (done) => {
-        startProcessTick.expect('2 pizzas').then(() => {
+        startProcessTick.expect('2 pizza today').then(() => {
             done();
         });
     });

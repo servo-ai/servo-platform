@@ -148,4 +148,6 @@ load(path, 'actions', 'CloseAllContexts');
 load(path, 'actions', 'CalcDateDiff');
 load(path, 'conditions', 'IsValidField');
 load(path, 'decorators', 'RepeatUntilCondition');
+
+load(path, 'actions', 'SafeEval');
 module.exports = B3Nodes;

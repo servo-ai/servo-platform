@@ -3,7 +3,6 @@ var _ = require('underscore');
 var Action = require('FSM/core/action');
 var utils = require('utils/utils');
 var dblogger = require('utils/dblogger');
-var ejs = require('ejs');
 /**
  * Set fields across composite (global,context, volatile, local and message) memories. 
  * fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ';

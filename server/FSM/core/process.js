@@ -197,6 +197,7 @@ class Process extends Blackboard {
         try {
           eval("processData." + key + "= value");
         } catch (ex) {
+          dblogger = require('utils/dblogger');
           dblogger.error('error in global/process.data(' + key + "," + value + "):", ex);
           processData[key] = value;
         }

@@ -56,15 +56,7 @@ class SetFieldAction extends Action {
     try {
       var data = this.alldata(tick);
 
-
-      var global = data.global;
-      var context = data.context;
-      var message = data.message;
-      var fsm = data.fsm;
-      var process = data.process;
-      var volatile = data.volatile;
-      var value = eval("(" + this.properties.fieldValue + ")");
-
+      var value = utils.evalMemoryField(data, this.properties.fieldValue);
 
       // if we need to parse a dot notation field
       // TODO: TEMPLATE BEFORE
@@ -88,7 +80,7 @@ class SetFieldAction extends Action {
 
     function validCompositeField(field) {
 
-      return field && (field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
+      return field && (field.indexOf('message.') === 0 || field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
     }
 
     return [{

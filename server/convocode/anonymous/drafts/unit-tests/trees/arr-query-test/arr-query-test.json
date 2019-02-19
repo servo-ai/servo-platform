@@ -1,0 +1,134 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "arr-query-test",
+	"name": "arr-query-test",
+	"title": "arr-query-test",
+	"description": "",
+	"root": "0cddb649-c22d-4840-8042-5d5c5d65aa5c",
+	"properties": {},
+	"nodes": {
+		"0cddb649-c22d-4840-8042-5d5c5d65aa5c": {
+			"id": "0cddb649-c22d-4840-8042-5d5c5d65aa5c",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -112,
+				"y": 148
+			},
+			"children": [
+				"57f08d56-6b3f-4193-a92e-22a21814ec0a",
+				"a57c0741-ecfa-4cb0-8660-a75b37ae71b6",
+				"9983b6de-94e2-494f-8c4b-f2599797bbe2",
+				"15035a30-4eb3-43ec-a3aa-44943f370d47",
+				"906c6cd2-5f86-40bc-9b7c-58541e729b78"
+			]
+		},
+		"57f08d56-6b3f-4193-a92e-22a21814ec0a": {
+			"id": "57f08d56-6b3f-4193-a92e-22a21814ec0a",
+			"name": "SetFieldAction",
+			"title": "initialize",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders",
+				"fieldValue": "[]"
+			},
+			"display": {
+				"x": -320,
+				"y": 286
+			}
+		},
+		"a57c0741-ecfa-4cb0-8660-a75b37ae71b6": {
+			"id": "a57c0741-ecfa-4cb0-8660-a75b37ae71b6",
+			"name": "SetFieldAction",
+			"title": "add pizza",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders[0]",
+				"fieldValue": "{timestamp:Date.now(),item:'pizza'}"
+			},
+			"display": {
+				"x": -60,
+				"y": 308
+			}
+		},
+		"9983b6de-94e2-494f-8c4b-f2599797bbe2": {
+			"id": "9983b6de-94e2-494f-8c4b-f2599797bbe2",
+			"name": "SetFieldAction",
+			"title": "another pizza",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders[1]",
+				"fieldValue": "{timestamp:Date.now(),item:'pizza'}"
+			},
+			"display": {
+				"x": 172,
+				"y": 288
+			}
+		},
+		"15035a30-4eb3-43ec-a3aa-44943f370d47": {
+			"id": "15035a30-4eb3-43ec-a3aa-44943f370d47",
+			"name": "SetFieldAction",
+			"title": "pasta",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.orders[global.orders.length]",
+				"fieldValue": "{timestamp:Date.now(),item:'pasta'}"
+			},
+			"display": {
+				"x": 366,
+				"y": 296
+			}
+		},
+		"906c6cd2-5f86-40bc-9b7c-58541e729b78": {
+			"id": "906c6cd2-5f86-40bc-9b7c-58541e729b78",
+			"name": "ArrayQueryAction",
+			"title": "ArrayQueryAction",
+			"description": "Use mongoDB's find(query) on an array provided in sourceFieldName. May apply sort afterwords and use resultIndex to select one item from the result set.",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"sourceFieldName": "global.orders",
+				"targetFieldName": "global.pizzaCount",
+				"query": "",
+				"resultIndex": null
+			},
+			"display": {
+				"x": 474,
+				"y": 226
+			}
+		}
+	},
+	"display": {
+		"camera_x": 768,
+		"camera_y": 361,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

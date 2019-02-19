@@ -1,0 +1,121 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "repeat-until-condition",
+	"name": "repeat-until-condition",
+	"title": "repeat-until-condition",
+	"description": "",
+	"root": "61cf19d4-7ad5-494d-8c21-1fd8a7d51aae",
+	"properties": {
+		"channels": "chatsim"
+	},
+	"nodes": {
+		"07290262-a857-4d09-b12c-0b8a2b834050": {
+			"id": "07290262-a857-4d09-b12c-0b8a2b834050",
+			"name": "RepeatUntilCondition",
+			"title": "Repeat Until Condition",
+			"description": "Repeats the child node until a condition is true. Updates context.repeatCount",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"left": "context.left",
+				"operator": "==",
+				"right": "24"
+			},
+			"display": {
+				"x": 10,
+				"y": 186
+			},
+			"child": "f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e"
+		},
+		"856940dd-2c26-4947-8aa1-91fd3f3f6470": {
+			"id": "856940dd-2c26-4947-8aa1-91fd3f3f6470",
+			"name": "GeneralMessage",
+			"title": "GeneralMessage",
+			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"view": false,
+				"prompt": [
+					"left is 24. repeatCount is <%=context.repeatCount%>"
+				],
+				"cyclePrompts": true,
+				"pushMessageOut": false,
+				"imageHTML": false,
+				"imageDataArrayName": ""
+			},
+			"display": {
+				"x": 294,
+				"y": 218
+			}
+		},
+		"61cf19d4-7ad5-494d-8c21-1fd8a7d51aae": {
+			"id": "61cf19d4-7ad5-494d-8c21-1fd8a7d51aae",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 26,
+				"y": 16
+			},
+			"children": [
+				"3fb397ce-6d45-499a-8597-9bbce5a92c9a",
+				"07290262-a857-4d09-b12c-0b8a2b834050",
+				"856940dd-2c26-4947-8aa1-91fd3f3f6470"
+			]
+		},
+		"3fb397ce-6d45-499a-8597-9bbce5a92c9a": {
+			"id": "3fb397ce-6d45-499a-8597-9bbce5a92c9a",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "context.left",
+				"fieldValue": "0"
+			},
+			"display": {
+				"x": -244,
+				"y": 214
+			}
+		},
+		"f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e": {
+			"id": "f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "context.left",
+				"fieldValue": "context.left+1"
+			},
+			"display": {
+				"x": -26,
+				"y": 356
+			}
+		}
+	},
+	"display": {
+		"camera_x": 960,
+		"camera_y": 469,
+		"camera_z": 1,
+		"x": -80,
+		"y": -194
+	},
+	"state": "draft"
+}

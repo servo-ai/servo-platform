@@ -99,7 +99,7 @@ Utils.snakeToCamel = function (s) {
  * @param {*} x 
  */
 Utils.safeIsNaN = function (x) {
-  return (isNaN(x) || x === "" || x === null || x === undefined || typeof x === "boolean");
+  return (isNaN(x) || x === "" || x === null || x === undefined || typeof x === "boolean" || typeof x === "object");
 };
 
 /***
@@ -354,4 +354,37 @@ Utils.evalCondition = (tick, node) => {
   } else {
     return b3.FAILURE();
   }
+};
+
+/***
+ * evaluates a memory field against process datas
+ * @param {Object} data - process data
+ * @param {MemoryField} code - the field to evaluate
+ */
+Utils.evalMemoryField = function (data, code) {
+  // eslint-disable-next-line no-unused-vars
+  var require = {}; // deter malicious requires
+  // eslint-disable-next-line no-unused-vars
+  var fs = {}; // or popular file system access
+  //  try {
+  // eslint-disable-next-line no-unused-vars
+  var global = data.global || {};
+  // eslint-disable-next-line no-unused-vars
+  var context = data.context || {};
+  // eslint-disable-next-line no-unused-vars
+  var message = data.message || {};
+  // eslint-disable-next-line no-unused-vars
+  var fsm = data.fsm || {};
+  // eslint-disable-next-line no-unused-vars
+  var process = data.process || {};
+  // eslint-disable-next-line no-unused-vars
+  var volatile = data.volatile || {};
+  var value = eval("(" + code + ")");
+
+  // } catch (err) {
+  //   console.log(data, code);
+  //   return;
+  // }
+  return value;
+
 };

@@ -14,9 +14,9 @@ Or click to watch a short intro video:
     * sudo npm install -g gulp bower
 	* git clone https://github.com/servo-ai/servo-platform.git
     * cd servo-platform/server
-    * optional:
-** Windows: npm install --global --production windows-build-tools 
-** Linux: sudo apt-get install build-essential libssl-dev
+    * optional:<br>
+      ** Windows: npm install --global --production windows-build-tools <br>
+      ** Linux: sudo apt-get install build-essential libssl-dev
     * npm install
     * cd ../editor
     * npm install

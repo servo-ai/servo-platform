@@ -286,7 +286,6 @@
     } else {
       y = h / 2 + anchorOffsetX;
     }
-    console.log('-------------bbbb', breakpoint)
     makeAnchor(shape, -x, -y,
       settings.get('anchor_radius'),
       settings.get('anchor_background_color'),

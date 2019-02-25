@@ -28,7 +28,6 @@
 			},
 			"children": [
 				"3b5cbf14-69fc-4d44-868a-915631976c0f",
-				"4e0eaa21-3df9-4bb9-8a7f-63570c016bcc",
 				"20d03ff7-eaa2-472f-bbb7-9a743407f5ca"
 			]
 		},
@@ -91,35 +90,6 @@
 			"display": {
 				"x": 76,
 				"y": 290
-			}
-		},
-		"4e0eaa21-3df9-4bb9-8a7f-63570c016bcc": {
-			"id": "4e0eaa21-3df9-4bb9-8a7f-63570c016bcc",
-			"name": "GeneralMessage",
-			"title": "הבנתי שצריך לאיזור",
-			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
-			"properties": {
-				"debug-log": "",
-				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5,
-				"replayActionOnReturnFromContextSwitch": true,
-				"view": false,
-				"prompt": {
-					"en": [
-						"I understand you need an appointment for <%=context.city%>"
-					],
-					"he": [
-						"הבנתי שיש צורך בתור באיזור <%=context.heCity%>"
-					]
-				},
-				"cyclePrompts": true,
-				"pushMessageOut": false,
-				"imageHTML": false,
-				"imageDataArrayName": ""
-			},
-			"display": {
-				"x": -176,
-				"y": 1116
 			}
 		},
 		"1b8874ab-29d3-4151-88d6-9bd63724ee38": {
@@ -321,8 +291,8 @@
 				"dontRemoveUnusedTarget": false
 			},
 			"display": {
-				"x": 190,
-				"y": 1238
+				"x": 64,
+				"y": 1222
 			},
 			"children": [
 				"c0b6f39f-2bbe-498a-8ba2-9838559f3022",
@@ -399,7 +369,7 @@
 	},
 	"display": {
 		"camera_x": 784.299999992596,
-		"camera_y": -437.79999994560785,
+		"camera_y": -627.9600000053615,
 		"camera_z": 1,
 		"x": 0,
 		"y": 0

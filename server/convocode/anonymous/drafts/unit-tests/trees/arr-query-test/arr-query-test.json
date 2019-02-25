@@ -100,6 +100,8 @@
 				"sourceFieldName": "global.orders",
 				"targetFieldName": "global.pizzaArray",
 				"query": "{\"day\":{\"$eq\":<%=new Date(Date.now()).getDay()%>}}",
+				"sort": "",
+				"sortFieldName": "",
 				"resultIndex": null
 			},
 			"display": {

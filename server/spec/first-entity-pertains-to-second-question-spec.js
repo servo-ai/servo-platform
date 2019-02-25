@@ -1,57 +1,87 @@
 let ProcessTick = require('./support/start-process-tick');
 
 
-describe('first mentioned entity ', () => {
+fdescribe('first mentioned entity ', () => {
   var processTick;
   beforeEach((done) => {
     processTick = new ProcessTick();
     // get the tree
     // start the process  & tick
     processTick.start('../convocode/anonymous/fsms/unit-tests/trees/first-entity-pertains-to-second-question/first-entity-pertains-to-second-question.json').then(() => {
-
       done();
     });
   });
 
 
+  // it('mapped to first question entity', (done) => {
+  //   processTick.expect('how can I help?').then(() => {
+  //     processTick.send({
+
+  //       entities: {
+  //         "intentId": "ApptIntent",
+  //         'city': "NYC"
+
+  //       }
+  //     }).then(() => {
+  //       processTick.expect('ok').then(() => {
+  //         processTick.expect('ok').then(() => {
+  //           processTick.expect('I understand you need an appointment').then(() => {
+  //             processTick.expect('when is the appointment?').then(() => {
+  //               processTick.send({
+  //                 entities: {
+  //                   'heDate': "15102018"
+  //                 }
+  //               }).then(() => {
+  //                 processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+  //                   done();
+  //                 })
+  //               })
+  //             })
+  //           })
+  //         }).catch((x) => {
+  //           done.fail(x);
+  //         });
+  //       }).catch((x) => {
+  //         console.log('reject1');
+  //         done.fail(x);
+  //       });
+  //     });
+  //   });
+  // });
+
   it('mapped to second question entity', (done) => {
     processTick.expect('how can I help?').then(() => {
       processTick.send({
-
         entities: {
           "intentId": "ApptIntent",
-          'city': "NYC"
-
+          'heDate': "15102018"
         }
       }).then(() => {
         processTick.expect('ok').then(() => {
-          processTick.expect('ok').then(() => {
-            processTick.expect('I understand you need an appointment for NYC').then(() => {
-              processTick.expect('when is the appointment?').then(() => {
-                processTick.send({
-                  entities: {
-                    'heDate': "15102018"
-                  }
-                }).then(() => {
-                  processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
-                    done();
-                  })
-                })
-              })
-            })
-          }).catch((x) => {
-            done.fail(x);
+          processTick.expect('where is the appointment?').then(() => {
+            processTick.send({
+              entities: {
+                'city': "NYC"
+              }
+            }).then(() => {
+              processTick.expect('ok').then(() => {
+                processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+                  done();
+                });
+              });
+            });
           });
         }).catch((x) => {
-          console.log('reject1');
           done.fail(x);
         });
+      }).catch((x) => {
+        console.log('reject1');
+        done.fail(x);
       });
     });
-
-
-
   });
+
+
   /*
     it('even if we repeat a previous entity, maps second question entity', (done) => {
       processTick.expect('how can I help?').then(() => {

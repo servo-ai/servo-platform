@@ -245,7 +245,49 @@ class BaseNode {
 
   }
 
+  /**
+   * returns an object with all the entities that are key, all the way to the root
+   * @param {*} tick 
+   * @param {*} key 
+   */
+  aggregateObjectContextField(tick, ettkey) {
+    let contextMgr = this.contextManager;
+    let ctxTick = tick;
+    let aggregatedEtts = {};
+    // get one e
+    function addEtt(ettInObj, key) {
 
+      // if exists already in our aggregation
+      if (aggregatedEtts[key]) {
+        // // and not an array yet
+        // if (!_.isArray(aggregatedEtts[key])) {
+        //   // then make it an array 
+        //   aggregatedEtts[key] = [aggregatedEtts[key]];
+        // }
+        // and add
+        dblogger.assert(_.isArray(aggregatedEtts[key]), 'strange, we should have had here an array');
+        aggregatedEtts[key].concat(_.isArray(ettInObj) ? ettInObj : [ettInObj]);
+      } else {
+        aggregatedEtts[key] = _.isArray(ettInObj) ? ettInObj : [ettInObj];
+      }
+
+    }
+
+    // for this context 
+    while (contextMgr) {
+      let etts = contextMgr.getContextMemory(ctxTick)[ettkey];
+      for (let ettObjKey in etts) {
+        // if it's an object, we dont override
+        addEtt(etts[ettObjKey], ettObjKey);
+      }
+      // move to parent
+      let contextEtts = contextMgr.findNextContextManagerEntities(ctxTick);
+      contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
+      ctxTick = contextEtts.tick;
+    }
+
+    return aggregatedEtts;
+  }
   /**
    * returns an object that is a merge between all contexts up to the root
    * lower context members override the upper ones
@@ -254,10 +296,27 @@ class BaseNode {
   collectContextsUpToRoot(tick) {
     var contextManagerEtts = this.findContextManagerEntities(tick);
     var contextObj = {};
+    // while in context
     while (contextManagerEtts.node) {
       var contextManager = contextManagerEtts.node.contextManager;
       var contextMem = contextManager.getContextMemory(contextManagerEtts.tick);
-      contextObj = _.extend(contextMem, contextObj);
+      // for  every item in the context
+      for (let ettkey in contextMem) {
+        //  if we havent done so yet
+        if (!contextObj[ettkey]) {
+          if (typeof contextMem[ettkey] !== "string") {
+            // collect all the values of it to the root (if you havent done so yet)
+            let aggregatedEtts = contextManager.node.aggregateObjectContextField(contextManagerEtts.tick, ettkey);
+            contextObj[ettkey] = aggregatedEtts;
+          } else {
+            // if the entity is a string, return always the most recent one 
+            contextObj[ettkey] = contextMem[ettkey];
+
+          }
+        }
+      }
+      // contextObj = _.extend(contextMem, contextObj);
+      // go to next context
       contextManagerEtts = contextManager.findNextContextManagerEntities(contextManagerEtts.tick);
     }
 

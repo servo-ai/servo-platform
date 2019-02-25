@@ -1,8 +1,7 @@
-var http = require('http');
 var b3 = require('FSM/core/b3');
 var Action = require('FSM/core/action');
 var _ = require('underscore');
-var dblogger = require('utils/dblogger')
+var dblogger = require('utils/dblogger');
 /**
  * Posts a JSON payload to a URL, and sets fieldName to the returned object
  *  @memberof module:Actions
@@ -16,10 +15,11 @@ class PostAction extends Action {
      * Node parameters
      * @property parameters
      * @type {Object}
-     * @property {string} parameters.url - post URL
+     * @property {ExpressionString} parameters.url - post URL. will be evalated
      * @property {ExpressionString|Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a template and parsed to a JSON object
      * @property {Boolean} parameters.json - set true to indicate application/json post action
-     * @property {string}  parameters.headers POST headers
+     * @property {ExpressionString|Object}  parameters.headers POST headers
+     * @property {ExpressionString|Object}  parameters.options other POST options
      * @property {MemoryField}  parameters.fieldName dot-notated field name
      */
     this.parameters = _.extend(this.parameters, {
@@ -57,19 +57,30 @@ class PostAction extends Action {
       //var request = PipeManager.getPipe('request');
       var request = require("request");
       try {
-        var payload = (typeof this.properties.payload === 'string') ? JSON.parse(_.template(this.properties.payload)(data)) : this.properties.payload;
-
+        var payload = this.properties.payload && ((typeof this.properties.payload === 'string') ?
+          JSON.parse(_.template(this.properties.payload)(data)) :
+          JSON.parse(_.template(JSON.stringify(this.properties.payload))(data)));
+        var url = _.template(this.properties.url)(data);
         var options = this.properties.json ? {
-          url: this.properties.url,
+          url: url,
           method: "POST",
           json: payload,
+          followAllRedirects: true,
 
         } : {
-          url: this.properties.url,
+          url: url,
           method: "POST",
           form: payload,
+          followAllRedirects: true,
+
         };
-        options.headers = this.properties.headers;
+        options.headers = this.properties.headers && ((typeof this.properties.headers === 'string') ?
+          JSON.parse(_.template(this.properties.headers)(data)) :
+          JSON.parse(_.template(JSON.stringify(this.properties.headers))(data)));
+        // extend with other options if needed
+        _.extend(options, this.properties.options && ((typeof this.properties.options === 'string') ?
+          JSON.parse(_.template(this.properties.options)(data)) :
+          JSON.parse(_.template(JSON.stringify(this.properties.options))(data))));
       } catch (ex) {
         dblogger.error(tick, 'possibly parse problem in PostAction:' + ex.message + " at " + this.summary(tick));
       }
@@ -77,6 +88,7 @@ class PostAction extends Action {
       request.post(options, (err, res, body) => {
         try {
           var _thisnode = this;
+          console.log(options, body);
           var json = (typeof body === 'string') ? JSON.parse(body) : body;
         } catch (err) {
           dblogger.error(err.message + _thisnode.summary(tick));
@@ -109,7 +121,7 @@ class PostAction extends Action {
     }
     return [{
       condition: node.properties && node.properties.url,
-      text: "should have a URL"
+      text: "Node must have a URL"
     }, {
       condition: validCompositeField(node.properties.fieldName),
       text: "fieldName should start with message., context., global., fsm. or volatile."

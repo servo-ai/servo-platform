@@ -1,7 +1,7 @@
 let ProcessTick = require('./support/start-process-tick');
 
 
-fdescribe('first mentioned entity ', () => {
+describe('first mentioned entity ', () => {
   var processTick;
   beforeEach((done) => {
     processTick = new ProcessTick();
@@ -13,41 +13,39 @@ fdescribe('first mentioned entity ', () => {
   });
 
 
-  // it('mapped to first question entity', (done) => {
-  //   processTick.expect('how can I help?').then(() => {
-  //     processTick.send({
+  it('mapped to first question entity', (done) => {
+    processTick.expect('how can I help?').then(() => {
+      processTick.send({
 
-  //       entities: {
-  //         "intentId": "ApptIntent",
-  //         'city': "NYC"
+        entities: {
+          "intentId": "ApptIntent",
+          'city': "NYC"
 
-  //       }
-  //     }).then(() => {
-  //       processTick.expect('ok').then(() => {
-  //         processTick.expect('ok').then(() => {
-  //           processTick.expect('I understand you need an appointment').then(() => {
-  //             processTick.expect('when is the appointment?').then(() => {
-  //               processTick.send({
-  //                 entities: {
-  //                   'heDate': "15102018"
-  //                 }
-  //               }).then(() => {
-  //                 processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
-  //                   done();
-  //                 })
-  //               })
-  //             })
-  //           })
-  //         }).catch((x) => {
-  //           done.fail(x);
-  //         });
-  //       }).catch((x) => {
-  //         console.log('reject1');
-  //         done.fail(x);
-  //       });
-  //     });
-  //   });
-  // });
+        }
+      }).then(() => {
+        processTick.expect('ok').then(() => {
+          processTick.expect('ok').then(() => {
+            processTick.expect('when is the appointment?').then(() => {
+              processTick.send({
+                entities: {
+                  'heDate': "15102018"
+                }
+              }).then(() => {
+                processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+                  done();
+                })
+              })
+            })
+          }).catch((x) => {
+            done.fail(x);
+          });
+        }).catch((x) => {
+          console.log('reject1');
+          done.fail(x);
+        });
+      });
+    });
+  });
 
   it('mapped to second question entity', (done) => {
     processTick.expect('how can I help?').then(() => {
@@ -82,8 +80,43 @@ fdescribe('first mentioned entity ', () => {
   });
 
 
-  /*
-    it('even if we repeat a previous entity, maps second question entity', (done) => {
+
+  it('even if we repeat a previous entity, maps second question entity', (done) => {
+    processTick.expect('how can I help?').then(() => {
+      processTick.send({
+
+        entities: {
+          "intentId": "ApptIntent",
+          'city': "NYC"
+
+        }
+      }).then(() => {
+        processTick.expect('ok').then(() => {
+          processTick.expect('ok').then(() => {
+            processTick.expect('when is the appointment?').then(() => {
+              processTick.send({
+                entities: {
+                  'heDate': "15102018",
+                  "intentId": "ApptIntent"
+                }
+              }).then(() => {
+                processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+                  done();
+                })
+
+              })
+            })
+          }).catch((x) => {
+            done.fail(x);
+          });
+        }).catch((x) => {
+          console.log('reject1');
+          done.fail(x);
+        });
+      });
+    });
+
+    it('if we change a previous entity, and no backtrack child exists, maps second question entity', (done) => {
       processTick.expect('how can I help?').then(() => {
         processTick.send({
 
@@ -100,10 +133,10 @@ fdescribe('first mentioned entity ', () => {
                   processTick.send({
                     entities: {
                       'heDate': "15102018",
-                      "intentId": "ApptIntent"
+                      "city": "TLV"
                     }
                   }).then(() => {
-                    processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+                    processTick.expect('I understand you need an appointment for 15102018 around the area of TLV').then(() => {
                       done();
                     })
                   })
@@ -119,84 +152,46 @@ fdescribe('first mentioned entity ', () => {
         });
       });
 
-      it('if we change a previous entity, and no backtrack child exists, maps second question entity', (done) => {
-        processTick.expect('how can I help?').then(() => {
-          processTick.send({
-
-            entities: {
-              "intentId": "ApptIntent",
-              'city': "NYC"
-
-            }
-          }).then(() => {
-            processTick.expect('ok').then(() => {
-              processTick.expect('ok').then(() => {
-                processTick.expect('I understand you need an appointment for NYC').then(() => {
-                  processTick.expect('when is the appointment?').then(() => {
-                    processTick.send({
-                      entities: {
-                        'heDate': "15102018",
-                        "city": "TLV"
-                      }
-                    }).then(() => {
-                      processTick.expect('I understand you need an appointment for 15102018 around the area of TLV').then(() => {
-                        done();
-                      })
-                    })
-                  })
-                })
-              }).catch((x) => {
-                done.fail(x);
-              });
-            }).catch((x) => {
-              console.log('reject1');
-              done.fail(x);
-            });
-          });
-        });
-
-      });
     });
+  });
 
-    it('if we input a non-changed previous entity this should go to help', (done) => {
-      processTick.expect('how can I help?').then(() => {
-        processTick.send({
+  it('if we input a non-changed previous entity this should go to help', (done) => {
+    processTick.expect('how can I help?').then(() => {
+      processTick.send({
 
-          entities: {
-            "intentId": "ApptIntent",
-            'city': "NYC"
+        entities: {
+          "intentId": "ApptIntent",
+          'city': "NYC"
 
-          }
-        }).then(() => {
+        }
+      }).then(() => {
+        processTick.expect('ok').then(() => {
           processTick.expect('ok').then(() => {
-            processTick.expect('ok').then(() => {
-              processTick.expect('I understand you need an appointment for NYC').then(() => {
-                processTick.expect('when is the appointment?').then(() => {
-                  processTick.send({
-                    entities: {
-                      'intentId': "ApptIntent",
-                      "xxx": "TLV"
-                    }
-                  }).then(() => {
-                    processTick.expect('please enter the time at which you need the appointment').then(() => {
-                      done();
-                    })
-                  })
+            processTick.expect('when is the appointment?').then(() => {
+              processTick.send({
+                entities: {
+                  'intentId': "ApptIntent",
+                  "xxx": "TLV"
+                }
+              }).then(() => {
+                processTick.expect('please enter the time at which you need the appointment').then(() => {
+                  done();
                 })
               })
-            }).catch((x) => {
-              done.fail(x);
-            });
+            })
           }).catch((x) => {
-            console.log('reject1');
             done.fail(x);
           });
+        }).catch((x) => {
+          console.log('reject1');
+          done.fail(x);
         });
       });
-
-
     });
-  */
+
+
+  });
+
   afterEach(() => {
     processTick.stop();
   });

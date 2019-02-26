@@ -304,7 +304,7 @@ class BaseNode {
       for (let ettkey in contextMem) {
         //  if we havent done so yet
         if (!contextObj[ettkey]) {
-          if (typeof contextMem[ettkey] !== "string") {
+          if (typeof contextMem[ettkey] === "object") {
             // collect all the values of it to the root (if you havent done so yet)
             let aggregatedEtts = contextManager.node.aggregateObjectContextField(contextManagerEtts.tick, ettkey);
             contextObj[ettkey] = aggregatedEtts;

@@ -44,7 +44,7 @@
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
 				"replayActionOnReturnFromContextSwitch": true,
-				"url": "http://httpbin.org/get",
+				"url": "https://httpbin.org/get",
 				"fieldName": "global.postReply",
 				"headers": ""
 			},

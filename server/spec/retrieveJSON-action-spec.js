@@ -13,7 +13,7 @@ describe('load environment nodes', () => {
   });
 
   it('a get action test', (done) => {
-    startProcessTick.expect("get ok: \"http://httpbin.org/get\"").then(() => {
+    startProcessTick.expect("get ok: \"https://httpbin.org/get\"").then(() => {
       done();
     });
   });

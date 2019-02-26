@@ -1,0 +1,3 @@
+[submodule "server/convocode/servo"]
+	path = server/convocode/servo
+	url = https://lmessinger@bitbucket.org/servoai/convocode-servo.git

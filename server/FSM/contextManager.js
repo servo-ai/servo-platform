@@ -455,6 +455,7 @@ class ContextManager {
 
       dblogger.flow('ett Count This Target ' + ettCountThisTarget + ' at child ' + c);
       // check if we have historical contexts that can be mapped here to this context
+      // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
       ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
       // does this child hold the max?
       if ((ettCountAtPastTargets + ettCountThisTarget) > maxEttCount) {
@@ -819,8 +820,21 @@ class ContextManager {
    */
   saveUnmappedEntitiesToContext(tick, target) {
     let unmappedEntities = target.getUnusedEntities();
-    this.setContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES, unmappedEntities);
+    console.log('(((((((((((((saveUnmappedEntitiesToContext', this.node.id, unmappedEntities);
+    let prevUnmappedEtts = this.getContextMemory(tick)[ContextManagerKeys.UNMAPPEDENTITIES] || {};
+    // TODO - deal with unmapped of same key
+    _.extend(prevUnmappedEtts, unmappedEntities);
+    console.log('(((((((((((((saveUnmappedEntitiesToContext2', this.node.id, prevUnmappedEtts);
+    this.setContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES, prevUnmappedEtts);
+    console.log('(((((((((((((saveUnmappedEntitiesToContext3', this.getContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES));
+    let contextEtts = this.findNextContextManagerEntities(tick);
+    let contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
+    let ctxTick = contextEtts.tick;
+    console.log('(((((((((((((saveUnmappedEntitiesToContext4', contextMgr.node.id, contextMgr.getContextMemory(ctxTick));
+
   }
+
+
 
   /**
    * search the tree upwards to see if in a previous context we had the same entity that was not mapped yet
@@ -831,7 +845,7 @@ class ContextManager {
    */
   mapPastUnmapedEntitiesToContext(tick, contextDetails, target, countOnly) {
     let numberOfMaps = 0;
-    let unmappedEntities = this.getContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES) || [];
+    let unmappedEntities = this.node.aggregateObjectContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES) || [];
     _.each(contextDetails.entities, (ett) => {
 
       // count if we already mapped here

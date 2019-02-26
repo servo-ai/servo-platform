@@ -1,5 +1,5 @@
 let StartProcessTick = require('./support/start-process-tick');
-describe('load environment nodes', () => {
+xdescribe('load environment nodes', () => {
     var startProcessTick;
     beforeEach((done) => {
         startProcessTick = new StartProcessTick();

@@ -1,5 +1,5 @@
 let StartProcessTick = require('./support/start-process-tick');
-fdescribe('set an object field', () => {
+describe('set an object field', () => {
     var startProcessTick;
     beforeEach((done) => {
         startProcessTick = new StartProcessTick();

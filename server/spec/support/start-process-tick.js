@@ -61,6 +61,7 @@ class StartProcessTick {
   constructor() {
 
     this._results = {};
+    this.userId = "anonymous";
     this.pid = TESTPID + "-" + Math.random();
     this.observer = new Observer();
     var _this = this;
@@ -79,6 +80,57 @@ class StartProcessTick {
 
   }
 
+  recuresiveStart(fsm_id, userId) {
+    this.userId = userId;
+    var fsmName = fsm_id;
+    return new Promise((resolve, reject) => {
+      try {
+
+        fsmModel.getAllFSMs(userId, false).then(() => {
+
+          var fsm = fsmModel.getFSMSync(fsm_id, userId);
+          fsm.properties['channels'] = "chatsim";
+          // load the tree
+          //let behaviorTree = new BehaviorTree("general-message-spec", 'general-message-spec', "general-message-spec");
+          //behaviorTree.load(tree).then((fsm) => {
+          FSM.loadBehaviorTree(fsm, undefined /*this make it root*/ , fsm.userFsmId()).then(() => {
+            // create message object
+            var messageObj = chatManager.createMessageObject('chatsim', {
+              recipient: {
+                id: this.pid
+              },
+              sender: {
+                id: this.pid
+              },
+              text: "",
+              treeID: fsm.id,
+              raw: {}
+            });
+            messageObj.userId = "anonymous";
+
+            // start the process
+            FSM.startOneProcess(fsm, messageObj, this.pid).then((process1) => {
+              // process1.properties('channels', "chatsim");
+              FSM.tickStart(fsm.userFsmId(), process1);
+              this.fsmId = fsm.id;
+              console.log('---------------------- ' + fsmName + ' loaded and started -------------------');
+              resolve();
+            });
+          });
+        });
+        //fsm.folderName = folderName || '../spec-trees/';
+
+
+
+      } catch (er) {
+        console.error('problem in starting processTick testing:', er);
+        reject(er);
+      };
+
+    });
+
+
+  }
   start(fsm) {
     var fsmName = fsm;
     return new Promise((resolve, reject) => {
@@ -165,7 +217,7 @@ class StartProcessTick {
     }
 
     // send  
-    intentObj.data.userId = "anonymous";
+    intentObj.data.userId = this.userId;
     return chatsim.onMessage(intentObj);
   }
 

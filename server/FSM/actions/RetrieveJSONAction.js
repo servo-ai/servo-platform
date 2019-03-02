@@ -15,7 +15,7 @@ class RetrieveJSONAction extends Action {
      * Node parameters
      * @property parameters
      * @type {Object}
-     * @property {string} parameters.url
+     * @property {ExpressionString} parameters.url
      * @property {MemoryField} parameters.fieldName - dot-notation name (global./context.) of field to set
      * @property {ExpressionString|Object} parameters.headers - headers to send for the GET action
      */
@@ -36,6 +36,9 @@ class RetrieveJSONAction extends Action {
     tick.process.set('step', 0, tick.tree.id, this.id);
   }
 
+  /**
+   * do the get
+   */
   retrieveJSON(tick) {
     var data = this.alldata(tick);
     var step = tick.process.get('step', tick.tree.id, this.id)
@@ -53,12 +56,13 @@ class RetrieveJSONAction extends Action {
         }
         headers = JSON.parse(_.template(headers)(data));
       }
+      var evaluateUrl = _.template(this.properties.url)(data);
 
       //TODO: Implement use for method, params
       //var request = PipeManager.getPipe('request');
       var request = require("request");
       request({
-          url: this.properties.url,
+          url: evaluateUrl,
           method: "GET",
           headers: headers
         },

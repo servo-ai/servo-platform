@@ -737,12 +737,12 @@ class BaseNode {
           resolve();
 
         }).catch((err) => {
-          dblogger.error('error in outputMessage ' + this.summary(tick), err);
+          dblogger.error('error in outputMessage. properties.channels  ok? ' + this.summary(tick), err);
 
           reject(err);
         });
       }).catch((err) => {
-        dblogger.error('error in outputMessage', err);
+        dblogger.error('error in outputMessage. properties.channels  ok?', err);
         reject(err);
       });
     });

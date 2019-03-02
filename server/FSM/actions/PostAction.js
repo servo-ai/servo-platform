@@ -17,17 +17,19 @@ class PostAction extends Action {
      * @type {Object}
      * @property {ExpressionString} parameters.url - post URL. will be evalated
      * @property {ExpressionString|Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a template and parsed to a JSON object
-     * @property {Boolean} parameters.json - set true to indicate application/json post action
+     * @property {Boolean} parameters.json - set true to indicate application/json post action. if not, payload is stringified and contentType is used
      * @property {ExpressionString|Object}  parameters.headers POST headers
      * @property {ExpressionString|Object}  parameters.options other POST options
      * @property {MemoryField}  parameters.fieldName dot-notated field name
+     * @property {string} contentType of the post. ignored if json is treu
      */
     this.parameters = _.extend(this.parameters, {
       'url': '',
       'payload': {},
       'fieldName': '',
       'json': true,
-      'headers': ''
+      'headers': '',
+      'contentType': ''
     });
     settings = settings || {};
 
@@ -65,18 +67,29 @@ class PostAction extends Action {
           url: url,
           method: "POST",
           json: payload,
-          followAllRedirects: true,
+          followAllRedirects: false,
 
         } : {
           url: url,
           method: "POST",
           form: payload,
-          followAllRedirects: true,
+          followAllRedirects: false
 
         };
+
         options.headers = this.properties.headers && ((typeof this.properties.headers === 'string') ?
           JSON.parse(_.template(this.properties.headers)(data)) :
           JSON.parse(_.template(JSON.stringify(this.properties.headers))(data)));
+        // if its a form data, make it 
+        if (!options.headers && options.form) {
+          var formData = JSON.stringify(options.form);
+          options.form = options.form;
+          options.headers = {
+            'Postman-Token': '5b0ea1ca-4ecb-4f39-8e1b-6bfc15e9afdc',
+            'cache-control': 'no-cache',
+            'Content-Type': this.properties.contentType || 'application/x-www-form-urlencoded'
+          };
+        }
         // extend with other options if needed
         _.extend(options, this.properties.options && ((typeof this.properties.options === 'string') ?
           JSON.parse(_.template(this.properties.options)(data)) :
@@ -84,8 +97,23 @@ class PostAction extends Action {
       } catch (ex) {
         dblogger.error(tick, 'possibly parse problem in PostAction:' + ex.message + " at " + this.summary(tick));
       }
-
-      request.post(options, (err, res, body) => {
+      // options = {
+      //   url: 'https://www.poliklik.com/poliklik/api/ministry_of_finance/',
+      //   headers: {
+      //     'Postman-Token': '5b0ea1ca-4ecb-4f39-8e1b-6bfc15e9afdc',
+      //     'cache-control': 'no-cache',
+      //     'Content-Type': 'application/x-www-form-urlencoded'
+      //   },
+      //   form: {
+      //     name: 'lkjl',
+      //     phone: '1234567890',
+      //     issue_date: '17/10/1990',
+      //     id_number: '059560938',
+      //     email: 'liormessinger@gmail.com',
+      //     undefined: undefined
+      //   }
+      // };
+      request(options, (err, res, body) => {
         try {
           var _thisnode = this;
           console.log(options, body);

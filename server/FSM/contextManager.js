@@ -827,10 +827,10 @@ class ContextManager {
     console.log('(((((((((((((saveUnmappedEntitiesToContext2', this.node.id, prevUnmappedEtts);
     this.setContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES, prevUnmappedEtts);
     console.log('(((((((((((((saveUnmappedEntitiesToContext3', this.getContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES));
-    let contextEtts = this.findNextContextManagerEntities(tick);
-    let contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
-    let ctxTick = contextEtts.tick;
-    console.log('(((((((((((((saveUnmappedEntitiesToContext4', contextMgr.node.id, contextMgr.getContextMemory(ctxTick));
+    // let contextEtts = this.findNextContextManagerEntities(tick);
+    // let contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
+    // let ctxTick = contextEtts.tick;
+    // console.log('(((((((((((((saveUnmappedEntitiesToContext4', contextMgr && contextMgr.node && contextMgr.node.id, contextMgr.getContextMemory(ctxTick));
 
   }
 

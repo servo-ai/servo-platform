@@ -32,7 +32,7 @@ module.exports = fsmModel;
  * get an fsm by id synchrnously
  * @param {string} fsm_id
  * @param {string} userId
- * @param {string} parentFolderName - unique id of parent
+ * @param {string} [parentFolderName] - unique id of parent
  * @return {Fsm}
  */
 fsmModel.getFSMSync = function (fsm_id, userId, parentFolderName) {

@@ -133,7 +133,7 @@ function processRequest(req, res, fsm) {
     });
 
     // get or create all the processes whose messages reside in this request
-    // TODO: MAKE A QUEUE AND WORK ON THE QUEUE IN FSM
+    // TODO: GET USER NAME OF FIRST INTERACTION (https://developers.facebook.com/docs/messenger-platform/identity/user-profile)
     getCreateProcessesAndMessages(req.body, fsm).then(function () {
 
     }).catch(function (err) {

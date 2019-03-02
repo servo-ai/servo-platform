@@ -60,7 +60,7 @@ class FieldCompareCondition extends Condition {
     function validCompositeField(field) {
 
       var bool1 = field && (field.indexOf('message.') === 0 || field.indexOf('context.') === 0 || field.indexOf('global.') === 0 || field.indexOf('volatile.') === 0 || field.indexOf('fsm.') === 0);
-      var bool2 = field && (field.indexOf('\'') === 0 || field.indexOf('"') === 0 || !isNaN(field));
+      var bool2 = field && (field.indexOf('\'') === 0 || field.indexOf('"') === 0 || !isNaN(field) || typeof field == 'boolean');
       return bool1 || bool2;
     }
 
@@ -77,7 +77,7 @@ class FieldCompareCondition extends Condition {
       text: "right should be a memory field, a number or a string expression"
     }, {
       condition: validCompositeField(node.properties.left),
-      text: "right should be a memory field, a number or a string expression"
+      text: "left should be a memory field, a number or a string expression"
     }];
   }
 }

@@ -42,6 +42,7 @@ class AskAndMap extends Composite {
      * @property {boolean} backtrack if true, this will be the child to enter on backtracking
      * @property {boolean} default use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
      * @property {boolean} passThru use when another AskAndMap is expected downwards, that uses same intent/entities. If true, dont use target on context switch
+     * @property {boolean} newContext if true, entity map search  will not ascend beyond this point. Make false if this node is a part of a dialog collecting entities, and entities of its parent should be included in the mappings
      * @property {Array<EntitiesToContextMapItem>} entities an array of expected entities
      */
     /**
@@ -79,6 +80,8 @@ class AskAndMap extends Composite {
         timeout: false,
         //"_default": "use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
         default: false,
+        // newContext if true, entity map search will stop here. Make false if this node is a part of a dialog collecting entities, and entities of its parent should be included in the mappings
+        newContext: true,
         //"_entities": "array of expected entities",
         entities: [{
           'contextFieldName': '',

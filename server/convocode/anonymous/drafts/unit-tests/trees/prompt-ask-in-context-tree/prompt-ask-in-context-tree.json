@@ -54,7 +54,7 @@
 							{
 								"contextFieldName": "",
 								"entityName": "intentId",
-								"expectedValue": "PositiveIntent",
+								"expectedValue": "Positive.*",
 								"entityIndex": 0,
 								"leaveIfNoEntity": true
 							}

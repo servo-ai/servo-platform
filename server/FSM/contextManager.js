@@ -354,21 +354,14 @@ class ContextManager {
    * @param {any} entityValue 
    */
   compareExpectedValues(ettExpectedValues, entityValue) {
+
     // if an expected value exists, compare angainst is
+    let entityStringValue = utils.safeIsNaN(entityValue) ? entityValue : entityValue.toString();
+    entityStringValue = '^' + entityStringValue + '$'; // if its a number, make sure 1223 !== 122
+
     let found = ettExpectedValues.find((elem) => {
-      if (utils.safeIsNaN(entityValue)) {
-        if (utils.safeIsNaN(elem)) { // if its a number
-          return entityValue.toLowerCase() === elem.toLowerCase();
-        } else {
-          return entityValue.toLowerCase() === elem.toString();
-        }
-      } else {
-        if (utils.safeIsNaN(elem)) { // if its a number
-          return entityValue.toString() === elem.toLowerCase();
-        } else {
-          return entityValue.toString() === elem.toString();
-        }
-      }
+      let expectedValueRegex = new RegExp(elem.toLowerCase(), 'i');
+      return expectedValueRegex.test(entityStringValue);
     });
     return found;
   }
@@ -437,6 +430,46 @@ class ContextManager {
   }
 
   /**
+   * countPastContextEntities
+   * @param {Tick} tick 
+   * @param {ContextItem} contextDetails 
+   *  @return {number} number of maps from past contexts to here
+   */
+  countPastContextEntities(tick, contextDetails) {
+    let ettCount = 0;
+    // for each ett
+    for (let ettkey in contextDetails) {
+      let ett = contextDetails[ettkey];
+      // see if it was mapped already somewhere up
+      let ettName = ett.contextFieldName || ett.entityName;
+      // get the context field of ettName up to the next newContext context
+      let ettValue = this.getContextField(tick, ettName, true);
+      if (ettValue) {
+        // if expected value exists, map only if the names matches
+        let ettExpectedValues = ett.expectedValue && (Array.isArray(ett.expectedValue) ? ett.expectedValue : [ett.expectedValue]);
+        var found = true;
+        let expectedValueFound = false;
+        if (ettExpectedValues) {
+          found = this.compareExpectedValues(ettExpectedValues, ettValue);
+          expectedValueFound = true;
+        }
+
+        if (found) {
+          ettCount++;
+        }
+
+        // give an extra point if its expected value
+        if (expectedValueFound) {
+          ettCount++;
+        }
+      }
+
+    }
+
+    return ettCount;
+  }
+
+  /**
    * selects an index in the contexts that has the maximal entity match
    * @param {Tick} tick 
    */
@@ -457,9 +490,13 @@ class ContextManager {
       // check if we have historical contexts that can be mapped here to this context
       // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
       ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
+
+      // now use previously mapped entities for the counting! 
+      let ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
+
       // does this child hold the max?
-      if ((ettCountAtPastTargets + ettCountThisTarget) > maxEttCount) {
-        maxEttCount = ettCountAtPastTargets + ettCountThisTarget;
+      if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
+        maxEttCount = ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts;
         retIndex = c;
       }
     }
@@ -743,9 +780,10 @@ class ContextManager {
    * get the key/value from first context-managed ancestor which keeps it
    * @param {Tick} tick
    * @param {string} key 
+   * @param {boolean?} limited - if true, do not continue beyond a context which is a newContext node
    * @return {any}  value
    */
-  getContextField(tick, key) {
+  getContextField(tick, key, limited = false) {
     var node = this.node;
     var value;
     var contextManager = this;
@@ -753,7 +791,7 @@ class ContextManager {
     do {
       dblogger.assert(contextManager, "node must have a contextManager");
       value = contextManager.getContextMemory(tick)[key];
-      if (_.isUndefined(value)) {
+      if (_.isUndefined(value) && (!limited || !contextManager.node.properties.newContext)) {
         var nextCntxtMgrEtts = contextManager.findNextContextManagerEntities(tick);
         node = nextCntxtMgrEtts && nextCntxtMgrEtts.node;
         tick = nextCntxtMgrEtts && nextCntxtMgrEtts.tick;

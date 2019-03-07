@@ -357,9 +357,9 @@ class ContextManager {
 
     // if an expected value exists, compare angainst is
     let entityStringValue = utils.safeIsNaN(entityValue) ? entityValue : entityValue.toString();
-    entityStringValue = '^' + entityStringValue + '$'; // if its a number, make sure 1223 !== 122
 
     let found = ettExpectedValues.find((elem) => {
+      elem = '^' + elem + '$'; // if its a number, make sure 1223 !== 122
       let expectedValueRegex = new RegExp(elem.toLowerCase(), 'i');
       return expectedValueRegex.test(entityStringValue);
     });
@@ -438,8 +438,8 @@ class ContextManager {
   countPastContextEntities(tick, contextDetails) {
     let ettCount = 0;
     // for each ett
-    for (let ettkey in contextDetails) {
-      let ett = contextDetails[ettkey];
+    for (let ettkey in contextDetails.entities) {
+      let ett = contextDetails.entities[ettkey];
       // see if it was mapped already somewhere up
       let ettName = ett.contextFieldName || ett.entityName;
       // get the context field of ettName up to the next newContext context
@@ -476,7 +476,7 @@ class ContextManager {
   selectContextWithMaxEntities(tick, intentDirection) {
     let maxEttCount = 0;
     let retIndex = -1;
-    dblogger.flow('select Context With Max Entities - ' + this.node.summary(tick));
+    dblogger.flow(this.node.id + ' select Context With Max Entities - ' + this.node.summary(tick));
 
     // look on the contexts of the current contextManager
     var ctxParams = this.node.contextProperties();
@@ -492,7 +492,7 @@ class ContextManager {
       ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
 
       // now use previously mapped entities for the counting! 
-      let ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
+      let ettCountAtPastContexts = intentDirection === ContextManagerKeys.DOWNWARDS ? this.countPastContextEntities(tick, ctxParams[c]) : 0;
 
       // does this child hold the max?
       if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
@@ -797,7 +797,7 @@ class ContextManager {
         tick = nextCntxtMgrEtts && nextCntxtMgrEtts.tick;
         contextManager = node && node.contextManager;
       }
-    } while (_.isUndefined(value) && node);
+    } while (node && (_.isUndefined(value) && !contextManager.node.properties.newContext));
 
     return value;
   }

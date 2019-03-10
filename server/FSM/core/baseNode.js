@@ -294,6 +294,8 @@ class BaseNode {
    * @param {Tick} tick 
    */
   collectContextsUpToRoot(tick) {
+
+    var ContextManager = require('FSM/contextManager');
     var contextManagerEtts = this.findContextManagerEntities(tick);
     var contextObj = {};
     // while in context
@@ -304,7 +306,7 @@ class BaseNode {
       for (let ettkey in contextMem) {
         //  if we havent done so yet
         if (!contextObj[ettkey]) {
-          if (typeof contextMem[ettkey] === "object") {
+          if (typeof contextMem[ettkey] === "object" && ettkey == ContextManager.contextManagerKeys().UNMAPPEDENTITIES) {
             // collect all the values of it to the root (if you havent done so yet)
             let aggregatedEtts = contextManager.node.aggregateObjectContextField(contextManagerEtts.tick, ettkey);
             contextObj[ettkey] = aggregatedEtts;

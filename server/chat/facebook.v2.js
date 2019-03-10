@@ -91,13 +91,43 @@ class FacebookChatDriver extends ChatDriverInterface {
       tree.properties.facebook = tree.properties.facebook || {
         accessToken: tree.properties.accessToken
       };
-      // TODO: ADD TYPING OFF DELAY BASED ON LAST MESSAGE TIME
-      FacebookChatDriver.getInst().sendTyping(false, tree.properties.facebook, toID).catch((err) => {
-        dblogger.error('typing_onoff error:', err);
-        handleDelivery(tree.properties.facebook.accessToken, toID, text, optionals, resolve, reject);
-      }).then(() => {
-        handleDelivery(tree.properties.facebook.accessToken, toID, text, optionals, resolve, reject);
-      });
+      // calculate typing delay
+      let lastTypingLastTimestamp = process.data('typingLastTimestamp');
+      if (lastTypingLastTimestamp || tree.properties.noTypingSignal) {
+        let wordsCount = response.text ? response.text.split(' ').length : 0.75;
+        let typingDelay = 500 * wordsCount;
+        let nowTS = Date.now();
+        typingDelay = typingDelay - (nowTS - lastTypingLastTimestamp);
+        typingDelay = typingDelay < 0 ? 0 : typingDelay;
+        typingDelay = Math.max(typingDelay, 2000);
+        if (tree.properties.noTypingSignal) {
+          typingDelay = 0;
+        }
+        setTimeout(() => {
+          FacebookChatDriver.getInst().sendTyping(false, tree.properties.facebook, toID).catch((err) => {
+            dblogger.error('typing_onoff error:', err);
+            handleDelivery(tree.properties.facebook.accessToken, toID, text, optionals, resolve, reject);
+          }).then(() => {
+            handleDelivery(tree.properties.facebook.accessToken, toID, text, optionals, resolve, reject);
+          });
+
+          // if it's a general message, AND we are using typing signals
+          if (!node.isQuestion() && !tree.properties.noTypingSignal) {
+            // send typing again
+            setTimeout(() => {
+              FacebookChatDriver.getInst().sendTyping(true, tree.properties.facebook, toID).catch((err) => {
+                dblogger.error('typing_onoff error:', err);
+              });
+              process.data('typingLastTimestamp', Date.now());
+            }, 1000);
+
+          }
+
+        }, typingDelay);
+
+      }
+
+
 
     });
   }
@@ -437,8 +467,16 @@ function actOnProcess(messageObj, processObj) {
     counter: counter + 1
   }
   processObj.data('lastWakeup', lastWakeup);
+
   processObj.volatile('replayLastLeaf', !!counter);
   processObj.data('lastUserTimestamp', lastUserTimestamp);
+  // send typing signal 
+  if (!processObj.properties()['noTypingSignal']) {
+    processObj.data('typingLastTimestamp', lastUserTimestamp);
+    FacebookChatDriver.getInst().sendTyping(true, processObj.properties()['facebook'], messageObj.fromUser.id).catch((err) => {
+      dblogger.error('typing_on error:', err);
+    });
+  }
 
   return new Promise(function (resolve) {
 
@@ -483,10 +521,7 @@ function getCreateProcessesAndMessages(messageBody, fsm) {
         var messageText = (message.message && message.message.quick_reply && message.message.quick_reply.payload) ||
           (message.message && message.message.text) ||
           (message.postback && message.postback.payload.toString());
-        // send typing signal 
-        FacebookChatDriver.getInst().sendTyping(true, fsm.properties.facebook, message.sender.id).catch((err) => {
-          dblogger.error('typing_on error:', err);
-        });
+
 
         // if simple text
         if (messageText) {

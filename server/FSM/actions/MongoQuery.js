@@ -154,6 +154,7 @@ class MongoQuery extends Action {
         var process = data.process || {};
         // eslint-disable-next-line no-unused-vars
         var volatile = data.volatile || {};
+        //        collection.find({"Make":{ $regex: new RegExp(context.carMakeEntity), $options: 'i' },"Model":{ $regex: new RegExp(context.carModelEntity), $options: 'i' }})
         var value = eval("(" + codeToEval + ")");
 
     }

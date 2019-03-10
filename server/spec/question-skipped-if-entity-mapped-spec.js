@@ -1,7 +1,7 @@
 let ProcessTick = require('./support/start-process-tick');
 
 
-fdescribe('first mentioned entities ', () => {
+describe('first mentioned entities ', () => {
     var processTick;
     beforeEach((done) => {
         processTick = new ProcessTick();

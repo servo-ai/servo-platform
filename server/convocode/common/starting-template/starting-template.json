@@ -5,6 +5,7 @@
 	"name": "starting-template",
 	"title": "starting-template",
 	"description": "",
+
 	"root": "a95221db-5efc-435a-b299-4cb66068ed07",
 	"properties": {
 		"channels": "chatsim",
@@ -25,7 +26,8 @@
 		"resetMemory": 1,
 		"defaultLang": "en",
 		"debug-log": 0,
-		"defaultHelpPrompt": "not understood"
+		"defaultHelpPrompt": "not understood",
+		"noTypingSignal": true
 	},
 	"nodes": {
 		"1ca754ab-b5d5-472f-aad7-941dd3a5d865": {
@@ -70,25 +72,20 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"contexts": [
-					{
-						"entities": [
-							{
-								"contextFieldName": "age",
-								"entityName": "number",
-								"entityIndex": 0
-							}
-						]
+				"contexts": [{
+						"entities": [{
+							"contextFieldName": "age",
+							"entityName": "number",
+							"entityIndex": 0
+						}]
 					},
 					{
-						"entities": [
-							{
-								"contextFieldName": "age",
-								"entityName": "number",
-								"expectedValue": "32",
-								"entityIndex": 0
-							}
-						]
+						"entities": [{
+							"contextFieldName": "age",
+							"entityName": "number",
+							"expectedValue": "32",
+							"entityIndex": 0
+						}]
 					},
 					{
 						"helper": true,
@@ -107,8 +104,7 @@
 							"BadWordIntent",
 							"VeryBadWordIntent"
 						],
-						"entities": [
-							{
+						"entities": [{
 								"entityName": "greetings",
 								"entityIndex": 0
 							},

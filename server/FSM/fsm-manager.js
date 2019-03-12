@@ -4,7 +4,6 @@
  */
 var processModel = require("../models/processmodel.js");
 var fsmModel = require("../models/fsmmodel.js");
-var Promise = require('bluebird');
 var chatManager = require("../chat/chatmanager");
 var dblogger = require("utils/dblogger.js");
 var _ = require('underscore');
@@ -502,6 +501,7 @@ class FSMManager {
 
   /**
    * calculateIntent and start ticking
+   * @return {Promise}
    */
   static calculateIntentAndTickIt(fsm, process, messageObj) {
     return new Promise(function (resolve) {
@@ -581,7 +581,11 @@ class FSMManager {
   static actOnProcess(messageObj, process) {
     return new Promise(function (resolve, reject) {
 
-      messageReceiver.actOnProcess(messageObj, process, process.properties()).then(resolve).catch(reject);
+      messageReceiver.actOnProcess(messageObj, process).then(() => {
+        resolve();
+      }).catch(() => {
+        reject();
+      });
 
     });
   }

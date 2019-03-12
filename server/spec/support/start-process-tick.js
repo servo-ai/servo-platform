@@ -20,7 +20,7 @@ class Observer {
     this._sentObjects = [];
   }
   expect(cb) {
-    console.log('*expect:', this._sentObjects);
+    console.log('*expect:', this._sentObjects.length);
     if (this._sentObjects.length) {
       let obj = this._sentObjects.pop();
       cb(obj);
@@ -36,7 +36,7 @@ class Observer {
     if (!cbExpected) {
       console.log('*set:message arrived without an expectation:', obj);
       this._sentObjects.unshift(obj);
-      console.log('*set:', this._sentObjects);
+      console.log('*set:', this._sentObjects.length);
     } else {
       try {
         cbExpected(obj);

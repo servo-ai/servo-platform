@@ -45,9 +45,9 @@ fsmModel.getFSMSync = function (fsm_id, userId, parentFolderName) {
  * get by id
  * @param {string} fsm_id
  * @param {string} user_id
- * @return {Fsm}
+ * @return {Promise} a promise of Fsm
  */
-fsmModel.get = fsmModel.getFSM = function (fsm_id, userId, parentFolderName) {
+fsmModel.get = fsmModel.getFSM = function (fsm_id, userId, parentFolderName = undefined) {
   let resultFSM;
   // @ts-ignore
   return new Promise(function (resolve, reject) {

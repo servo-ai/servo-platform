@@ -457,11 +457,10 @@ class ContextManager {
 
         if (found) {
           ettCount++;
-        }
-
-        // give an extra point if its expected value
-        if (expectedValueFound) {
-          ettCount++;
+          // give an extra point if its expected value
+          if (expectedValueFound) {
+            ettCount++;
+          }
         }
       }
 

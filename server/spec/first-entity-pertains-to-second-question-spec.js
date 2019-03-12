@@ -25,13 +25,17 @@ describe('first mentioned entity ', () => {
       }).then(() => {
         processTick.expect('ok').then(() => {
           processTick.expect('ok').then(() => {
+            console.log('********************************************before when');
             processTick.expect('when is the appointment?').then(() => {
+              console.log('********************************************after when');
               processTick.send({
                 entities: {
                   'heDate': "15102018"
                 }
               }).then(() => {
+                console.log('********************************************1after send');
                 processTick.expect('I understand you need an appointment for 15102018 around the area of NYC').then(() => {
+                  console.log('********************************************', "done");
                   done();
                 })
               })

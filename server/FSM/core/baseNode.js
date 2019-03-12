@@ -761,6 +761,8 @@ class BaseNode {
    **/
   tickMessage(tick, fieldName) {
 
+    if (this.id.startsWith('1b887'))
+      console.log('********************************************', this.id);
     if (!this.waitCode(tick)) {
       this.waitCode(tick, b3.RUNNING());
       this.wait(this.outputMessage, [tick, fieldName], -1).then(() => {

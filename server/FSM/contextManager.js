@@ -45,7 +45,7 @@ var utils = require('utils/utils');
  */
 const ContextManagerKeys = Object.freeze({
   CONTEXTMEM: "contextMem",
-  SHORTTERMMEMORYDISTANCE: 2,
+  // SHORTTERMMEMORYDISTANCE: 2,
   INTENTID: "intentId",
   LIFECYCLESTATE: "life-cycle-state",
   LASTCONTEXT: 'lastContext',
@@ -119,12 +119,13 @@ class ContextManager {
    * 
    * @param {Tick} tick 
    * @param {FoundContext} newContext 
-   * @param {number} contextDistance 
    * @return {boolean} is it a valid backtrack
    */
-  isBacktrack(tick, newContext, contextDistance) {
-    let isBack = newContext.index === newContext.prevIndex && newContext.index >= 0 && newContext.prevIndex >= 0 && // this.node.isQuestion() &&
-      1 <= contextDistance && contextDistance <= (tick.process.properties().maxBacktrackDistance || ContextManagerKeys.SHORTTERMMEMORYDISTANCE);
+  isBacktrack(tick, newContext) {
+    let isBack = newContext.index === newContext.prevIndex && newContext.index >= 0 && newContext.prevIndex >= 0
+    /*&& // this.node.isQuestion() &&
+         1 <= contextDistance && contextDistance <= (tick.process.properties().maxBacktrackDistance || ContextManagerKeys.SHORTTERMMEMORYDISTANCE)*/
+    ;
     let currentChildIndex = this.node.currentChildIndex(tick);
     // no backtrack from backtrack
     let backTrackAllowed = !this.node.contextProperties()[currentChildIndex] || !this.node.contextProperties()[currentChildIndex].backtrack;
@@ -188,10 +189,10 @@ class ContextManager {
    * try first by intents, otherwise try entities, otherwise helper
    * @param {Tick} tick
    * @param {string} intentDirection - search direction for intents: "downwards" or "upwards", or both when undefined 
-   * @param {number} shortterm memory distance (for backtrack)
+   * @param {boolean} backtrackLimitPassed memory distance (for backtrack)
    * @return {Array<FoundContext>}
    */
-  selectContexts(tick, intentDirection, contextDistance = ContextManagerKeys.SHORTTERMMEMORYDISTANCE) {
+  selectContexts(tick, intentDirection, backtrackLimitPassed /* contextDistance = ContextManagerKeys.SHORTTERMMEMORYDISTANCE*/ ) {
     let noContext = this.noContext(tick);
     let newContext = _.clone(noContext);
     let intermediateContext = _.clone(noContext);
@@ -263,8 +264,8 @@ class ContextManager {
 
     retContextArray = [newContext];
     // its a backtrack if the context is the same context as was already selected before and not too long ago
-    dblogger.flow('contextDistance:' + contextDistance);
-    if (this.isBacktrack(tick, newContext, contextDistance)) {
+    // dblogger.flow('contextDistance:' + contextDistance);
+    if (!backtrackLimitPassed && this.isBacktrack(tick, newContext)) {
       // see if we have a backtrack member
       var backtrackIndex = contextsParams.findIndex((ctxParam) => {
         return ctxParam.backtrack;
@@ -354,21 +355,14 @@ class ContextManager {
    * @param {any} entityValue 
    */
   compareExpectedValues(ettExpectedValues, entityValue) {
+
     // if an expected value exists, compare angainst is
+    let entityStringValue = utils.safeIsNaN(entityValue) ? entityValue : entityValue.toString();
+
     let found = ettExpectedValues.find((elem) => {
-      if (utils.safeIsNaN(entityValue)) {
-        if (utils.safeIsNaN(elem)) { // if its a number
-          return entityValue.toLowerCase() === elem.toLowerCase();
-        } else {
-          return entityValue.toLowerCase() === elem.toString();
-        }
-      } else {
-        if (utils.safeIsNaN(elem)) { // if its a number
-          return entityValue.toString() === elem.toLowerCase();
-        } else {
-          return entityValue.toString() === elem.toString();
-        }
-      }
+      elem = '^' + elem + '$'; // if its a number, make sure 1223 !== 122
+      let expectedValueRegex = new RegExp(elem.toLowerCase(), 'i');
+      return expectedValueRegex.test(entityStringValue);
     });
     return found;
   }
@@ -437,13 +431,52 @@ class ContextManager {
   }
 
   /**
+   * countPastContextEntities
+   * @param {Tick} tick 
+   * @param {ContextItem} contextDetails 
+   *  @return {number} number of maps from past contexts to here
+   */
+  countPastContextEntities(tick, contextDetails) {
+    let ettCount = 0;
+    // for each ett
+    for (let ettkey in contextDetails.entities) {
+      let ett = contextDetails.entities[ettkey];
+      // see if it was mapped already somewhere up
+      let ettName = ett.contextFieldName || ett.entityName;
+      // get the context field of ettName up to the next newContext context
+      let ettValue = this.getContextField(tick, ettName, true);
+      if (ettValue) {
+        // if expected value exists, map only if the names matches
+        let ettExpectedValues = ett.expectedValue && (Array.isArray(ett.expectedValue) ? ett.expectedValue : [ett.expectedValue]);
+        var found = true;
+        let expectedValueFound = false;
+        if (ettExpectedValues) {
+          found = this.compareExpectedValues(ettExpectedValues, ettValue);
+          expectedValueFound = true;
+        }
+
+        if (found) {
+          ettCount++;
+          // give an extra point if its expected value
+          if (expectedValueFound) {
+            ettCount++;
+          }
+        }
+      }
+
+    }
+
+    return ettCount;
+  }
+
+  /**
    * selects an index in the contexts that has the maximal entity match
    * @param {Tick} tick 
    */
   selectContextWithMaxEntities(tick, intentDirection) {
     let maxEttCount = 0;
     let retIndex = -1;
-    dblogger.flow('select Context With Max Entities - ' + this.node.summary(tick));
+    dblogger.flow(this.node.id + ' select Context With Max Entities - ' + this.node.summary(tick));
 
     // look on the contexts of the current contextManager
     var ctxParams = this.node.contextProperties();
@@ -457,9 +490,13 @@ class ContextManager {
       // check if we have historical contexts that can be mapped here to this context
       // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
       ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
+
+      // now use previously mapped entities for the counting! 
+      let ettCountAtPastContexts = intentDirection === ContextManagerKeys.DOWNWARDS ? this.countPastContextEntities(tick, ctxParams[c]) : 0;
+
       // does this child hold the max?
-      if ((ettCountAtPastTargets + ettCountThisTarget) > maxEttCount) {
-        maxEttCount = ettCountAtPastTargets + ettCountThisTarget;
+      if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
+        maxEttCount = ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts;
         retIndex = c;
       }
     }
@@ -603,8 +640,6 @@ class ContextManager {
     // re-save all frames
     this.setContextFrames(tick, contextFrames);
 
-
-
     // save some stats
     statsManager.addConversationStart(tick, selectedConvoIndex, this.node);
 
@@ -743,9 +778,10 @@ class ContextManager {
    * get the key/value from first context-managed ancestor which keeps it
    * @param {Tick} tick
    * @param {string} key 
+   * @param {boolean?} limited - if true, do not continue beyond a context which is a newContext node
    * @return {any}  value
    */
-  getContextField(tick, key) {
+  getContextField(tick, key, limited = false) {
     var node = this.node;
     var value;
     var contextManager = this;
@@ -753,13 +789,13 @@ class ContextManager {
     do {
       dblogger.assert(contextManager, "node must have a contextManager");
       value = contextManager.getContextMemory(tick)[key];
-      if (_.isUndefined(value)) {
+      if (_.isUndefined(value) && (!limited || !contextManager.node.properties.newContext)) {
         var nextCntxtMgrEtts = contextManager.findNextContextManagerEntities(tick);
         node = nextCntxtMgrEtts && nextCntxtMgrEtts.node;
         tick = nextCntxtMgrEtts && nextCntxtMgrEtts.tick;
         contextManager = node && node.contextManager;
       }
-    } while (_.isUndefined(value) && node);
+    } while (node && (_.isUndefined(value) && !contextManager.node.properties.newContext));
 
     return value;
   }
@@ -868,7 +904,7 @@ class ContextManager {
           // if the value equals the expected value, or the expected value doesnt matter
           if (found) {
             if (!countOnly) {
-              this.setContextField(parentContextManagerEtts.tick, ett.contextFieldName || ett.entityName, entityValue);
+              this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
               delete unmappedEntities[ett.entityName][ett.entityIndex];
             }
             numberOfMaps++;
@@ -966,6 +1002,14 @@ class ContextManager {
     this.node.currentContextChild(tick).local(tick, ContextManagerKeys.CONTEXTMEM, contextMem);
 
     return value;
+  }
+
+  /**
+   * return properties object of current context
+   * @param {*} tick 
+   */
+  currentContextProperties(tick) {
+    return this.node.properties.contexts[this.node.currentChildIndex(tick)];
   }
 
 
@@ -1146,7 +1190,7 @@ class ContextManager {
     this.clearAllContexts(tick, false);
     // no context got selected yet: then if we have a target, select by it the right context child
     // this answers cases where the first selection come from above (and tick is 'downwards')
-    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS);
+    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, false);
 
     // if no context found, and there's a target, choose the background
     if (!tick.target.exists() && foundContexts[foundContexts.length - 1].index < 0 && this.node.backgroundContextIndex !== undefined) {

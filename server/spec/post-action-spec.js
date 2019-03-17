@@ -1,7 +1,7 @@
 let StartProcessTick = require('./support/start-process-tick');
 var fsmEventEmitter = require('FSM/fsm-event-emitter.js');
 var results = {};
-describe('load environment nodes', () => {
+describe('load', () => {
   var startProcessTick;
   beforeEach((done) => {
     startProcessTick = new StartProcessTick();

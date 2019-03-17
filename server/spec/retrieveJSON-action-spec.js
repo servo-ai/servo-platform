@@ -1,7 +1,7 @@
 let StartProcessTick = require('./support/start-process-tick');
 var fsmEventEmitter = require('FSM/fsm-event-emitter.js');
 var results = {};
-describe('load environment nodes', () => {
+describe('a get action test ', () => {
   var startProcessTick;
   beforeEach((done) => {
     startProcessTick = new StartProcessTick();
@@ -12,7 +12,7 @@ describe('load environment nodes', () => {
 
   });
 
-  it('a get action test', (done) => {
+  it('should get ok from httpbin', (done) => {
     startProcessTick.expect("get ok: \"https://httpbin.org/get\"").then(() => {
       done();
     });

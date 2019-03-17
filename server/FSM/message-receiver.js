@@ -117,7 +117,11 @@ messageReceiver.actOnProcess = function (messageObj, process) {
         // save async
         processLocal.save();
         // add message to tick queue
-        return FSM.calculateIntentAndTickIt(fsm, processLocal, messageObj).then(resolve).catch(reject);
+        return FSM.calculateIntentAndTickIt(fsm, processLocal, messageObj).then(() => {
+          resolve();
+        }).catch(() => {
+          reject();
+        });
       }).catch((ex) => {
         dblogger.error('error in loading the tree/or calculateIntentAndTickIt ', fsm.id, ex);
         return reject('error in loading the tree/or calculateIntentAndTickIt');

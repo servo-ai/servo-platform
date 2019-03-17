@@ -22,8 +22,8 @@ class ArrayQueryAction extends Action {
      * @property parameters
      * @type {Object}
      * @property {Object} settings 
-     * @property {string} settings.sourceFieldName
-     * @property {string} settings.targetFieldName
+     * @property {MemoryField} settings.sourceFieldName
+     * @property {MemoryField} settings.targetFieldName
      * @property {string} [settings.sort] - asc or desc
      * @property {string} [settings.sortFieldName] - the field name on which to apply the sort
      * @property {number} settings.resultIndex

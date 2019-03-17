@@ -317,13 +317,14 @@ class BehaviorTree {
     };
     let loopStop = false;
     let contextCandidates = [];
-    let contextDistance = 0;
+    let backtrackLimitPassed = false;
     // go up the contextmanager's tree
-    while (!loopStop) {
+    while (!loopStop) { // <--- TODO: stop if node hasnt been opened yet (and no context was found). IOW, search only up from current
       dblogger.flow('---context search start');
       // and try to find the context
-      arrFoundContexts = contextManager.selectContexts(parentetts.tick, ContextManager.contextManagerKeys().UPWARDS, contextDistance++);
-
+      arrFoundContexts = contextManager.selectContexts(parentetts.tick, ContextManager.contextManagerKeys().UPWARDS, backtrackLimitPassed);
+      // if passed the backtrack limit search
+      backtrackLimitPassed = backtrackLimitPassed || (contextManager.currentContextProperties(parentetts.tick) && contextManager.currentContextProperties(parentetts.tick)['newContext']);
       // save first found (ie most specific) helper context
       if (!helperContextManager && contextManager.helperContextIndex(arrFoundContexts)) {
         helperContextManager = contextManager;

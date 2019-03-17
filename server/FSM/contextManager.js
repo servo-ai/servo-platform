@@ -384,7 +384,7 @@ class ContextManager {
     _.each(contextDetails.entities, (ett) => {
       let ettCount = 0;
       var entityValue = target.getEntity(ett.entityName, ett.entityIndex);
-
+      dblogger.flow('compare entity ' + ett.entityName + ', value ' + entityValue);
 
       // if found this (expected) entity on the target
       if (!_.isUndefined(entityValue)) {
@@ -402,7 +402,7 @@ class ContextManager {
 
           // count if we have a change here, ie its not been accounted for previously, THIS IS NEEDED WHEN THE TARGET INCLUDES AN ENTITY MAPPED ON PREVIOUS CONTEXT.
           let prevValueMappedAtThisContext = this.getContextMemory(tick)[ett.contextFieldName || ett.entityName];
-
+          dblogger.warn('no sure why we need prevValueMappedAtThisContext. this was found already mapped' + prevValueMappedAtThisContext)
           if (!countOnly) {
             this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
             target.useEntity(ett.entityName, ett.entityIndex);
@@ -486,13 +486,19 @@ class ContextManager {
       // count for current tick target
       ettCountThisTarget = this.mapTargetEntitiesToContext(tick, ctxParams[c], tick.target, true);
 
-      dblogger.flow('ett Count This Target ' + ettCountThisTarget + ' at child ' + c);
+      dblogger.flow('For child ' + c + ': ett Count This Target ' + ettCountThisTarget);
       // check if we have historical contexts that can be mapped here to this context
       // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
       ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
-
+      dblogger.flow('ettCountAtPastTargets ' + ettCountAtPastTargets);
       // now use previously mapped entities for the counting! 
-      let ettCountAtPastContexts = intentDirection === ContextManagerKeys.DOWNWARDS ? this.countPastContextEntities(tick, ctxParams[c]) : 0;
+      let ettCountAtPastContexts = 0;
+      // for downwards, non-intent entities, we allow them to be taken from previous conversations
+      if (intentDirection === ContextManagerKeys.DOWNWARDS &&
+        ctxParams[c].entityName !== ContextManagerKeys.INTENTID) {
+        ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
+        dblogger.flow('ettCountAtPastContexts ' + ettCountAtPastTargets);
+      }
 
       // does this child hold the max?
       if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
@@ -856,17 +862,13 @@ class ContextManager {
    */
   saveUnmappedEntitiesToContext(tick, target) {
     let unmappedEntities = target.getUnusedEntities();
-    console.log('(((((((((((((saveUnmappedEntitiesToContext', this.node.id, unmappedEntities);
+
     let prevUnmappedEtts = this.getContextMemory(tick)[ContextManagerKeys.UNMAPPEDENTITIES] || {};
     // TODO - deal with unmapped of same key
     _.extend(prevUnmappedEtts, unmappedEntities);
-    console.log('(((((((((((((saveUnmappedEntitiesToContext2', this.node.id, prevUnmappedEtts);
+
     this.setContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES, prevUnmappedEtts);
-    console.log('(((((((((((((saveUnmappedEntitiesToContext3', this.getContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES));
-    // let contextEtts = this.findNextContextManagerEntities(tick);
-    // let contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
-    // let ctxTick = contextEtts.tick;
-    // console.log('(((((((((((((saveUnmappedEntitiesToContext4', contextMgr && contextMgr.node && contextMgr.node.id, contextMgr.getContextMemory(ctxTick));
+
 
   }
 

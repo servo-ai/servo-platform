@@ -904,7 +904,7 @@ class ContextManager {
           // if the value equals the expected value, or the expected value doesnt matter
           if (found) {
             if (!countOnly) {
-              this.setContextField(parentContextManagerEtts.tick, ett.contextFieldName || ett.entityName, entityValue);
+              this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
               delete unmappedEntities[ett.entityName][ett.entityIndex];
             }
             numberOfMaps++;

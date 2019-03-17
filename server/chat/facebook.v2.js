@@ -296,7 +296,7 @@ function getScheme(toID, message, view = null) {
     if (_.isString(view)) {
       view = JSON.parse(view);
     }
-    postObj.message.attachment = view;
+    postObj.message = view;
   } else {
     if (!_.isObject(message)) {
       postObj.message = {

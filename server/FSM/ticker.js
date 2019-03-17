@@ -50,6 +50,7 @@ class Ticker {
     dblogger.assert(timeout, "no timeout object for pid " + pid);
     timeout && clearTimeout(timeout.tid);
     this.timeoutCache.del(pid);
+    return !!timeout;
   }
 
   /**

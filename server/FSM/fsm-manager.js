@@ -97,31 +97,29 @@ class FSMManager {
                 });
               }
 
-              let erredFsms = {};
-              var promises = loadRoots.map(function (promise) {
-                return promise.catch(function (error) {
-                  erredFsms[error.errorFsmId] = true;
-                  dblogger.error('error in loading a tree  ', error);
-                  return; // New promise will now resolve and the .each below continues
-                });
-              });
-              Promise.each(promises, (x, index) => {
-                var processX = processes[index];
-                dblogger.log('root loaded', index, processX.fsm_id);
-                if (!erredFsms[processX.fsm_id]) {
-                  dblogger.log('starting process:', processX.id, 'fsm id:', processX.fsm_id);
-                  FSMManager.tickStart(processX.fsm_id, processX);
-                } else {
-                  dblogger.flow("ignoring erred " + processX.id);
-                }
+              let promiseCount = 0;
+              for (let i = 0; i < loadRoots.length; i++) {
+                let loadPromise = loadRoots[i];
+                let processX = processes[i];
+                // local function to wait on each process 
+                ((p, loadPromise1) => {
+                  loadPromise1.catch((error) => {
+                    dblogger.error('error in loading a tree  ', error);
+                    if (++promiseCount >= fsmRoots.length) {
+                      resolve(fsmRoots.length);
+                    }
+                  }).then(() => {
+                    FSMManager.tickStart(p.fsm_id, p);
+                    dblogger.log('root loaded' + p.fsm_id);
+                    dblogger.log('starting process:', p.id, 'fsm id:', p.fsm_id);
+                    if (++promiseCount >= fsmRoots.length) {
+                      resolve(fsmRoots.length);
+                    }
+                  });
+                })(processX, loadPromise);
 
+              }
 
-              }).catch((ex) => {
-                dblogger.error('error in loading all trees  ', ex);
-                resolve(fsmRoots.length);
-              }).then(() => {
-                resolve(fsmRoots.length);
-              });
             }).catch((err) => {
               dblogger.error('error in loadFSMProcesses ', err.message);
               if (fsmCounter >= fsmRoots.length) {
@@ -198,6 +196,9 @@ class FSMManager {
     chatManager.stopAll(app);
 
     _btCache.flushAll();
+    // flush all the views
+    let viewModel = require('models/view-model');
+    viewModel.flushAll();
 
     // reload user's fsms
     // TODO: reload that fsm only

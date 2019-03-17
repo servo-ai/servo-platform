@@ -8,11 +8,15 @@ var cacheFactory = require('models/cache-factory');
 var fs = require('fs');
 
 // use a cache with 10 min expiration so we dont have to read from the disk
-var _viewCache = cacheFactory.createCache({ stdTTL: 600 });
+var _viewCache = cacheFactory.createCache({
+    stdTTL: 600
+});
 
-function viewModel() { };
+function viewModel() {};
 module.exports = viewModel;
-
+viewModel.flushAll = function () {
+    _viewCache.flushAll();
+}
 viewModel.get = function (filenameOrObject, folderName) {
 
     var promise = new Promise(function (resolve, reject) {
@@ -40,8 +44,7 @@ viewModel.get = function (filenameOrObject, folderName) {
 
                     dblogger.error(error);
                     reject(error);
-                }
-                else {
+                } else {
                     data = data.toString();
                     _viewCache.set(file, data);
                     resolve(data);

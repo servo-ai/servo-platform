@@ -69,6 +69,8 @@ class MongoQuery extends Action {
             // Connection URL
             const url = this.properties.url || 'mongodb://localhost:27017';
             try {
+                let data = this.alldata(tick);
+                let queryString = _.template(this.properties.query)(data);
                 // Use connect method to connect to the server
                 MongoClient.connect(url, (err, client) => {
                     if (err) {
@@ -104,7 +106,7 @@ class MongoQuery extends Action {
                     const collection = db.collection(collectionName);
 
                     // Find some documents
-                    let codeToEval = "collection." + this.properties.query + ".toArray(cb)";
+                    let codeToEval = "collection." + queryString + ".toArray(cb)";
                     try {
 
                         node.evalQuery(data, codeToEval, collection, cb);
@@ -119,9 +121,6 @@ class MongoQuery extends Action {
                 dblogger.error('Error ' + node.summary(tick), ex);
                 node.waitCode(tick, b3.ERROR());
             }
-
-
-
         }
         var status = node.waitCode(tick); //console.log("3 - returned: " + status, tick.tree.id, node.id);
         return status;

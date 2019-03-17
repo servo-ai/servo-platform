@@ -443,6 +443,9 @@ class ContextManager {
       let ett = contextDetails.entities[ettkey];
       // see if it was mapped already somewhere up
       let ettName = ett.contextFieldName || ett.entityName;
+      if (ettName === ContextManagerKeys.INTENTID) {
+        continue;
+      }
       // get the context field of ettName up to the next newContext context
       let ettValue = this.getContextField(tick, ettName, true);
       if (ettValue) {
@@ -497,7 +500,7 @@ class ContextManager {
       if (intentDirection === ContextManagerKeys.DOWNWARDS &&
         ctxParams[c].entityName !== ContextManagerKeys.INTENTID) {
         ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
-        dblogger.flow('ettCountAtPastContexts ' + ettCountAtPastTargets);
+        dblogger.flow('ettCountAtPastContexts ' + ctxParams[c].entityName + " " + ettCountAtPastContexts);
       }
 
       // does this child hold the max?

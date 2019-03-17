@@ -50,7 +50,8 @@
 				},
 				"fieldName": "global.postReply",
 				"json": true,
-				"headers": ""
+				"headers": "",
+				"contentType": ""
 			},
 			"display": {
 				"x": -324,

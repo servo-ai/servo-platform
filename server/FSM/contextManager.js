@@ -476,8 +476,8 @@ class ContextManager {
   selectContextWithMaxEntities(tick, intentDirection) {
     let maxEttCount = 0;
     let retIndex = -1;
-    dblogger.flow(this.node.id + ' select Context With Max Entities - ' + this.node.summary(tick));
-
+    dblogger.flow(' select Context With Max Entities - ' + this.node.summary(tick));
+    dblogger.flow("target " + tick.target.getMessageObj() && JSON.stringify(tick.target.getMessageObj()));
     // look on the contexts of the current contextManager
     var ctxParams = this.node.contextProperties();
     for (let c = 0; c < ctxParams.length; c++) {
@@ -502,11 +502,13 @@ class ContextManager {
 
       // does this child hold the max?
       if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
+        dblogger.flow('max found!  ', ettCountAtPastTargets, ettCountThisTarget, ettCountAtPastContexts, maxEttCount);
         maxEttCount = ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts;
         retIndex = c;
       }
     }
 
+    dblogger.flow('return  ', retIndex, maxEttCount);
     return {
       index: retIndex,
       count: maxEttCount

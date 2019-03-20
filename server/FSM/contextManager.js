@@ -743,9 +743,6 @@ class ContextManager {
     } // set a flag on mapped entities so next context would not deal with them
     // if not running - ended, always clear, so no entities will be left for next round
     this.clearAllContexts(tick, false);
-
-    // this.returnContextToParent(tick);
-
     // since we might close after a context switch (w/out proper closing), we must close explicitly the children
     for (let child of this.node.contextChildren()) {
       child._close(tick);

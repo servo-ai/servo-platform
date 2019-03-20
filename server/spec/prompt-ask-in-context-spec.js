@@ -1,6 +1,6 @@
 let ProcessTick = require('./support/start-process-tick');
 
-fdescribe('non-cyclic aic test', () => {
+describe('non-cyclic aic test', () => {
   var processTick;
   beforeEach((done) => {
     processTick = new ProcessTick();

@@ -208,7 +208,7 @@ class FSMManager {
         _.each(processes, (process1) => {
           // stop the tick
           FSMManager.tickStop(process1.id);
-          // reset the non globals
+          // reset the non globals 
           process1.resetNonGlobalMemory();
         });
         var app = require('../app');

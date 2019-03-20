@@ -53,8 +53,12 @@ class WIT extends NLUPipeInterface {
     }
   }
 
-  extractEntities(response) {
-    var entities = {};
+  /**
+   * 
+   * @param {*} response 
+   * @param {string} keyPrefix 
+   */
+  extractEntities(response, keyPrefix, entities) {
     for (var key in response.entities) {
       var entity = response.entities[key];
       if (key == "intent") {
@@ -73,12 +77,16 @@ class WIT extends NLUPipeInterface {
         }
         values.push(value);
         avgscore += entity[i].confidence / (i + 1);
+        if (entity[i].entities) {
+          return this.extractEntities(entity[i], keyPrefix + key + ".", entities);
+        }
       }
-      entities[key] = values;
+      entities[keyPrefix + key] = values;
+
     }
+
     return {
-      entities: entities,
-      score: avgscore
+      score: avgscore // only first level score is in play
     };
   }
 }

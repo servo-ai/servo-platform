@@ -13,17 +13,18 @@ var dblogger = require('utils/dblogger');
  */
 class NLUPipeInterface extends PipeInterface {
   /**
-   * 
+   * resolves a {IntentEntitiesObject}
    * @param {*} text 
-   * @return {IntentEntitiesObject}
+   * @return {Promise}
    */
   process(text) {
     var self = this;
     return new Promise(function (resolve, reject) {
       self.run(text).then(function (response) {
         var intentObj = self.extractIntent(response);
-        var entitiesObj = self.extractEntities(response);
-
+        let entities = {};
+        var entitiesObj = self.extractEntities(response, "", entities);
+        _.extend(entitiesObj, entities);
         var score = intentObj && intentObj.score;
         if (_.isUndefined(score)) {
           score = entitiesObj && entitiesObj.score;
@@ -76,9 +77,11 @@ class NLUPipeInterface extends PipeInterface {
   /**
    * overridable
    * @param {*} response 
-   * @return {*}
+   * @param {string} key pref
+   * @param {*} entities object 
+   * @return {Promise}
    */
-  extractEntities(response) {
+  extractEntities(response, keyPref, entities) {
     //should return dictionary of array with values
     throw 'stub!';
   }

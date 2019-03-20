@@ -64,6 +64,8 @@ class AskAndMap extends Composite {
       "imageHTML": false,
       "imageDataArrayName": "",
       "replayActionOnReturnFromContextSwitch": true,
+      // newContext if true, entity map search will stop here. Make false if this node is a part of a dialog collecting entities, and entities of its parent should be included in the mappings
+      newContext: true,
 
       "contexts": [{
         //"_intentId": "main expected intent for this context. converted internally to an 'intentId' entity name, with expected value of intentId",
@@ -80,8 +82,7 @@ class AskAndMap extends Composite {
         timeout: false,
         //"_default": "use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
         default: false,
-        // newContext if true, entity map search will stop here. Make false if this node is a part of a dialog collecting entities, and entities of its parent should be included in the mappings
-        newContext: true,
+
         //"_entities": "array of expected entities",
         entities: [{
           'contextFieldName': '',
@@ -475,7 +476,7 @@ class AskAndMap extends Composite {
         text: "should have at least 1 context "
       }, {
         condition: contexts && ((node.child && contexts.length === 1) || (node.children && contexts.length === node.children.length)),
-        text: "intents number should be equal to number of children"
+        text: "count of contexts should be equal to number of children"
       },
 
       {

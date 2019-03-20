@@ -202,7 +202,7 @@ class FSMManager {
 
     // reload user's fsms
     // TODO: reload that fsm only
-    fsmModel.reload(userId).then(() => {
+    return fsmModel.reload(userId).then(() => {
       let fullFsmIds = fsmModel.fsmCacheKey(userId, fsmId, '');
       processModel.getActiveFSMProcesses(fullFsmIds.fsmId).then((processes) => {
         _.each(processes, (process1) => {

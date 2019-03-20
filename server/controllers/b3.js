@@ -206,11 +206,18 @@ const publish = (req, res) => {
     var dst = path.replace("drafts", "fsms");
     fs.removeSync(dst);
     fs.copyAsync(path, dst).then(() => {
-      FSMManager.resetBehaviorTrees(req.user.projectsDir, req.body.name);
-      dblogger.info('publish end for ' + req.body.name);
-      res.send({
-        "result": true
+      FSMManager.resetBehaviorTrees(req.user.projectsDir, req.body.name).then(() => {
+        dblogger.info('publish end for ' + req.body.name);
+        res.send({
+          "result": true
+        });
+      }).catch(() => {
+        dblogger.error('publish error for ' + req.body.name);
+        res.send({
+          "result": false
+        });
       });
+
     }).catch((err) => {
       dblogger.error('error in publish', err);
       res.status(500).send(err);

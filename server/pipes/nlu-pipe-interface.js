@@ -24,7 +24,7 @@ class NLUPipeInterface extends PipeInterface {
         var intentObj = self.extractIntent(response);
         let entities = {};
         var entitiesObj = self.extractEntities(response, "", entities);
-        _.extend(entitiesObj, entities);
+        entitiesObj.entities = entities;
         var score = intentObj && intentObj.score;
         if (_.isUndefined(score)) {
           score = entitiesObj && entitiesObj.score;

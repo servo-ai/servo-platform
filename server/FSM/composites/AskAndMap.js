@@ -420,10 +420,10 @@ class AskAndMap extends Composite {
             continue;
           }
           for (var e = 0; contexts[i].entities && e < contexts[i].entities.length; e++) {
-            if (contexts[i] && contexts[i].entities[e] && contexts[i].entities[e].entityName && contexts[i].entities[e].entityName.indexOf('.') > -1) {
+            /*if (contexts[i] && contexts[i].entities[e] && contexts[i].entities[e].entityName && contexts[i].entities[e].entityName.indexOf('.') > -1) {
               _errContext = i;
               return true;
-            }
+            }*/
             if (contexts[i] && contexts[i].entities[e] && contexts[i].entities[e].contextFieldName && contexts[i].entities[e].contextFieldName.indexOf('.') > -1) {
               _errContext = i;
               return true;

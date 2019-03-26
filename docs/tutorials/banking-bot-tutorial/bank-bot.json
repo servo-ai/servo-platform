@@ -1,0 +1,1505 @@
+{
+  "version": "0.9.0",
+  "scope": "project",
+  "selectedTree": "bank-bot",
+  "trees": [
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "cancel-it",
+      "name": "cancel-it",
+      "title": "cancel-it",
+      "description": "",
+      "root": "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d",
+      "properties": {},
+      "nodes": {
+        "acf16fcc-c8cf-4779-84f2-da044342f52a": {
+          "id": "acf16fcc-c8cf-4779-84f2-da044342f52a",
+          "name": "GeneralMessage",
+          "title": "GeneralMessage",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": {
+              "en": [
+                "ok, i'm off",
+                "ok, i'll talk to you later then"
+              ],
+              "he": [
+                "טוב, נפסיק",
+                " בסדר - נעצור כאן"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -188,
+            "y": 254
+          }
+        },
+        "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d": {
+          "id": "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -10,
+            "y": 100
+          },
+          "children": [
+            "acf16fcc-c8cf-4779-84f2-da044342f52a",
+            "2042e778-714d-4392-8966-479eddb9a793",
+            "2a812229-3e9a-468f-8fdc-1b28b4018598"
+          ]
+        },
+        "2042e778-714d-4392-8966-479eddb9a793": {
+          "id": "2042e778-714d-4392-8966-479eddb9a793",
+          "name": "AskAndMap",
+          "title": "you may say 'start over'",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": {
+              "he": [
+                " אפשר לומר 'התחל' אם ברצונך להתחיל",
+                "אוקיי, יש לומר  'התחל' כדי להתחיל"
+              ],
+              "en": [
+                "you may say 'start over' to start over",
+                "ok - you can say 'start over' to start over"
+              ]
+            },
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": true,
+            "newContext": true,
+            "contexts": [
+              {
+                "intentId": [
+                  "StartIntent"
+                ],
+                "entities": [
+                  {
+                    "entityName": "greeting",
+                    "entityIndex": 0
+                  }
+                ]
+              }
+            ],
+            "passThru": false,
+            "dontRemoveUnusedTarget": false
+          },
+          "display": {
+            "x": 68,
+            "y": 332
+          },
+          "children": [
+            "28f3fa1b-bfe2-4321-ba3f-92c13852b8e1"
+          ]
+        },
+        "28f3fa1b-bfe2-4321-ba3f-92c13852b8e1": {
+          "id": "28f3fa1b-bfe2-4321-ba3f-92c13852b8e1",
+          "name": "GeneralMessage",
+          "title": "GeneralMessage",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "OK"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": 40,
+            "y": 520
+          }
+        },
+        "2a812229-3e9a-468f-8fdc-1b28b4018598": {
+          "id": "2a812229-3e9a-468f-8fdc-1b28b4018598",
+          "name": "restart-tree",
+          "title": "restart-tree",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 314,
+            "y": 402
+          }
+        }
+      },
+      "display": {
+        "camera_x": 446.89999984239694,
+        "camera_y": 34.6999999396503,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "chit-chat",
+      "name": "chit-chat",
+      "title": "chit-chat",
+      "description": "",
+      "root": "aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1",
+      "properties": {},
+      "nodes": {
+        "a1a139e3-4d30-407c-8a1c-b657e8439bc9": {
+          "id": "a1a139e3-4d30-407c-8a1c-b657e8439bc9",
+          "name": "GeneralMessage",
+          "title": "dont use this word",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "😲",
+                "Hmmm... I rather not answer that 😲",
+                "I think I'm speechless 🤐",
+                "Hmmm... I rather not respond 😲"
+              ],
+              "he": [
+                "אני חושב שלא אגיב 🤐",
+                "😲",
+                "אשמח שנשנה נושא 🤐"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 2290,
+            "y": 1198
+          }
+        },
+        "bba72160-030b-4c91-8372-7b9f770f8a3e": {
+          "id": "bba72160-030b-4c91-8372-7b9f770f8a3e",
+          "name": "GeneralMessage",
+          "title": "Hi",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "Hello there!",
+                "Hi there!",
+                "Hello Hello",
+                "Howdy!"
+              ],
+              "he": [
+                "שלום",
+                "הי",
+                "אהלן"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 204,
+            "y": 940
+          }
+        },
+        "b43361f6-1936-4776-8f08-11c15d6582a1": {
+          "id": "b43361f6-1936-4776-8f08-11c15d6582a1",
+          "name": "GeneralMessage",
+          "title": "Im good",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "I'm fine, thanks for asking! 👍",
+                "All is well, much obliged 🙂",
+                "Let me think about that 👈"
+              ],
+              "he": [
+                "סוחבים, תודה ששאלת 👍",
+                "הכל בסדר 🙂",
+                "המממ... אני אחזור אליך לגבי זה 👈"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 474,
+            "y": 980
+          }
+        },
+        "08a7837b-0899-4b77-81b4-c5f0c4da7ec3": {
+          "id": "08a7837b-0899-4b77-81b4-c5f0c4da7ec3",
+          "name": "GeneralMessage",
+          "title": "Thank you",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "No, thank you!👈",
+                "Glad to be of service😳",
+                "You're welcome! 👍",
+                "Just doing my job 😎"
+              ],
+              "he": [
+                "לא, תודה לך! 👈",
+                "שמחתי לעזור 😳",
+                "בבקשה 👍",
+                "רק עושה את עבודתי 😎"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 1128,
+            "y": 1248
+          }
+        },
+        "f28b5b93-5535-49b8-843b-9262dceaa666": {
+          "id": "f28b5b93-5535-49b8-843b-9262dceaa666",
+          "name": "GeneralMessage",
+          "title": "Im servo",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "I'm an artificial inteligence assistant built by Servo Labs",
+                "To be or not to be, that is the real question"
+              ],
+              "he": [
+                "אני עוזרת וירטואלית מבוססת בינה מלאכותית שנבנתה על ידי סרבו לאבס",
+                "להיות או לא להיות, זו היא השאלה שצריכה להישאל"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 744,
+            "y": 1050
+          }
+        },
+        "ae79e4b2-28cf-407a-8294-ce3be09a0da5": {
+          "id": "ae79e4b2-28cf-407a-8294-ce3be09a0da5",
+          "name": "GeneralMessage",
+          "title": "To be",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "To be ofcourse! What a funny question is that?"
+              ],
+              "he": [
+                "ברור שלהיות, איזו מן שאלה זו בכלל?"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 1376,
+            "y": 1116
+          }
+        },
+        "e5cadeed-fa56-4ecb-bdf6-2454a9aafe10": {
+          "id": "e5cadeed-fa56-4ecb-bdf6-2454a9aafe10",
+          "name": "GeneralMessage",
+          "title": "Love you",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "Thanks, what a nice thing to say 😳",
+                "You bearly know me, but thanks :)"
+              ],
+              "he": [
+                "תודה רבה  👍",
+                "😳די, זה מרגש אותי "
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 1848,
+            "y": 1264
+          }
+        },
+        "bffee0ca-0720-47d0-85be-0a2fa5474db8": {
+          "id": "bffee0ca-0720-47d0-85be-0a2fa5474db8",
+          "name": "GeneralMessage",
+          "title": "love you",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "Owwweee, thanks so much. You're not too bad yourself 🙂",
+                "I love it, keep it going 🙂",
+                "K, thanks! 👍"
+              ],
+              "he": [
+                "👍",
+                " 🙂 תודה, אתה גם לא כזה רע",
+                "אני שמח שאני גורם לך להרגיש כך 😎"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 1654,
+            "y": 1272
+          }
+        },
+        "a0747ab2-8c46-40ec-8a59-a1619aac2bff": {
+          "id": "a0747ab2-8c46-40ec-8a59-a1619aac2bff",
+          "name": "GeneralMessage",
+          "title": "dont use this word",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": "",
+            "prompt": {
+              "en": [
+                "😲",
+                "Hmmm... I rather not answer that 😲",
+                "I think I'm speechless 🤐",
+                "Hmmm... I rather not respond 😲"
+              ],
+              "he": [
+                "אני חושב שלא אגיב 🤐",
+                "😲",
+                "אשמח שנשנה נושא 🤐"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": ""
+          },
+          "display": {
+            "x": 2446,
+            "y": 1312
+          }
+        },
+        "aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1": {
+          "id": "aa6e2a04-1b6a-43e3-a74b-0cc5e9f1d6f1",
+          "name": "AskAndMap",
+          "title": "ask chitchat",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": [
+              "what's on your mind?"
+            ],
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": true,
+            "newContext": true,
+            "contexts": [
+              {
+                "helper": false,
+                "timeout": false,
+                "intentId": "",
+                "description": {
+                  "en": "put context description here"
+                },
+                "entities": [
+                  {
+                    "entityName": "greetings",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  },
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "HelloIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "intentId": "HowAreYouIntent",
+                "description": {
+                  "en": "put context description here"
+                }
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "entities": [
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "WhoAreYouIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "entities": [
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "ThankYouIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "entities": [
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "ToBeOrNotToBeIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "entities": [
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "LoveAgentIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "intentId": "FlatterIntent",
+                "description": {
+                  "en": "put context description here"
+                }
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "intentId": "BadWordIntent",
+                "description": {
+                  "en": "put context description here"
+                },
+                "entities": [
+                  {
+                    "entityName": "intentId",
+                    "expectedValue": "BadWordIntent",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  },
+                  {
+                    "entityName": "badWordType",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              },
+              {
+                "helper": false,
+                "timeout": false,
+                "intentId": "VeryBadWordIntent",
+                "description": {
+                  "en": "put context description here"
+                },
+                "entities": [
+                  {
+                    "entityName": "veryBadWordType",
+                    "entityIndex": 0,
+                    "leaveIfNoEntity": true
+                  }
+                ]
+              }
+            ],
+            "passThru": false,
+            "dontRemoveUnusedTarget": false
+          },
+          "display": {
+            "x": 668,
+            "y": 522
+          },
+          "children": [
+            "bba72160-030b-4c91-8372-7b9f770f8a3e",
+            "b43361f6-1936-4776-8f08-11c15d6582a1",
+            "f28b5b93-5535-49b8-843b-9262dceaa666",
+            "08a7837b-0899-4b77-81b4-c5f0c4da7ec3",
+            "ae79e4b2-28cf-407a-8294-ce3be09a0da5",
+            "bffee0ca-0720-47d0-85be-0a2fa5474db8",
+            "e5cadeed-fa56-4ecb-bdf6-2454a9aafe10",
+            "a1a139e3-4d30-407c-8a1c-b657e8439bc9",
+            "a0747ab2-8c46-40ec-8a59-a1619aac2bff"
+          ]
+        }
+      },
+      "display": {
+        "camera_x": 377.5250008943258,
+        "camera_y": -302.1149998429464,
+        "camera_z": 0.75,
+        "x": 926,
+        "y": 240
+      }
+    },
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "good-bye",
+      "name": "good-bye",
+      "title": "good-bye",
+      "description": "",
+      "root": "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d",
+      "properties": {},
+      "nodes": {
+        "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d": {
+          "id": "fa9a668f-ad62-4f89-9cb5-b0cd3d7b0a4d",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -10,
+            "y": 100
+          },
+          "children": [
+            "2042e778-714d-4392-8966-479eddb9a793",
+            "2a812229-3e9a-468f-8fdc-1b28b4018598"
+          ]
+        },
+        "2a812229-3e9a-468f-8fdc-1b28b4018598": {
+          "id": "2a812229-3e9a-468f-8fdc-1b28b4018598",
+          "name": "restart-tree",
+          "title": "restart-tree",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 300,
+            "y": 466
+          }
+        },
+        "2042e778-714d-4392-8966-479eddb9a793": {
+          "id": "2042e778-714d-4392-8966-479eddb9a793",
+          "name": "AskAndMap",
+          "title": "good bye",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": [
+              "bye bye"
+            ],
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": false,
+            "newContext": true,
+            "contexts": [
+              {
+                "helper": true
+              }
+            ],
+            "passThru": false,
+            "dontRemoveUnusedTarget": false
+          },
+          "display": {
+            "x": -158,
+            "y": 326
+          },
+          "children": [
+            "fb7068e2-57dd-4f13-aeb5-f4bcdc72cf40"
+          ]
+        },
+        "fb7068e2-57dd-4f13-aeb5-f4bcdc72cf40": {
+          "id": "fb7068e2-57dd-4f13-aeb5-f4bcdc72cf40",
+          "name": "Succeeder",
+          "title": "Succeeder",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true
+          },
+          "display": {
+            "x": -218,
+            "y": 476
+          }
+        }
+      },
+      "display": {
+        "camera_x": 702.199999832199,
+        "camera_y": 205.39999995660037,
+        "camera_z": 1,
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "lang-convo-change",
+      "name": "lang-convo-change",
+      "title": "lang-convo-change",
+      "description": "",
+      "root": "0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd",
+      "properties": {},
+      "nodes": {
+        "118ebf5d-dfbf-461a-866d-98520546d17f": {
+          "id": "118ebf5d-dfbf-461a-866d-98520546d17f",
+          "name": "GeneralMessage",
+          "title": "GeneralMessage",
+          "description": "Send the message from prompt (a string) or json-formatted in payload (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 0,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": false,
+            "view": false,
+            "prompt": {
+              "en": "Switched to english",
+              "he": "שפה שונתה לעברית"
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "image": false
+          },
+          "display": {
+            "x": 64,
+            "y": -84
+          }
+        },
+        "0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd": {
+          "id": "0b7fa2e1-a12f-42fb-81ec-4a567b98d7fd",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -118,
+            "y": -214
+          },
+          "children": [
+            "b74db364-5905-45ec-8453-666cbc3aa0eb",
+            "118ebf5d-dfbf-461a-866d-98520546d17f"
+          ]
+        },
+        "b74db364-5905-45ec-8453-666cbc3aa0eb": {
+          "id": "b74db364-5905-45ec-8453-666cbc3aa0eb",
+          "name": "MemPriority",
+          "title": "MemPriority",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -300,
+            "y": -84
+          },
+          "children": [
+            "90c70a9e-b3dd-4a79-8c5c-dce622b4aab6",
+            "0850b420-17a1-4be7-91fb-70f78b9be3e2"
+          ]
+        },
+        "c966e480-5630-47ff-85e0-6c17da8216bc": {
+          "id": "c966e480-5630-47ff-85e0-6c17da8216bc",
+          "name": "SetFieldAction",
+          "title": "global.lang en",
+          "description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "fieldName": "global.lang",
+            "fieldValue": "'en'"
+          },
+          "display": {
+            "x": -358,
+            "y": 222
+          }
+        },
+        "fffa5910-dd57-4a65-8035-a1ba91b729be": {
+          "id": "fffa5910-dd57-4a65-8035-a1ba91b729be",
+          "name": "FieldCompareCondition",
+          "title": "FieldCompareCondition",
+          "description": "Compare fields across global,context, volatile and message memories. left and right operands should have a dot notation with the object name. Eg: message.chat_message, context.amount etc. Operator could be any logical operator like ===, <, <==, !==, ==> etc. ",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "left": "fsm.defaultLang",
+            "operator": "==",
+            "right": "'he'"
+          },
+          "display": {
+            "x": -560,
+            "y": 176
+          }
+        },
+        "90c70a9e-b3dd-4a79-8c5c-dce622b4aab6": {
+          "id": "90c70a9e-b3dd-4a79-8c5c-dce622b4aab6",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -456,
+            "y": 46
+          },
+          "children": [
+            "fffa5910-dd57-4a65-8035-a1ba91b729be",
+            "c966e480-5630-47ff-85e0-6c17da8216bc",
+            "d6046056-3413-4e1b-99c1-12de55fc5b37"
+          ]
+        },
+        "605a1fb5-efe1-453a-849e-2d965d3f3cc3": {
+          "id": "605a1fb5-efe1-453a-849e-2d965d3f3cc3",
+          "name": "SetFieldAction",
+          "title": "global.lang he",
+          "description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "fieldName": "global.lang",
+            "fieldValue": "'he'"
+          },
+          "display": {
+            "x": 82,
+            "y": 148
+          }
+        },
+        "d6046056-3413-4e1b-99c1-12de55fc5b37": {
+          "id": "d6046056-3413-4e1b-99c1-12de55fc5b37",
+          "name": "SetFieldAction",
+          "title": "fsm.defaultLang en",
+          "description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "fieldName": "fsm.defaultLang",
+            "fieldValue": "'en'"
+          },
+          "display": {
+            "x": -150,
+            "y": 204
+          }
+        },
+        "0850b420-17a1-4be7-91fb-70f78b9be3e2": {
+          "id": "0850b420-17a1-4be7-91fb-70f78b9be3e2",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -124,
+            "y": 16
+          },
+          "children": [
+            "2428d697-ed61-4745-b1f9-6bc1f22d6e63",
+            "605a1fb5-efe1-453a-849e-2d965d3f3cc3"
+          ]
+        },
+        "2428d697-ed61-4745-b1f9-6bc1f22d6e63": {
+          "id": "2428d697-ed61-4745-b1f9-6bc1f22d6e63",
+          "name": "SetFieldAction",
+          "title": "fsm.defaultLang he",
+          "description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.chat_message, context.amount etc ",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "fieldName": "fsm.defaultLang",
+            "fieldValue": "'he'"
+          },
+          "display": {
+            "x": -122,
+            "y": 120
+          }
+        }
+      },
+      "display": {
+        "camera_x": 1051.0999999993946,
+        "camera_y": 363.89000000059605,
+        "camera_z": 1,
+        "x": -118,
+        "y": -344
+      }
+    },
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "restart-tree",
+      "name": "restart-tree",
+      "title": "restart-tree",
+      "description": "",
+      "root": "c165969d-dd0d-42b3-b03f-c4a90f37b876",
+      "properties": {},
+      "nodes": {
+        "c165969d-dd0d-42b3-b03f-c4a90f37b876": {
+          "id": "c165969d-dd0d-42b3-b03f-c4a90f37b876",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": 58,
+            "y": 46
+          },
+          "children": [
+            "1ecc471d-4505-4115-803e-2ddc0aaa6e3e",
+            "d5dba46f-f247-4ff9-8bb7-a3a76b51b379",
+            "4dbc7976-cd86-4918-8f0b-150ab4cf1d07"
+          ]
+        },
+        "1ecc471d-4505-4115-803e-2ddc0aaa6e3e": {
+          "id": "1ecc471d-4505-4115-803e-2ddc0aaa6e3e",
+          "name": "GeneralMessage",
+          "title": "GeneralMessage",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": {
+              "he": [
+                "קדימה - מתחילים"
+              ],
+              "en": [
+                "let's start"
+              ]
+            },
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -380,
+            "y": 376
+          }
+        },
+        "d5dba46f-f247-4ff9-8bb7-a3a76b51b379": {
+          "id": "d5dba46f-f247-4ff9-8bb7-a3a76b51b379",
+          "name": "ClearAllContexts",
+          "title": "ClearAllContexts",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "leaveCurrent": false
+          },
+          "display": {
+            "x": -78,
+            "y": 470
+          }
+        },
+        "4dbc7976-cd86-4918-8f0b-150ab4cf1d07": {
+          "id": "4dbc7976-cd86-4918-8f0b-150ab4cf1d07",
+          "name": "CloseAllContexts",
+          "title": "CloseAllContexts",
+          "description": "Close current context and all its siblings, effectively reseting all the runningChilds and allowing re-open",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true
+          },
+          "display": {
+            "x": 280,
+            "y": 542
+          }
+        }
+      },
+      "display": {
+        "camera_x": 646.7000002155546,
+        "camera_y": 365.5,
+        "camera_z": 0.5,
+        "x": 10,
+        "y": -66
+      }
+    },
+    {
+      "version": "0.9.0",
+      "scope": "tree",
+      "id": "bank-bot",
+      "name": "bank-bot",
+      "title": "bank-bot",
+      "description": "",
+      "root": "a95221db-5efc-435a-b299-4cb66068ed07",
+      "properties": {
+        "channels": "chatsim",
+        "nlu": {
+          "he": {
+            "engine": "wit",
+            "accessToken": "CABGITSOCUVDVXJHQM4T73TH5IFNAGUN"
+          },
+          "en": {
+            "engine": "wit",
+            "accessToken": "HBD2Q4RS46KUPJY4ETKC3VAKJZULBXN7"
+          }
+        },
+        "facebook": {
+          "validationToken": "bestbots",
+          "accessToken": "EAAKBdzfv7AABAKIRIUZBY3vRKXeIStYiWj49lTnlksEor4cmSM1YyCUZAHPioWdgHrei20b5qIxIE3qScdZBTNq63F9COH8HEwqvZBhtkm77ZAWu10kkAZCVFk0IyiQ72o2jyJGNgfjh80xTi4rbkc2oDTSMPgafZC7VGcT2n4eKgZDZD"
+        },
+        "resetMemory": 1,
+        "defaultLang": "en",
+        "debug-log": 0,
+        "defaultHelpPrompt": "not understood"
+      },
+      "nodes": {
+        "a95221db-5efc-435a-b299-4cb66068ed07": {
+          "id": "a95221db-5efc-435a-b299-4cb66068ed07",
+          "name": "AskAndMap",
+          "title": "How can I help you?",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": [
+              "How can I help you?"
+            ],
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": true,
+            "newContext": true,
+            "contexts": [
+              {
+                "intentId": "TransferIntent"
+              },
+              {
+                "entities": [
+                  {
+                    "contextFieldName": "age",
+                    "entityName": "number",
+                    "expectedValue": "32",
+                    "entityIndex": 0
+                  }
+                ]
+              },
+              {
+                "helper": true,
+                "default": true
+              },
+              {
+                "helper": false,
+                "newContext": true,
+                "passThru": true,
+                "intentId": [
+                  "HowAreYouIntent",
+                  "WhoAreYouIntent",
+                  "ThankYouIntent",
+                  "ToBeOrNotToBeIntent",
+                  "LoveAgentIntent",
+                  "FlatterIntent",
+                  "BadWordIntent",
+                  "VeryBadWordIntent"
+                ],
+                "entities": [
+                  {
+                    "entityName": "greetings",
+                    "entityIndex": 0
+                  },
+                  {
+                    "entityName": "badWordType",
+                    "entityIndex": 0
+                  },
+                  {
+                    "entityName": "veryBadWordType",
+                    "entityIndex": 0
+                  }
+                ]
+              },
+              {
+                "intentId": "LangIntent"
+              },
+              {
+                "intentId": "CancelIntent"
+              },
+              {
+                "intentId": "StartIntent"
+              }
+            ]
+          },
+          "display": {
+            "x": 16,
+            "y": 118
+          },
+          "children": [
+            "5596c223-e039-49d6-a247-76f6548ab214",
+            "6421e47f-13c3-4b6f-83da-4b9a1ee46102",
+            "b24a697f-e8ca-40ee-a243-728ef32a044a",
+            "803cfff8-cce5-4616-9a26-00783518809a",
+            "81ce824f-b2f1-42d2-9ee1-e2f597d71ca0",
+            "e0fd8f4b-a04e-423d-b7b1-479cdc655ea3",
+            "54bccef5-2552-403e-a9bb-8a1653f3015d"
+          ]
+        },
+        "b24a697f-e8ca-40ee-a243-728ef32a044a": {
+          "id": "b24a697f-e8ca-40ee-a243-728ef32a044a",
+          "name": "GeneralMessage",
+          "title": "helper",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "please enter a number"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -186,
+            "y": 296
+          }
+        },
+        "e0fd8f4b-a04e-423d-b7b1-479cdc655ea3": {
+          "id": "e0fd8f4b-a04e-423d-b7b1-479cdc655ea3",
+          "name": "cancel-it",
+          "title": "cancel-it",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 438,
+            "y": 260
+          }
+        },
+        "54bccef5-2552-403e-a9bb-8a1653f3015d": {
+          "id": "54bccef5-2552-403e-a9bb-8a1653f3015d",
+          "name": "restart-tree",
+          "title": "restart-tree",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 646,
+            "y": 260
+          }
+        },
+        "803cfff8-cce5-4616-9a26-00783518809a": {
+          "id": "803cfff8-cce5-4616-9a26-00783518809a",
+          "name": "chit-chat",
+          "title": "chit-chat",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 22,
+            "y": 256
+          }
+        },
+        "81ce824f-b2f1-42d2-9ee1-e2f597d71ca0": {
+          "id": "81ce824f-b2f1-42d2-9ee1-e2f597d71ca0",
+          "name": "lang-convo-change",
+          "title": "lang-convo-change",
+          "description": "",
+          "properties": {},
+          "display": {
+            "x": 230,
+            "y": 260
+          }
+        },
+        "6421e47f-13c3-4b6f-83da-4b9a1ee46102": {
+          "id": "6421e47f-13c3-4b6f-83da-4b9a1ee46102",
+          "name": "GeneralMessage",
+          "title": "32 exactly",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "nice age - you are 20 years old in hexa"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -404,
+            "y": 304
+          }
+        },
+        "a8b7af71-b239-4554-a962-79f94e8eabd0": {
+          "id": "a8b7af71-b239-4554-a962-79f94e8eabd0",
+          "name": "AskAndMap",
+          "title": "what is the amount?",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": [
+              "What is the amount ?"
+            ],
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": true,
+            "newContext": true,
+            "contexts": [
+              {
+                "entities": [
+                  {
+                    "contextFieldName": "amount",
+                    "entityName": "number",
+                    "expectedValue": "",
+                    "entityIndex": 0
+                  }
+                ]
+              },
+              {
+                "helper": true
+              }
+            ]
+          },
+          "display": {
+            "x": -646,
+            "y": 282
+          },
+          "children": [
+            "8b99eddc-8d6e-4549-bb0f-3b2e8bb45fe5",
+            "bddf10fb-bf66-4165-86f8-8ba60648e311"
+          ]
+        },
+        "0423fbdd-ed4a-4125-8d72-8b837ee5e252": {
+          "id": "0423fbdd-ed4a-4125-8d72-8b837ee5e252",
+          "name": "GeneralMessage",
+          "title": "Helper",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "Please provide the amount you wish to send"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -552,
+            "y": 522
+          }
+        },
+        "1f5fc71d-7fce-4d0e-84f0-847b5fe873af": {
+          "id": "1f5fc71d-7fce-4d0e-84f0-847b5fe873af",
+          "name": "Failer",
+          "title": "Failer",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true
+          },
+          "display": {
+            "x": -288,
+            "y": 510
+          }
+        },
+        "bddf10fb-bf66-4165-86f8-8ba60648e311": {
+          "id": "bddf10fb-bf66-4165-86f8-8ba60648e311",
+          "name": "MemSequence",
+          "title": "MemSequence",
+          "description": "",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5
+          },
+          "display": {
+            "x": -516,
+            "y": 362
+          },
+          "children": [
+            "0423fbdd-ed4a-4125-8d72-8b837ee5e252",
+            "1f5fc71d-7fce-4d0e-84f0-847b5fe873af"
+          ]
+        },
+        "5596c223-e039-49d6-a247-76f6548ab214": {
+          "id": "5596c223-e039-49d6-a247-76f6548ab214",
+          "name": "RepeatUntilSuccess",
+          "title": "Repeat Until Success",
+          "description": "Repeat the child until a success, or maxLoop count has been reached. If child returns running, it does not count.. Updates context.repeatCount",
+          "properties": {
+            "maxLoop": -1
+          },
+          "display": {
+            "x": -440,
+            "y": 182
+          },
+          "child": "a8b7af71-b239-4554-a962-79f94e8eabd0"
+        },
+        "81429337-98a4-40da-8977-59f8c56dfbb6": {
+          "id": "81429337-98a4-40da-8977-59f8c56dfbb6",
+          "name": "AskAndMap",
+          "title": "What is the account number?",
+          "description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "view": false,
+            "prompt": [],
+            "cyclePrompts": true,
+            "imageHTML": false,
+            "imageDataArrayName": "",
+            "replayActionOnReturnFromContextSwitch": true,
+            "newContext": true,
+            "contexts": [
+              {
+                "intentId": "",
+                "description": {
+                  "en": ""
+                },
+                "passThru": false,
+                "helper": false,
+                "timeout": false,
+                "default": false,
+                "newContext": true,
+                "entities": [
+                  {
+                    "contextFieldName": "accountNumber",
+                    "entityName": "accountNumberEntity",
+                    "expectedValue": "",
+                    "entityIndex": 0
+                  }
+                ]
+              },
+              {
+                "helper": true
+              }
+            ]
+          },
+          "display": {
+            "x": -856,
+            "y": 508
+          },
+          "children": [
+            "8c463ee2-a58c-400e-89a3-a83a8a61a16c",
+            "2be99e63-265a-4426-848c-72d3c50f241c"
+          ]
+        },
+        "8b99eddc-8d6e-4549-bb0f-3b2e8bb45fe5": {
+          "id": "8b99eddc-8d6e-4549-bb0f-3b2e8bb45fe5",
+          "name": "RepeatUntilSuccess",
+          "title": "Repeat Until Success",
+          "description": "Repeat the child until a success, or maxLoop count has been reached. If child returns running, it does not count.. Updates context.repeatCount",
+          "properties": {
+            "maxLoop": -1
+          },
+          "display": {
+            "x": -748,
+            "y": 390
+          },
+          "child": "81429337-98a4-40da-8977-59f8c56dfbb6"
+        },
+        "2be99e63-265a-4426-848c-72d3c50f241c": {
+          "id": "2be99e63-265a-4426-848c-72d3c50f241c",
+          "name": "GeneralMessage",
+          "title": "Helper",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "Please type in the account number here, prefixed with #"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -804,
+            "y": 658
+          }
+        },
+        "8c463ee2-a58c-400e-89a3-a83a8a61a16c": {
+          "id": "8c463ee2-a58c-400e-89a3-a83a8a61a16c",
+          "name": "GeneralMessage",
+          "title": "display results",
+          "description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
+          "properties": {
+            "debug-log": "",
+            "runningTimeoutSec": 600,
+            "maxRetriesNumber": 5,
+            "replayActionOnReturnFromContextSwitch": true,
+            "view": false,
+            "prompt": [
+              "About to transfer <%=context.amount%> to account <%=context.accountNumber%>"
+            ],
+            "cyclePrompts": true,
+            "pushMessageOut": false,
+            "imageHTML": false,
+            "imageDataArrayName": ""
+          },
+          "display": {
+            "x": -1060,
+            "y": 676
+          }
+        }
+      },
+      "display": {
+        "camera_x": 1205.9950000474928,
+        "camera_y": 224.90000002563465,
+        "camera_z": 0.75,
+        "x": 28,
+        "y": -8
+      }
+    }
+  ],
+  "custom_nodes": []
+}

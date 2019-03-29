@@ -105,8 +105,8 @@
 				]
 			},
 			"display": {
-				"x": -346,
-				"y": 30
+				"x": -4,
+				"y": 94
 			},
 			"children": [
 				"5596c223-e039-49d6-a247-76f6548ab214",
@@ -138,8 +138,8 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -186,
-				"y": 296
+				"x": 156,
+				"y": 360
 			}
 		},
 		"e0fd8f4b-a04e-423d-b7b1-479cdc655ea3": {
@@ -149,8 +149,8 @@
 			"description": "",
 			"properties": {},
 			"display": {
-				"x": 438,
-				"y": 260
+				"x": 780,
+				"y": 324
 			}
 		},
 		"54bccef5-2552-403e-a9bb-8a1653f3015d": {
@@ -160,8 +160,8 @@
 			"description": "",
 			"properties": {},
 			"display": {
-				"x": 646,
-				"y": 260
+				"x": 988,
+				"y": 324
 			}
 		},
 		"803cfff8-cce5-4616-9a26-00783518809a": {
@@ -171,8 +171,8 @@
 			"description": "",
 			"properties": {},
 			"display": {
-				"x": 32,
-				"y": 302
+				"x": 374,
+				"y": 366
 			}
 		},
 		"81ce824f-b2f1-42d2-9ee1-e2f597d71ca0": {
@@ -182,8 +182,8 @@
 			"description": "",
 			"properties": {},
 			"display": {
-				"x": 230,
-				"y": 260
+				"x": 572,
+				"y": 324
 			}
 		},
 		"6421e47f-13c3-4b6f-83da-4b9a1ee46102": {
@@ -206,8 +206,8 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -404,
-				"y": 304
+				"x": -62,
+				"y": 368
 			}
 		},
 		"a8b7af71-b239-4554-a962-79f94e8eabd0": {
@@ -251,8 +251,8 @@
 				]
 			},
 			"display": {
-				"x": -646,
-				"y": 282
+				"x": -304,
+				"y": 346
 			},
 			"children": [
 				"8b99eddc-8d6e-4549-bb0f-3b2e8bb45fe5",
@@ -279,8 +279,8 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -552,
-				"y": 522
+				"x": -210,
+				"y": 586
 			}
 		},
 		"1f5fc71d-7fce-4d0e-84f0-847b5fe873af": {
@@ -295,8 +295,8 @@
 				"replayActionOnReturnFromContextSwitch": true
 			},
 			"display": {
-				"x": -288,
-				"y": 510
+				"x": 54,
+				"y": 574
 			}
 		},
 		"bddf10fb-bf66-4165-86f8-8ba60648e311": {
@@ -310,8 +310,8 @@
 				"maxRetriesNumber": 5
 			},
 			"display": {
-				"x": -516,
-				"y": 362
+				"x": -168,
+				"y": 424
 			},
 			"children": [
 				"0423fbdd-ed4a-4125-8d72-8b837ee5e252",
@@ -327,8 +327,8 @@
 				"maxLoop": -1
 			},
 			"display": {
-				"x": -546,
-				"y": 152
+				"x": -204,
+				"y": 216
 			},
 			"child": "a8b7af71-b239-4554-a962-79f94e8eabd0"
 		},
@@ -376,12 +376,12 @@
 				]
 			},
 			"display": {
-				"x": -856,
-				"y": 508
+				"x": -514,
+				"y": 572
 			},
 			"children": [
 				"8c463ee2-a58c-400e-89a3-a83a8a61a16c",
-				"2be99e63-265a-4426-848c-72d3c50f241c"
+				"c8a352bf-758c-4ad9-8e87-b27c69522004"
 			]
 		},
 		"8b99eddc-8d6e-4549-bb0f-3b2e8bb45fe5": {
@@ -393,8 +393,8 @@
 				"maxLoop": -1
 			},
 			"display": {
-				"x": -748,
-				"y": 390
+				"x": -406,
+				"y": 454
 			},
 			"child": "81429337-98a4-40da-8977-59f8c56dfbb6"
 		},
@@ -418,8 +418,8 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -804,
-				"y": 658
+				"x": -490,
+				"y": 830
 			}
 		},
 		"8c463ee2-a58c-400e-89a3-a83a8a61a16c": {
@@ -442,17 +442,52 @@
 				"imageDataArrayName": ""
 			},
 			"display": {
-				"x": -1060,
-				"y": 676
+				"x": -718,
+				"y": 740
+			}
+		},
+		"c8a352bf-758c-4ad9-8e87-b27c69522004": {
+			"id": "c8a352bf-758c-4ad9-8e87-b27c69522004",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": -432,
+				"y": 674
+			},
+			"children": [
+				"2be99e63-265a-4426-848c-72d3c50f241c",
+				"0d73fdb9-6628-49da-ae6c-efe99b708d7d"
+			]
+		},
+		"0d73fdb9-6628-49da-ae6c-efe99b708d7d": {
+			"id": "0d73fdb9-6628-49da-ae6c-efe99b708d7d",
+			"name": "Failer",
+			"title": "Failer",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true
+			},
+			"display": {
+				"x": -210,
+				"y": 824
 			}
 		}
 	},
 	"display": {
-		"camera_x": 1205.9950000474928,
-		"camera_y": 224.90000002563465,
+		"camera_x": 1067.6200000634417,
+		"camera_y": -237.80500007420778,
 		"camera_z": 1,
-		"x": -342,
-		"y": -64
+		"x": 0,
+		"y": 0
 	},
 	"state": "draft"
 }

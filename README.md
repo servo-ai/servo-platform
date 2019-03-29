@@ -31,7 +31,9 @@ From **server** or **editor** folder:
 <br>
  cd server && **npm start**
 
-On the browser open localhost:8000
+On Chrome browser open localhost:8000. 
+
+**Please note**: Servo comes with a couple of tutorial projects, that will connect to Wit.ai NLU engine.
 
 # Tutorials
 

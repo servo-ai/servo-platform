@@ -511,10 +511,9 @@ class ContextManager {
         dblogger.flow('ettCountAtPastTargets ' + ettCountAtPastTargets);
         // now use previously mapped entities for the counting! 
         // for downwards, non-intent entities, we allow them to be taken from previous conversations
-        if (ctxParams[c].entityName !== ContextManagerKeys.INTENTID) {
-          ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
-          dblogger.flow('ettCountAtPastContexts ' + ctxParams[c].entityName + " " + ettCountAtPastContexts);
-        }
+        ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
+        dblogger.flow('ettCountAtPastContexts ' + ctxParams[c].entityName + " " + ettCountAtPastContexts);
+
       }
 
 
@@ -974,7 +973,11 @@ class ContextManager {
     // check if we have historical contexts that can be mapped here to this context
     numberOfMaps += this.mapPastUnmapedEntitiesToContext(tick, contextDetails, target, false).numberOfMaps;
 
-    this.saveUnmappedEntitiesToContext(tick, target);
+    // if it is a helper, do not save the entity
+    if (!map[childIndex].helper) {
+      this.saveUnmappedEntitiesToContext(tick, target);
+    }
+
 
     return numberOfMaps;
   }
@@ -1212,6 +1215,7 @@ class ContextManager {
    */
   open(tick) {
     this.clearAllContexts(tick, false);
+    console.log('---->', this.getContextMemory(tick))
     // no context got selected yet: then if we have a target, select by it the right context child
     // this answers cases where the first selection come from above (and tick is 'downwards')
     let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, true);

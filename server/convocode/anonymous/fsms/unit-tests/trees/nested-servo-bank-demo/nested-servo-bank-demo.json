@@ -146,6 +146,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "stamintent"
@@ -244,6 +245,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "WireIntent",
@@ -331,6 +333,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "",

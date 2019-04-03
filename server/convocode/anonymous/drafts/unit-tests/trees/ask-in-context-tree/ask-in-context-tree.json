@@ -27,6 +27,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "PositiveIntent"

@@ -123,6 +123,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"passThru": false,

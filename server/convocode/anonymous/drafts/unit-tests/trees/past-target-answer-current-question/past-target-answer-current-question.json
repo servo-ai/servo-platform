@@ -25,6 +25,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "",
@@ -75,6 +76,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "",

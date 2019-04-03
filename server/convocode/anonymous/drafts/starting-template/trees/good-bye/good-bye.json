@@ -55,6 +55,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": false,
+				"newContext": true,
 				"contexts": [
 					{
 						"helper": true

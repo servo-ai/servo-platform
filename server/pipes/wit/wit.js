@@ -1,6 +1,6 @@
 var config = require('../../config');
 var Promise = require("bluebird");
-var request = require('request');
+
 var NLUPipeInterface = require("../nlu-pipe-interface.js");
 const {
   Wit
@@ -92,6 +92,11 @@ class WIT extends NLUPipeInterface {
         }
 
       }
+      // some special cases for wit
+      if (key === "greetings") {
+        entities["intentId"] = [(config.constants && config.constants.HELLOINTENT) || "HelloIntent"]
+      }
+
       entities[keyPrefix + key] = values;
 
     }

@@ -328,11 +328,12 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"helper": false,
 						"timeout": false,
-						"intentId": "",
+						"intentId": "HelloIntent",
 						"description": {
 							"en": "put context description here"
 						},

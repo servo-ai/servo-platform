@@ -70,6 +70,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": true,
 				"contexts": [
 					{
 						"entities": [
@@ -105,7 +106,8 @@
 							"LoveAgentIntent",
 							"FlatterIntent",
 							"BadWordIntent",
-							"VeryBadWordIntent"
+							"VeryBadWordIntent",
+							"HelloIntent"
 						],
 						"entities": [
 							{
@@ -131,8 +133,7 @@
 					{
 						"intentId": "StartIntent"
 					}
-				],
-				"newContext": true
+				]
 			},
 			"display": {
 				"x": -12,

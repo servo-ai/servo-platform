@@ -27,6 +27,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -107,6 +108,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -157,6 +159,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
+				"newContext": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -183,7 +186,7 @@
 			},
 			"display": {
 				"x": -476,
-				"y": 238
+				"y": 240
 			},
 			"children": [
 				"480977b4-e468-43bd-84e9-ec0901939753",

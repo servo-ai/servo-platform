@@ -45,7 +45,7 @@ var utils = require('utils/utils');
  */
 const ContextManagerKeys = Object.freeze({
   CONTEXTMEM: "contextMem",
-  // SHORTTERMMEMORYDISTANCE: 2,
+  SHORTMMEMORYDISTANCE: 1,
   INTENTID: "intentId",
   LIFECYCLESTATE: "life-cycle-state",
   LASTCONTEXT: 'lastContext',
@@ -192,7 +192,7 @@ class ContextManager {
    * @param {boolean} backtrackLimitPassed memory distance (for backtrack)
    * @return {Array<FoundContext>}
    */
-  selectContexts(tick, intentDirection, backtrackLimitPassed /* contextDistance = ContextManagerKeys.SHORTTERMMEMORYDISTANCE*/ ) {
+  selectContexts(tick, intentDirection, distanceCounter /* contextDistance = ContextManagerKeys.SHORTTERMMEMORYDISTANCE*/ ) {
     let noContext = this.noContext(tick);
     let newContext = _.clone(noContext);
     let intermediateContext = _.clone(noContext);
@@ -203,7 +203,7 @@ class ContextManager {
     /**try to find a context using the entities:  no intent,or couldnt find a context for the intent.
      *  see if there is a **current** context, see if it has such entity 
      * otherwise, check sibling contexts*/
-    let ettMatchObj = this.selectContextWithMaxEntities(tick, intentDirection);
+    let ettMatchObj = this.selectContextWithMaxEntities(tick, intentDirection, distanceCounter);
     dblogger.flow('ettMatchObj:' + JSON.stringify(ettMatchObj));
     if (ettMatchObj.index > -1 && ettMatchObj.count > 0) {
       newContext = _.extend(newContext, {
@@ -265,7 +265,7 @@ class ContextManager {
     retContextArray = [newContext];
     // its a backtrack if the context is the same context as was already selected before and not too long ago
     // dblogger.flow('contextDistance:' + contextDistance);
-    if (!backtrackLimitPassed && this.isBacktrack(tick, newContext)) {
+    if (distanceCounter <= ContextManagerKeys.SHORTMMEMORYDISTANCE && this.isBacktrack(tick, newContext)) {
       // see if we have a backtrack member
       var backtrackIndex = contextsParams.findIndex((ctxParam) => {
         return ctxParam.backtrack;
@@ -373,13 +373,17 @@ class ContextManager {
    * @param {ContextItem} contextDetails 
    * @param {Target} target 
    * @param {boolean} countOnly true if not using the entities
-   * @return {number} count of mappings that happened (if !countOnly) or due to happen
+   * @return {object} count of mappings that happened (if !countOnly) or due to happen
    */
   mapTargetEntitiesToContext(tick, contextDetails, target, countOnly) {
     let numberOfMaps = 0;
+    let intentIdFound = false;
     if (!target) {
       dblogger.error('no target on mapTargetEntitiesToContext');
-      return numberOfMaps;
+      return {
+        numberOfMaps,
+        intentIdFound
+      };
     }
     _.each(contextDetails.entities, (ett) => {
       let ettCount = 0;
@@ -399,14 +403,13 @@ class ContextManager {
         }
         // if the value equals the expected value, or the expected value doesnt matter
         if (found) {
-
+          intentIdFound = intentIdFound || (ett.entityName === ContextManagerKeys.INTENTID);
           // count if we have a change here, ie its not been accounted for previously, THIS IS NEEDED WHEN THE TARGET INCLUDES AN ENTITY MAPPED ON PREVIOUS CONTEXT.
           let prevValueMappedAtThisContext = this.getContextMemory(tick)[ett.contextFieldName || ett.entityName];
           dblogger.warn('no sure why we need prevValueMappedAtThisContext. this was found already mapped' + prevValueMappedAtThisContext)
           if (!countOnly) {
             this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
             target.useEntity(ett.entityName, ett.entityIndex);
-
           }
 
           if (prevValueMappedAtThisContext !== entityValue) {
@@ -427,7 +430,10 @@ class ContextManager {
       }
     });
 
-    return numberOfMaps;
+    return {
+      numberOfMaps,
+      intentIdFound
+    };;
   }
 
   /**
@@ -476,7 +482,7 @@ class ContextManager {
    * selects an index in the contexts that has the maximal entity match
    * @param {Tick} tick 
    */
-  selectContextWithMaxEntities(tick, intentDirection) {
+  selectContextWithMaxEntities(tick, intentDirection, distanceCounter = 0) {
     let maxEttCount = 0;
     let retIndex = -1;
     dblogger.flow(' select Context With Max Entities - ' + this.node.summary(tick));
@@ -486,22 +492,31 @@ class ContextManager {
     for (let c = 0; c < ctxParams.length; c++) {
       let ettCountThisTarget = 0;
       let ettCountAtPastTargets = 0;
+      let ettCountAtPastContexts = 0;
       // count for current tick target
-      ettCountThisTarget = this.mapTargetEntitiesToContext(tick, ctxParams[c], tick.target, true);
+      let targetCount = this.mapTargetEntitiesToContext(tick, ctxParams[c], tick.target, true);
+      // for upwards, only change context based on intentIds!
+      if (((intentDirection === ContextManagerKeys.UPWARDS) && targetCount.intentIdFound) || distanceCounter == 0 ||
+        intentDirection === ContextManagerKeys.DOWNWARDS) {
+        ettCountThisTarget = targetCount.numberOfMaps;
+      }
 
       dblogger.flow('For child ' + c + ': ett Count This Target ' + ettCountThisTarget);
-      // check if we have historical contexts that can be mapped here to this context
-      // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
-      ettCountAtPastTargets = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
-      dblogger.flow('ettCountAtPastTargets ' + ettCountAtPastTargets);
-      // now use previously mapped entities for the counting! 
-      let ettCountAtPastContexts = 0;
-      // for downwards, non-intent entities, we allow them to be taken from previous conversations
-      if (intentDirection === ContextManagerKeys.DOWNWARDS &&
-        ctxParams[c].entityName !== ContextManagerKeys.INTENTID) {
-        ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
-        dblogger.flow('ettCountAtPastContexts ' + ctxParams[c].entityName + " " + ettCountAtPastContexts);
+      // for downward searches, count passed entities
+      if (intentDirection === ContextManagerKeys.DOWNWARDS) {
+        // check if we have historical contexts that can be mapped here to this context
+        // TODO: WE HAVE AN UNNECESSARY DOUBLE LOOP HERE - mapPastUnmapedEntitiesToContext ALSO LOOPS UNTIL ROOT
+        let objPassed = this.mapPastUnmapedEntitiesToContext(tick, ctxParams[c], tick.target, true);
+        ettCountAtPastTargets = objPassed.numberOfMaps;
+        dblogger.flow('ettCountAtPastTargets ' + ettCountAtPastTargets);
+        // now use previously mapped entities for the counting! 
+        // for downwards, non-intent entities, we allow them to be taken from previous conversations
+        if (ctxParams[c].entityName !== ContextManagerKeys.INTENTID) {
+          ettCountAtPastContexts = this.countPastContextEntities(tick, ctxParams[c]);
+          dblogger.flow('ettCountAtPastContexts ' + ctxParams[c].entityName + " " + ettCountAtPastContexts);
+        }
       }
+
 
       // does this child hold the max?
       if ((ettCountAtPastTargets + ettCountThisTarget + ettCountAtPastContexts) > maxEttCount) {
@@ -881,10 +896,11 @@ class ContextManager {
    * @param {Tick} tick 
    * @param {ContextItem} contextDetails 
    * @param {boolean?} countOnly - count possible mappings only, no actual maps  
-   * @return {number} - number Of Maps
+   * @return {object} - number Of Maps, intentid involved
    */
   mapPastUnmapedEntitiesToContext(tick, contextDetails, target, countOnly) {
     let numberOfMaps = 0;
+    let intentIdFound = false;
     let unmappedEntities = this.node.aggregateObjectContextField(tick, ContextManagerKeys.UNMAPPEDENTITIES) || [];
     _.each(contextDetails.entities, (ett) => {
 
@@ -907,6 +923,7 @@ class ContextManager {
           }
           // if the value equals the expected value, or the expected value doesnt matter
           if (found) {
+            intentIdFound = intentIdFound || (ett.entityName === ContextManagerKeys.INTENTID);
             if (!countOnly) {
               this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
               delete unmappedEntities[ett.entityName][ett.entityIndex];
@@ -923,7 +940,10 @@ class ContextManager {
 
     });
 
-    return numberOfMaps;
+    return {
+      numberOfMaps,
+      intentIdFound
+    };
 
   }
 
@@ -945,14 +965,14 @@ class ContextManager {
     let ctxFrames = contextFrames || this.getContextFrames(tick);
     let target = ctxFrames[ctxFrames.length - 1].target;
 
-    numberOfMaps += this.mapTargetEntitiesToContext(tick, contextDetails, target, false);
+    numberOfMaps += this.mapTargetEntitiesToContext(tick, contextDetails, target, false).numberOfMaps;
 
     // re-save
     this.setContextFrames(tick, ctxFrames);
 
     // TODO: check only on short-term memory
     // check if we have historical contexts that can be mapped here to this context
-    numberOfMaps += this.mapPastUnmapedEntitiesToContext(tick, contextDetails, target, false);
+    numberOfMaps += this.mapPastUnmapedEntitiesToContext(tick, contextDetails, target, false).numberOfMaps;
 
     this.saveUnmappedEntitiesToContext(tick, target);
 
@@ -1194,7 +1214,7 @@ class ContextManager {
     this.clearAllContexts(tick, false);
     // no context got selected yet: then if we have a target, select by it the right context child
     // this answers cases where the first selection come from above (and tick is 'downwards')
-    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, false);
+    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, true);
 
     // if no context found, and there's a target, choose the background
     if (!tick.target.exists() && foundContexts[foundContexts.length - 1].index < 0 && this.node.backgroundContextIndex !== undefined) {

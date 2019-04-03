@@ -25,13 +25,16 @@ function userService($rootScope, $window, $http, $q, configService, notification
   }
 
   function initFacebook() {
-    FB.init({
-      appId: "848238748692034",
-      status: true,
-      cookie: true,
-      xfbml: true,
-      version: "v2.9"
-    });
+    if (FB) {
+      FB.init({
+        appId: "848238748692034",
+        status: true,
+        cookie: true,
+        xfbml: true,
+        version: "v2.9"
+      });
+    }
+
   }
 
   function getStatus() {

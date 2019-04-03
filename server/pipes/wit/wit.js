@@ -70,16 +70,27 @@ class WIT extends NLUPipeInterface {
 
       var values = [];
       var avgscore = 0;
+      // entity is really an array
       for (var i = 0; i < entity.length; i++) {
-        let value = entity[i].value;
-        if (entity[i].normalized && entity[i].normalized.value) {
-          value = entity[i].normalized.value;
+        for (var ettMember in entity[i]) {
+          if (ettMember === "value") {
+            let value = entity[i].value;
+            // if (entity[i].normalized && entity[i].normalized.value) {
+            //   value = entity[i].normalized.value;
+            // }
+            values.push(value);
+            avgscore += entity[i].confidence / (i + 1);
+
+          } else if (ettMember === "entities") {
+            return this.extractEntities(entity[i], keyPrefix + key + ".", entities);
+          }
+          // for unit-based duration/quantity
+          else {
+            entities[key + "." + ettMember] = [entity[i][ettMember]];
+          }
+
         }
-        values.push(value);
-        avgscore += entity[i].confidence / (i + 1);
-        if (entity[i].entities) {
-          return this.extractEntities(entity[i], keyPrefix + key + ".", entities);
-        }
+
       }
       entities[keyPrefix + key] = values;
 

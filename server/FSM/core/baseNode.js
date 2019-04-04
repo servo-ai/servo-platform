@@ -274,14 +274,22 @@ class BaseNode {
     }
 
     // for this context 
+    let contextBorderPassed = false;
     while (contextMgr) {
       let etts = contextMgr.getContextMemory(ctxTick)[ettkey];
       for (let ettObjKey in etts) {
         // if it's an object, we dont override
         addEtt(etts[ettObjKey], ettObjKey);
       }
+      // we pass one newContext and then break 
+      if (contextBorderPassed) {
+        break;
+      }
       // move to parent
       let contextEtts = contextMgr.findNextContextManagerEntities(ctxTick);
+      if (contextMgr.node.properties.newContext) {
+        contextBorderPassed = true;
+      }
       contextMgr = contextEtts && contextEtts.node && contextEtts.node.contextManager;
       ctxTick = contextEtts.tick;
     }

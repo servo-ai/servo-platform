@@ -221,7 +221,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"newContext": true,
+				"newContext": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -270,7 +270,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"newContext": true,
+				"newContext": false,
 				"contexts": [
 					{
 						"intentId": "",
@@ -372,7 +372,7 @@
 	},
 	"display": {
 		"camera_x": 784.299999992596,
-		"camera_y": -510.90999959576584,
+		"camera_y": -1052.834999797211,
 		"camera_z": 1,
 		"x": 0,
 		"y": 0

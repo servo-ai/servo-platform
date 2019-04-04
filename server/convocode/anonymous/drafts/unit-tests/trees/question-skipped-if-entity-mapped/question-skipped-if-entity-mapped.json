@@ -27,7 +27,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"replayActionOnReturnFromContextSwitch": true,
-				"newContext": false,
+				"newContext": true,
 				"contexts": [
 					{
 						"intentId": "",
@@ -59,8 +59,8 @@
 				]
 			},
 			"display": {
-				"x": -146,
-				"y": -62
+				"x": -140,
+				"y": -64
 			},
 			"children": [
 				"92110503-53d6-474f-9947-43ea23dcede7",

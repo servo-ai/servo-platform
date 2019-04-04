@@ -807,17 +807,25 @@ class ContextManager {
     var node = this.node;
     var value;
     var contextManager = this;
-
+    let contextBorderPassed = false;
     do {
       dblogger.assert(contextManager, "node must have a contextManager");
       value = contextManager.getContextMemory(tick)[key];
+      if (contextBorderPassed) {
+        break;
+      }
       if (_.isUndefined(value) && (!limited || !contextManager.node.properties.newContext)) {
         var nextCntxtMgrEtts = contextManager.findNextContextManagerEntities(tick);
         node = nextCntxtMgrEtts && nextCntxtMgrEtts.node;
         tick = nextCntxtMgrEtts && nextCntxtMgrEtts.tick;
         contextManager = node && node.contextManager;
       }
-    } while (node && (_.isUndefined(value) && !contextManager.node.properties.newContext));
+
+      if (contextManager.node.properties.newContext) {
+        contextBorderPassed = true; // break next time
+      }
+    }
+    while (node && (_.isUndefined(value)));
 
     return value;
   }
@@ -908,7 +916,7 @@ class ContextManager {
         return;
       }
       var parentContextManagerEtts = this.findNextContextManagerEntities(tick);
-
+      let contextBorderPassed = false;
       while (parentContextManagerEtts && parentContextManagerEtts.node) {
         var contextManager = parentContextManagerEtts.node.contextManager;
         var entityValue = unmappedEntities[ett.entityName] && unmappedEntities[ett.entityName][ett.entityIndex];
@@ -932,7 +940,15 @@ class ContextManager {
             numberOfMaps += (ettExpectedValues && found) ? 1 : 0;
           }
         }
+        // after a newContext has passed, break
+        if (contextBorderPassed) {
+          break;
+        }
+        // up next
         parentContextManagerEtts = contextManager.findNextContextManagerEntities(parentContextManagerEtts.tick);
+        if (contextManager.node.properties.newContext) {
+          contextBorderPassed = true;
+        }
 
       }
 
@@ -1215,7 +1231,7 @@ class ContextManager {
    */
   open(tick) {
     this.clearAllContexts(tick, false);
-    console.log('---->', this.getContextMemory(tick))
+
     // no context got selected yet: then if we have a target, select by it the right context child
     // this answers cases where the first selection come from above (and tick is 'downwards')
     let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, true);

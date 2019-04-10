@@ -155,7 +155,7 @@ class BaseNode {
    * @param {Tick} tick 
    */
   summary(tick) {
-    return "pid:" + tick.process.summary() + "/name:" + this.name + "/title:" + this.title + "/nid:" + this.id.substr(0, 10) + "... ";
+    return "title:" + this.title + "/name:" + this.name + "/nid:" + this.id.substr(0, 10) + "... " + " pid:" + tick.process.summary();
   }
 
   /**

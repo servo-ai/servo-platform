@@ -76,7 +76,7 @@ class Ticker {
     cycle *= DECELERATION;
     cycle = cycle > MAX_CYCLE ? MAX_CYCLE : cycle;
     cycle = cycle < MIN_CYCLE ? MIN_CYCLE : cycle;
-
+    dblogger.assert(cycle >= MIN_CYCLE, "timeout too small for pid " + pid);
     // Change the cycle now
     this.cycle(pid, cycle);
 
@@ -116,7 +116,7 @@ class Ticker {
 
     if (timeout) {
       // timeout cleared. it is expected that timeout.cb() will re-initiate timeout execution
-      clearTimeout(timeout.td);
+      clearTimeout(timeout.tid);
       // sets a minimum default value
       this.start(pid);
       // and timeout again

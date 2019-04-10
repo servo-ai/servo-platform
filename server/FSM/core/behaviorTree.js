@@ -317,7 +317,7 @@ class BehaviorTree {
     };
     let loopStop = false;
     let contextCandidates = [];
-    let backtrackLimitPassed = false;
+    //let backtrackLimitPassed = false;
     let distanceCounter = 0;
     // go up the contextmanager's tree
     while (!loopStop) { // <--- TODO: stop if node hasnt been opened yet (and no context was found). IOW, search only up from current
@@ -325,7 +325,7 @@ class BehaviorTree {
       // and try to find the context
       arrFoundContexts = contextManager.selectContexts(parentetts.tick, ContextManager.contextManagerKeys().UPWARDS, distanceCounter);
       // if passed the backtrack limit search
-      backtrackLimitPassed = backtrackLimitPassed || (contextManager.currentContextProperties(parentetts.tick) && contextManager.currentContextProperties(parentetts.tick)['newContext']);
+      //backtrackLimitPassed = backtrackLimitPassed || (contextManager.currentContextProperties(parentetts.tick) && contextManager.currentContextProperties(parentetts.tick)['newContext']);
       // save first found (ie most specific) helper context
       if (!helperContextManager && contextManager.helperContextIndex(arrFoundContexts)) {
         helperContextManager = contextManager;

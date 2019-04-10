@@ -404,25 +404,24 @@ class ContextManager {
         // if the value equals the expected value, or the expected value doesnt matter
         if (found) {
           intentIdFound = intentIdFound || (ett.entityName === ContextManagerKeys.INTENTID);
-          // count if we have a change here, ie its not been accounted for previously, THIS IS NEEDED WHEN THE TARGET INCLUDES AN ENTITY MAPPED ON PREVIOUS CONTEXT.
-          let prevValueMappedAtThisContext = this.getContextMemory(tick)[ett.contextFieldName || ett.entityName];
-          dblogger.warn('no sure why we need prevValueMappedAtThisContext. this was found already mapped' + prevValueMappedAtThisContext)
+          //dblogger.warn('no sure why we need prevValueMappedAtThisContext. this was found already mapped' + prevValueMappedAtThisContext)
           if (!countOnly) {
             this.setContextField(tick, ett.contextFieldName || ett.entityName, entityValue);
             target.useEntity(ett.entityName, ett.entityIndex);
           }
 
-          if (prevValueMappedAtThisContext !== entityValue) {
+          // count if we have a change here, ie its not been accounted for previously, THIS IS NEEDED WHEN THE TARGET INCLUDES AN ENTITY MAPPED ON PREVIOUS CONTEXT.
+          let prevValueMappedAtThisContext = this.getContextMemory(tick)[ett.contextFieldName || ett.entityName];
+          if (prevValueMappedAtThisContext !== entityValue || !intentIdFound) {
             numberOfMaps++;
             ettCount++;
             // give an extra point if that's an intent
-            if (ContextManagerKeys.INTENTID === ett.entityName || expectedValueFound) {
+            if (intentIdFound || expectedValueFound) {
               numberOfMaps++;
               ettCount++;
             }
             dblogger.flow('mapTargetEntitiesToContext', 'target value ' + entityValue + (countOnly ? (' counted ' + ettCount + ' against entity ') : ' mapped to ') + ett.entityName + ' at ' + this.node.summary(tick))
           }
-
 
         }
 

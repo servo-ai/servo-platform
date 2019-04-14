@@ -379,6 +379,8 @@ Utils.evalMemoryField = function (data, code) {
   var process = data.process || {};
   // eslint-disable-next-line no-unused-vars
   var volatile = data.volatile || {};
+  var utils = Utils;
+
   var value = eval("(" + code + ")");
 
   // } catch (err) {
@@ -388,3 +390,17 @@ Utils.evalMemoryField = function (data, code) {
   return value;
 
 };
+
+Utils.getUnique = function (arr, comp) {
+
+  const unique = arr
+    .map(e => e[comp])
+
+    // store the keys of the unique objects
+    .map((e, i, final) => final.indexOf(e) === i && i)
+
+    // eliminate the dead keys & store unique objects
+    .filter(e => arr[e]).map(e => arr[e]);
+
+  return unique;
+}

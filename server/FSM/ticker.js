@@ -96,14 +96,21 @@ class Ticker {
    * @param {string} pid 
    * @param {Function} cb 
    */
-  timeout(pid, cb) {
+  timeout(pid, cb, breakIn = false) {
     // get the next cycle
-    var nextCycle = this.cycle(pid);
+    var nextCycle1 = this.cycle(pid);
+    var timeout = this.timeoutCache.get(pid);
+    if (timeout) {
+      var nextCycle = timeout.at - Date.now();
+    }
 
     // set it only if it's there
-    if (nextCycle) {
-      var tid = setTimeout(cb, nextCycle);
-      this.setTimeoutCache(pid, nextCycle, tid, cb);
+    if (nextCycle1) {
+      var tid = setTimeout(cb, nextCycle || nextCycle1, breakIn);
+      if (!breakIn) {
+        this.setTimeoutCache(pid, nextCycle1, tid, cb);
+      }
+
     }
   }
 
@@ -120,7 +127,7 @@ class Ticker {
       // sets a minimum default value
       this.start(pid);
       // and timeout again
-      this.timeout(pid, timeout.cb);
+      this.timeout(pid, timeout.cb, true);
     }
 
 

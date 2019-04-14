@@ -306,6 +306,23 @@ function getScheme(toID, message, view = null) {
       postObj.message = message;
     }
   }
+
+  // normalize quick replies
+  if (postObj.message.quick_replies) {
+    if (postObj.message.quick_replies.length > 11) {
+      dblogger.error("too many quick replies" + toID);
+      postObj.message.quick_replies = postObj.message.quick_replies.filter((el, i) => {
+        return (i <= 10);
+      });
+      for (let i = 0; i < postObj.message.quick_replies.length; i++) {
+        if (postObj.message.quick_replies[i].payload.length > 1000) {
+          dblogger.error('quickreply payload too long' + toID);
+          postObj.message.quick_replies[i].payload = postObj.message.quick_replies[i].payload.substr(0, 1000);
+        }
+
+      }
+    }
+  }
   return postObj;
 }
 

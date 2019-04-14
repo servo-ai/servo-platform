@@ -195,7 +195,7 @@ class FSMManager {
     var app = require('../app');
     chatManager.stopAll(app);
 
-    _btCache.flushAll();
+
     // flush all the views
     let viewModel = require('models/view-model');
     viewModel.flushAll();
@@ -207,17 +207,21 @@ class FSMManager {
       processModel.getActiveFSMProcesses(fullFsmIds.fsmId).then((processes) => {
         _.each(processes, (process1) => {
           // stop the tick
-          FSMManager.tickStop(process1.id);
+          FSMManager.tickStop(process1.id, userId);
           // reset the non globals 
           process1.resetNonGlobalMemory();
         });
-        var app = require('../app');
-        FSMManager.startAll(app, userId);
+
       });
     });
   }
 
 
+  static resetBTs(userId) {
+    _btCache.flushAll();
+    var app = require('../app');
+    FSMManager.startAll(app, userId);
+  }
   /**
    * load the main, root tree, and copy its properties to the process
    */
@@ -344,14 +348,17 @@ class FSMManager {
     _pausedProcesses[pid] = false;
   }
 
-
   /**
    * to stop a certain process tick, we add a stop command to the queue
+   * 
+   * @param {string} pid 
+   * @param {string} userId 
    */
-  static tickStop(pid) {
+  static tickStop(pid, userId) {
 
     var targetObj = {
-      stopCommand: true
+      stopCommand: true,
+      userId
     };
     FSMManager.addToQueue(pid, targetObj, true);
   }
@@ -400,7 +407,7 @@ class FSMManager {
     // 3. otherwise, tick continues indefinetly until stopped, 
     function tickItNow(pid, fsm_id) {
 
-      function tickIt() {
+      function tickIt(brokeIn) {
         try {
           var thisProcess = processModel.getFromCache(pid);
 
@@ -418,6 +425,9 @@ class FSMManager {
               _processTargetCache.del(process.id);
               FSMManager.ticker.stop(pid);
               FSMManager.resetQueue(pid);
+              // this will cause a reload for all
+              // TODO: reset only for this fsmId
+              FSMManager.resetBTs(qObject.targetObj.userId);
 
               return;
             }
@@ -481,8 +491,11 @@ class FSMManager {
         }
         // if we are not in a breakpoint
         if (ret) {
-          //  set the timer again
-          FSMManager.ticker.timeout(pid, tickIt);
+          //  set the timer again if it's a regular time, not a break in time
+          if (!brokeIn) {
+            FSMManager.ticker.timeout(pid, tickIt);
+          }
+
         } else {
           _processTargetCache.del(process.id);
           FSMManager.ticker.stop(pid);
@@ -606,5 +619,7 @@ class FSMManager {
 
 // set the default ticker
 FSMManager.setTicker(Ticker.getInst());
+
+
 
 module.exports = FSMManager;

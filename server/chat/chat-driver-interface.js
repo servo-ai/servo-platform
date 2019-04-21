@@ -4,10 +4,13 @@ var dblogger = require('../utils/dblogger');
 var processModel = require('../models/processmodel');
 var PipeManager = require("../pipes/pipemanager");
 var router = express.Router();
+var MessageModel = require("../models/message-model");
 
 var FSMManager;
 class ChatDriverInterface {
-  ChatDriverInterface() {}
+  constructor() {
+
+  }
 
   static getInst() {
     throw "need to implement this.getInst()";
@@ -34,8 +37,21 @@ class ChatDriverInterface {
     throw "not implemented pidPrefix " + this.channelName();
   }
 
-  createMessageObject(body, fsmId) {
-    throw "not implemented createMessageObject " + this.channelName();
+  /**
+   * return a message object
+   * @param {*} data 
+   * @param {*} fsmId 
+   */
+  createMessageObject(data, fsmId) {
+
+    let mo = new MessageModel({
+      id: data.To,
+      channel: this.channelName()
+    }, {
+      id: data.From,
+      channel: this.channelName()
+    }, this.channelName(), data.Body, this.channelName(), fsmId, data);
+    return mo;
   }
 
 

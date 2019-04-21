@@ -53,6 +53,28 @@ class _Process {
     });
   }
 
+  static getProcessByKeyId(keyName, processLinkId) {
+    return new Promise(function (resolve, reject) {
+      var col = db.collection("processes");
+      var finbObj = {};
+      finbObj[keyName] = processLinkId;
+      col.findOne(
+        finbObj,
+        function (err, doc) {
+          if (err) {
+            dblogger().error('Process.getFSMLinkedProcess(  processLinkId:' + processLinkId + ') error: ', err);
+            reject(err);
+          } else if (!doc) {
+            dblogger().warn('Process.getFSMLinkedProcess( processLinkId:' + processLinkId + ') + no processes.');
+            resolve(null);
+          } else {
+            dblogger().log('Process.getFSMLinkedProcess( processLinkId:' + processLinkId + ') Got a proccess' + doc.id);
+            resolve(doc.id);
+          }
+        });
+    });
+  }
+
   static getFSMProcesses(fsm) {
     if (_.has(fsm.properties, "loadAllProccesses") && !fsm.properties.loadAllProccesses) {
       return Promise.resolve([]);
@@ -71,7 +93,7 @@ class _Process {
           dblogger().error('DB._Process.getFSMProcesses(' + fsm.userFsmId() + ') error: ', err);
           reject(err);
         } else if (!doc) {
-          dblogger().log('DB._Process.getFSMProcesses(' + fsm.userFsmId() + ') got ' + processes.length + ' processes.');
+          dblogger().warn('DB._Process.getFSMProcesses(' + fsm.userFsmId() + ') got ' + processes.length + ' processes.');
           resolve(processes);
         } else {
           try {

@@ -151,4 +151,5 @@ load(path, 'decorators', 'RepeatUntilCondition');
 load(path, 'actions', 'MongoQuery');
 
 load(path, 'actions', 'SafeEval');
+load(path, 'actions', 'SetEndpoint');
 module.exports = B3Nodes;

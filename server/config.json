@@ -9,11 +9,11 @@
   },
   "db": {
     "name-1": "mongo",
-    "name": "loki",
-    "host": "<host name>",
-    "username": "<username>",
-    "password": "<pwd>",
-    "database": "<dbname>",
+    "name": "mongo",
+    "host": "chatflows.com",
+    "username": "servoai",
+    "password": "bestbots",
+    "database": "ServoDB",
     "timeoutMSec": 4000
   },
   "readOnly": false,

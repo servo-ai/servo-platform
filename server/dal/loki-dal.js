@@ -66,6 +66,26 @@ class _Process {
 
   }
 
+  static getLinkedProcessId(fsm, processLinkId) {
+    return new Promise(function (resolve, reject) {
+      _dbInitialized.then(() => {
+        var col = getAddCollection("processes");
+
+        var doc = col.findOne({
+          link_id: processLinkId
+        });
+
+        if (!doc) {
+          dblogger().error('Process.getFSMLinkedProcess(' + fsm.userFsmId() + ' processLinkId:' + processLinkId + ') error: no doc');
+          reject(0);;
+        } else {
+          resolve(doc.id);
+        }
+      });
+
+    });
+  }
+
   static getFSMProcesses(fsm) {
     if (_.has(fsm.properties, "loadAllProccesses") && !fsm.properties.loadAllProccesses) {
       return Promise.resolve([]);

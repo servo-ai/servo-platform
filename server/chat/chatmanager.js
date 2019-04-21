@@ -201,10 +201,6 @@ class ChatManager {
     alexaService.startAll(app, fsms);
 
     // avoid circular ref
-    // mycroftService = mycroftService || require('./mycroft').getInst();
-    // mycroftService.startAll(app, fsms);
-
-    // avoid circular ref
     chatsim = chatsim || require('./chatsim').getInst();
     chatsim.startAll(app, fsms);
     formbotDriver = formbotDriver || require("./formbot").getInst();

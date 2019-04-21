@@ -18,6 +18,10 @@ var _cache = cacheFactory.createCache({
   useClones: false
 });
 
+var _keyCaches = {
+
+}
+
 function ProcessModel() {}
 
 _.extend(ProcessModel, baseModel);
@@ -31,6 +35,47 @@ ProcessModel.Process = Process;
 ProcessModel.resetCache = function () {
   _cache.flushAll();
 };
+
+
+/**
+ * get the process by the key name, and id value. from db
+ * @param {string} keyName
+ * @param {string} keyId
+ */
+ProcessModel.dbGetByKey = (keyName, keyId) => {
+  return DAL.Process.getProcessByKeyId(keyName, keyId);
+}
+/**
+ * get the process by the key name, and id value. from cache or db
+ * @param {string} keyName
+ * @param {string} keyId
+ */
+ProcessModel.getByKey = (keyName, keyId) => {
+  dblogger.assert(keyId, "keyId is not  set");
+  return new Promise((resolve, reject) => {
+    var cache = _keyCaches[keyName];
+    if (!cache) {
+      _keyCaches[keyName] = {};
+      ProcessModel.dbGetByKey(keyName, keyId).then((pid) => {
+        _keyCaches[keyName][keyId] = pid;
+        resolve(pid);
+      }).catch((err) => {
+        reject(err);
+      });
+    } else {
+      if (_keyCaches[keyName][keyId]) {
+        resolve(_keyCaches[keyName][keyId]);
+      } else {
+        ProcessModel.dbGetByKey(keyName, keyId).then((pid) => {
+          _keyCaches[keyName][keyId] = pid;
+          resolve(pid);
+        }).catch((err) => {
+          reject(err);
+        });
+      }
+    }
+  });
+}
 
 /**
  *  get from db process by its id, and creae a new object
@@ -179,13 +224,16 @@ ProcessModel.upsert = function (processObj, message) {
     dblogger.assert(!utils.isCyclic(processToSave), "process object is cyclic");
     // and upsert
     return new Promise((resolve) => {
+      // TODO: save messages separately, after removing the dot from entities: {location.suggested} .
+      var messages = processToSave.messages;
+      processToSave.messages = null;
       DAL.Process.upsert(id, processToSave).then(() => {
-
+        processObj.messages = messages;
         _cache.set(id, processObj);
 
         resolve(id);
       }).catch((err) => {
-        console.error(err);
+        console.error('upsert problem:', err);
         // tolerate 
         _cache.set(id, processObj);
         resolve(id);

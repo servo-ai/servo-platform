@@ -57,7 +57,9 @@ class PostDriver extends ChatDriverInterface {
     getCreateProcessByLinkId(messageObj, fsm) {
         return new Promise((resolve, reject) => {
             processModel.getByKey("link_id", messageObj.processLinkId).then((pid) => {
-                return super.getCreateProcessAndMessage(messageObj, pid, fsm);
+                super.getCreateProcessAndMessage(messageObj, pid, fsm).then(() => {
+                    resolve();
+                });
             }).catch((err) => {
                 if (err === 0) {
                     dblogger.error('getByKey("link_id"' + messageObj.processLinkId);

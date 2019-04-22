@@ -9,7 +9,7 @@
   },
   "db": {
     "name-1": "mongo",
-    "name": "mongo",
+    "name": "loki",
     "host": "chatflows.com",
     "username": "servoai",
     "password": "bestbots",

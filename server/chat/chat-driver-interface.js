@@ -125,7 +125,9 @@ class ChatDriverInterface {
       processModel.get(pid, fsm).then((processObj) => {
         processObj.options = fsm.properties;
         processObj.properties(fsm.properties);
-        return this.actOnProcess(messageObj, processObj);
+        this.actOnProcess(messageObj, processObj).then(() => {
+          resolve();
+        });
       }).catch((err) => {
         // if we simply didnt find such a document
         if (err === 0) {
@@ -133,7 +135,9 @@ class ChatDriverInterface {
           this.createNewProcess(fsm, messageObj, pid).then((processObj) => {
             processObj.options = processObj.properties(fsm.properties);
 
-            return this.actOnProcess(messageObj, processObj);
+            this.actOnProcess(messageObj, processObj).then(() => {
+              resolve();
+            });
           });
         } else {
           dblogger.error('error in processModel.get:', pid, err);

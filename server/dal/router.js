@@ -1,4 +1,3 @@
-var Promise = require('promise');
 var config = require("../config");
 var db = null;
 if (config.db.name == "loki")

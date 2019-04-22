@@ -65,18 +65,16 @@ class _Process {
     });
 
   }
-
-  static getLinkedProcessId(fsm, processLinkId) {
+  static getProcessByKeyId(keyName, processLinkId) {
     return new Promise(function (resolve, reject) {
       _dbInitialized.then(() => {
         var col = getAddCollection("processes");
-
-        var doc = col.findOne({
-          link_id: processLinkId
-        });
+        var finbObj = {};
+        finbObj[keyName] = processLinkId;
+        var doc = col.findOne(finbObj);
 
         if (!doc) {
-          dblogger().error('Process.getFSMLinkedProcess(' + fsm.userFsmId() + ' processLinkId:' + processLinkId + ') error: no doc');
+          dblogger().error('Process.getProcessByKeyId( processLinkId:' + processLinkId + ') error: no doc');
           reject(0);;
         } else {
           resolve(doc.id);
@@ -141,6 +139,7 @@ class _Process {
           console.log(ex, processObj)
         }
         if (cached) {
+          _.extend(cached, processObj);
           col.update(cached);
         } else {
           col.insert(processObj);

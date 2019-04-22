@@ -602,8 +602,8 @@ class BehaviorTree {
         'instance of Process class';
     }
     // see that we have a data object so we could treat it by reference var data = process.get('data',tree.id) || {};
-    var data = process.get('data', this.id);
-    process.set('data', data || {}, this.id);
+    // var data = process.get('data', this.id);
+    // process.set('data', data || {}, this.id);
 
     /* CREATE A TICK OBJECT */
     dblogger.assert(process.properties(), "process should have an fsm");

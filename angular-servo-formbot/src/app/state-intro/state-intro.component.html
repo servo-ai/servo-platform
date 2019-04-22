@@ -1,0 +1,12 @@
+<p>
+  <h1>Introduction</h1>
+  Hello {{username}}!
+  <div>
+    <h2>How can we help you?</h2>
+  </div>
+  <div>
+    <select [(ngModel)]="selectedValue" name="test">
+      <option *ngFor="let step of visitReason" [ngValue]="step">{{step.text}}</option>
+    </select>
+  </div>
+  <button type="submit" (click)="onSubmit()" class="btn btn-success">continue</button>

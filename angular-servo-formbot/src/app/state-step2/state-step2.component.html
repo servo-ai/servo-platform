@@ -1,0 +1,5 @@
+<p>
+  <h2> You have a balance of {{balance}}</h2>
+  How much would you like to transfer?
+  <input type="text" [(ngModel)]="wireAmount" />
+  <button type="submit" (click)="onSubmit()" class="btn btn-success">Submit</button>

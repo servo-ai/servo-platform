@@ -1,0 +1,43 @@
+<section class="form1  mbr-fullscreen cid-rdewfnixct" id="form1-r">
+
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="title col-12 col-lg-8">
+        <h1 class="mbr-section-title mbr-bold align-right pb-3 mbr-fonts-style display-2">What car do you have</h1>
+
+      </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+      <div class="media-container-column col-lg-8" data-form-type="formoid">
+
+        <form class="mbr-form" data-form-title="FormBot"><input type="hidden" name="email" data-form-email="true"
+            value="SE418vG8H0f58L02iVy1SsfaJC1w6IBH9hkE1CTOw/r89/0zFz4kTFREgyRBIC9iNoUAM6Ud2hiYn5D/F4eLejNucin+YOnJaqcOiZny8GgPer4E0rIHFHt6hMiRkPG1">
+          <div class="row row-sm-offset">
+            <div class="col-md-4 multi-horizontal" data-for="name">
+              <div class="form-group">
+                <label class="form-control-label mbr-fonts-style display-7" for="year">Year</label>
+                <input type="text" class="form-control" [(ngModel)]="year" name="name" data-form-field="Name" required
+                  id="year">
+              </div>
+            </div>
+
+            <div class="col-md-4 multi-horizontal" data-for="phone">
+              <div class="form-group">
+                <label class="form-control-label mbr-fonts-style display-7" for="manufacturer">Make</label>
+                <ngbd-typeahead-focus [(ngModel)]="manufacturer"></ngbd-typeahead-focus>
+                <!-- <input type="tel" class="form-control" [(ngModel)]="manufacturer" name="phone" data-form-field="Phone"
+                    id="manufacturer"> -->
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <span class="input-group-btn"><button href="" type="submit" (click)='onSubmit()'
+                class="btn btn-primary btn-form display-4">Next</button></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

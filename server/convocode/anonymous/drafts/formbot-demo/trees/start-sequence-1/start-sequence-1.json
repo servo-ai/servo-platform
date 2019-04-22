@@ -1,0 +1,89 @@
+{
+	"version": "0.9.0",
+	"scope": "tree",
+	"id": "start-sequence-1",
+	"name": "start-sequence-1",
+	"title": "start-sequence-1",
+	"description": "",
+	"root": "6344ef10-0497-4f8f-98b6-b4dd9ba545bb",
+	"properties": {},
+	"nodes": {
+		"5d13c2f4-f64a-42b7-8794-0e4d995073ea": {
+			"id": "5d13c2f4-f64a-42b7-8794-0e4d995073ea",
+			"name": "Failer",
+			"title": "Failer",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true
+			},
+			"display": {
+				"x": 364,
+				"y": 410
+			}
+		},
+		"d84ac78e-0b2f-48a9-89ec-5c15c023e63b": {
+			"id": "d84ac78e-0b2f-48a9-89ec-5c15c023e63b",
+			"name": "ClearAllContexts",
+			"title": "ClearAllContexts",
+			"description": "find current context managed node and clear all its contexts. if leaveCurrent is true, leave current context intact",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"leaveCurrent": false
+			},
+			"display": {
+				"x": -114,
+				"y": 388
+			}
+		},
+		"0416f589-f9d8-41fb-9308-d154bc586ffe": {
+			"id": "0416f589-f9d8-41fb-9308-d154bc586ffe",
+			"name": "CloseAllContexts",
+			"title": "CloseAllContexts",
+			"description": "Close current context and all its siblings, effectively reseting all the runningChilds and allowing re-open",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true
+			},
+			"display": {
+				"x": 110,
+				"y": 372
+			}
+		},
+		"6344ef10-0497-4f8f-98b6-b4dd9ba545bb": {
+			"id": "6344ef10-0497-4f8f-98b6-b4dd9ba545bb",
+			"name": "MemSequence",
+			"title": "MemSequence",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5
+			},
+			"display": {
+				"x": 50,
+				"y": 204
+			},
+			"children": [
+				"d84ac78e-0b2f-48a9-89ec-5c15c023e63b",
+				"0416f589-f9d8-41fb-9308-d154bc586ffe",
+				"5d13c2f4-f64a-42b7-8794-0e4d995073ea"
+			]
+		}
+	},
+	"display": {
+		"camera_x": 952,
+		"camera_y": -40.88000005931826,
+		"camera_z": 1,
+		"x": 0,
+		"y": 0
+	},
+	"state": "draft"
+}

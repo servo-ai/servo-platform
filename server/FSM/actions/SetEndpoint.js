@@ -3,7 +3,7 @@ var _ = require('underscore');
 var Action = require('FSM/core/action');
 var utils = require('utils/utils');
 var dblogger = require('utils/dblogger');
-var PostDriver = require('chat/rest-post-driver');
+var RestPost = require('../../chat/rest-post');
 var fsmModel = require('models/fsmmodel');
 
 /**
@@ -55,7 +55,7 @@ class SetEndpoint extends Action {
       if (prLinkId != processLinkId) {
         if (!prLinkId) {
 
-          var postDriver = new PostDriver(this.properties.channelName);
+          var postDriver = new RestPost(this.properties.channelName);
           var fsm = fsmModel.getFSMSync(tick.process.fsm_id, tick.process.userId);
           postDriver.start(fsm);
           this.global(tick, 'processLinkId', processLinkId);

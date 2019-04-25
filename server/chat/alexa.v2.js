@@ -1,4 +1,3 @@
-var Promise = require('bluebird');
 var express = require('express');
 var _ = require('underscore');
 var dblogger = require('../utils/dblogger');
@@ -30,6 +29,7 @@ class AlexaChatDriver extends ChatDriverInterface {
    * @param {*} toProcess 
    * @param {*} tree 
    * @param {*} node 
+   * @return {Promise} 
    */
   sendMessage(response, toProcess, tree, node) {
     return new Promise(function (resolve) {
@@ -61,6 +61,11 @@ class AlexaChatDriver extends ChatDriverInterface {
     });
   }
 
+  /**
+   * 
+   * @param {Object} app 
+   * @param {Object} fsms 
+   */
   startAll(app, fsms) {
     for (var key in fsms) {
       var fsm = fsms[key];
@@ -69,7 +74,7 @@ class AlexaChatDriver extends ChatDriverInterface {
       }
     }
     var baseUrl = config.baseUrl;
-    app.use(baseUrl + "/entry/alexa/", router);
+    app.use(baseUrl + "/entry/", router);
   }
 }
 
@@ -146,6 +151,7 @@ function aggregateMessages(text, processObj, tree, node) {
  * @param tree
  */
 function start(app, fsm) {
+  const userDir = fsm.path.split("/")[1];
   // so we get acess to raw body */
   app.use(bodyParser.json({
     verify: function getRawBody(req, res, buf) {
@@ -157,8 +163,11 @@ function start(app, fsm) {
   /***
    *  entry point
    */
+  router.post('/alexa/' + userDir + '/' + fsm.id, function (req, res) {
+    processRequest(req, res, fsm);
+  });
 
-  router.post('/' + fsm.id, processRequest);
+  //router.post('/' + fsm.id, processRequest);
 
   // GET FOR THE VERIFICATION
   router.get('/' + fsm.id, function (req, res) {
@@ -168,10 +177,10 @@ function start(app, fsm) {
   console.log('listen for Alexa message for ' + fsm.id + ' on ' + config.serverBaseDomain + config.baseUrl + "/alexa/" + fsm.id);
 
 
-  function processRequest(req, res) {
+  function processRequest(req, res, fsm) {
     FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
 
-    var nlu = PipeManager.getPipe("alexa");
+    var nlu = PipeManager.getPipe("alexa", {});
 
     var messageObj = req.body;
     var sessionObj = {};
@@ -231,7 +240,7 @@ function start(app, fsm) {
             processObj.customer = messageObj.fromUser;
 
             if (messageObj.request.type === 'SessionEndedRequest') {
-              messageObj.intentId = "stop";
+              messageObj.intentId = "StopIntent";
               sessionObj.shouldEndSession = true;
               try {
                 FSMManager.resetTargets(processObj.id);

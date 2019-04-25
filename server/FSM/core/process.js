@@ -56,6 +56,15 @@ class Process extends Blackboard {
   }
 
   /**
+   * remove the key
+   * @param {string*} keyName 
+   */
+  removeSearchKey(keyName) {
+    this[keyName] = null;
+    delete this[keyName];
+  }
+
+  /**
    * bring in the properties as a whole
    * @param {*} props 
    */
@@ -138,7 +147,7 @@ class Process extends Blackboard {
 
   // marker for logging
   summary() {
-    return "tree:" + this.treeId + "/id:" + this.id;
+    return "tree:" + this.treeId + "/pid:" + this.id;
   }
   /**
    * get the prompt for a state

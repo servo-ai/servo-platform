@@ -53,27 +53,11 @@ ProcessModel.dbGetByKey = (keyName, keyId) => {
 ProcessModel.getByKey = (keyName, keyId) => {
   dblogger.assert(keyId, "keyId is not  set");
   return new Promise((resolve, reject) => {
-    var cache = _keyCaches[keyName];
-    if (!cache) {
-      _keyCaches[keyName] = {};
-      ProcessModel.dbGetByKey(keyName, keyId).then((pid) => {
-        _keyCaches[keyName][keyId] = pid;
-        resolve(pid);
-      }).catch((err) => {
-        reject(err);
-      });
-    } else {
-      if (_keyCaches[keyName][keyId]) {
-        resolve(_keyCaches[keyName][keyId]);
-      } else {
-        ProcessModel.dbGetByKey(keyName, keyId).then((pid) => {
-          _keyCaches[keyName][keyId] = pid;
-          resolve(pid);
-        }).catch((err) => {
-          reject(err);
-        });
-      }
-    }
+    ProcessModel.dbGetByKey(keyName, keyId).then((doc) => {
+      resolve(doc);
+    }).catch((err) => {
+      reject(err);
+    });
   });
 }
 

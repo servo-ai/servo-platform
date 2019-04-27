@@ -133,9 +133,14 @@ class ChatDriverInterface {
 
     let mo = new MessageModel({
       id: data.to,
+      firstName: data.firstName,
+      lastName: data.lastName,
       channel: this.channelName()
     }, {
       id: data.from,
+
+      firstName: data.firstName,
+      lastName: data.lastName,
       channel: this.channelName()
     }, this.channelName(), data.payload, this.channelName(), fsmId, data);
     return mo;
@@ -146,7 +151,7 @@ class ChatDriverInterface {
     throw "not implemented start " + this.channelName();
   }
   channelName() {
-    return this.constructor.name;
+    return "alexa";
   }
 
   processNLU(messageObj, pid, processObj, fsm) {

@@ -32,7 +32,7 @@ class AlexaChatDriver extends ChatDriverInterface {
    * @return {Promise} 
    */
   sendMessage(response, toProcess, tree, node) {
-    return new Promise(function (resolve) {
+    return new Promise((resolve) => {
       var text = "";
       if (response.text) {
         text = response.text;
@@ -42,8 +42,8 @@ class AlexaChatDriver extends ChatDriverInterface {
       }
       var messageObj = getScheme(text);
       var reportMsg = 'message aggregated';
-      getProcessByID(toProcess.id, tree, messageObj).then(function (processObj) {
-        aggregateMessages(text, processObj, tree, node).then(function (text) {
+      this.getProcessByID(toProcess.id, tree, messageObj).then((processObj) => {
+        aggregateMessages(text, processObj, tree, node).then((text) => {
           var sessionObj = processObj.volatile('sessionObj');
           if (!sessionObj) {
             dblogger.error('no session ')
@@ -70,13 +70,147 @@ class AlexaChatDriver extends ChatDriverInterface {
     for (var key in fsms) {
       var fsm = fsms[key];
       if (fsm.properties && fsm.properties.channels && fsm.properties.channels.indexOf("alexa") >= 0) {
-        start(app, fsm);
+        this.start(fsm);
       }
     }
+
+    // so we get acess to raw body */
+    app.use(bodyParser.json({
+      verify: function getRawBody(req, res, buf) {
+        req.rawBody = buf.toString();
+        //dblogger.log('body verified....');
+      }
+    }));
+
     var baseUrl = config.baseUrl;
     app.use(baseUrl + "/entry/", router);
   }
+
+  /**
+   * Starts a alexa bot
+   * in Facebook, the webhook is chatflows.com/entry/mycroft/<tree id>
+   * the validationToken should be set in the tree
+   * @param tree
+   */
+  start(fsm) {
+    const userDir = fsm.path.split("/")[1];
+
+
+    /***
+     *  entry point
+     */
+    router.post('/alexa/' + userDir + '/' + fsm.id, (req, res) => {
+      this.processRequest(req, res, fsm);
+    });
+
+    //router.post('/' + fsm.id, processRequest);
+
+    // GET FOR THE VERIFICATION
+    router.get('/' + fsm.id, (req, res) => {
+      res.send('alexa respond back');
+    });
+
+    console.log('listen for Alexa message for ' + fsm.id + ' on ' + config.serverBaseDomain + config.baseUrl + "/alexa/" + fsm.id);
+  }
+
+  /**
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @param {Fsm} fsm 
+   */
+  processRequest(req, res, fsm) {
+    FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
+
+    var nlu = PipeManager.getPipe("alexa", {});
+
+    var bodyAlexa = req.body;
+    var dataAlexa = {
+      to: req.body.session.application.applicationId,
+      from: req.body.session.user.userId
+    }
+    let messageObj = this.createMessageObject(dataAlexa, fsm.id);
+
+    var sessionObj = {};
+    try {
+
+      nlu.process(bodyAlexa).then((nluObj) => {
+        messageObj.entities = nluObj.entities;
+        messageObj.setIntentId(nluObj.intent);
+
+
+        var processID = this.getProccessID(messageObj);
+        this.getProcessByID(processID, fsm, messageObj).then((processObj) => {
+
+          dblogger.info({
+            cat: 'flow'
+          }, 'Alexa message RECEIVED:', messageObj.intentId, 'processID:', processID);
+
+          // TODO: PUT RES ON messageObj, otherwise we might get out of order
+          _exchanges.push({
+            res: res
+          });
+
+          sessionObj.responseObj = res;
+          var lastUserTimestamp = Date.now();
+
+          if (bodyAlexa.wakeUp = (bodyAlexa.request.type === 'LaunchRequest')) {
+            //processObj.resetMemory();
+            // save it
+            processObj.volatile('sessionObj', sessionObj);
+            // log some statistics
+            var counter = (processObj.data('lastWakeup') &&
+              processObj.data('lastWakeup').counter) || 0;
+            var lastWakeup = {
+              //  normalize time based on user timezone
+              timestamp: lastUserTimestamp,
+              // replay leaf if its not the first wakeup
+              counter: counter + 1
+            }
+            processObj.data('lastWakeup', lastWakeup);
+            processObj.volatile('replayLastLeaf', !!counter);
+
+            processObj.data('lastUserTimestamp', bodyAlexa.request.timestamp);
+            // act (saves, too)
+            FSMManager.actOnProcess(messageObj, processObj).then(() => {
+              dblogger.log('acted on process ', processObj.summary());
+            });
+
+          } else {
+            processObj.id = processID;
+            processObj.volatile('sessionObj', sessionObj);
+            processObj.customer = messageObj.fromUser;
+
+            if (bodyAlexa.request.type === 'SessionEndedRequest') {
+              messageObj.intentId = "StopIntent";
+              sessionObj.shouldEndSession = true;
+              try {
+                FSMManager.resetTargets(processObj.id);
+                // TODO: RUN A SESSION ENDED CONTROLLER AND ACTION
+              } catch (ex) {
+                dblogger.error('cant resetTargets', ex);
+              }
+
+            } // act
+
+            // save last timestamp
+            processObj.data('lastUserTimestamp', bodyAlexa.request.timestamp);
+            FSMManager.actOnProcess(messageObj, processObj).then((res) => {
+              dblogger.log('acted on process ', processObj.summary());
+            });
+
+          }
+        }).catch((err) => {
+          dblogger.error(err.message);
+        })
+      });
+    } catch (ex) {
+      dblogger.error(ex.message, 'error in Alexa processRequest');
+    }
+  }
+
 }
+
 
 module.exports = AlexaChatDriver;
 
@@ -144,130 +278,7 @@ function aggregateMessages(text, processObj, tree, node) {
 }
 
 
-/**
- * Starts a alexa bot
- * in Facebook, the webhook is chatflows.com/entry/mycroft/<tree id>
- * the validationToken should be set in the tree
- * @param tree
- */
-function start(app, fsm) {
-  const userDir = fsm.path.split("/")[1];
-  // so we get acess to raw body */
-  app.use(bodyParser.json({
-    verify: function getRawBody(req, res, buf) {
-      req.rawBody = buf.toString();
-      console.log('body verified....')
-    }
-  }));
 
-  /***
-   *  entry point
-   */
-  router.post('/alexa/' + userDir + '/' + fsm.id, function (req, res) {
-    processRequest(req, res, fsm);
-  });
-
-  //router.post('/' + fsm.id, processRequest);
-
-  // GET FOR THE VERIFICATION
-  router.get('/' + fsm.id, function (req, res) {
-    res.send('alexa respond back');
-  });
-
-  console.log('listen for Alexa message for ' + fsm.id + ' on ' + config.serverBaseDomain + config.baseUrl + "/alexa/" + fsm.id);
-
-
-  function processRequest(req, res, fsm) {
-    FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
-
-    var nlu = PipeManager.getPipe("alexa", {});
-
-    var messageObj = req.body;
-    var sessionObj = {};
-    try {
-
-      nlu.process(messageObj).then(function (nluObj) {
-        messageObj.intentId = nluObj.intent;
-        messageObj.entities = nluObj.entities;
-
-        var processID = fsm.properties.userId || getProccessID(messageObj);
-        getProcessByID(processID, fsm, messageObj).then((processObj) => {
-
-          messageObj.fromUser = {
-            id: messageObj.session.user.userId,
-            firstName: messageObj.session.user.userId,
-            lastName: "",
-            channel: "alexa"
-          };
-
-          dblogger.info({
-            cat: 'flow'
-          }, 'Alexa message RECEIVED:', messageObj.intentId, 'processID:', processID);
-
-          // TODO: PUT RES ON messageObj, otherwise we might get out of order
-          _exchanges.push({
-            res: res
-          });
-
-          sessionObj.responseObj = res;
-          var lastUserTimestamp = Date.now();
-
-          if (messageObj.wakeUp = (messageObj.request.type === 'LaunchRequest')) {
-            //processObj.resetMemory();
-            // save it
-            processObj.volatile('sessionObj', sessionObj);
-            // log some statistics
-            var counter = (processObj.data('lastWakeup') &&
-              processObj.data('lastWakeup').counter) || 0;
-            var lastWakeup = {
-              //  normalize time based on user timezone
-              timestamp: lastUserTimestamp,
-              // replay leaf if its not the first wakeup
-              counter: counter + 1
-            }
-            processObj.data('lastWakeup', lastWakeup);
-            processObj.volatile('replayLastLeaf', !!counter);
-
-            processObj.data('lastUserTimestamp', messageObj.request.timestamp);
-            // act (saves, too)
-            FSMManager.actOnProcess(messageObj, processObj).then(function () {
-              dblogger.log('acted on process ', processObj.summary());
-            });
-
-          } else {
-            processObj.id = processID;
-            processObj.volatile('sessionObj', sessionObj);
-            processObj.customer = messageObj.fromUser;
-
-            if (messageObj.request.type === 'SessionEndedRequest') {
-              messageObj.intentId = "StopIntent";
-              sessionObj.shouldEndSession = true;
-              try {
-                FSMManager.resetTargets(processObj.id);
-                // TODO: RUN A SESSION ENDED CONTROLLER AND ACTION
-              } catch (ex) {
-                dblogger.error('cant resetTargets', ex);
-              }
-
-            } // act
-
-            // save last timestamp
-            processObj.data('lastUserTimestamp', messageObj.request.timestamp);
-            FSMManager.actOnProcess(messageObj, processObj).then(function (res) {
-              dblogger.log('acted on process ', processObj.summary());
-            });
-
-          }
-        }).catch((err) => {
-          dblogger.error(err.message);
-        })
-      });
-    } catch (ex) {
-      dblogger.error(ex.message, 'error in Alexa processRequest');
-    }
-  }
-
-}
 
 /**
  * Build the post string from an object
@@ -288,45 +299,6 @@ function getScheme(message, shouldEnd = undefined) {
     }
   };
   return postObj;
-}
-
-/**
- * Creating a new process
-
- */
-
-function getProcessByID(id, fsm, messageObj) {
-
-  return new Promise(function (resolve) {
-    //  update the process profile
-    processModel.get(id, fsm).then((process1) => {
-
-      // put profile here
-
-      process1.customer = {
-        firstName: "Alexa User",
-        lastName: id
-      };
-
-      process1.properties(fsm.properties);
-      resolve(process1);
-    }).catch(function (err) {
-      // if we simply didnt find such a document
-      if (err === 0) {
-        FSMManager.startOneProcess(fsm, messageObj, id).then((processObj) => {
-          resolve(processObj);
-        }).catch((ex) => {
-          dblogger.error('startOneProcess failed:', ex);
-        });
-      } else {
-        dblogger.error('error in processModel.get:', id, err);
-      }
-    })
-  });
-}
-
-function getProccessID(messageObj) {
-  return "al:" + messageObj.session.user.userId;
 }
 
 

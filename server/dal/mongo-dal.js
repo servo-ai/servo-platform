@@ -53,6 +53,11 @@ class _Process {
     });
   }
 
+  /**
+   * 
+   * @param {string} keyName 
+   * @param {string} processLinkId 
+   */
   static getProcessByKeyId(keyName, processLinkId) {
     return new Promise(function (resolve, reject) {
       var col = db.collection("processes");
@@ -69,7 +74,7 @@ class _Process {
             resolve(null);
           } else {
             dblogger().log('Process.getProcessByKeyId( processLinkId:' + processLinkId + ') Got a proccess' + doc.id);
-            resolve(doc.id);
+            resolve(doc);
           }
         });
     });

@@ -65,6 +65,11 @@ class _Process {
     });
 
   }
+  /**
+   * 
+   * @param {string} keyName 
+   * @param {string} processLinkId 
+   */
   static getProcessByKeyId(keyName, processLinkId) {
     return new Promise(function (resolve, reject) {
       _dbInitialized.then(() => {
@@ -72,18 +77,21 @@ class _Process {
         var finbObj = {};
         finbObj[keyName] = processLinkId;
         var doc = col.findOne(finbObj);
-
         if (!doc) {
           dblogger().error('Process.getProcessByKeyId( processLinkId:' + processLinkId + ') error: no doc');
-          reject(0);;
+          resolve(null);
         } else {
-          resolve(doc.id);
+          resolve(doc);
         }
       });
 
     });
   }
 
+  /**
+   * 
+   * @param {Fsm} fsm 
+   */
   static getFSMProcesses(fsm) {
     if (_.has(fsm.properties, "loadAllProccesses") && !fsm.properties.loadAllProccesses) {
       return Promise.resolve([]);

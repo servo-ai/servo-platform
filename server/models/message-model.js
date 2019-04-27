@@ -92,6 +92,7 @@ class MessageModel {
    */
   setIntentId(intentId) {
     this.addEntity("intentId", intentId);
+    this.intentId = intentId;
   }
 
   getEntity(entityName, entityIndex = 0) {

@@ -1,20 +1,110 @@
 var config = require('config');
 var express = require('express');
 var dblogger = require('../utils/dblogger');
-var processModel = require('../models/processmodel');
 var PipeManager = require("../pipes/pipemanager");
+var processModel = require('../models/processmodel');
 var router = express.Router();
+var MessageModel = require("../models/message-model");
+var _exchanges = [];
 
 var FSMManager;
 class ChatDriverInterface {
-  ChatDriverInterface() {}
+  constructor() {
+
+  }
 
   static getInst() {
     throw "need to implement this.getInst()";
   }
 
-  sendMessage(promptHtml, toId, tree, node = undefined) {
-    throw "need to implement sendMessage for driver " + this.channelName();
+  /**
+   * @param {*} response 
+   * @param {string} toId 
+   * @param {*} tree
+   * @param {*} node 
+   * @param {Process} process 
+   * @return {Promise}
+   */
+  sendMessage(response, toId, tree, node, processObj) {
+
+    var sessionObj = processObj.volatile('sessionObj');
+    return new Promise((resolve) => {
+      if (sessionObj && sessionObj.responseObj) {
+        // TODO: add message running index?  
+        var xObj = _exchanges.shift();
+
+        sessionObj.responseObj.json(response);
+        sessionObj.responseObj = null;
+        processObj.volatile('sessionObj', null);
+      } else {
+        dblogger.warn("no responseObj found. The message wasnt sent:", response);
+      }
+      resolve();
+    });
+  }
+
+  /**
+   * process the request
+   * @param {*} req 
+   * @param {*} res 
+   * @param {*} fsm 
+   */
+  processRequest(req, res, fsm) {
+    try {
+      var sessionObj = {};
+      var messageObj = this.createMessageObject(req.body, fsm.id);
+      let pid = this.getProccessID(messageObj);
+      _exchanges.push({
+        res: res
+      });
+
+      sessionObj.responseObj = res;
+      this.getProcessByID(pid, fsm, messageObj).then((processObj) => {
+        // default processing, no NLU
+        messageObj.setIntentId(req.body.intentId);
+        for (let ettName in req.body.entities) {
+          messageObj.addEntity(ettName, req.body.entities[ettName]);
+        }
+
+
+        var lastUserTimestamp = Date.now();
+        // save it
+        processObj.volatile('sessionObj', sessionObj);
+        // log some statistics
+        var counter = (processObj.data('lastWakeup') &&
+          processObj.data('lastWakeup').counter) || 0;
+        var lastWakeup = {
+          //  normalize time based on user timezone
+          timestamp: lastUserTimestamp,
+          // replay leaf if its not the first wakeup
+          counter: counter + 1
+        }
+        processObj.data('lastWakeup', lastWakeup);
+        processObj.volatile('replayLastLeaf', !!counter);
+
+        // act (saves, too)
+        FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
+        FSMManager.actOnProcess(messageObj, processObj).then(() => {
+          dblogger.log('acted on process ', processObj.summary());
+          // TODO: use sendMessage
+          this.sendMessage({
+              text: 'acted on process',
+              "summary": processObj.summary()
+            },
+            null,
+            null, null,
+            processObj);
+        });
+
+      }).catch((err) => {
+        dblogger.error('error in get process:', err);
+        res.status(500).end();
+      });
+
+    } catch (err) {
+      dblogger.error("error in processRequest " + fsm.id, req, err);
+      res.status(500).end();
+    }
   }
 
 
@@ -23,19 +113,37 @@ class ChatDriverInterface {
   }
 
   /**
-   * 
+   * create a process id by the generating user id, and the fsmId
    * @param {MessageObject} mOject 
    */
   getProccessID(mOject) {
-    return this.pidPrefix() + mOject.fromUser.id;
+    return this.pidPrefix() + mOject.fromUser.id + "--" + mOject.toUser.id + "--" + mOject.fsmId;
   }
 
   pidPrefix() {
-    throw "not implemented pidPrefix " + this.channelName();
+    return this.channelName() + "-";
   }
 
-  createMessageObject(body, fsmId) {
-    throw "not implemented createMessageObject " + this.channelName();
+  /**
+   * return a message object
+   * @param {*} data 
+   * @param {*} fsmId 
+   */
+  createMessageObject(data, fsmId) {
+
+    let mo = new MessageModel({
+      id: data.to,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      channel: this.channelName()
+    }, {
+      id: data.from,
+
+      firstName: data.firstName,
+      lastName: data.lastName,
+      channel: this.channelName()
+    }, this.channelName(), data.payload, this.channelName(), fsmId, data);
+    return mo;
   }
 
 
@@ -43,7 +151,7 @@ class ChatDriverInterface {
     throw "not implemented start " + this.channelName();
   }
   channelName() {
-    return this.constructor.name;
+    return "alexa";
   }
 
   processNLU(messageObj, pid, processObj, fsm) {
@@ -66,36 +174,41 @@ class ChatDriverInterface {
   }
 
   /**
-   * process the request
-   * @param {*} req 
-   * @param {*} res 
-   * @param {*} fsm 
+   * 
+   * @param {string} id 
+   * @param {MessageModel} messageObj 
    */
-  processRequest(req, res, fsm) {
-    try {
+  getProcessByID(id, fsm, messageObj) {
 
-      var messageObj = this.createMessageObject(req.body, fsm.id);
-      let pid = this.getProccessID(messageObj);
+    return new Promise((resolve) => {
+      //  update the process profile
+      processModel.get(id, fsm).then((process1) => {
 
-      processModel.get(pid, fsm).then((processObj) => {
-        this.processNLU(messageObj, pid, processObj, fsm);
-        res.end();
+        // put profile here
+
+        process1.customer = {
+          firstName: this.channelName() + " User",
+          lastName: id
+        };
+
+        resolve(process1);
       }).catch((err) => {
-        if (err == 0) {
-          // If process not found
-          this.processNLU(messageObj, pid, null, fsm);
-          res.end();
-        } else {
-          dblogger.error('error in get process:', err);
-          res.status(500).end();
-        }
-      });
+        // if we simply didnt find such a document
+        if (err === 0) {
+          FSMManager = FSMManager || require("../FSM/fsm-manager"); // require now if not yet required (to avoid circular dependency)
 
-    } catch (err) {
-      dblogger.error("error in processRequest " + fsm.id, req, err);
-      res.status(500).end();
-    }
+          FSMManager.startOneProcess(fsm, messageObj, id).then((processObj) => {
+            resolve(processObj);
+          }).catch((ex) => {
+            dblogger.error('startOneProcess failed:', ex);
+          });
+        } else {
+          dblogger.error('error in processModel.get:', id, err);
+        }
+      })
+    });
   }
+
 
 
   /** see if a process exists, create if needed, and act on it with the messageObj
@@ -109,7 +222,9 @@ class ChatDriverInterface {
       processModel.get(pid, fsm).then((processObj) => {
         processObj.options = fsm.properties;
         processObj.properties(fsm.properties);
-        return this.actOnProcess(messageObj, processObj);
+        this.actOnProcess(messageObj, processObj).then(() => {
+          resolve();
+        });
       }).catch((err) => {
         // if we simply didnt find such a document
         if (err === 0) {
@@ -117,7 +232,9 @@ class ChatDriverInterface {
           this.createNewProcess(fsm, messageObj, pid).then((processObj) => {
             processObj.options = processObj.properties(fsm.properties);
 
-            return this.actOnProcess(messageObj, processObj);
+            this.actOnProcess(messageObj, processObj).then(() => {
+              resolve();
+            });
           });
         } else {
           dblogger.error('error in processModel.get:', pid, err);
@@ -239,7 +356,9 @@ class ChatDriverInterface {
   startAll(app, fsms) {
     for (var key in fsms) {
       var fsm = fsms[key];
-      this.start(fsm);
+      if (fsm.properties && fsm.properties.channels && fsm.properties.channels.includes(this.channelName())) {
+        this.start(fsm);
+      }
     }
     var baseUrl = config.baseUrl;
     app.use(baseUrl + "/entry", router);

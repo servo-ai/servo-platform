@@ -1,3 +1,6 @@
 server/loki-servo-db.json~
+dist
+node_modules
+package-lock.json
 server/.vscode/launch.json
 editor/src/assets/libs/b3nodes.js

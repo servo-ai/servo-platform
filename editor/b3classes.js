@@ -151,4 +151,6 @@ load(path, 'decorators', 'RepeatUntilCondition');
 load(path, 'actions', 'MongoQuery');
 
 load(path, 'actions', 'SafeEval');
+load(path, 'actions', 'SetProcessLinkId');
+load(path, 'actions', 'GetProcessDataByKey');
 module.exports = B3Nodes;

@@ -9,6 +9,7 @@ var dblogger = require("utils/dblogger");
 var fsmEventEmitter = require('FSM/fsm-event-emitter.js');
 var ticker = require('FSM/ticker').getInst();
 var twilioService = require('./twilio').getInst();
+var restPostService = require('./rest-post').getInst();
 
 /**
  * Router for sending messages out to different channels
@@ -183,6 +184,11 @@ class ChatManager {
       return twilioService.sendMessage(prompt, process.id, tree, node, process);
     }
 
+    if (this.isChannel("rest-post", process)) {
+      return restPostService.sendMessage(prompt, process.id, tree, node, process);
+    }
+
+
     if (process.properties() && !process.properties().channels) {
       dblogger.error("no channel detected", process.id, node.id, tree.id);
       return new Promise((resolve) => {
@@ -201,15 +207,13 @@ class ChatManager {
     alexaService.startAll(app, fsms);
 
     // avoid circular ref
-    // mycroftService = mycroftService || require('./mycroft').getInst();
-    // mycroftService.startAll(app, fsms);
-
-    // avoid circular ref
     chatsim = chatsim || require('./chatsim').getInst();
     chatsim.startAll(app, fsms);
     formbotDriver = formbotDriver || require("./formbot").getInst();
     formbotDriver.startAll(app, fsms);
     twilioService.startAll(app, fsms);
+    restPostService.startAll(app, fsms);
+
   }
 
   /**
@@ -230,6 +234,8 @@ class ChatManager {
     // avoid circular ref
     chatsim = require('./chatsim').getInst();
     chatsim.stopAll(app);
+
+    restPostService.stopAll(app);
 
   }
 }

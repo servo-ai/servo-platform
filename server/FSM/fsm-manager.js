@@ -549,7 +549,7 @@ class FSMManager {
    */
   static startOneProcess(fsm, messageObj, processId, additionalFields) {
     dblogger.assert(fsm, 'no fsm for pid' + processId);
-
+    dblogger.assert(processId, 'no pid for process' + (messageObj.fromUser && messageObj.fromUser.id));
     var promise = new Promise((resolve) => {
       var Process = Process || require('./core/process');
       additionalFields = additionalFields || {};

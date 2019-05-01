@@ -79,7 +79,7 @@ class NLUPipeInterface extends PipeInterface {
    * @param {*} response 
    * @param {string} key pref
    * @param {*} entities object 
-   * @return {Promise}
+   * @return {any}
    */
   extractEntities(response, keyPref, entities) {
     //should return dictionary of array with values

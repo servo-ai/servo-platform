@@ -60,7 +60,7 @@ class AddEntity extends Action {
       return b3.SUCCESS();
     } catch (err) {
       dblogger.error("Error at AddEntity: " + this.summary(tick) + ":" + err.message);
-      return b3.FAILURE();
+      return b3.ERROR();
     }
   }
 

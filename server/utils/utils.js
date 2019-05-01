@@ -404,3 +404,23 @@ Utils.getUnique = function (arr, comp) {
 
   return unique;
 }
+
+/**
+ * map a key name recursively
+ */
+Utils.deepMapKeys = function (originalObject, callback) {
+  return Object.keys(originalObject || {}).reduce((newObject, key) => {
+    const newKey = callback(key)
+    const originalValue = originalObject[key];
+    let newValue = originalValue;
+    if (Array.isArray(originalValue)) {
+      newValue = originalValue.map(item => deepMapKeys(item, callback));
+    } else if (typeof originalValue === 'object') {
+      newValue = Utils.deepMapKeys(originalValue, callback);
+    }
+    return {
+      ...newObject,
+      [newKey]: newValue,
+    }
+  }, {});
+}

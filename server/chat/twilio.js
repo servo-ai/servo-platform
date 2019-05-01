@@ -6,6 +6,7 @@ var dblogger = require('../utils/dblogger');
 var MessageModel = require("../models/message-model");
 var config = require('config');
 var _clients = {};
+var processModel = require('../models/processmodel');
 
 
 // it is a singleton
@@ -78,6 +79,38 @@ class TwilioDriver extends ChatDriverInterface {
             }
         }
     }
+    /**
+     * process the request
+     * @param {*} req 
+     * @param {*} res 
+     * @param {*} fsm 
+     */
+    processRequest(req, res, fsm) {
+        try {
+
+            var messageObj = this.createMessageObject(req.body, fsm.id);
+            let pid = this.getProccessID(messageObj);
+
+            processModel.get(pid, fsm).then((processObj) => {
+                this.processNLU(messageObj, pid, processObj, fsm);
+                res.end();
+            }).catch((err) => {
+                if (err == 0) {
+                    // If process not found
+                    this.processNLU(messageObj, pid, null, fsm);
+                    res.end();
+                } else {
+                    dblogger.error('error in get process:', err);
+                    res.status(500).end();
+                }
+            });
+
+        } catch (err) {
+            dblogger.error("error in processRequest " + fsm.id, req, err);
+            res.status(500).end();
+        }
+    }
+
 
     /**
      * send 1 message or send 
@@ -108,9 +141,11 @@ class TwilioDriver extends ChatDriverInterface {
     /**
      * 
      * @param {*} response 
-     * @param {*} tree 
+     * @param {string} toId 
+     * @param {*} tree
      * @param {*} node 
      * @param {*} process 
+     * @return {Promise}
      */
     sendMessage(response, toId, tree, node, process) {
 

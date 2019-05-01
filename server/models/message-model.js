@@ -86,6 +86,15 @@ class MessageModel {
     this.entities[entityName] = ettArray;
   }
 
+  /**
+   * 
+   * @param {string} intentId 
+   */
+  setIntentId(intentId) {
+    this.addEntity("intentId", intentId);
+    this.intentId = intentId;
+  }
+
   getEntity(entityName, entityIndex = 0) {
     return this.entities && this.entities[entityName] && this.entities[entityName][entityIndex];
   }

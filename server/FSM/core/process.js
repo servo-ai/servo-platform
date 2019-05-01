@@ -39,12 +39,29 @@ class Process extends Blackboard {
       this.volatileAllData = fsm.properties.resetMemory;
       this.properties(fsm.properties);
     }
-
-
   }
 
   fsmId() {
     return this.fsm_id;
+  }
+
+
+  /**
+   * add a root-level key to search by
+   * @param {string} keyName 
+   * @param {string} keyValueId 
+   */
+  addSearchKey(keyName, keyValueId) {
+    this[keyName] = keyValueId;
+  }
+
+  /**
+   * remove the key
+   * @param {string*} keyName 
+   */
+  removeSearchKey(keyName) {
+    this[keyName] = null;
+    delete this[keyName];
   }
 
   /**
@@ -130,7 +147,7 @@ class Process extends Blackboard {
 
   // marker for logging
   summary() {
-    return "tree:" + this.treeId + "/id:" + this.id;
+    return "tree:" + this.treeId + "/pid:" + this.id;
   }
   /**
    * get the prompt for a state

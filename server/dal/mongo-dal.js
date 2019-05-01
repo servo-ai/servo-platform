@@ -53,6 +53,11 @@ class _Process {
     });
   }
 
+  /**
+   * 
+   * @param {string} keyName 
+   * @param {string} processLinkId 
+   */
   static getProcessByKeyId(keyName, processLinkId) {
     return new Promise(function (resolve, reject) {
       var col = db.collection("processes");
@@ -62,14 +67,14 @@ class _Process {
         finbObj,
         function (err, doc) {
           if (err) {
-            dblogger().error('Process.getFSMLinkedProcess(  processLinkId:' + processLinkId + ') error: ', err);
+            dblogger().error('Process.getProcessByKeyId(  processLinkId:' + processLinkId + ') error: ', err);
             reject(err);
           } else if (!doc) {
-            dblogger().warn('Process.getFSMLinkedProcess( processLinkId:' + processLinkId + ') + no processes.');
+            dblogger().warn('Process.getProcessByKeyId( processLinkId:' + processLinkId + ') + no processes.');
             resolve(null);
           } else {
-            dblogger().log('Process.getFSMLinkedProcess( processLinkId:' + processLinkId + ') Got a proccess' + doc.id);
-            resolve(doc.id);
+            dblogger().log('Process.getProcessByKeyId( processLinkId:' + processLinkId + ') Got a proccess' + doc.id);
+            resolve(doc);
           }
         });
     });

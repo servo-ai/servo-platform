@@ -30,7 +30,7 @@ const ensureProjectsDir = (dir) => {
  * @param {*} res 
  */
 const list = (req, res) => {
-  dblogger.log('b3.list. start time:', Date.now());
+  dblogger.log('b3.list. start time:', Date.now(), 'req.user.projectsDir=' + req.user.projectsDir);
   try {
     dblogger.assert(req.user.projectsDir, req.user, 'need user id on request');
     fsmModel.getAllFSMs(req.user.projectsDir, true /*drafts*/ ).then(function (fsms) {

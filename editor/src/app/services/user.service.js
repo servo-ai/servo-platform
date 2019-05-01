@@ -41,40 +41,40 @@ function userService($rootScope, $window, $http, $q, configService, notification
     return $q(function (resolve, reject) {
       //  if debugging on localhost, dont login on FB
       configService.getParams().then(function (params) {
-        resolve(userModel("anonymous", "anonymous@servo.ai", "anonymous"));
+        // resolve(userModel("anonymous", "anonymous@servo.ai", "anonymous"));
         // dont deal with FB login now
-        // if (configService.isLocalHost(params.serverBaseDomain)) {
-        //   return resolve(userModel());
-        // } else {
-        //   var x = FB.getLoginStatus(function (response) {
-        //     if (response.status === "connected") {
-        //       // the user is logged in and has authenticated your
-        //       // app, and response.authResponse supplies
-        //       // the user's ID, a valid access token, a signed
-        //       // request, and the time the access token
-        //       // and signed request each expire
-        //       var uid = response.authResponse.userID;
-        //       var accessToken = response.authResponse.accessToken;
-        //       getProfile().then(function (profile) {
-        //         var user = userModel(profile.name, profile.email, uid);
-        //         _profile = user;
-        //         servoAuth(user).then(function () {
-        //           resolve(user);
-        //         });
-        //       });
-        //     } else if (response.status === "not_authorized") {
-        //       console.error('not login: check config.json')
-        //       // the user is logged in to Facebook,
-        //       // but has not authenticated your app
-        //       resolve(userModel());
-        //     } else {
-        //       console.error('not login: check config.json')
-        //       // the user isn't logged in to Facebook.
-        //       resolve(userModel());
-        //     }
-        //   });
-        //   console.log(x)
-        // }
+        if (configService.isLocalHost(params.serverBaseDomain)) {
+          return resolve(userModel("anonymous", "anonymous@servo.ai", "anonymous"));
+        } else {
+          var x = FB.getLoginStatus(function (response) {
+            if (response.status === "connected") {
+              // the user is logged in and has authenticated your
+              // app, and response.authResponse supplies
+              // the user's ID, a valid access token, a signed
+              // request, and the time the access token
+              // and signed request each expire
+              var uid = response.authResponse.userID;
+              var accessToken = response.authResponse.accessToken;
+              getProfile().then(function (profile) {
+                var user = userModel(profile.name, profile.email, uid);
+                _profile = user;
+                servoAuth(user).then(function () {
+                  resolve(user);
+                });
+              });
+            } else if (response.status === "not_authorized") {
+              console.error('not login: check config.json')
+              // the user is logged in to Facebook,
+              // but has not authenticated your app
+              resolve(userModel());
+            } else {
+              console.error('not login: check config.json')
+              // the user isn't logged in to Facebook.
+              resolve(userModel());
+            }
+          });
+          console.log(x)
+        }
 
       })
 

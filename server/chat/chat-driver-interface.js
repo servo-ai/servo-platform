@@ -344,7 +344,7 @@ class ChatDriverInterface {
       this.processRequest(req, res, fsm);
     });
 
-    dblogger.flow('listen for ' + this.channelName() + ' message for ' + fsm.id + ' on ' + config.serverBaseDomain + "/" + config.baseUrl + '/entry/twilio/' + userDir + '/' + fsm.id);
+    dblogger.flow('listen for ' + this.channelName() + ' message for ' + fsm.id + ' on ' + config.serverBaseDomain + "/" + config.baseUrl + '/entry/' + this.channelName() + '/' +userDir + '/' + fsm.id);
   }
 
 

@@ -21,7 +21,7 @@ class Process extends Blackboard {
     super();
     _.extend(this, base);
 
-    this.treeId = this.fsm_id = fsm.folderName + "/" + fsm.name + '.json';
+    this.treeId = this.fsm_id = fsm.folderName + "/" + fsm.name + '#json';
     this.type = base.type || "processInstance";
     this.status = base.status || "active";
     this.channelId = base.channel && base.channel.toLowerCase();

@@ -209,7 +209,7 @@ class ContextManager {
       newContext = _.extend(newContext, {
         index: ettMatchObj.index,
         prevIndex: this.node.currentChildIndex(tick),
-        score: ettMatchObj.count * this.node.entityWeight,
+        score: ettMatchObj.count * this.node.entityWeight / Math.pow(2, distanceCounter),
         helper: false,
         tick: tick
       });
@@ -388,7 +388,8 @@ class ContextManager {
     _.each(contextDetails.entities, (ett) => {
       let ettCount = 0;
       var entityValue = target.getEntity(ett.entityName, ett.entityIndex);
-      dblogger.flow('compare entity ' + ett.entityName + ', value ' + entityValue);
+      let entityScore = target.getEntity(ett.entityName + "#confidence", 0) || 1;
+      dblogger.flow('compare entity ' + ett.entityName + ', value ' + entityValue + " score=" + entityScore);
 
       // if found this (expected) entity on the target
       if (!_.isUndefined(entityValue)) {
@@ -425,14 +426,14 @@ class ContextManager {
 
         }
 
-
+        numberOfMaps *= entityScore;
       }
     });
 
     return {
       numberOfMaps,
       intentIdFound
-    };;
+    };
   }
 
   /**

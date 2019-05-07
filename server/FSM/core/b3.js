@@ -191,7 +191,7 @@ b3.load = function (folderName = "FSM") {
               if (file.startsWith(".DS")) {
                 return;
               }
-              console.log(file)
+              console.log(file);
               var cls = require(folderName + '/' + folder + '/' + file);
               var className = path.basename(file, '.js');
               b3[className] = cls;
@@ -219,6 +219,6 @@ b3.load = function (folderName = "FSM") {
       });
     });
 
-  })
-}
+  });
+};
 module.exports = b3;

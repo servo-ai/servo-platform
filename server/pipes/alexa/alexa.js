@@ -46,7 +46,9 @@ class Alexa extends NLUPipeInterface {
         _.each(messageObj.request.intent && messageObj.request.intent.slots, (slot) => {
             entities[slot.name] = [slot.value];
         });
-        return {};
+        return {
+            score: 1
+        };
     }
 }
 module.exports = Alexa;

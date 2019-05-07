@@ -59,7 +59,7 @@ const list = (req, res) => {
             }
             const pathArr = fsm.path.split(pathLib.posix.sep);
             const rootFSMid = pathArr[0] + pathLib.posix.sep + pathArr[1] + pathLib.posix.sep + pathArr[2] +
-              pathLib.posix.sep + pathArr[3] + pathLib.posix.sep + pathArr[3] + '.json';
+              pathLib.posix.sep + pathArr[3] + pathLib.posix.sep + pathArr[3] + '#json';
             if (!rootFSMid || !rootFSMs[rootFSMid]) {
               dblogger.error('problem in path. unsupported folder structure:' + fsm.path);
             } else {

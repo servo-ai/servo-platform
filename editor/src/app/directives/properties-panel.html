@@ -4,7 +4,8 @@
 
   <div ng-hide="propertiespanel.block" class="properties">
     <p class="text-center">Select a <strong>single</strong> block to change its properties.</p>
-    <p class="text-center"><em>NOTE: The root node represents a tree. Therefore, changes applied to this node will persist on the tree object.</em></p>
+    <p class="text-center"><em>NOTE: The root node represents a tree. Therefore, changes applied to this node will
+        persist on the tree object.</em></p>
   </div>
 
   <div ng-show="propertiespanel.block" class="properties">
@@ -13,7 +14,9 @@
 
     </div>
     <div>
-      <span>ID:</span><span title="{{propertiespanel.original.id}}">&nbsp;{{propertiespanel.original.id.substr(0,14)+"..."}}</span>
+      <span>ID:</span><span title="copy {{propertiespanel.original.id}}">
+        &nbsp;<span class="fa fa-copy" copy-to-clipboard="{{propertiespanel.original.id}}"></span>
+        {{propertiespanel.original.id.substr(0,10)+"..."}}</span>
 
     </div>
 
@@ -21,20 +24,23 @@
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" name="title" placeholder="Title" ng-model="propertiespanel.block.title" ng-blur="propertiespanel.update()">
+        <input type="text" class="form-control" name="title" placeholder="Title" ng-model="propertiespanel.block.title"
+          ng-blur="propertiespanel.update()">
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea name="description" rows="3" class="form-control" placeholder="Description" ng-keydown="propertiespanel.keydown($event)"
-          ng-model="propertiespanel.block.description" ng-blur="propertiespanel.update()">
+        <textarea name="description" rows="3" class="form-control" placeholder="Description"
+          ng-keydown="propertiespanel.keydown($event)" ng-model="propertiespanel.block.description"
+          ng-blur="propertiespanel.update()">
 
         </textarea>
       </div>
 
       <div class="form-group">
 
-        <b3-key-table heading="Properties" node-id="propertiespanel.block.id" properties="propertiespanel.block.properties" class="no-border">
+        <b3-key-table heading="Properties" node-id="propertiespanel.block.id"
+          properties="propertiespanel.block.properties" class="no-border">
         </b3-key-table>
 
       </div>

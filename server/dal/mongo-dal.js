@@ -103,9 +103,7 @@ class _Process {
         } else {
           try {
             dblogger().log('DB._Process.getFSMProcesses(' + fsm.userFsmId() + ') Got a proccess' + doc.id);
-            var process = new Process({
-              "id": doc.fsm_id
-            }, doc);
+            var process = new Process(fsm, doc);
             if (process.id && _.isFunction(process.data)) {
               processes.push(process);
             } else {

@@ -169,7 +169,17 @@ fsmModel.calcFsmInfo = function (file) {
 
   const sections = path.split("/");
   const fsmInfo = {};
-  fsmInfo.path = path;
+  fsmInfo.path = "";
+  // replace . and rebuild (for mongo cannot hold . as keys)
+  sections[sections.length - 1] = sections[sections.length - 1].replace(".", "#");
+  for (let i = 0; i < sections.length; i++) {
+
+    fsmInfo.path += sections[i];
+    if (i < sections.length - 1) {
+      fsmInfo.path += "/";
+    }
+  }
+  // user ids
   fsmInfo.userId = sections[1];
   fsmInfo.isDraft = sections[2] == "drafts";
   fsmInfo.isRoot = sections.length == 5;
@@ -227,10 +237,10 @@ const fsmCacheKey = fsmModel.fsmCacheKey = function (userId, fsmId, parentId) {
     fsmId = fsmSections[0];
     let fsmId1 = CONVOCODE_DIR.substr(2) + "/" + userId + "/fsms/" +
       fsmId +
-      "/" + fsmId + ".json";
+      "/" + fsmId + "#json";
 
     if (parentId) {
-      fsmId1 = parentId + "/trees/" + fsmId + "/" + fsmId + ".json";
+      fsmId1 = parentId + "/trees/" + fsmId + "/" + fsmId + "#json";
     }
     return {
       fsmId: fsmId1,

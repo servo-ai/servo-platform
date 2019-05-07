@@ -153,4 +153,6 @@ load(path, 'actions', 'MongoQuery');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');
+load(path, '../convocode/anonymous/drafts/carseat1/actions', 'ExtractImageNames');
+
 module.exports = B3Nodes;

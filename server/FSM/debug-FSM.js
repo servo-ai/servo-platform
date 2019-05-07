@@ -53,7 +53,7 @@ function getFullFsmId(fsmId, userId) {
   };
   const fsmsRootDir = utils.getTreeDir(pathObj);
   let path = require('path');
-  return path.join(fsmsRootDir, fsmId) + ".json";
+  return path.join(fsmsRootDir, fsmId) + "#json";
 
 }
 

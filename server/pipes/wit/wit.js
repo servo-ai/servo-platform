@@ -82,11 +82,11 @@ class WIT extends NLUPipeInterface {
             avgscore += entity[i].confidence / (i + 1);
 
           } else if (ettMember === "entities") {
-            return this.extractEntities(entity[i], keyPrefix + key + ".", entities);
+            return this.extractEntities(entity[i], keyPrefix + key + "#", entities);
           }
           // for unit-based duration/quantity
           else {
-            entities[key + "." + ettMember] = [entity[i][ettMember]];
+            entities[key + "#" + ettMember] = [entity[i][ettMember]];
           }
 
         }
@@ -94,7 +94,8 @@ class WIT extends NLUPipeInterface {
       }
       // some special cases for wit
       if (key === "greetings") {
-        entities["intentId"] = [(config.constants && config.constants.HELLOINTENT) || "HelloIntent"]
+        entities["intentId"] = [(config.constants && config.constants.HELLOINTENT) || "HelloIntent"];
+        entities["intentId#confidence"] = entities["greetings#confidence"];
       }
 
       entities[keyPrefix + key] = values;

@@ -1,3 +1,4 @@
+var fs = require('fs');
 // namespace:
 var B3Nodes = [];
 
@@ -153,6 +154,10 @@ load(path, 'actions', 'MongoQuery');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');
-load(path, '../convocode/anonymous/drafts/carseat1/actions', 'ExtractImageNames');
+if (fs.existsSync('../server/convocode/anonymous/drafts/carseat2/actions/ExtractImageNames')) {
+  load(path, '../convocode/anonymous/drafts/carseat2/actions', 'ExtractImageNames');
+} else {
+  load(path, '../convocode/servo/drafts/carseat2/actions', 'ExtractImageNames');
+}
 
 module.exports = B3Nodes;

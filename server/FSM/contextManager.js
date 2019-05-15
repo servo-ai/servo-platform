@@ -821,7 +821,7 @@ class ContextManager {
         contextManager = node && node.contextManager;
       }
 
-      if (contextManager.node.properties.newContext) {
+      if (node && contextManager.node.properties.newContext) {
         contextBorderPassed = true; // break next time
       }
     }

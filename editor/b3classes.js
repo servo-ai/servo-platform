@@ -142,7 +142,7 @@ load(path, 'actions', 'ClearAllContexts');
 load(path, 'actions', 'PostAction');
 load(path, 'actions', 'Wait');
 load(path, 'actions', 'SetUIAction');
-load(path, 'actions', 'AddEntity');
+//load(path, 'actions', 'AddEntity');
 
 load(path, 'actions', 'Twilio');
 load(path, 'actions', 'CloseAllContexts');

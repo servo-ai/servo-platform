@@ -72,12 +72,6 @@ class FieldCompareCondition extends Condition {
     return [{
       condition: validOperator(node.properties.operator),
       text: "operator should be a ==, ===, !==, !=, <, >, >= or <="
-    }, {
-      condition: validCompositeField(node.properties.right),
-      text: "right should be a memory field, a number or a string expression"
-    }, {
-      condition: validCompositeField(node.properties.left),
-      text: "left should be a memory field, a number or a string expression"
     }];
   }
 }

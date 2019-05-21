@@ -1234,7 +1234,7 @@ class ContextManager {
 
     // no context got selected yet: then if we have a target, select by it the right context child
     // this answers cases where the first selection come from above (and tick is 'downwards')
-    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, true);
+    let foundContexts = this.selectContexts(tick, ContextManagerKeys.DOWNWARDS, 0);
 
     // if no context found, and there's a target, choose the background
     if (!tick.target.exists() && foundContexts[foundContexts.length - 1].index < 0 && this.node.backgroundContextIndex !== undefined) {

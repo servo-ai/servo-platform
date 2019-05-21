@@ -239,7 +239,7 @@ class FSMManager {
         }
 
         if (process.properties().pipeTreeId) {
-          var fsmPipe = fsmModel.getFSMSync(process.properties().pipeTreeId, fsm.userId);
+          var fsmPipe = fsmModel.getFSMSync(process.properties().pipeTreeId, fsm.userId, fsm.folderName);
           FSMManager.loadBehaviorTree(fsmPipe, undefined, fsmPipe.id, true).then((pipeTree) => {
             rootTree.pipeTree = pipeTree;
             resolve(rootTree);

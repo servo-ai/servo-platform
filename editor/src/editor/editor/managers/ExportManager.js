@@ -99,7 +99,7 @@ b3e.editor.ExportManager = function (editor) {
         var children = getBlockChildrenIds(block);
         if (block.category === 'composite') {
           d.children = children;
-        } else if (block.category === 'decorator' || block.category === 'mlmodel') {
+        } else if (block.category === 'decorator' || block.category === 'nlumodel') {
           d.child = children[0];
         }
 

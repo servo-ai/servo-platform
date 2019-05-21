@@ -1,15 +1,15 @@
-var MLModel = require('FSM/core/mlModel');
+var NLUModel = require('FSM/core/NLUModel');
 var _ = require('underscore');
 /**
  * Machine Learning models for classifications
- * @module MLModels
+ * @module NLUModels
  * @private
  **/
 /**
  * LUIS machine learning model - NLU classifier
  * 
  */
-class LUISModel extends MLModel {
+class LUISModel extends NLUModel {
 
   constructor() {
     super();

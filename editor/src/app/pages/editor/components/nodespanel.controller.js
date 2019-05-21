@@ -32,7 +32,7 @@
     function _activate() {
       vm.trees = [];
       vm.nodes = {
-        //mlmodel: [],
+        nlumodel: [],
         composite: [],
         decorator: [],
         action: [],

@@ -37,7 +37,7 @@
     tree_color: '#80ff80',
     action_color: '#8080ff',
     condition_color: '#00ffff',
-    mlmodel_color: '#ffff80',
+    nlumodel_color: '#ffff80',
 
     // CONNECTION
     connection_width: 2,
@@ -62,8 +62,8 @@
     block_action_height: 40,
     block_condition_width: 160,
     block_condition_height: 40,
-    block_mlmodel_width: 160,
-    block_mlmodel_height: 40,
+    block_nlumodel_width: 160,
+    block_nlumodel_height: 40,
   };
 
   b3e.DEFAULT_SETTINGS = DEFAULT_SETTINGS;

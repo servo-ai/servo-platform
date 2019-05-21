@@ -277,7 +277,7 @@ class BehaviorTree {
           // childNode.set(tick, 'parentId', node.id);
           node.children.push(childNode);
         }
-      } else if ((node.category === b3.DECORATOR || node.category === b3.MLMODEL) &&
+      } else if ((node.category === b3.DECORATOR || node.category === b3.NLUMODEL) &&
         spec.child) {
         node.child = nodes[spec.child];
         node.child.parentId = node.id;

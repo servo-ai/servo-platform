@@ -6,14 +6,14 @@ var utils = require('utils/utils');
 var _ = require('underscore');
 
 /**
- * MLModel is the base class for all machine learning models nodes. 
+ * NLUModel is the base class for all machine learning models nodes. 
  * it is a decorartor whose purpose is to change the current model used at 
  * the root of tree to a certain model. the model depends on the input type - 
  * for chat bot it would be an NLU model, for voice, ASR + NLU, for image, some image recognitions .  
  * @memberof module:Core
  * @private
  **/
-class MLModel extends Decorator {
+class NLUModel extends Decorator {
 
   /**
    * constructor
@@ -21,7 +21,7 @@ class MLModel extends Decorator {
    */
   constructor(settings) {
     super();
-    this.category = b3.MLMODEL;
+    this.category = b3.NLUMODEL;
   }
 
   /**
@@ -56,4 +56,4 @@ class MLModel extends Decorator {
 
   }
 }
-module.exports = MLModel;
+module.exports = NLUModel;

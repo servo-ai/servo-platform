@@ -85,7 +85,7 @@ b3e.editor.ImportManager = function (editor) {
       if (inBlock.category === 'composite' && spec.children) {
         children = spec.children;
       } else if (spec.child && (inBlock.category == 'decorator' ||
-          inBlock.category === 'mlmodel' ||
+          inBlock.category === 'nlumodel' ||
           inBlock.category == 'root')) {
         children = [spec.child];
       }

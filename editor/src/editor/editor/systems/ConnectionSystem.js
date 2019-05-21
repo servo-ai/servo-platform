@@ -99,7 +99,7 @@ b3e.editor.ConnectionSystem = function (editor) {
       // if double children on root
       if ((connection._inBlock.category === 'root' ||
           connection._inBlock.category === 'decorator' ||
-          connection._inBlock.category === 'mlmodel') &&
+          connection._inBlock.category === 'nlumodel') &&
         connection._inBlock._outConnections.length > 1) {
 
         c = connection._inBlock._outConnections[0];

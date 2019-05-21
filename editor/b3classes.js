@@ -150,7 +150,7 @@ load(path, 'actions', 'CalcDateDiff');
 load(path, 'conditions', 'IsValidField');
 load(path, 'decorators', 'RepeatUntilCondition');
 load(path, 'actions', 'MongoQuery');
-
+load(path, 'nlumodels', 'DictModel');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');

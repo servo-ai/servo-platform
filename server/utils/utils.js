@@ -424,3 +424,31 @@ Utils.deepMapKeys = function (originalObject, callback) {
     }
   }, {});
 }
+
+
+/***
+ * returnS a sentence made from the entities array, at keyName if exists
+ */
+Utils.multipleEntitySentence = function (entitiesArray, keyName = undefined) {
+
+  let sentence = "";
+  let entities = keyName ? _.pluck(entitiesArray, keyName) : entitiesArray;
+  for (let i = 0; i < entities.length; i++) {
+    let ett = entities[i];
+    if (i == 0) {
+      sentence = ett;
+    } else if (i === entities.length - 1) {
+      sentence += " and " + ett;
+    } else {
+      sentence += ", " + ett;
+    }
+  }
+  return sentence;
+
+}
+
+// Utils.multipleEntitySentence([{
+//   seatType: "infant"
+// }, {
+//   seatType: "REAR-FACING"
+// }], "seatType");

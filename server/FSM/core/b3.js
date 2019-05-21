@@ -152,7 +152,7 @@ b3.CONDITION = 'condition';
 
 b3.TREENODE = 'treenode';
 
-b3.MLMODEL = 'mlmodel';
+b3.NLUMODEL = 'nlumodel';
 
 /**
  * List of internal and helper functions in Behavior3JS.
@@ -211,7 +211,7 @@ b3.load = function (folderName = "FSM") {
       loadFolder('decorators').then(() => {
         loadFolder('actions').then(() => {
           loadFolder('conditions').then(() => {
-            loadFolder('mlmodels').then(() => {
+            loadFolder('nlumodels').then(() => {
               resolveAll(b3);
             });
           });

@@ -1,12 +1,12 @@
-var MLModel = require('FSM/core/mlModel');
+var NLUModel = require('FSM/core/NLUModel');
 var _ = require('underscore');
 
 /**
  * Wit.ai machine learning model - NLU classifier
- * @memberof module:MLModels
+ * @memberof module:NLUModels
  * @private
  */
-class WitModel extends MLModel {
+class WitModel extends NLUModel {
 
   constructor() {
     super();

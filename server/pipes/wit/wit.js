@@ -96,6 +96,8 @@ class WIT extends NLUPipeInterface {
       if (key === "greetings") {
         entities["intentId"] = [(config.constants && config.constants.HELLOINTENT) || "HelloIntent"];
         entities["intentId#confidence"] = entities["greetings#confidence"];
+        delete entities["greetings#confidence"];
+        delete entities["greetings"];
       }
 
       entities[keyPrefix + key] = values;

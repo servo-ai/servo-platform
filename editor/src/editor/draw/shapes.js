@@ -190,7 +190,7 @@
   };
 
 
-  b3e.draw.mlmodelShape = function (block, settings, invalidated, breakpoint) {
+  b3e.draw.nlumodelShape = function (block, settings, invalidated, breakpoint) {
     var bounds = block._displaySymbol.getBounds();
 
     var w = Math.max(bounds.width + 40, block._width);
@@ -221,7 +221,7 @@
     );
 
     makeTrapezoid(shape, w, h,
-      settings.get('mlmodel_color'),
+      settings.get('nlumodel_color'),
       settings.get('block_border_width'),
       settings.get('block_border_color'),
       invalidated
@@ -364,7 +364,7 @@
     'decorator': b3e.draw.decoratorShape,
     'action': b3e.draw.actionShape,
     'condition': b3e.draw.conditionShape,
-    'mlmodel': b3e.draw.mlmodelShape
+    'nlumodel': b3e.draw.nlumodelShape
   };
 
 }());

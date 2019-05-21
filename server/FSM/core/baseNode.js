@@ -120,7 +120,7 @@ class BaseNode {
 
     /**
      * Node category. Must be `b3.COMPOSITE`, `b3.DECORATOR`, `b3.ACTION`  
-     * `b3.CONDITION` or b3.MLMODEL. This is defined automatically be inheriting the 
+     * `b3.CONDITION` or b3.NLUMODEL. This is defined automatically be inheriting the 
      * correspondent class.
      * @member {string}
      **/
@@ -313,7 +313,7 @@ class BaseNode {
       // for  every item in the context
       for (let ettkey in contextMem) {
         //  if we havent done so yet
-        if (!contextObj[ettkey]) {
+        if (contextObj[ettkey] === undefined) {
           if (typeof contextMem[ettkey] === "object" && ettkey == ContextManager.contextManagerKeys().UNMAPPEDENTITIES) {
             // collect all the values of it to the root (if you havent done so yet)
             let aggregatedEtts = contextManager.node.aggregateObjectContextField(contextManagerEtts.tick, ettkey);
@@ -400,7 +400,8 @@ class BaseNode {
         volatile: tick.process.volatile() || {},
         local: this.local(tick) || {},
         fsm: tick.process.properties(), // back compatibility
-        process: tick.process.properties()
+        process: tick.process.properties(),
+        utils: utils
       };
     }
 
@@ -1017,7 +1018,7 @@ class BaseNode {
       }
       return this.findCurrentWaitNode(tick, node.children[child]);
     }
-    if (node.category === b3.DECORATOR || node.category === b3.MLMODEL) {
+    if (node.category === b3.DECORATOR || node.category === b3.NLUMODEL) {
       return this.findCurrentWaitNode(tick, node.child);
     }
 

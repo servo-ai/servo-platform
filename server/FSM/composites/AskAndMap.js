@@ -51,11 +51,12 @@ class AskAndMap extends Composite {
      * @type {Object} parameters
      * @property {(ExpressionString|Object|Array<ExpressionString>|Array<TextObject>)} parameters.prompt - a textual message to the user. can contains an array for random messages. can contain an object with "language" keys.
      * @property {boolean} parameters.cyclePrompts - if true, will show the prompts cyclicly. false: will stay on the last prompt forever.
-     * @property {(ExpressionString|Object)} parameters.view - a file name of a view, or a view JSON object, to be used instead of the prompt in order to send native json
+     * @property {(ExpressionString|Object)} parameters.view - a file name of a view, a string to contain the view, a view JSON object, to be used instead of the prompt in order to send native json
      * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
      * @property {MemoryField} parameters.imageDataArrayName - composite (message./global./context./volatile./local.) field name for an array object that contains data for the images
      * @property {Array<ContextItem>} parameters.contexts  - an array of contexts, each consists of expected entities, intents and more (ContextItem)
      * @property {boolean}  parameters.replayActionOnReturnFromContextSwitch - if false, this node is not closed and re-opened when return from context switch
+     * @property {string} parameters.viewEvaluation - if 'eval' will use javascript eval the view string/file
      **/
     this.parameters = _.extend(this.parameters, {
       "view": false,
@@ -82,6 +83,8 @@ class AskAndMap extends Composite {
         timeout: false,
         //"_default": "use to select default context. Selected if (1) no sibling context was found  (2) there's no other child already selected ",
         default: false,
+        // the evaluation method of the view
+        viewEvaluation: false,
 
         //"_entities": "array of expected entities",
         entities: [{

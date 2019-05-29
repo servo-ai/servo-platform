@@ -447,6 +447,19 @@ Utils.multipleEntitySentence = function (entitiesArray, keyName = undefined) {
 
 }
 
+/**
+ * true if this is a memory field (global/local/volatile/process/fsm/context)
+ */
+Utils.isMemoryField = function (field) {
+  if (!field) {
+    return false;
+  }
+  field = field.toLowerCase();
+
+  return field.indexOf('global.') || field.indexOf('local.') >= 0 || field.indexOf('volatile.') >= 0 ||
+    field.indexOf('process.') >= 0 || field.indexOf('fsm.') >= 0 || field.indexOf('context.') >= 0;
+}
+
 // Utils.multipleEntitySentence([{
 //   seatType: "infant"
 // }, {

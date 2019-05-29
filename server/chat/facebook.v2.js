@@ -617,6 +617,15 @@ function getCreateProcessesAndMessages(messageBody, fsm) {
                   reject("Error proccessing ASR from: " + audioURL);
                 })
               );
+            } else if (attachment.type == "image") {
+              var imageURL = attachment.payload.url;
+              //console.log(imageURL);
+              let messageObj = createMessageObject(message.recipient, message.sender, "image", imageURL, "facebook", fsm.id);
+              messageObj.intentId = "ImageIntent";
+              messageObj.addEntity('intentId', "ImageIntent");
+              messageObj.addEntity('imageType', imageURL.toLowerCase().indexOf(".png") >= 0 ? "PNG" : "JPG");
+              textQueue.push(getCreateProcessAndMessage(messageObj, fsm));
+              resolve(1);
             }
           }
         }

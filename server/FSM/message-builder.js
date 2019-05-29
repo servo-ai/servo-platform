@@ -211,14 +211,19 @@ messageBuilder.build = function (tick, fieldName, node) {
           if (typeof viewFilename === 'string') {
             viewModel.get(viewFilename, folderName).then(function (viewData) {
               try {
-                viewData = _.template(viewData)(updatedData);
+                if (!node.properties.viewEvaluation ||
+                  node.properties.viewEvaluation.toLowerCase() !== 'eval') {
+                  var viewDataEvaluated = _.template(viewData)(updatedData);
+                } else {
+                  viewDataEvaluated = utils.evalMemoryField(updatedData, viewData);
+                }
                 //viewData = viewData.replace(/"/g,"'");
               } catch (err) {
                 dblogger.error('ERROR IN view template  ' + node.id + "-" + tick.process.summary(), err);
                 reject('ERROR IN view template  ' + node.id + "-" + tick.process.summary() + err);
               }
 
-              ret.payload = viewData;
+              ret.payload = viewDataEvaluated;
               resolve(ret);
 
             }).catch((ex) => {

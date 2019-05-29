@@ -17,7 +17,8 @@ class GeneralMessage extends Action {
       "cyclePrompts": true,
       "pushMessageOut": false,
       "imageHTML": false,
-      "imageDataArrayName": ""
+      "imageDataArrayName": "",
+      "viewEvaluation": false
 
     };
     /**
@@ -26,10 +27,10 @@ class GeneralMessage extends Action {
      * @type {Object} parameters
      * @property {(ExpressionString|Object|Array<ExpressionString>|Array<TextObject>)} parameters.prompt - a textual message to the user. can contains an array for random messages. can contain an object with "language" keys.
      * @property {boolean} parameters.cyclePrompts - if true, will show the prompts cyclicly. false: will stay on the last prompt forever.
-     * @property {(ExpressionString|Object)} parameters.view - a file name of a view, or a view JSON object, to be used instead of the prompt in order to send native json
+     * @property {(ExpressionString|Object)} parameters.view - a file name of a view, a string to contain the view, a view JSON object, to be used instead of the prompt in order to send native json
      * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
      * @property {MemoryField} parameters.imageDataArrayName -  (message./global./context./volatile./local./fsm.) field name for an array object that contains data for the images
-     * @property {boolean} parameters.pushMessageOut -the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver
+     * @property {string} parameters.viewEvaluation - if 'eval' will use javascript eval the view string/file
      **/
     this.parameters = _.extend(this.parameters, parameters);
     this.description = "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, " +

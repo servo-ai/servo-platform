@@ -40,15 +40,25 @@ viewModel.get = function (filenameOrObject, folderName) {
             // ENOTFOUND: Key not found
             fs.readFile(file, function (err, data) {
                 if (err) {
-                    var error = 'error in reading from file ' + file + ' folder ' + folderName + ': ' + err;
+                    // if no such file, treat it as code
+                    if (err.code == "ENOENT") {
+                        var warn1 = 'error when trying to use as file: ' + file + ' and folder ' + folderName + ': ' + err;
+                        dblogger.warn(warn1);
+                        // use as code
+                        data = filenameOrObject;
+                    } else {
+                        var error = 'error when reading file: ' + file + ' and folder ' + folderName + ': ' + err.message;
+                        dblogger.error(error);
+                        reject(error);
+                    }
 
-                    dblogger.error(error);
-                    reject(error);
-                } else {
-                    data = data.toString();
-                    _viewCache.set(file, data);
-                    resolve(data);
+
                 }
+
+                data = data.toString();
+                _viewCache.set(file, data);
+                resolve(data);
+
             });
         }
 

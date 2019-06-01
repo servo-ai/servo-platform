@@ -55,7 +55,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": -460,
@@ -85,7 +86,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 76,
@@ -116,7 +118,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": -330,
@@ -145,7 +148,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": -274,
@@ -319,7 +323,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 314,
@@ -343,7 +348,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 340,

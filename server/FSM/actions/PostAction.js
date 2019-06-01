@@ -2,6 +2,7 @@ var b3 = require('FSM/core/b3');
 var Action = require('FSM/core/action');
 var _ = require('underscore');
 var dblogger = require('utils/dblogger');
+var utils = require('utils/utils');
 /**
  * Posts a JSON payload to a URL, and sets fieldName to the returned object
  *  @memberof module:Actions
@@ -16,12 +17,13 @@ class PostAction extends Action {
      * @property parameters
      * @type {Object}
      * @property {ExpressionString} parameters.url - post URL. will be evalated
-     * @property {ExpressionString|Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a template and parsed to a JSON object
-     * @property {Boolean} parameters.json - set true to indicate application/json post action. if not, payload is stringified and contentType is used
-     * @property {ExpressionString|Object}  parameters.headers POST headers
+     * @property {ExpressionString|Object} parameters.payload - string or JSON object. if a string, this will be evaluated as a JS code (eval) and parsed to a JSON object
+     * @property {Boolean} parameters.json - set true to indicate application/json post action. if not, payload is stringified,  and contentType is used (default: form)
+     * @property {ExpressionString|Object}  parameters.headers POST headers. string or JSON object. if a string, this will be evaluated as a JS code (eval) and parsed to a JSON object
      * @property {ExpressionString|Object}  parameters.options other POST options
      * @property {MemoryField}  parameters.fieldName dot-notated field name
-     * @property {string} contentType of the post. ignored if json is treu
+     * @property {string} contentType of the post. ignored if json is true
+     * @property {Boolean} parameters.followAllRedirects if true, follow all
      */
     this.parameters = _.extend(this.parameters, {
       'url': '',
@@ -32,6 +34,60 @@ class PostAction extends Action {
       'contentType': ''
     });
     settings = settings || {};
+
+  }
+
+  request(tick, options, node, cb) {
+    const http = require('http');
+    var Url = require('url');
+    var data;
+    if (options.json) {
+      data = JSON.stringify(options.json);
+      options.headers = _.extend(options.headers, {
+        'Content-Type': 'application/json',
+        'Content-Length': data.length
+      });
+      delete options.json;
+    }
+
+    options.method = 'POST';
+
+
+    // var url = options.url;
+
+
+    options.host = Url.parse(options.url).hostname;
+    options.port = Url.parse(options.url).port || 80;
+    options.path = Url.parse(options.url).pathname;
+    delete options.url;
+
+    const req = http.request(options, (res) => {
+      node.log(tick, 'post returned ' + `statusCode: ${res.statusCode}`);
+      const chunks = [];
+      res.on('data', data => chunks.push(data));
+      res.on('end', () => {
+        let body = Buffer.concat(chunks);
+        if (res.headers['content-type'] == 'application/json') {
+
+          body = JSON.parse(body);
+
+        } else {
+          node.error(tick, 'no support for non-json response');
+        }
+        cb(null, res, body);
+      });
+
+
+    });
+
+    req.on('error', (error) => {
+      node.error(tick, error);
+      cb(error, res, null);
+    });
+
+    req.write(data);
+    req.end();
+
 
   }
 
@@ -59,36 +115,41 @@ class PostAction extends Action {
       //var request = PipeManager.getPipe('request');
       var request = require("request");
       try {
-        var payload = this.properties.payload && ((typeof this.properties.payload === 'string') ?
-          JSON.parse(_.template(this.properties.payload)(data)) :
-          JSON.parse(_.template(JSON.stringify(this.properties.payload))(data)));
+        var payload;
+        if (this.properties.payload) {
+          if (typeof this.properties.payload === 'string') {
+            payload = utils.evalMemoryField(data, this.properties.payload);
+          } else {
+            payload = JSON.parse(_.template(JSON.stringify(this.properties.payload))(data))
+          }
+        }
         var url = _.template(this.properties.url)(data);
         var options = this.properties.json ? {
           url: url,
-          method: "POST",
           json: payload,
-          followAllRedirects: false,
+
 
         } : {
           url: url,
-          method: "POST",
           form: payload,
-          followAllRedirects: false
+
 
         };
 
-        options.headers = this.properties.headers && ((typeof this.properties.headers === 'string') ?
-          JSON.parse(_.template(this.properties.headers)(data)) :
-          JSON.parse(_.template(JSON.stringify(this.properties.headers))(data)));
+        if (this.properties.headers) {
+          if ((typeof this.properties.headers === 'string')) {
+            options.headers = utils.evalMemoryField(data, this.properties.headers);
+          } else {
+            options.headers = JSON.parse(_.template(JSON.stringify(this.properties.headers))(data));
+          }
+
+        }
         // if its a form data, make it 
-        if (!options.headers && options.form) {
-          var formData = JSON.stringify(options.form);
-          options.form = options.form;
-          options.headers = {
-            'Postman-Token': '5b0ea1ca-4ecb-4f39-8e1b-6bfc15e9afdc',
+        if (options.form) {
+          options.headers = _.extend(options.headers, {
             'cache-control': 'no-cache',
             'Content-Type': this.properties.contentType || 'application/x-www-form-urlencoded'
-          };
+          });
         }
         // extend with other options if needed
         _.extend(options, this.properties.options && ((typeof this.properties.options === 'string') ?
@@ -97,29 +158,14 @@ class PostAction extends Action {
       } catch (ex) {
         dblogger.error(tick, 'possibly parse problem in PostAction:' + ex.message + " at " + this.summary(tick));
       }
-      // options = {
-      //   url: 'https://www.poliklik.com/poliklik/api/ministry_of_finance/',
-      //   headers: {
-      //     'Postman-Token': '5b0ea1ca-4ecb-4f39-8e1b-6bfc15e9afdc',
-      //     'cache-control': 'no-cache',
-      //     'Content-Type': 'application/x-www-form-urlencoded'
-      //   },
-      //   form: {
-      //     name: 'lkjl',
-      //     phone: '1234567890',
-      //     issue_date: '17/10/1990',
-      //     id_number: '059560938',
-      //     email: 'liormessinger@gmail.com',
-      //     undefined: undefined
-      //   }
-      // };
-      request(options, (err, res, body) => {
+
+
+      var cb = function (err, res, body) {
         try {
-          var _thisnode = this;
-          console.log(options, body);
-          var json = (typeof body === 'string') ? JSON.parse(body) : body;
+          var json = (typeof body.data === 'string') ? JSON.parse(body.data) : body.data;
         } catch (err) {
-          dblogger.error(err.message + _thisnode.summary(tick));
+          node.error(tick, "no json received. message is:" + body);
+          dblogger.warn(err.message + node.summary(tick));
           node.waitCode(tick, b3.FAILURE());
           return;
         }
@@ -128,7 +174,17 @@ class PostAction extends Action {
 
         // move to next step
         node.waitCode(tick, b3.SUCCESS());
-      });
+      };
+
+      // followAllRedirects and form is supported at request at the moment
+      if (node.properties.followAllRedirects || options.form) {
+        options.followAllRedirects = node.properties.followAllRedirects;
+        options.method = "POST";
+        request(url, options, cb);
+      } else {
+        this.request(tick, options, node, cb);
+      }
+
     }
     var status = node.waitCode(tick);
     //console.log("3 - returned: " + status, tick.tree.id, node.id);

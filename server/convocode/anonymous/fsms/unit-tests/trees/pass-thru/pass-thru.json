@@ -114,7 +114,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": -342,
@@ -138,7 +139,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": -134,
@@ -199,7 +201,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 282,
@@ -223,7 +226,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 74,

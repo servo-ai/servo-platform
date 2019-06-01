@@ -13,7 +13,7 @@ describe('load', () => {
   });
 
   it('a post action test', (done) => {
-    startProcessTick.expect("post ok: \"{\\\"this1\\\":\\\"is a test\\\"}\"").then(() => {
+    startProcessTick.expect("post ok: ddd").then(() => {
       done();
     });
   });

@@ -22,12 +22,13 @@
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
-					"post ok: <%=JSON.stringify(global.postReply.data)%>"
+					"post ok: <%=global.postReply.glob.this1%>"
 				],
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 48,
@@ -45,17 +46,23 @@
 				"maxRetriesNumber": 5,
 				"replayActionOnReturnFromContextSwitch": true,
 				"url": "http://httpbin.org/post",
-				"payload": {
-					"this1": "is a test"
-				},
+				"payload": "{   glob:global.toPost  }",
 				"fieldName": "global.postReply",
 				"json": true,
-				"headers": "",
-				"contentType": ""
+				"headers": {
+					"track1": "<%=global.toPost%>",
+					"ddd": 223
+				},
+				"contentType": "",
+				"followAllRedirects": false,
+				"payload1": {
+					"this1": "is a test",
+					"thisNumber": 12
+				}
 			},
 			"display": {
-				"x": -324,
-				"y": 282
+				"x": -238,
+				"y": 308
 			}
 		},
 		"4e05e3e6-367e-427a-942f-3711b465284b": {
@@ -73,9 +80,28 @@
 				"y": 132
 			},
 			"children": [
+				"0613670b-eada-4e96-88e5-600d1f765a40",
 				"dda3475d-29d5-43b5-8dfc-242ad28ecc1d",
 				"106c6bd8-d9a9-4d13-875d-f319282172c4"
 			]
+		},
+		"0613670b-eada-4e96-88e5-600d1f765a40": {
+			"id": "0613670b-eada-4e96-88e5-600d1f765a40",
+			"name": "SetFieldAction",
+			"title": "SetFieldAction",
+			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"replayActionOnReturnFromContextSwitch": true,
+				"fieldName": "global.toPost",
+				"fieldValue": "{this1:'ddd',this2:12}"
+			},
+			"display": {
+				"x": -440,
+				"y": 308
+			}
 		}
 	},
 	"display": {

@@ -153,6 +153,7 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
+				"viewEvaluation": false,
 				"image": false
 			},
 			"display": {
@@ -178,6 +179,7 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
+				"viewEvaluation": false,
 				"image": false
 			},
 			"display": {
@@ -321,7 +323,8 @@
 				"cyclePrompts": true,
 				"pushMessageOut": false,
 				"imageHTML": false,
-				"imageDataArrayName": ""
+				"imageDataArrayName": "",
+				"viewEvaluation": false
 			},
 			"display": {
 				"x": 106,

@@ -79,14 +79,14 @@ class DictModel extends NLUModel {
         try {
             let dict = require(this.properties.dictionary[tick.process.properties()['defaultLang']].filename);
             if (tick.target.getMessageObj()) {
-                let text = tick.target.getMessageObj().text;
+                let text = " " + tick.target.getMessageObj().text + " ";
                 // let entities = {};
                 for (let valuekey in dict.data.values) {
                     let value = dict.data.values[valuekey];
+
                     for (let expkey in value.expressions) {
                         let exp = " " + value.expressions[expkey] + " ";
-                        text = " " + text + " ";
-                        if (text.toLowerCase().indexOf(exp.toLowerCase()) > -1) {
+                        if (value.expressions[expkey] && text.toLowerCase().indexOf(exp.toLowerCase()) > -1) {
                             // entities[dict.data.id] = [value.value];
                             // entities[dict.data.id + "#confidence"] = 1.0;
                             tick.target.getMessageObj().addEntity(dict.data.id, value.value);

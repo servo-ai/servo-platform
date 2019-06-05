@@ -198,7 +198,7 @@ messageBuilder.build = function (tick, fieldName, node) {
               } else {
                 let firstLang = _.keys(viewObj)[0];
                 viewFilename = viewObj[firstLang];
-                dblogger.warn('WARNING: No view found in user\'s language: ' + data.fsm.defaultLang + ". showing: " + firstLang + ". -" + node.id + "-" + tick.process.summary());
+                dblogger.error('WARNING: No view found in user\'s language: ' + data.fsm.defaultLang + ". showing: " + firstLang + ". -" + node.id + "-" + tick.process.summary());
               }
 
             }

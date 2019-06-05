@@ -31,7 +31,8 @@ class PostAction extends Action {
       'fieldName': '',
       'json': true,
       'headers': '',
-      'contentType': ''
+      'contentType': '',
+      'followAllRedirects': ''
     });
     settings = settings || {};
 
@@ -67,7 +68,8 @@ class PostAction extends Action {
       res.on('data', data => chunks.push(data));
       res.on('end', () => {
         let body = Buffer.concat(chunks);
-        if (res.headers['content-type'] == 'application/json') {
+        if (res.headers['content-type'].indexOf('application/json') == 0) {
+
 
           body = JSON.parse(body);
 
@@ -162,15 +164,21 @@ class PostAction extends Action {
 
       var cb = function (err, res, body) {
         try {
-          var json = (typeof body.data === 'string') ? JSON.parse(body.data) : body.data;
+          var json;
+          json = (typeof body.data === 'string') ? JSON.parse(body) : body;
+
         } catch (err) {
           node.error(tick, "no json received. message is:" + body);
           dblogger.warn(err.message + node.summary(tick));
           node.waitCode(tick, b3.FAILURE());
           return;
         }
+        try {
+          node.alldata(tick, node.properties.fieldName, json);
 
-        node.alldata(tick, node.properties.fieldName, json);
+        } catch (ex) {
+          node.error(tick, ex);
+        }
 
         // move to next step
         node.waitCode(tick, b3.SUCCESS());
@@ -180,6 +188,7 @@ class PostAction extends Action {
       if (node.properties.followAllRedirects || options.form) {
         options.followAllRedirects = node.properties.followAllRedirects;
         options.method = "POST";
+        options.nonNative = true;
         request(url, options, cb);
       } else {
         this.request(tick, options, node, cb);

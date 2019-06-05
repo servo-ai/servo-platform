@@ -368,9 +368,9 @@ class BaseNode {
         dblogger.error("conditions are read-only. Shouldn't be used to set data " + tick.process.summary());
       }
 
-      if (!utils.safeIsNaN(value)) {
-        value = parseFloat(value);
-      }
+      // if (!utils.safeIsNaN(value)) {
+      //   value = parseFloat(value);
+      // }
       contextManager.setContextField(tick, key, value);
     }
   }
@@ -526,9 +526,9 @@ class BaseNode {
       return tick.process.get(key, tick.tree.id, this.id);
     } else {
       // convert to number if needed
-      if (!utils.safeIsNaN(value)) {
-        value = parseFloat(value);
-      }
+      // if (!utils.safeIsNaN(value)) {
+      //   value = parseFloat(value);
+      // }
       return tick.process.set(key, value, tick.tree.id, this.id);
     }
   }
@@ -541,9 +541,9 @@ class BaseNode {
   volatile(tick, key, value = undefined) {
     if (arguments.length === 3) {
       // convert to number if needed
-      if (!utils.safeIsNaN(value)) {
-        value = parseFloat(value);
-      }
+      // if (!utils.safeIsNaN(value)) {
+      //   value = parseFloat(value);
+      // }
       return tick.process.volatile(key, value);
     } else {
       return tick.process.volatile(key);
@@ -589,9 +589,9 @@ class BaseNode {
     let messageObj = targetObj && targetObj.messageObj;
     if (arguments.length === 3 && messageObj) {
       // convert to number if needed
-      if (!utils.safeIsNaN(value)) {
-        value = parseFloat(value);
-      }
+      // if (!utils.safeIsNaN(value)) {
+      //   value = parseFloat(value);
+      // }
       try {
         eval("messageObj." + property + "= value");
       } catch (ex) {
@@ -1163,7 +1163,6 @@ class BaseNode {
     let stepStop = postTick && this.volatile(tick, 'stepping') && this.isLeaf() && lastBrokeAt !== this.id;
     // this is a flag meaning that we need to exit this breakpoint. step & run are setting it to true
     let exitBreakpoint = this.volatile(tick, 'exitBreakpoint');
-
 
     if (!atABreakpoint && (breakpoint || stepStop) && !exitBreakpoint) {
 

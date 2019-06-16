@@ -67,7 +67,6 @@ class ChatManager {
           dblogger.log('WARNING: no fsm ', process.fsm_id);
         }
         facebookChatDriver.sendMessage(prompt, process, fsm, node).then((postObj) => {
-
           // save the state
           process.save().then(() => {
             resolve(postObj);

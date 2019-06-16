@@ -109,7 +109,8 @@ class BaseNode {
     this.parameters = {
       'debug-log': '',
       "runningTimeoutSec": 600, // 10 minutes, for leafs only
-      "maxRetriesNumber": 5
+      "maxRetriesNumber": 5,
+      "onError": b3.ERROR()
     };
 
     /** 
@@ -518,7 +519,7 @@ class BaseNode {
    * set/get local node memory
    * @param {Tick} tick 
    * @param {string} [key=null] 
-   * @param {(string|number)} [ value = null] if non-null, sets the value 
+   * @param {(string|number|boolean)} [ value = null] if non-null, sets the value 
    */
   local(tick, key = null, value = null) {
 
@@ -613,7 +614,7 @@ class BaseNode {
    * @param {(string|number)} value 
    */
   set(tick, property, value) {
-    this.setVolMem(tick, property, value)
+    this.setVolMem(tick, property, value);
   }
 
   /**
@@ -737,8 +738,15 @@ class BaseNode {
       messageBuilder.build(tick, fieldName, this).then((result) => {
 
         // now lets send it out
-        chatManager.sendMessage(result, tick.tree, tick.process, this).then((msg) => {
-          dblogger.log('chatManager.sendMessage sendMessage done');
+        chatManager.sendMessage(result, tick.tree, tick.process, this).then((respmsg) => {
+          dblogger.log('chatManager.sendMessage sendMessage done', respmsg);
+
+          // save the response
+          if (respmsg !== undefined && this.properties.responseFieldName) {
+            this.context(tick, this.properties.responseFieldName || "responseFieldName", respmsg[this.properties.responseFieldName]);
+          }
+
+
           // when we send messages out, we reset the incoming message queue
           // otherwise new questions will be answered immediately and skipped
           if (!tick.process.properties().queueIncomingMessages) {
@@ -770,8 +778,6 @@ class BaseNode {
    **/
   tickMessage(tick, fieldName) {
 
-    if (this.id.startsWith('1b887'))
-      console.log('********************************************', this.id);
     if (!this.waitCode(tick)) {
       this.waitCode(tick, b3.RUNNING());
       this.wait(this.outputMessage, [tick, fieldName], -1).then(() => {
@@ -780,20 +786,71 @@ class BaseNode {
         setTimeout(() => {
           tick.process.save();
         }, 0);
-
-
-      }).catch(() => {
-        tick.resetAll();
-        this.waitCode(tick, b3.ERROR());
+      }).catch((err) => {
         // always save now, so we wont get stuck on running
         tick.process.save();
-
+        this.onError(tick, err);
       });
     }
 
 
     return this.waitCode(tick);
 
+  }
+
+  /**
+   * reopens or leaves the node, depends on a counter
+   * @param {*} tick 
+   */
+
+
+
+
+  /**
+   * 
+   * @param {Tick} tick 
+   * @param {string} err 
+   * @param {boolean} waitCode true if waitcode is used
+   */
+  onError(tick, err, waitCode = true) {
+    let errCount = this.local(tick, 'errorCount');
+    if (errCount == undefined) {
+      errCount = 0;
+    }
+    this.local(tick, 'errorCount', errCount + 1);
+    if (errCount + 1 > this.properties.maxRetriesNumber) {
+      // used entities should work since the usage is done on a clone of the target, stored in the context. saving back of unused
+      // entities should work too, since its done using _extend
+      if (waitCode) {
+        this.waitCode(tick, this.properties.onError || b3.ERROR());
+      }
+
+      tick.resetAll();
+      // report to client once every hour for this node, on one run
+      if (this.local(tick, 'customerErrorDisplayedTime') == undefined || this.local(tick, 'customerErrorDisplayedTime') - Date.now() > (60000 * 60)) {
+        this.local(tick, 'customerErrorDisplayedTime', Date.now());
+        try {
+          chatManager.sendMessage({
+            text: "Oops! a system error occured:" + err
+          }, tick.tree, tick.process, this).then().catch(() => {
+            throw 'cant send error message ' + tick.process.summary();
+          });
+        } catch (x) {
+          dblogger.error(x);
+        }
+
+      }
+      // unset
+      this.local(tick, 'errorCount', undefined);
+      return this.properties.onError || b3.ERROR();
+    } else {
+      // wait a second and retry
+      setTimeout(() => {
+        this._close(tick);
+        this._open(tick);
+      }, this.properties.onErrorTimeout || 3000);
+      return b3.RUNNING();
+    }
   }
 
   /**
@@ -938,8 +995,8 @@ class BaseNode {
       this._exit(tick);
     } catch (err) {
       dblogger.error('Error in node' + this.name + '/' + this.id + ':' + err.message, err.stack);
-      status = b3.ERROR();
-      tick.resetAll();
+      status = this.onError(tick);
+
     }
 
     return status;
@@ -1050,10 +1107,11 @@ class BaseNode {
   _open(tick) {
     //tick._openNode(this);
 
-    var isOpen = tick.process.get('isOpen', tick.tree.id, this.id);
+    var isOpen = this.local(tick, 'isOpen');
     if (!isOpen) {
-      tick.process.set('openTime', Date.now(), tick.tree.id, this.id);
-      tick.process.set('isOpen', true, tick.tree.id, this.id);
+      this.local(tick, 'openTime', Date.now());
+      this.local(tick, 'isOpen', true);
+
     }
 
 
@@ -1069,6 +1127,7 @@ class BaseNode {
    */
   resetTimeoutRetries(tick) {
     this.local(tick, 'retriesCounter', 0);
+    //this.local(tick, 'errorCount', 0);
   }
   /**
    * node is a leaf?

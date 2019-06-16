@@ -60,6 +60,7 @@ class FacebookChatDriver extends ChatDriverInterface {
       response.view = response.view || response.payload || "";
       if (!_.isEmpty(response.text) && !_.isEmpty(response.view)) {
         dblogger.warn("WARNING: on Facebook channel TEXT and VIEW should be mutually exclusive. Ignoring optionals and view " + response.view.substr(0, 10) + "...");
+
         return handleDelivery(tree.properties.facebook.accessToken, toID, response.text, optionals, resolve, reject);
       }
       if (_.isEmpty(response.text) && _.isEmpty(response.view)) {

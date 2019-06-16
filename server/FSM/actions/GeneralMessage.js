@@ -18,7 +18,8 @@ class GeneralMessage extends Action {
       "pushMessageOut": false,
       "imageHTML": false,
       "imageDataArrayName": "",
-      "viewEvaluation": false
+      "viewEvaluation": false,
+      "responseFieldName": ""
 
     };
     /**
@@ -31,6 +32,7 @@ class GeneralMessage extends Action {
      * @property {ExpressionString} parameters.image - an html string or a file name, that is rendered as an image to send the user
      * @property {MemoryField} parameters.imageDataArrayName -  (message./global./context./volatile./local./fsm.) field name for an array object that contains data for the images
      * @property {string} parameters.viewEvaluation - if 'eval' will use javascript eval the view string/file
+     * @property {string} parameters.responseFieldName - a data member on the reponse, to save. will be saved into same field name in context
      **/
     this.parameters = _.extend(this.parameters, parameters);
     this.description = "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, " +

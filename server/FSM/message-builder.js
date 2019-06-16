@@ -215,12 +215,12 @@ messageBuilder.build = function (tick, fieldName, node) {
                   node.properties.viewEvaluation.toLowerCase() !== 'eval') {
                   var viewDataEvaluated = _.template(viewData)(updatedData);
                 } else {
-                  viewDataEvaluated = utils.evalMemoryField(updatedData, viewData);
+                  viewDataEvaluated = JSON.stringify(utils.evalMemoryField(updatedData, viewData));
                 }
                 //viewData = viewData.replace(/"/g,"'");
               } catch (err) {
                 dblogger.error('ERROR IN view template  ' + node.id + "-" + tick.process.summary(), err);
-                reject('ERROR IN view template  ' + node.id + "-" + tick.process.summary() + err);
+                reject('ERROR IN view template  ' + node.id + "-" + tick.process.summary() + err.message);
               }
 
               ret.payload = viewDataEvaluated;

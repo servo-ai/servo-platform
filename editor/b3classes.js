@@ -154,10 +154,15 @@ load(path, 'nlumodels', 'DictModel');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');
-if (fs.existsSync('../server/convocode/anonymous/drafts/carseat2/actions/ExtractImageNames')) {
-  load(path, '../convocode/anonymous/drafts/carseat2/actions', 'ExtractImageNames');
+if (fs.existsSync('../server/convocode/anonymous/drafts/carseat3/actions/ExtractImageNames.js')) {
+  load(path, '../convocode/anonymous/drafts/carseat3/actions', 'ExtractImageNames');
 } else {
-  load(path, '../convocode/servo/drafts/carseat2/actions', 'ExtractImageNames');
+  load(path, '../convocode/servo/drafts/carseat3/actions', 'ExtractImageNames');
+}
+if (fs.existsSync('../server/convocode/anonymous/drafts/carseat3/actions/AugmentCarData.js')) {
+  load(path, '../convocode/anonymous/drafts/carseat3/actions', 'AugmentCarData');
+} else {
+  load(path, '../convocode/servo/drafts/carseat3/actions', 'AugmentCarData');
 }
 
 module.exports = B3Nodes;

@@ -259,7 +259,7 @@ class AskAndMap extends Composite {
       }).catch((x) => {
         dblogger.error('error in AskAndMap:', x);
         // continue to return RUNNING/FAILURE
-        status = this.onError(tick, x.message, false);
+        status = this.onError(tick, x.message || x, false);
 
       });
 

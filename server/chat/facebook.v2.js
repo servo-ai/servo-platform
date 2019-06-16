@@ -362,7 +362,7 @@ function postRequest(accessToken, endpoint, obj) {
         if (parsedData.error) {
           dblogger.log('FSM FLOW: FacebookChatDriver.postRequest: ', obj);
           dblogger.error('FSM FLOW: FacebookChatDriver Response: ', parsedData.error);
-          reject(parsedData.error);
+          reject(parsedData.error.message);
         } else {
           dblogger.info({
             cat: 'flow'

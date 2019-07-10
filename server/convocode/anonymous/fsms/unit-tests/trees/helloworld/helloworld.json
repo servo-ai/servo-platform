@@ -19,6 +19,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -28,7 +29,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 114,
@@ -43,7 +45,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 54,
@@ -63,6 +66,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.helloSaid",
 				"fieldValue": "1"
@@ -80,7 +84,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -10,
@@ -100,6 +105,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "global.helloSaid",
 				"operator": "==",
 				"right": "1"
@@ -118,6 +124,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [],
 				"cyclePrompts": true,

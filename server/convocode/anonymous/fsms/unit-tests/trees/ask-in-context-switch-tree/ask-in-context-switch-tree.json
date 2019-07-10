@@ -21,6 +21,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": "ask yes or not?",
 				"cyclePrompts": true,
@@ -85,6 +86,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": "No!",
@@ -92,7 +94,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 86,
@@ -107,7 +110,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -62,
@@ -127,6 +131,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "global.done",
 				"operator": "===",
 				"right": "true"
@@ -144,7 +149,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 144,
@@ -164,6 +170,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.done",
 				"fieldValue": "true"
@@ -182,6 +189,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": "hi or help?",
 				"cyclePrompts": true,
@@ -246,6 +254,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": "Yes!",
@@ -253,7 +262,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -450,
@@ -269,6 +279,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": "No!",
@@ -276,7 +287,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -32,

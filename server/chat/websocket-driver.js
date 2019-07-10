@@ -85,9 +85,12 @@ class WebSocketDriver extends ChatDriverInterface {
     }).catch((error) => {
       apiDebug = require('routes/apidebug');
       _.extend(message.data, {
-        text: error
+        text: error.toString() + error.message // not sure of the exception format
       });
-      message.command = 'error';
+      message.raw = {
+        command: 'error',
+        text: error.toString() + error.message
+      };
       apiDebug.send(message.data.processId, message);
     });
   }
@@ -163,7 +166,7 @@ class WebSocketDriver extends ChatDriverInterface {
           (req.data.payload && req.data.payload.intentId) ||
           (req.command === b3.HANDSHAKE ? b3.WAKEUP : b3.NONE);
 
-        dblogger.flow('websoket-driver - req.data.payload-- ', req.data.payload);
+        dblogger.flow('websocket-driver - req.data.payload-- ', req.data.payload);
         if (req.data.payload) {
           // ignore all clicks
           if (req.data.payload.event !== 'setPage' &&
@@ -180,7 +183,7 @@ class WebSocketDriver extends ChatDriverInterface {
         let intentIdFound;
         _.each(req.data.entities, (value, name) => {
           messageObj.addEntity(name, value);
-          if (name === 'intentId') {
+          if (name.toString() === 'intentId') {
             intentIdFound = true;
           }
         }); // treat the intent specially

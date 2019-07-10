@@ -1,41 +1,17 @@
 {
 	"version": "0.9.0",
 	"scope": "tree",
-	"id": "add-target",
-	"name": "add-target",
-	"title": "add-target",
-	"description": "test add target",
-	"root": "ba7ef279-c0a4-4866-9e0d-b3fefb04ebbe",
-	"properties": {
-		"channels": "chatsim"
-	},
+	"id": "composite-entities",
+	"name": "composite-entities",
+	"title": "composite-entities",
+	"description": "",
+	"root": "a37e9c34-fdc7-4405-8d25-34c512c157c4",
+	"properties": {},
 	"nodes": {
-		"f7ffd6b0-5fc0-484e-868a-eaa50aeb4fa8": {
-			"id": "f7ffd6b0-5fc0-484e-868a-eaa50aeb4fa8",
-			"name": "AddTarget",
-			"title": "send positive with general name",
-			"description": "Send a new message to the FSM, as if it came from the user. text and intentId are strings - meaning, if a template is needed use <%= %>",
-			"properties": {
-				"debug-log": "",
-				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5,
-				"onError": 4,
-				"replayActionOnReturnFromContextSwitch": true,
-				"text": "",
-				"intentId": "PositiveIntent",
-				"entities": {
-					"customerName": "Moishe"
-				}
-			},
-			"display": {
-				"x": 148,
-				"y": 284
-			}
-		},
-		"ba7ef279-c0a4-4866-9e0d-b3fefb04ebbe": {
-			"id": "ba7ef279-c0a4-4866-9e0d-b3fefb04ebbe",
+		"a37e9c34-fdc7-4405-8d25-34c512c157c4": {
+			"id": "a37e9c34-fdc7-4405-8d25-34c512c157c4",
 			"name": "AskAndMap",
-			"title": "whats your name",
+			"title": "what's the amount?",
 			"description": "Send the message based on prompt or view properties. image is an html file name under images folder. imageDataArrayName is the composite field name for an array object that contains data for the images. Once sent, waits for a response and then directs the flow to the child found according to the intents/entities map",
 			"properties": {
 				"debug-log": "",
@@ -44,7 +20,7 @@
 				"onError": 4,
 				"view": false,
 				"prompt": [
-					"hi, do you want to give me your name?"
+					"What's the amount?"
 				],
 				"cyclePrompts": true,
 				"imageHTML": false,
@@ -53,52 +29,31 @@
 				"newContext": true,
 				"contexts": [
 					{
-						"intentId": "PositiveIntent",
-						"description": {
-							"en": ""
-						},
-						"helper": false,
-						"timeout": false,
 						"entities": [
 							{
-								"entityName": "customerName",
-								"entityIndex": 0
+								"contextFieldName": "amount",
+								"entityName": "sumEntity.number"
 							}
 						]
 					},
 					{
-						"intentId": "NegativeIntent",
-						"description": {
-							"en": ""
-						},
-						"helper": false,
-						"timeout": false
-					},
-					{
-						"intentId": "HelloIntent",
-						"description": {
-							"en": ""
-						},
-						"helper": false,
-						"timeout": false
+						"helper": true
 					}
-				],
-				"passThru": false
+				]
 			},
 			"display": {
-				"x": -32,
-				"y": 42
+				"x": -44,
+				"y": 126
 			},
 			"children": [
-				"bfda57d6-c524-4a70-8466-d30b35f929bb",
-				"f7ffd6b0-5fc0-484e-868a-eaa50aeb4fa8",
-				"6c6abc4f-d1c8-4676-86c9-b189adc7ce9b"
+				"262a1fa0-1a75-4af6-8379-761625271046",
+				"23ef441d-f8dc-42ec-88b0-46fe0d7a1866"
 			]
 		},
-		"bfda57d6-c524-4a70-8466-d30b35f929bb": {
-			"id": "bfda57d6-c524-4a70-8466-d30b35f929bb",
+		"262a1fa0-1a75-4af6-8379-761625271046": {
+			"id": "262a1fa0-1a75-4af6-8379-761625271046",
 			"name": "GeneralMessage",
-			"title": "thx name",
+			"title": "amount is 444",
 			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
 			"properties": {
 				"debug-log": "",
@@ -108,7 +63,7 @@
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
-					"Thank you <%=context.customerName%>"
+					"The amount is $<%=context.amount%>"
 				],
 				"cyclePrompts": true,
 				"pushMessageOut": false,
@@ -118,14 +73,14 @@
 				"responseFieldName": ""
 			},
 			"display": {
-				"x": -268,
-				"y": 246
+				"x": -108,
+				"y": 258
 			}
 		},
-		"6c6abc4f-d1c8-4676-86c9-b189adc7ce9b": {
-			"id": "6c6abc4f-d1c8-4676-86c9-b189adc7ce9b",
+		"23ef441d-f8dc-42ec-88b0-46fe0d7a1866": {
+			"id": "23ef441d-f8dc-42ec-88b0-46fe0d7a1866",
 			"name": "GeneralMessage",
-			"title": "thx name",
+			"title": "amount bad",
 			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
 			"properties": {
 				"debug-log": "",
@@ -135,7 +90,7 @@
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
-					"Thank you <%=context.customerName%>"
+					"amount bad, bad amount"
 				],
 				"cyclePrompts": true,
 				"pushMessageOut": false,
@@ -145,17 +100,17 @@
 				"responseFieldName": ""
 			},
 			"display": {
-				"x": 308,
-				"y": 182
+				"x": 56,
+				"y": 262
 			}
 		}
 	},
 	"display": {
-		"camera_x": 768,
-		"camera_y": 361.5,
+		"camera_x": 642,
+		"camera_y": 382,
 		"camera_z": 1,
-		"x": -54,
-		"y": -102
+		"x": 0,
+		"y": 0
 	},
 	"state": "draft"
 }

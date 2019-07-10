@@ -20,6 +20,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -29,7 +30,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -66,
@@ -45,6 +47,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [],
 				"cyclePrompts": true,
@@ -87,6 +90,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"do you want to change your answer?"
@@ -125,6 +129,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -134,7 +139,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 176,
@@ -150,6 +156,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true
 			},
 			"display": {
@@ -166,6 +173,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -175,7 +183,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -426,
@@ -191,6 +200,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"wire <%=context.amount%>?"
@@ -229,6 +239,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -238,7 +249,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -224,
@@ -253,7 +265,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -424,
@@ -273,6 +286,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -282,7 +296,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -570,
@@ -297,7 +312,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 150,
@@ -316,6 +332,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"wire or help?"
@@ -369,6 +386,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -378,7 +396,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 486,
@@ -393,7 +412,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 146,

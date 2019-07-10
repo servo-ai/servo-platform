@@ -1,37 +1,17 @@
 {
 	"version": "0.9.0",
 	"scope": "tree",
-	"id": "repeat-until-condition",
-	"name": "repeat-until-condition",
-	"title": "repeat-until-condition",
+	"id": "post-action-status",
+	"name": "post-action-status",
+	"title": "post-action-status",
 	"description": "",
-	"root": "61cf19d4-7ad5-494d-8c21-1fd8a7d51aae",
+	"root": "948d4113-3d5a-4f4a-83f5-f24b77c58b4d",
 	"properties": {
 		"channels": "chatsim"
 	},
 	"nodes": {
-		"07290262-a857-4d09-b12c-0b8a2b834050": {
-			"id": "07290262-a857-4d09-b12c-0b8a2b834050",
-			"name": "RepeatUntilCondition",
-			"title": "Repeat Until Condition",
-			"description": "Repeats the child node until a condition is true. Updates context.repeatCount",
-			"properties": {
-				"debug-log": "",
-				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5,
-				"onError": 4,
-				"left": "context.left",
-				"operator": "==",
-				"right": "24"
-			},
-			"display": {
-				"x": 10,
-				"y": 186
-			},
-			"child": "f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e"
-		},
-		"856940dd-2c26-4947-8aa1-91fd3f3f6470": {
-			"id": "856940dd-2c26-4947-8aa1-91fd3f3f6470",
+		"c091bf68-40de-48b0-8ae6-dda55dfae673": {
+			"id": "c091bf68-40de-48b0-8ae6-dda55dfae673",
 			"name": "GeneralMessage",
 			"title": "GeneralMessage",
 			"description": "Send the message from prompt (a string) or json-formatted in view (parsed to a json object) properties, with <%= %> global, member, volatile and message fields. if pushMessageOut is set, the message will be pushed immediately on drivers that expect answers on the response object, instead of waiting for the timeout - eg Alexa driver. image is an html file name under images folder.view is a view file under views folder. imageDataArrayName is the composite field name for an array object that contains data for the images",
@@ -43,7 +23,7 @@
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
-					"left is 24. repeatCount is <%=context.repeatCount%>"
+					"post status: <%=global.statusCode%>"
 				],
 				"cyclePrompts": true,
 				"pushMessageOut": false,
@@ -53,12 +33,44 @@
 				"responseFieldName": ""
 			},
 			"display": {
-				"x": 294,
-				"y": 218
+				"x": 98,
+				"y": 370
 			}
 		},
-		"61cf19d4-7ad5-494d-8c21-1fd8a7d51aae": {
-			"id": "61cf19d4-7ad5-494d-8c21-1fd8a7d51aae",
+		"0068317c-9c20-4bef-8ef7-34961589afd3": {
+			"id": "0068317c-9c20-4bef-8ef7-34961589afd3",
+			"name": "PostAction",
+			"title": "PostAction",
+			"description": "This sets fieldName to object of the returned json.",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"onError": 4,
+				"replayActionOnReturnFromContextSwitch": true,
+				"url": "https://httpstat.us/500",
+				"payload": "{nothing: \"here\"}",
+				"fieldName": "global.postReply",
+				"json": true,
+				"headers": {
+					"track1": "<%=global.toPost%>",
+					"ddd": 223
+				},
+				"contentType": "",
+				"followAllRedirects": false,
+				"payload1": {
+					"this1": "is a test",
+					"thisNumber": 12
+				},
+				"statusFieldName": "global.statusCode"
+			},
+			"display": {
+				"x": -162,
+				"y": 422
+			}
+		},
+		"948d4113-3d5a-4f4a-83f5-f24b77c58b4d": {
+			"id": "948d4113-3d5a-4f4a-83f5-f24b77c58b4d",
 			"name": "MemSequence",
 			"title": "MemSequence",
 			"description": "",
@@ -69,17 +81,17 @@
 				"onError": 4
 			},
 			"display": {
-				"x": 26,
-				"y": 16
+				"x": -104,
+				"y": 166
 			},
 			"children": [
-				"3fb397ce-6d45-499a-8597-9bbce5a92c9a",
-				"07290262-a857-4d09-b12c-0b8a2b834050",
-				"856940dd-2c26-4947-8aa1-91fd3f3f6470"
+				"0fae9d11-3cbb-4ca0-92f2-9afbc90d97f3",
+				"71d617b1-b740-46ca-8fbc-135cca48218a",
+				"c091bf68-40de-48b0-8ae6-dda55dfae673"
 			]
 		},
-		"3fb397ce-6d45-499a-8597-9bbce5a92c9a": {
-			"id": "3fb397ce-6d45-499a-8597-9bbce5a92c9a",
+		"0fae9d11-3cbb-4ca0-92f2-9afbc90d97f3": {
+			"id": "0fae9d11-3cbb-4ca0-92f2-9afbc90d97f3",
 			"name": "SetFieldAction",
 			"title": "SetFieldAction",
 			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
@@ -89,40 +101,38 @@
 				"maxRetriesNumber": 5,
 				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
-				"fieldName": "context.left",
-				"fieldValue": "0"
+				"fieldName": "global.toPost",
+				"fieldValue": "{this1:'ddd',this2:12}"
 			},
 			"display": {
-				"x": -244,
-				"y": 214
-			}
-		},
-		"f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e": {
-			"id": "f4953deb-f8eb-4b1f-8d03-9b3e02f7ba9e",
-			"name": "SetFieldAction",
-			"title": "SetFieldAction",
-			"description": "Set fields across global,context, volatile and message memories. fieldName and fieldValue should have a dot notation with the object name. Eg: message.text, context.amount etc ",
-			"properties": {
-				"debug-log": "",
-				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5,
-				"onError": 4,
-				"replayActionOnReturnFromContextSwitch": true,
-				"fieldName": "context.left",
-				"fieldValue": "context.left+1"
-			},
-			"display": {
-				"x": -26,
+				"x": -364,
 				"y": 356
 			}
+		},
+		"71d617b1-b740-46ca-8fbc-135cca48218a": {
+			"id": "71d617b1-b740-46ca-8fbc-135cca48218a",
+			"name": "Inverter",
+			"title": "Inverter",
+			"description": "",
+			"properties": {
+				"debug-log": "",
+				"runningTimeoutSec": 600,
+				"maxRetriesNumber": 5,
+				"onError": 4
+			},
+			"display": {
+				"x": -96,
+				"y": 294
+			},
+			"child": "0068317c-9c20-4bef-8ef7-34961589afd3"
 		}
 	},
 	"display": {
-		"camera_x": 960,
-		"camera_y": 469,
+		"camera_x": 1086.5149999998976,
+		"camera_y": 101.32499999880383,
 		"camera_z": 1,
-		"x": -80,
-		"y": -194
+		"x": -8,
+		"y": -232
 	},
 	"state": "draft"
 }

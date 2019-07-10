@@ -19,6 +19,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"text": "",
 				"intentId": "PositiveIntent",
@@ -40,6 +41,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"hi, do you want to give me your name?"
@@ -102,6 +104,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -111,7 +114,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -268,
@@ -127,6 +131,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -136,7 +141,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 308,

@@ -19,6 +19,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -28,7 +29,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 48,
@@ -44,6 +46,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"url": "https://httpbin.org/get",
 				"fieldName": "global.postReply",
@@ -62,7 +65,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -38,

@@ -19,6 +19,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"how much?"
@@ -87,6 +88,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "context.ctx2Field",
 				"fieldValue": "124"
@@ -104,7 +106,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -200,
@@ -126,6 +129,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "context.ctx1Field",
 				"operator": "===",
 				"right": "123"
@@ -144,6 +148,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -153,7 +158,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -284,
@@ -183,6 +189,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -192,7 +199,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -98,
@@ -208,6 +216,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true
 			},
 			"display": {
@@ -223,7 +232,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -128,

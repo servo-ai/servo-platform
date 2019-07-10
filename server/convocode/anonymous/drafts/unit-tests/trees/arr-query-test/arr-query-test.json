@@ -18,7 +18,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 6,
@@ -42,6 +43,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.orders",
 				"fieldValue": "[]"
@@ -60,6 +62,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.orders[0]",
 				"fieldValue": "{timestamp:Date.now(),day:new Date(Date.now()).getDay(),item:'pizza'}"
@@ -78,6 +81,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.orders[1]",
 				"fieldValue": "{timestamp:Date.now(),day:new Date(Date.now()).getDay()+1,item:'pizza'}"
@@ -96,6 +100,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"sourceFieldName": "global.orders",
 				"targetFieldName": "global.pizzaArray",
@@ -118,6 +123,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"codeLine": "global.orders.push({timestamp:Date.now(),day:new Date(Date.now()).getDay(),item:'pasta'})"
 			},
@@ -135,6 +141,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -144,7 +151,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 526,

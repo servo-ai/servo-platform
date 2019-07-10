@@ -20,7 +20,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -176,
@@ -43,6 +44,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.field1",
 				"fieldValue": "3-1"
@@ -61,6 +63,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -71,6 +74,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -87,6 +91,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "context.field1",
 				"fieldValue": "global.field1+1"
@@ -105,6 +110,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -115,6 +121,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -131,6 +138,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -141,6 +149,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -157,6 +166,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "global.field1",
 				"operator": "!=",
 				"right": "2"
@@ -174,7 +184,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -834,
@@ -193,7 +204,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -54,
@@ -213,6 +225,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "context.field1",
 				"operator": "===",
 				"right": "3"
@@ -230,7 +243,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -210,
@@ -250,6 +264,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false
 			},
 			"display": {
@@ -266,6 +281,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"left": "message.intentId",
 				"operator": "===",
 				"right": "'testIntent'"
@@ -284,6 +300,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"enter a message"
@@ -334,7 +351,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": 412,
@@ -354,6 +372,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -363,7 +382,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 712,

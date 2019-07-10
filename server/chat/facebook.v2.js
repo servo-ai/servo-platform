@@ -36,7 +36,7 @@ class FacebookChatDriver extends ChatDriverInterface {
       "sender_action": on ? "typing_on" : "typing_off"
     };
 
-    return postRequest(facebookProperties.accessToken, '/v2.6/me/messages', fbObj);
+    return postRequest(facebookProperties.accessToken, '/v3.2/me/messages', fbObj);
   }
   /**
    * 
@@ -196,7 +196,7 @@ function addProfileOptions(fsm) {
     dblogger.error('There can be up to 3 items on the persistent menu ' + fsm.id);
     return;
   }
-  return postRequest(facebookOptions.accessToken, '/v2.6/me/messenger_profile', facebookOptions.profile);
+  return postRequest(facebookOptions.accessToken, '/v3.2/me/messenger_profile', facebookOptions.profile);
 }
 
 /**

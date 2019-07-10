@@ -5,6 +5,8 @@ var dblogger = require('utils/dblogger');
 var utils = require('utils/utils');
 /**
  * Posts a JSON payload to a URL, and sets fieldName to the returned object
+ * Memory field (global./context./volatile. etc) can be used inside the payload. If the payload is a string, just use the memory fields as you would in
+ * a JS code. If it's a json object, wrap them inside <%=...%>
  *  @memberof module:Actions
  */
 class PostAction extends Action {
@@ -21,9 +23,10 @@ class PostAction extends Action {
      * @property {Boolean} parameters.json - set true to indicate application/json post action. if not, payload is stringified,  and contentType is used (default: form)
      * @property {ExpressionString|Object}  parameters.headers POST headers. string or JSON object. if a string, this will be evaluated as a JS code (eval) and parsed to a JSON object
      * @property {ExpressionString|Object}  parameters.options other POST options
-     * @property {MemoryField}  parameters.fieldName dot-notated field name
-     * @property {string} contentType of the post. ignored if json is true
+     * @property {MemoryField}  parameters.fieldName dot-notated field name for the response data
+     * @property {string} parameters.contentType of the post. ignored if json is true
      * @property {Boolean} parameters.followAllRedirects if true, follow all
+     * @property {MemoryField} parameters.statusFieldName dot-notated field name for the response status
      */
     this.parameters = _.extend(this.parameters, {
       'url': '',
@@ -32,7 +35,8 @@ class PostAction extends Action {
       'json': true,
       'headers': '',
       'contentType': '',
-      'followAllRedirects': ''
+      'followAllRedirects': '',
+      'statusFieldName': 'context.statusField'
     });
     settings = settings || {};
 
@@ -54,9 +58,6 @@ class PostAction extends Action {
     options.method = 'POST';
 
 
-    // var url = options.url;
-
-
     options.host = Url.parse(options.url).hostname;
     options.port = Url.parse(options.url).port || 80;
     options.path = Url.parse(options.url).pathname;
@@ -64,19 +65,22 @@ class PostAction extends Action {
 
     const req = http.request(options, (res) => {
       node.log(tick, 'post returned ' + `statusCode: ${res.statusCode}`);
+      let status = parseInt(res.statusCode);
       const chunks = [];
       res.on('data', data => chunks.push(data));
       res.on('end', () => {
         let body = Buffer.concat(chunks);
-        if (res.headers['content-type'].indexOf('application/json') == 0) {
-
-
-          body = JSON.parse(body);
-
+        if (status >= 400 && status < 600) {
+          cb(status, res, body.toString());
         } else {
-          node.error(tick, 'no support for non-json response');
+          if (res.headers['content-type'].indexOf('application/json') == 0) {
+            body = JSON.parse(body);
+          } else {
+            node.error(tick, 'no support for non-json response');
+          }
+          cb(null, res, body);
         }
-        cb(null, res, body);
+
       });
 
 
@@ -133,9 +137,7 @@ class PostAction extends Action {
 
         } : {
           url: url,
-          form: payload,
-
-
+          form: payload
         };
 
         if (this.properties.headers) {
@@ -163,6 +165,13 @@ class PostAction extends Action {
 
 
       var cb = function (err, res, body) {
+        if (err) {
+          node.error(tick, "status:" + err + " body:" + body);
+          node.waitCode(tick, b3.FAILURE());
+          node.alldata(tick, node.properties.fieldName, body);
+          node.alldata(tick, node.properties.statusFieldName, res.statusCode);
+          return;
+        }
         try {
           var json;
           json = (typeof body.data === 'string') ? JSON.parse(body) : body;
@@ -170,14 +179,17 @@ class PostAction extends Action {
         } catch (err) {
           node.error(tick, "no json received. message is:" + body);
           dblogger.warn(err.message + node.summary(tick));
-          node.waitCode(tick, b3.FAILURE());
+
+          node.waitCode(tick, this.properties.onError || b3.ERROR());
+
           return;
         }
         try {
           node.alldata(tick, node.properties.fieldName, json);
-
+          node.alldata(tick, node.properties.statusFieldName, res.statusCode);
         } catch (ex) {
           node.error(tick, ex);
+          node.waitCode(tick, this.properties.onError || b3.ERROR());
         }
 
         // move to next step

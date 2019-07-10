@@ -46,7 +46,7 @@ class AlexaChatDriver extends ChatDriverInterface {
         aggregateMessages(text, processObj, tree, node).then((text) => {
           var sessionObj = processObj.volatile('sessionObj');
           if (!sessionObj) {
-            dblogger.error('no session ')
+            dblogger.error('no session ');
             return;
           }
           messageObj = getScheme(text, !!sessionObj.shouldEndSession);

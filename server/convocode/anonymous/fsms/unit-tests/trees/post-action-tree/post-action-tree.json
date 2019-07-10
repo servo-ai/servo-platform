@@ -19,6 +19,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -28,7 +29,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 48,
@@ -44,6 +46,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"url": "http://httpbin.org/post",
 				"payload": "{   glob:global.toPost  }",
@@ -61,8 +64,8 @@
 				}
 			},
 			"display": {
-				"x": -238,
-				"y": 308
+				"x": -202,
+				"y": 334
 			}
 		},
 		"4e05e3e6-367e-427a-942f-3711b465284b": {
@@ -73,11 +76,12 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
-				"x": -38,
-				"y": 132
+				"x": -58,
+				"y": 122
 			},
 			"children": [
 				"0613670b-eada-4e96-88e5-600d1f765a40",
@@ -94,18 +98,19 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"fieldName": "global.toPost",
 				"fieldValue": "{this1:'ddd',this2:12}"
 			},
 			"display": {
-				"x": -440,
-				"y": 308
+				"x": -414,
+				"y": 306
 			}
 		}
 	},
 	"display": {
-		"camera_x": 768,
+		"camera_x": 913.9450000002107,
 		"camera_y": 215,
 		"camera_z": 1,
 		"x": 0,

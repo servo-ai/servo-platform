@@ -37,6 +37,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [],
 				"cyclePrompts": true,
@@ -124,7 +125,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -500,
@@ -144,6 +146,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -154,6 +157,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -170,6 +174,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -180,6 +185,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -208,7 +214,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -700,
@@ -251,6 +258,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"what would you like to do?"
@@ -315,6 +323,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -324,7 +333,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 106,
@@ -340,6 +350,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true
 			},
 			"display": {

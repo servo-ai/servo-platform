@@ -68,6 +68,7 @@ class DictModel extends NLUModel {
         }];
     }
 
+
     /**
      * Tick method.
      *
@@ -89,8 +90,13 @@ class DictModel extends NLUModel {
                         if (value.expressions[expkey] && text.toLowerCase().indexOf(exp.toLowerCase()) > -1) {
                             // entities[dict.data.id] = [value.value];
                             // entities[dict.data.id + "#confidence"] = 1.0;
-                            tick.target.getMessageObj().addEntity(dict.data.id, value.value);
-                            tick.target.getMessageObj().addEntity(dict.data.id + "#confidence", 1.0);
+
+                            // dont use addEntity - override previous NLU engines
+                            tick.target.getMessageObj().entities[dict.data.id] = [value.value];
+                            //tick.target.getMessageObj().addEntity(dict.data.id + "#confidence", 100.0);
+                            // huge confidence factor to prevent context switching if this entity was identified as another one
+                            tick.target.getMessageObj().entities[dict.data.id + "#confidence"] = [1000.0];
+
                         }
                     }
                 }

@@ -36,7 +36,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -448,
@@ -56,6 +57,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -66,6 +68,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -82,6 +85,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -92,6 +96,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -120,7 +125,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -490,
@@ -140,6 +146,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"an amount question"
@@ -181,7 +188,8 @@
 			"properties": {
 				"debug-log": "",
 				"runningTimeoutSec": 600,
-				"maxRetriesNumber": 5
+				"maxRetriesNumber": 5,
+				"onError": 4
 			},
 			"display": {
 				"x": -292,
@@ -201,6 +209,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 0,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": false,
 				"view": false,
 				"prompt": [
@@ -211,6 +220,7 @@
 				"imageHTML": false,
 				"imageDataArrayName": "",
 				"viewEvaluation": false,
+				"responseFieldName": "",
 				"image": false
 			},
 			"display": {
@@ -240,6 +250,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"what would you like to do?"
@@ -304,6 +315,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -313,7 +325,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 454,
@@ -329,6 +342,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"view": false,
 				"prompt": [
 					"how much would you like to transfer?"
@@ -380,6 +394,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -389,7 +404,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": 80,
@@ -405,6 +421,7 @@
 				"debug-log": "",
 				"runningTimeoutSec": 600,
 				"maxRetriesNumber": 5,
+				"onError": 4,
 				"replayActionOnReturnFromContextSwitch": true,
 				"view": false,
 				"prompt": [
@@ -414,7 +431,8 @@
 				"pushMessageOut": false,
 				"imageHTML": false,
 				"imageDataArrayName": "",
-				"viewEvaluation": false
+				"viewEvaluation": false,
+				"responseFieldName": ""
 			},
 			"display": {
 				"x": -688,

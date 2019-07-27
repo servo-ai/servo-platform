@@ -17,9 +17,8 @@ class NLUModel extends Decorator {
 
   /**
    * constructor
-   * @param {Object} settings 
    */
-  constructor(settings) {
+  constructor() {
     super();
     this.category = b3.NLUMODEL;
   }

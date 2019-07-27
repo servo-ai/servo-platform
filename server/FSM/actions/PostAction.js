@@ -88,7 +88,7 @@ class PostAction extends Action {
 
     req.on('error', (error) => {
       node.error(tick, error);
-      cb(error, res, null);
+      cb(error, {}, {});
     });
 
     req.write(data);
@@ -169,7 +169,7 @@ class PostAction extends Action {
           node.error(tick, "status:" + err + " body:" + body);
           node.waitCode(tick, b3.FAILURE());
           node.alldata(tick, node.properties.fieldName, body);
-          node.alldata(tick, node.properties.statusFieldName, res.statusCode);
+          node.alldata(tick, node.properties.statusFieldName, err);
           return;
         }
         try {
@@ -180,7 +180,7 @@ class PostAction extends Action {
           node.error(tick, "no json received. message is:" + body);
           dblogger.warn(err.message + node.summary(tick));
 
-          node.waitCode(tick, this.properties.onError || b3.ERROR());
+          node.waitCode(tick, node.properties.onError || b3.FAILUR());
 
           return;
         }
@@ -189,7 +189,7 @@ class PostAction extends Action {
           node.alldata(tick, node.properties.statusFieldName, res.statusCode);
         } catch (ex) {
           node.error(tick, ex);
-          node.waitCode(tick, this.properties.onError || b3.ERROR());
+          node.waitCode(tick, node.properties.onError || b3.ERROR());
         }
 
         // move to next step
@@ -208,7 +208,7 @@ class PostAction extends Action {
 
     }
     var status = node.waitCode(tick);
-    //console.log("3 - returned: " + status, tick.tree.id, node.id);
+    console.log("3 - returned: " + status, tick.tree.id, node.id);
     return status;
   }
 

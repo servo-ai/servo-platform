@@ -1,5 +1,6 @@
 var NLUModel = require('FSM/core/NLUModel');
 var _ = require('underscore');
+var dblogger = require('utils/dblogger');
 
 /**
  * dictionary model - entity classifier
@@ -80,14 +81,15 @@ class DictModel extends NLUModel {
         try {
             let dict = require(this.properties.dictionary[tick.process.properties()['defaultLang']].filename);
             if (tick.target.getMessageObj()) {
-                let text = " " + tick.target.getMessageObj().text + " ";
+                let text = tick.target.getMessageObj().text
                 // let entities = {};
                 for (let valuekey in dict.data.values) {
                     let value = dict.data.values[valuekey];
 
                     for (let expkey in value.expressions) {
-                        let exp = " " + value.expressions[expkey] + " ";
-                        if (value.expressions[expkey] && text.toLowerCase().indexOf(exp.toLowerCase()) > -1) {
+                        let expRe = new RegExp("\\b" + value.expressions[expkey] + "\\b", "gmi");
+
+                        if (expRe.exec(text)) {
                             // entities[dict.data.id] = [value.value];
                             // entities[dict.data.id + "#confidence"] = 1.0;
 
@@ -96,6 +98,7 @@ class DictModel extends NLUModel {
                             //tick.target.getMessageObj().addEntity(dict.data.id + "#confidence", 100.0);
                             // huge confidence factor to prevent context switching if this entity was identified as another one
                             tick.target.getMessageObj().entities[dict.data.id + "#confidence"] = [1000.0];
+                            dblogger.info('DictModel add entity with id ' + dict.data.id + ' and value ' + value.value);
 
                         }
                     }

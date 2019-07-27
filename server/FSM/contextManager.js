@@ -373,9 +373,10 @@ class ContextManager {
    * @param {ContextItem} contextDetails 
    * @param {Target} target 
    * @param {boolean} countOnly true if not using the entities
+   * @param {number} distanceCounter
    * @return {object} count of mappings that happened (if !countOnly) or due to happen
    */
-  mapTargetEntitiesToContext(tick, contextDetails, target, countOnly) {
+  mapTargetEntitiesToContext(tick, contextDetails, target, countOnly, distanceCounter) {
     let numberOfMaps = 0;
     let intentIdFound = false;
     if (!target) {
@@ -411,9 +412,12 @@ class ContextManager {
             target.useEntity(ett.entityName, ett.entityIndex);
           }
 
-          // count if we have a change here, ie its not been accounted for previously, THIS IS NEEDED WHEN THE TARGET INCLUDES AN ENTITY MAPPED ON PREVIOUS CONTEXT.
+          // count if we have a change here, ie its not been accounted for previously,
+          // THIS CAN HAPPEN WHEN THE TARGET INCLUDES AN INTENT ALREADY MAPPED ON PREVIOUS CONTEXT, AND HERE WE CHECK FOR THAT CONTEXT.
+          // WE DONT WANT TO RESELECT THIS CONTEXT - IT'S ALREADY SELECTED TO US
+          // TODO: change to check if we are just BACKTRACKING ON THE INTENT
           let prevValueMappedAtThisContext = this.getContextMemory(tick)[ett.contextFieldName || ett.entityName];
-          if (prevValueMappedAtThisContext !== entityValue || !intentIdFound) {
+          if (prevValueMappedAtThisContext !== entityValue || !intentIdFound || distanceCounter == 0) {
             numberOfMaps++;
             ettCount++;
             // give an extra point if that's an intent
@@ -485,7 +489,7 @@ class ContextManager {
   selectContextWithMaxEntities(tick, intentDirection, distanceCounter = 0) {
     let maxEttCount = 0;
     let retIndex = -1;
-    dblogger.flow(' select Context With Max Entities - ' + this.node.summary(tick));
+    dblogger.flow("distance: " + distanceCounter + ' select Context With Max Entities - ' + this.node.summary(tick));
     dblogger.flow("target " + tick.target.getMessageObj() && JSON.stringify(tick.target.getMessageObj()));
     // look on the contexts of the current contextManager
     var ctxParams = this.node.contextProperties();
@@ -494,7 +498,7 @@ class ContextManager {
       let ettCountAtPastTargets = 0;
       let ettCountAtPastContexts = 0;
       // count for current tick target
-      let targetCount = this.mapTargetEntitiesToContext(tick, ctxParams[c], tick.target, true);
+      let targetCount = this.mapTargetEntitiesToContext(tick, ctxParams[c], tick.target, true, distanceCounter);
       // for upwards, only change context based on intentIds!
       if (((intentDirection === ContextManagerKeys.UPWARDS) && targetCount.intentIdFound) || distanceCounter == 0 ||
         intentDirection === ContextManagerKeys.DOWNWARDS) {
@@ -740,7 +744,10 @@ class ContextManager {
       statsManager.closeContext(tick, this.node);
       return;
     }
-    this.mapEntitiesToParent(tick);
+    if (!this.node.properties.clearOnClose) {
+      this.mapEntitiesToParent(tick);
+    }
+
     // assert
     // todo: remove on debug
     // _.each(this.node.contextProperties()[child].entities, (fieldMap) => {
@@ -790,7 +797,12 @@ class ContextManager {
     } else {
       var contextMemory = this.getContextMemory(tick);
       _.each(contextMemory, (value, key) => {
-        parentContextManagerEtts.node.context(parentContextManagerEtts.tick, key, value);
+        let keyStr = key.toString();
+        // this will mess with future context switches
+        if (keyStr == "intentId") {
+          keyStr = "lastIntentId";
+        }
+        parentContextManagerEtts.node.context(parentContextManagerEtts.tick, keyStr, value);
       });
     }
 
@@ -980,7 +992,7 @@ class ContextManager {
     let ctxFrames = contextFrames || this.getContextFrames(tick);
     let target = ctxFrames[ctxFrames.length - 1].target;
 
-    numberOfMaps += this.mapTargetEntitiesToContext(tick, contextDetails, target, false).numberOfMaps;
+    numberOfMaps += this.mapTargetEntitiesToContext(tick, contextDetails, target, false, 0).numberOfMaps;
 
     // re-save
     this.setContextFrames(tick, ctxFrames);

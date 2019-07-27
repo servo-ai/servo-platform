@@ -20,7 +20,7 @@ class Observer {
     this._sentObjects = [];
   }
   expect(cb) {
-    console.log('*expect:', this._sentObjects.length);
+    console.log('*expect:' + this._sentObjects.length + ' objects');
     if (this._sentObjects.length) {
       let obj = this._sentObjects.pop();
       cb(obj);

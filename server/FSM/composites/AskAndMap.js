@@ -57,6 +57,7 @@ class AskAndMap extends Composite {
      * @property {Array<ContextItem>} parameters.contexts  - an array of contexts, each consists of expected entities, intents and more (ContextItem)
      * @property {boolean}  parameters.replayActionOnReturnFromContextSwitch - if false, this node is not closed and re-opened when return from context switch
      * @property {string} parameters.viewEvaluation - if 'eval' will use javascript eval the view string/file
+     * @property {boolean}  parameters.clearOnClose - if true, this node will not be saving its childrens context when closed
      **/
     this.parameters = _.extend(this.parameters, {
       "view": false,
@@ -64,6 +65,7 @@ class AskAndMap extends Composite {
       "cyclePrompts": true,
       "imageHTML": false,
       "imageDataArrayName": "",
+      "clearOnClose": false,
       "replayActionOnReturnFromContextSwitch": true,
       // newContext if true, entity map search will stop here. Make false if this node is a part of a dialog collecting entities, and entities of its parent should be included in the mappings
       newContext: true,

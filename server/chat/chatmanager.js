@@ -1,8 +1,9 @@
 var _ = require('underscore');
 var formbotDriver = require("./formbot").getInst();
+var tttfmDriver = require("./tttfm").getInst();
 var facebookChatDriver = require('./facebook.v2').getInst();
 var config = require("../config");
-var mycroftService, chatsim;
+var chatsim;
 var alexaService = require('./alexa.v2').getInst();
 var utils = require("utils/utils");
 var dblogger = require("utils/dblogger");
@@ -100,24 +101,28 @@ class ChatManager {
         });
       });
     }
-    if (process.properties() && process.properties().channels && process.properties().channels.indexOf("mycroft") != -1) {
 
+    if (process.properties() && process.properties().channels && process.properties().channels.toLowerCase().indexOf("tttfm") != -1) {
+      // not working
       return new Promise(function (resolve, reject) {
-        mycroftService = mycroftService || require('./mycroft').getInst();
-        mycroftService.sendMessage(prompt, customer.id, tree, node).then((postObj) => {
+        tttfmDriver.sendMessage(prompt, process, tree, node).then((postObj) => {
+
           // save the state
           process.save().then(() => {
             resolve(postObj);
-
             fsmEventEmitter.messageSent(postObj, process);
+
           }).catch((err) => {
             dblogger.error(err.message);
           });
+
+
         }, function (err) {
           reject(err);
         });
       });
     }
+
     if (process.properties() && process.properties().channels &&
       (process.properties().channels.toLowerCase().indexOf("chatsim") != -1)) {
       return new Promise((resolve) => {
@@ -210,6 +215,10 @@ class ChatManager {
     chatsim.startAll(app, fsms);
     formbotDriver = formbotDriver || require("./formbot").getInst();
     formbotDriver.startAll(app, fsms);
+
+    tttfmDriver = tttfmDriver || require("./tttfm").getInst();
+    tttfmDriver.startAll(app, fsms);
+
     twilioService.startAll(app, fsms);
     restPostService.startAll(app, fsms);
 

@@ -749,7 +749,7 @@ class BaseNode {
 
           // when we send messages out, we reset the incoming message queue
           // otherwise new questions will be answered immediately and skipped
-          if (!tick.process.properties().queueIncomingMessages) {
+          if (!this.properties.queueIncomingMessages) {
             dblogger.warn("losing " + tick.target.getTargets().length + " messages:", tick.target.getTargets());
             tick.target.removeTargets();
           }

@@ -154,15 +154,26 @@ load(path, 'nlumodels', 'DictModel');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');
-if (fs.existsSync('../server/convocode/anonymous/drafts/carseat3/actions/ExtractImageNames.js')) {
-  load(path, '../convocode/anonymous/drafts/carseat3/actions', 'ExtractImageNames');
+if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/ExtractImageNames.js')) {
+  load(path, '../convocode/anonymous/drafts/carseat4/actions', 'ExtractImageNames');
 } else {
-  load(path, '../convocode/servo/drafts/carseat3/actions', 'ExtractImageNames');
+  load(path, '../convocode/servo/drafts/carseat4/actions', 'ExtractImageNames');
 }
-if (fs.existsSync('../server/convocode/anonymous/drafts/carseat3/actions/AugmentCarData.js')) {
-  load(path, '../convocode/anonymous/drafts/carseat3/actions', 'AugmentCarData');
+if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/AugmentCarData.js')) {
+  load(path, '../convocode/anonymous/drafts/carseat4/actions', 'AugmentCarData');
 } else {
-  load(path, '../convocode/servo/drafts/carseat3/actions', 'AugmentCarData');
+  load(path, '../convocode/servo/drafts/carseat4/actions', 'AugmentCarData');
+}
+
+if (fs.existsSync('../server/convocode/anonymous/drafts/demo-tt1/actions/SearchText.js')) {
+  load(path, '../convocode/anonymous/drafts/demo-tt1/actions', 'SearchText');
+} else {
+  load(path, '../convocode/servo/drafts/demo-tt1/actions', 'SearchText');
+}
+if (fs.existsSync('../server/convocode/anonymous/drafts/demo-tt1/actions/GetTextFile.js')) {
+  load(path, '../convocode/anonymous/drafts/demo-tt1/actions', 'GetTextFile');
+} else {
+  load(path, '../convocode/servo/drafts/demo-tt1/actions', 'GetTextFile');
 }
 
 module.exports = B3Nodes;

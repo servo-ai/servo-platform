@@ -2,6 +2,18 @@ var NLUModel = require('FSM/core/NLUModel');
 var _ = require('underscore');
 var dblogger = require('utils/dblogger');
 
+// class MyRegExp extends RegExp {
+//     [Symbol.matchAll](str) {
+//         let result = RegExp.prototype[Symbol.matchAll].call(this, str);
+//         if (!result) {
+//             return null;
+//         }
+//         return Array.from(result);
+//     }
+// }
+
+// expected output: Array [Array ["-01"], Array ["-02"], Array ["-03"], Array ["-07"]]
+
 /**
  * dictionary model - entity classifier
  * @memberof module:NLUModels
@@ -69,7 +81,19 @@ class DictModel extends NLUModel {
         }];
     }
 
-
+    addEntity(tick, id, value) {
+        // dont use addEntity - override previous NLU engines, but not ourselves
+        if (!tick.target.getMessageObj().entities[id + "#confidence"] ||
+            (tick.target.getMessageObj().entities[id + "#confidence"][0] &&
+                tick.target.getMessageObj().entities[id + "#confidence"][0] < 1000.0)) {
+            // add
+            tick.target.getMessageObj().entities[id] = [value];
+            //tick.target.getMessageObj().addEntity(dict.data.id + "#confidence", 100.0);
+            // huge confidence factor to prevent context switching if this entity was identified as another one
+            tick.target.getMessageObj().entities[id + "#confidence"] = [1000.0];
+            dblogger.info('DictModel add entity with id ' + id + ' and value ' + value);
+        }
+    }
     /**
      * Tick method.
      *
@@ -81,7 +105,7 @@ class DictModel extends NLUModel {
         try {
             let dict = require(this.properties.dictionary[tick.process.properties()['defaultLang']].filename);
             if (tick.target.getMessageObj()) {
-                let text = tick.target.getMessageObj().text
+                let text = tick.target.getMessageObj().text;
                 // let entities = {};
                 for (let valuekey in dict.data.values) {
                     let value = dict.data.values[valuekey];
@@ -100,6 +124,18 @@ class DictModel extends NLUModel {
                             tick.target.getMessageObj().entities[dict.data.id + "#confidence"] = [1000.0];
                             dblogger.info('DictModel add entity with id ' + dict.data.id + ' and value ' + value.value);
 
+                        }
+                    }
+                    // regexps
+                    for (let expkey in value.regExpressions) {
+                        let expRe = new RegExp(value.regExpressions[expkey], "gmi");
+                        //let founds = text && text.matchAll(value.regExpressions[expkey], "gmi");
+                        let founds = expRe.exec(text)
+                        for (let i = 0; founds && i < founds.length; i++) {
+                            this.addEntity(tick, dict.data.id, founds[i]);
+                            if (founds[i]) {
+                                break;
+                            }
                         }
                     }
                 }

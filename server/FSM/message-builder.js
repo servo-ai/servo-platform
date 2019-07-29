@@ -172,8 +172,12 @@ messageBuilder.build = function (tick, fieldName, node) {
         }
       }
 
+      let fileData = node.properties && node.properties.fileData;
+      ret.fileData = fileData && _.template(fileData)(data);
+
       // once images are there in the process, compile the view
       processImages(tick, node).then(function () {
+
         var payload = node.volatile(tick, "payload");
         node.volatile(tick, "payload", null);
         var updatedData = node.alldata(tick);

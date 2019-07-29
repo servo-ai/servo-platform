@@ -78,8 +78,18 @@ class WIT extends NLUPipeInterface {
             // if (entity[i].normalized && entity[i].normalized.value) {
             //   value = entity[i].normalized.value;
             // }
-            values.push(value);
-            avgscore += entity[i].confidence / (i + 1);
+            // if we already have values, make a new entity type
+            // if (values.length > 0) {
+            //   this.extractEntities({
+            //     "value": value,
+            //     "confidence": entity[i]["confindence"]
+            //   }, keyPrefix + key + "#", entities);
+            // } else 
+            {
+              values.push(value);
+              avgscore += entity[i].confidence / (i + 1);
+            }
+
 
           } else if (ettMember === "entities") {
             return this.extractEntities(entity[i], keyPrefix + key + "#", entities);

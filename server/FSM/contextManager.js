@@ -388,6 +388,8 @@ class ContextManager {
     }
     _.each(contextDetails.entities, (ett) => {
       let ettCount = 0;
+      // todo: if there are 2 entities in the same index, 
+      // the usage of the first reduces the array, so entity index has to remain 0
       var entityValue = target.getEntity(ett.entityName, ett.entityIndex);
       let entityScore = target.getEntity(ett.entityName + "#confidence", 0) || 1;
       dblogger.flow('compare entity ' + ett.entityName + ', value ' + entityValue + " score=" + entityScore);

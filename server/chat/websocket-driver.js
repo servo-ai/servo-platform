@@ -41,6 +41,7 @@ class WebSocketDriver extends ChatDriverInterface {
           text: response.text
         };
       }
+      payload.fileData = response.fileData;
 
       var messageObj = this.createMessageObject({
           id: config.serverBaseDomain

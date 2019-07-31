@@ -448,7 +448,7 @@ Utils.multipleEntitySentence = function (entitiesArray, keyName = undefined) {
 }
 
 /**
- * true if this is a memory field (global/local/volatile/process/fsm/context)
+ * returns true if this is a memory field (global/local/volatile/process/fsm/context)
  */
 Utils.isMemoryField = function (field) {
   if (!field) {
@@ -459,6 +459,25 @@ Utils.isMemoryField = function (field) {
   return field.indexOf('global.') || field.indexOf('local.') >= 0 || field.indexOf('volatile.') >= 0 ||
     field.indexOf('process.') >= 0 || field.indexOf('fsm.') >= 0 || field.indexOf('context.') >= 0;
 }
+
+/**
+ * encodes a valid json object to base 64
+ */
+Utils.objToBase64 = function (obj) {
+  let objJsonStr = JSON.stringify(obj);
+  let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
+  return objJsonB64;
+}
+
+/**
+ * encodes a valid json object to base 64
+ */
+Utils.base64toObj = function (strObj) {
+
+  let objJson = Buffer.from(strObj, "base64").toString();
+  return JSON.parse(objJson);
+}
+
 
 // Utils.multipleEntitySentence([{
 //   seatType: "infant"

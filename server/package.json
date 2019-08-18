@@ -64,12 +64,20 @@
   "description": "Servo server",
   "main": "app.js",
   "devDependencies": {
+    "@elastic/elasticsearch": "^7.3.0",
     "@types/node": "^8.0.9",
     "alexa-verifier": "^0.3.6",
     "app-module-path": "^2.2.0",
     "concurrently": "^4.1.0",
     "jasmine": "^2.8.0",
+    "rehype": "^9.0.0",
+    "rehype-remark": "^6.0.0",
+    "remark-stringify": "^7.0.1",
     "stack-trace": "0.0.9",
+    "to-vfile": "^6.0.0",
+    "unified": "^8.3.2",
+    "vfile": "^4.0.1",
+    "vfile-reporter": "^6.0.0",
     "websocket": "^1.0.24"
   },
   "repository": {

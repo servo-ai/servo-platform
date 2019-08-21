@@ -478,9 +478,33 @@ Utils.base64toObj = function (strObj) {
   return JSON.parse(objJson);
 }
 
+/**
+ * makes the right syntax to list of items
+ */
+Utils.buildSentenceFromItems = function (strItems) {
+  let arr1 = strItems.split(",");
+  if (arr1.length === 0) {
+    return '';
+  }
+  let arr = arr1.filter(elem => !!elem);
 
-// Utils.multipleEntitySentence([{
-//   seatType: "infant"
-// }, {
-//   seatType: "REAR-FACING"
-// }], "seatType");
+
+  if (arr.length === 1) {
+    return arr[0];
+  }
+
+  const newArr = [...arr];
+  const last = newArr.pop();
+  return newArr.join(', ') + ' and ' + last;
+}
+
+Utils.maxNumberInString = function (str) {
+  let arr = str.split(',');
+  return Math.max(...arr);
+}
+
+
+Utils.minNumberInString = function (str) {
+  let arr = str.split(',');
+  return Math.min(...arr);
+}

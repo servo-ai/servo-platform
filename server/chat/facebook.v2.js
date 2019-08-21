@@ -378,7 +378,7 @@ function postRequest(accessToken, endpoint, obj) {
     postReq.on('error', function (e) {
       dblogger.error('FacebookChatDriver.postRequest: ', obj);
       dblogger.error('FacebookChatDriver.postRequest error:', e.message, obj);
-      reject('BrookAPI.postRequest error:' + e.message);
+      reject('postRequest error:' + e.message);
     });
 
     postReq.write(postData);

@@ -3,6 +3,7 @@ var config = require('config');
 var webshot = require('webshot');
 var crypto = require('crypto');
 var _ = require('underscore');
+var Base64 = require("js-base64").Base64;
 
 function Utils() {}
 module.exports = Utils;
@@ -465,7 +466,7 @@ Utils.isMemoryField = function (field) {
  */
 Utils.objToBase64 = function (obj) {
   let objJsonStr = JSON.stringify(obj);
-  let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
+  let objJsonB64 = Base64.encode(objJsonStr);
   return objJsonB64;
 }
 
@@ -474,7 +475,7 @@ Utils.objToBase64 = function (obj) {
  */
 Utils.base64toObj = function (strObj) {
 
-  let objJson = Buffer.from(strObj, "base64").toString();
+  let objJson = Base64.decode(strObj);
   return JSON.parse(objJson);
 }
 

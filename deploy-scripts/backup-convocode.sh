@@ -6,5 +6,5 @@ cd backup
 foldername=$(date '+%d-%b-%Y')-convocde
 mkdir $foldername
 cd $foldername
-cp -rR ~/devcode/servo-admin/src/server/convocode .
+cp -rR ~/servo-platform/server/convocode .
 tar -zvcf $foldername.tar.gz ./

@@ -6,6 +6,7 @@ cd backup
 foldername=$(date '+%d-%b-%Y')
 mkdir $foldername
 cd $foldername
-cp -rR ~/devcode/servo-admin/src/ .
+cp -rR ~/servo-platform/ .
+rm -r servo-platform/server/node_modules
 tar -zvcf $foldername.tar.gz ./
-rm -r src
+rm -r servo-platform

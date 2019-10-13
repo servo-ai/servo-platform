@@ -80,15 +80,16 @@ if (config.openSSL) {
     console.log('server listens on 443');
     // now that we have an httpServer we can start the debug
     require('routes/apidebug').start(app);
-app.use(baseUrl, express.static(path.join(__dirname, 'public')));
-
+	app.use(baseUrl, express.static(path.join(__dirname, 'public')));
+	app.use(baseUrl+"/cognility",express.static(path.join(__dirname + "/cognility", 'public')));
 
   } catch (e) {
     console.error(e);
   }
 } else {
   // now that we have an httpServer we can start the debug
-  require('routes/apidebug').start(app);app.use(baseUrl, express.static(path.join(__dirname, 'public')));
-
+  require('routes/apidebug').start(app);
+  app.use(baseUrl, express.static(path.join(__dirname, 'public')));
+  app.use(baseUrl+"/cognility",express.static(path.join(__dirname + "/cognility", 'public')));
 
 }

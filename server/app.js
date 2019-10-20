@@ -80,8 +80,6 @@ if (config.openSSL) {
     console.log('server listens on 443');
     // now that we have an httpServer we can start the debug
     require('routes/apidebug').start(app);
-	app.use(baseUrl, express.static(path.join(__dirname, 'public')));
-	app.use(baseUrl+"/cognility",express.static(path.join(__dirname + "/cognility", 'public')));
 
   } catch (e) {
     console.error(e);
@@ -89,7 +87,24 @@ if (config.openSSL) {
 } else {
   // now that we have an httpServer we can start the debug
   require('routes/apidebug').start(app);
-  app.use(baseUrl, express.static(path.join(__dirname, 'public')));
-  app.use(baseUrl+"/cognility",express.static(path.join(__dirname + "/cognility", 'public')));
 
 }
+app.use(baseUrl, function (req, res, next) {
+  console.log(req.path + "," + req.url + "," + req.baseUrl);
+  next();
+})
+app.use(baseUrl + "/cognility", function (req, res) {
+
+  console.log('req.url', req.url, req.path, req.originalUrl);
+  req.url = "/web-chat/index.html";
+  req.path = "/web-chat/index.html";
+  req.baseUrl = "/web-chat/index.html"
+  req.originalUrl = "/web-chat/index.html";
+  console.log('req.url', req.url);
+  // app.handle(req, res); 
+  return res.sendFile(path.resolve("public/web-chat/index.html"));
+});
+app.use(baseUrl, express.static(path.join(__dirname, 'public')));
+
+
+// app.use(baseUrl+"/cognility/.*",express.static(path.join(__dirname, 'public/web-chat')))

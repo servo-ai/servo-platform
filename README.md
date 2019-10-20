@@ -7,9 +7,9 @@ Click to watch a short intro video:
 <span style="display: inline-block; margin: auto;">[![Servo](https://j.gifs.com/lxQOk1@426x240.gif)](https://www.youtube.com/watch?v=KREhqahVqA0)]</span>
 
 # Installation
-1. install nodejs (v8 or v9) and npm (v5.5 and above)
+1. install nodejs (v8 and higher) and npm (v5.5 and above)
 3. clone and install:
-    * sudo npm install -g gulp bower
+    * sudo npm install -g gulp bower concurrently
 	* git clone https://github.com/servo-ai/servo-platform.git
     * cd servo-platform/server
     * optional:<br>
@@ -25,9 +25,9 @@ If you get errors during npm install, then:
 	* linux:  sudo apt-get install build-essential libssl-dev
     
 # Run Servo
-From **server** or **editor** folder:
+From **server**  folder:
 <br>
- cd server && **npm start**
+  **npm start**
 
 On Chrome browser open localhost:8000. 
 

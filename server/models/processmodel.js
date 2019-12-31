@@ -14,7 +14,7 @@ var utils = require('utils/utils');
 // TODO: rethink stdTTL. if we enable it, need to make sure process is reloaded otherwise getFromCache fails
 // TODO: make layered, per-fsm cache
 var _cache = cacheFactory.createCache({
-  stdTTL: 0,
+  stdTTL: 6000,
   useClones: false
 });
 
@@ -166,7 +166,7 @@ ProcessModel.loadFSMProcesses = function (fsm) {
  */
 ProcessModel.addMessage = function (id, processObj, message) {
 
-  if (message && message.text !== "" && processObj.getNonVolatile()) {
+  if (message && processObj.getNonVolatile()) {
     message.processId = id; //update
     message.timestamp = message.timestamp || new Date().getTime();
     processObj.messages = processObj.messages || [];
@@ -205,7 +205,7 @@ ProcessModel.upsert = function (processObj, message) {
       resolve(id);
     });
   } else {
-    dblogger.assert(!utils.isCyclic(processToSave), "process object is cyclic");
+    //dblogger.assert(!utils.isCyclic(processToSave), "process object is cyclic");
     // and upsert
     return new Promise((resolve) => {
       // TODO: save messages separately, after removing the dot from entities: {location.suggested} .

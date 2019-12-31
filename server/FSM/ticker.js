@@ -54,6 +54,14 @@ class Ticker {
   }
 
   /**
+   * is this process ticking
+   * @param {*} pid 
+   */
+  isTicking(pid) {
+    return !!this.timeoutCache.get(pid);
+  }
+
+  /**
    * gets/sets a cycle length
    * @param {string} pid 
    * @param {number=} val 

@@ -74,7 +74,7 @@ class FSMManager {
         chatManager.startAll(app, fsms);
         var fsmRoots = [];
         _.each(fsms, (fsm) => {
-          if (fsm.isRoot && fsm.properties && !fsm.properties.resetMemory) {
+          if (fsm.isRoot && fsm.properties && !fsm.properties.resetMemory && fsm.properties.supportPush) {
             fsmRoots.push(fsm);
           }
         });
@@ -216,6 +216,11 @@ class FSMManager {
     });
   }
 
+  static resetBT(userId, fsm_id) {
+    //_btCache.del(fsm_id)
+    var app = require('../app');
+    //FSMManager.startFsm(app, userId, fsm_id);
+  }
 
   static resetBTs(userId) {
     _btCache.flushAll();
@@ -229,7 +234,7 @@ class FSMManager {
     return new Promise((resolve, reject) => {
       dblogger.log('loadRootProcessTree ' + process.fsm_id);
       // use fsm.getId() - user-specific id, so two users can have two ids
-      FSMManager.loadBehaviorTree(fsm, undefined, fsm.userFsmId()).then((rootTree) => {
+      FSMManager.loadBehaviorTree(fsm, undefined, fsm.userFsmId(), false).then((rootTree) => {
 
         process.loadContextEntities();
         // if not extended yet, extend
@@ -356,11 +361,13 @@ class FSMManager {
    */
   static tickStop(pid, userId) {
 
-    var targetObj = {
-      stopCommand: true,
-      userId
-    };
-    FSMManager.addToQueue(pid, targetObj, true);
+    if (FSMManager.ticker.isTicking(pid)) {
+      var targetObj = {
+        stopCommand: true,
+        userId
+      };
+      FSMManager.addToQueue(pid, targetObj, true);
+    }
   }
 
   static tickPause(pid) {
@@ -427,7 +434,7 @@ class FSMManager {
               FSMManager.resetQueue(pid);
               // this will cause a reload for all
               // TODO: reset only for this fsmId
-              FSMManager.resetBTs(qObject.targetObj.userId);
+              FSMManager.resetBTs(qObject.targetObj.userId, fsm_id);
 
               return;
             }

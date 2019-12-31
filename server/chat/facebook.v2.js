@@ -216,6 +216,7 @@ function start(fsm) {
     validate(req, res, facebookOptions.validationToken);
   });
 
+  // TODO: re-add profile options. only after stop will reload one fsm only 
   addProfileOptions(fsm);
   dblogger.flow('listen for facebook message for ' + fsm.id + ' on ' + config.serverBaseDomain + "/" + config.baseUrl + '/entry/fb/' + userDir + '/' + fsm.id);
 }

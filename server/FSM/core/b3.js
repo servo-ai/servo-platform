@@ -117,7 +117,7 @@ b3.NONE = 'None';
  * @property WAKEUP
  * @type {string}
  */
-b3.WAKEUP = 'WakeUp';
+b3.WAKEUP = 'WakeupIntent';
 /**
  * Describes the node category as Composite.
  * 

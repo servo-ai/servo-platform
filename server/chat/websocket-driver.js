@@ -77,7 +77,7 @@ class WebSocketDriver extends ChatDriverInterface {
    * @param {*} message 
    */
   onMessage(message) {
-    console.log('websocket message arrived', message);
+    dblogger.flow('websocket message arrived', JSON.stringify(message));
     //call process request
     return this.processRequest(message, {
       id: _id++

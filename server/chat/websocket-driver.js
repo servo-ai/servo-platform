@@ -349,19 +349,14 @@ class WebSocketDriver extends ChatDriverInterface {
           processObj.data("lang", fsm.properties.defaultLang);
           lang = fsm.properties.defaultLang;
         }
-        /*if (!messageObj.getEntity('setPage') &&
-          (messageObj.entities.event === 'click' || messageObj.entities.event === 'focusin' || messageObj.entities.event === 'focusout')) {
-          resolve(processObj); // ignore
-          } else*/
-        {
-          //console.log('AFTER getProccessBYBYBYID')
-          this.actOnProcess(messageObj, processObj).then((res) => {
-            dblogger.flow('acted on process: ', processObj.summary(), res);
-            resolve(processObj);
-          }).catch((err) => {
-            dblogger.error('error in actOnProcess for ' + pid, err);
-          });
-        }
+
+        this.actOnProcess(messageObj, processObj).then((res) => {
+          dblogger.flow('acted on process: ', processObj.summary(), res);
+          resolve(processObj);
+        }).catch((err) => {
+          dblogger.error('error in actOnProcess for ' + pid, err);
+        });
+
 
       }).catch((err) => {
         reject(err);

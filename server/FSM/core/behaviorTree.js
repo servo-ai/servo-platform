@@ -530,6 +530,9 @@ class BehaviorTree {
     if (!contextEtts) {
       return false;
     }
+    if (tick.target && tick.target.isFlowControl()) {
+      return false;
+    }
 
     dblogger.assert(contextEtts.contextManager && contextEtts.tick, 'context should not be without contextManager or tick');
     let isContextOnWaitState = contextEtts.contextManager && contextEtts.contextManager.node && contextEtts.contextManager.node.waitingForAnswer(contextEtts.tick);
@@ -537,6 +540,8 @@ class BehaviorTree {
 
 
   }
+
+
 
   /**
    * select rot as default context
@@ -575,7 +580,13 @@ class BehaviorTree {
 
   }
 
+  reopenCurrentContext(tick) {
+    var contextManagerEntities = tick.process.currentContextEntities();
+    if (contextManagerEntities && contextManagerEntities.contextManager && contextManagerEntities.contextManager.node) {
+      contextManagerEntities.contextManager.node.reopen(tick);
+    }
 
+  }
 
   /**
    * Propagates the tick signal through the tree, starting from the root.
@@ -596,14 +607,10 @@ class BehaviorTree {
    **/
   tick(process, target) {
 
-    // see that we have a data object so
     if (!process) {
       throw 'The process parameter is obligatory and must be an ' +
         'instance of Process class';
     }
-    // see that we have a data object so we could treat it by reference var data = process.get('data',tree.id) || {};
-    // var data = process.get('data', this.id);
-    // process.set('data', data || {}, this.id);
 
     /* CREATE A TICK OBJECT */
     dblogger.assert(process.properties(), "process should have an fsm");
@@ -612,6 +619,7 @@ class BehaviorTree {
     tick.process = process;
     tick.tree = this;
     tick.depth = 0;
+
 
     // if too much targetObjs for too much time ,and production system, clean
     if (target.getTargets().length > 3 && config.productionCleanups) {

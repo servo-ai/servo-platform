@@ -20,7 +20,6 @@ class GeneralMessage extends Action {
       "imageDataArrayName": "",
       "viewEvaluation": false,
       "responseFieldName": "",
-      "queueIncomingMessages": false,
       "HTML": false
 
     };
@@ -35,7 +34,6 @@ class GeneralMessage extends Action {
      * @property {MemoryField} parameters.imageDataArrayName -  (message./global./context./volatile./local./fsm.) field name for an array object that contains data for the images
      * @property {string} parameters.viewEvaluation - if 'eval' will use javascript eval the view string/file
      * @property {string} parameters.responseFieldName - a data member on the reponse, to save. will be saved into same field name in context
-     * @property {boolean} parameters.queueIncomingMessages - if false, any messages that come in prior to this message are erased
      * @property {boolean} parameters.HTML - if true, the message includes HTML to be processed
      **/
     this.parameters = _.extend(this.parameters, parameters);
@@ -53,16 +51,13 @@ class GeneralMessage extends Action {
    */
   open(tick) {
     console.log('open GeneralMessage ' + this.summary(tick))
-    if (tick.target && tick.target.isWakeUp()) {
-      this.set(tick, 'wokeupTargetId', tick.target.id())
-    }
   }
   /**
    * reset a wake up flag , for session-based clients
    * @param {Tick} tick 
    */
   close(tick) {
-    if (tick.target && tick.target.isWakeUp()) {
+    if (tick.target && tick.target.isFlowControl()) {
       this.set(tick, 'wokeupTargetId', undefined);
     }
   }

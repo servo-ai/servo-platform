@@ -37,7 +37,7 @@ class SetUIAction extends Action {
    * @param {Tick} tick 
    */
   open(tick) {
-    if (tick.target && tick.target.isWakeUp()) {
+    if (tick.target && tick.target.isFlowControl()) {
       this.set(tick, 'wokeupTargetId', tick.target.id())
     }
   }

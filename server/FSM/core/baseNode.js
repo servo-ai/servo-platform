@@ -110,6 +110,7 @@ class BaseNode {
       'debug-log': '',
       "runningTimeoutSec": 600, // 10 minutes, for leafs only
       "maxRetriesNumber": 5,
+      "loseIncomingMessages": false,
       "onError": b3.ERROR()
     };
 
@@ -747,9 +748,9 @@ class BaseNode {
           }
 
 
-          // when we send messages out, we reset the incoming message queue
+          // when we send messages out, we might want to reset the incoming message queue
           // otherwise new questions will be answered immediately and skipped
-          if (!this.properties.queueIncomingMessages) {
+          if (this.properties.loseIncomingMessages) {
             dblogger.warn("losing " + tick.target.getTargets().length + " messages:", tick.target.getTargets());
             tick.target.removeTargets();
           }
@@ -799,9 +800,13 @@ class BaseNode {
   }
 
   /**
-   * reopens or leaves the node, depends on a counter
+   * close and reopens  the node
    * @param {*} tick 
    */
+  reopen(tick) {
+    this._close(tick);
+    this._open(tick);
+  }
 
 
 

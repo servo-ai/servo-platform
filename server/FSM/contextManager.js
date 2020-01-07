@@ -492,7 +492,7 @@ class ContextManager {
     let maxEttCount = 0;
     let retIndex = -1;
     dblogger.flow("distance: " + distanceCounter + ' select Context With Max Entities - ' + this.node.summary(tick));
-    dblogger.flow("target " + tick.target.getMessageObj() && JSON.stringify(tick.target.getMessageObj()));
+    dblogger.flow("target " + (tick.target.getMessageObj() && JSON.stringify(tick.target.getMessageObj())));
     // look on the contexts of the current contextManager
     var ctxParams = this.node.contextProperties();
     for (let c = 0; c < ctxParams.length; c++) {
@@ -750,15 +750,6 @@ class ContextManager {
       this.mapEntitiesToParent(tick);
     }
 
-    // assert
-    // todo: remove on debug
-    // _.each(this.node.contextProperties()[child].entities, (fieldMap) => {
-    //   // if exists on target, then it should have been mapped
-    //   if (!_.isUndefined(this.node.target(tick).getEntity(fieldMap.entityName, fieldMap.entityIndex))) {
-    //     dblogger.log('entity wasnt used!', this.node.target(tick), fieldMap.entityName, tick.tree.id);
-    //   }
-
-    // });
 
     // if success/running
     if (status != b3.FAILURE() && status != b3.ERROR()) {

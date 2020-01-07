@@ -99,21 +99,17 @@ messageReceiver.actOnProcess = function (messageObj, process) {
       dblogger.info(strLog);
       return resolve(process.id);
     }
-    //console.log('messageReceiver.actOnProcess1.5-------------------------', messageObj.entities)
     // only now we have a full object 
     var processLocal = process;
     // add the message to the process
     processModel.addMessage(process.id, processLocal, messageObj);
-    //console.log('messageReceiver.actOnProcess1.6-------------------------', messageObj.entities)
     // get the fsm
     fsmModel.get(processLocal.fsm_id, processLocal.userId).then((fsm) => {
-      //console.log('messageReceiver.actOnProcess1.7-------------------------', messageObj.entities)
       // load the tree if not there
       FSM.loadRootProcessTree(fsm, processLocal).then(() => {
 
         //execute timeout now
         ticker.breakIn(process.id);
-        //console.log('messageReceiver.actOnProcess2-------------------------', messageObj.entities)
         // save async
         processLocal.save();
         // add message to tick queue

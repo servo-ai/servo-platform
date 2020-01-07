@@ -133,14 +133,6 @@ class AskAndMap extends Composite {
    */
   enter(tick) {
 
-    if (tick.target && tick.target.isWakeUp() &&
-      this.get(tick, 'wokeupTargetId') !== this.target(tick).id() &&
-      tick.process.get('isOpen', tick.tree.id, this.id)) {
-
-      this._closeMe(tick);
-    }
-
-
     _.each(this.contextProperties(), (ctxParam, index) => {
       if (ctxParam.background) {
         this.backgroundContextIndex = index;
@@ -172,10 +164,8 @@ class AskAndMap extends Composite {
   open(tick) {
 
     dblogger.flow('AskAndMap open', this.summary(tick));
-    if (tick.target && tick.target.isWakeUp()) {
-      this.set(tick, 'wokeupTargetId', tick.target.id());
-    }
-    //console.log('target--------))))AIC open', this.target(tick).summary());
+
+
     dblogger.assert(this.children[this.children.length - 1] && !this.children[this.children.length - 1].properties.helper, "first child in a AskAndMap must not be a helper");
 
     // initialize context  
@@ -183,6 +173,11 @@ class AskAndMap extends Composite {
     dblogger.assert(foundContexts.length === 1, 'foundContext minimum is 0, first one is "no context"');
     // if the target caused that we already have an answer, if no need any more to ask the question, dont ask
     this.local(tick, 'step', (foundContexts[0].index >= 0) ? 1 : 0);
+    this.local(tick, 'waitForAnswer', false);
+    // if this open was entered due to a wakeup, the wakeup flag finished its job
+    if (tick.target && tick.target.isFlowControl() && !foundContexts[0].default) {
+      tick.target.remove();
+    }
     // start running
     this.waitCode(tick, b3.RUNNING());
 
@@ -195,9 +190,6 @@ class AskAndMap extends Composite {
    */
   close(tick, status) {
 
-    if (tick.target && tick.target.isWakeUp()) {
-      this.set(tick, 'wokeupTargetId', undefined);
-    }
 
     // if we ever got a selection
     if (this.currentContextChild(tick) != null) {
@@ -256,10 +248,11 @@ class AskAndMap extends Composite {
       dblogger.flow('tick  step 0 in AskAndMap:' + this.id + ' step 0, runningChild=', this.local(tick, 'runningChild'), this.target(tick).summary());
       // move to next step
       tick.process.set('step', 1, tick.tree.id, this.id);
-      //var msgOut = this.tickMessage(tick);
+
       status = b3.RUNNING();
       this.tickMessagePromise(tick).then(() => {
         // message delivery succeeded, do nothing special
+        this.local(tick, 'waitForAnswer', true);
       }).catch((x) => {
         dblogger.error('error in AskAndMap:', x);
         // continue to return RUNNING/FAILURE
@@ -277,7 +270,7 @@ class AskAndMap extends Composite {
       if (_.isUndefined(child) || child === null || child < 0) {
 
         // we have a target and no child
-        if (this.target(tick).exists()) {
+        if ((tick.target && tick.target.getMessageObj()) || this.target(tick).exists()) {
           // it means there was no child that could be found - neither intent-child nor helper
           // restart node so it would ask the question again
           dblogger.warn('no target ' + this.summary(tick));
@@ -389,7 +382,7 @@ class AskAndMap extends Composite {
   }
 
   waitingForAnswer(tick) {
-    return this.local(tick, 'step') === 1;
+    return this.local(tick, 'waitForAnswer');
   }
   /**
    * defines validation methods to execute at the editor; if one of them fails, a dashed red border is displayed for the node

@@ -434,7 +434,7 @@ class FSMManager {
               FSMManager.resetQueue(pid);
               // this will cause a reload for all
               // TODO: reset only for this fsmId
-              FSMManager.resetBTs(qObject.targetObj.userId, fsm_id);
+              FSMManager.resetBTs(qObject.targetObj.userId);
 
               return;
             }
@@ -446,15 +446,8 @@ class FSMManager {
             }
 
 
-            // if (qObject.targetObj.messageObj && qObject.targetObj.messageObj.queueAfterDoneRunning) {
-
-            //   //if an object for adding after done, save it
-            //   queueAfterDoneRunningObj = qObject;
-            // } else 
-            { // add as target
-              // The responsibility of removing a target, is on the actions (mostly on AskAndWait-type actions)
-              _processTargetCache.get(pid).target.add(qObject.targetObj);
-            }
+            // The responsibility of removing a target, is on the actions (mostly on AskAndWait-type actions)
+            _processTargetCache.get(pid).target.add(qObject.targetObj);
 
           }
           // the process might be out of the cache if it got a stop

@@ -24,6 +24,7 @@
  * 
  **/
 var deepClone = require('clone-deep');
+var b3 = require('./b3');
 /**
  * a target class maintaining a queue of outputs from NLU classifier layers 
  *
@@ -131,8 +132,8 @@ class Target {
    * @return {boolean} true if the current message received is a wakeup event
    * 
    */
-  isWakeUp() {
-    return this.getMessageObj() && this.getMessageObj().wakeUp;
+  isFlowControl() {
+    return this.getMessageObj() && (this.getMessageObj().wakeUp || this.getIntent() === b3.WAKEUP);
   }
 
   /**

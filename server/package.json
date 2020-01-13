@@ -17,7 +17,6 @@
     "install-nlu": "pip install rasa_nlu;pip install rasa_nlu[spacy];python -m spacy download en_core_web_md;python -m spacy link en_core_web_md en"
   },
   "dependencies": {
-    "@google-cloud/speech": "^0.9.3",
     "basic-auth": "^1.0.4",
     "basic-auth-connect": "^1.0.0",
     "bluebird": "^3.5.0",

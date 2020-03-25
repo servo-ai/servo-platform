@@ -115,6 +115,7 @@ B3Nodes.push(Repeater_1);
 // treee specifics
 function load(path, folder, name) {
   try {
+    console.log(name, path + folder + '/' + name.trim())
     var cls = require(path + folder + '/' + name.trim());
     var cls1 = new cls();
 
@@ -154,26 +155,36 @@ load(path, 'nlumodels', 'DictModel');
 load(path, 'actions', 'SafeEval');
 load(path, 'actions', 'SetProcessLinkId');
 load(path, 'actions', 'GetProcessDataByKey');
-if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/ExtractImageNames.js')) {
-  load(path, '../convocode/anonymous/drafts/carseat4/actions', 'ExtractImageNames');
-} else {
-  load(path, '../convocode/servo/drafts/carseat4/actions', 'ExtractImageNames');
-}
-if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/AugmentCarData.js')) {
-  load(path, '../convocode/anonymous/drafts/carseat4/actions', 'AugmentCarData');
-} else {
-  load(path, '../convocode/servo/drafts/carseat4/actions', 'AugmentCarData');
-}
+// if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/ExtractImageNames.js')) {
+//   load(path, '../convocode/anonymous/drafts/carseat4/actions', 'ExtractImageNames');
+// } else {
+//   load(path, '../convocode/servo/drafts/carseat4/actions', 'ExtractImageNames');
+// }
+// if (fs.existsSync('../server/convocode/anonymous/drafts/carseat4/actions/AugmentCarData.js')) {
+//   load(path, '../convocode/anonymous/drafts/carseat4/actions', 'AugmentCarData');
+// } else {
+//   load(path, '../convocode/servo/drafts/carseat4/actions', 'AugmentCarData');
+// }
 
-if (fs.existsSync('../server/convocode/anonymous/drafts/demo-tt1/actions/SearchText.js')) {
-  load(path, '../convocode/anonymous/drafts/demo-tt1/actions', 'SearchText');
+if (fs.existsSync('../server/convocode/anonymous/drafts/j850-stratasys/actions/SearchText.js')) {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'SearchText');
 } else {
-  load(path, '../convocode/servo/drafts/demo-tt1/actions', 'SearchText');
+  load(path, '../convocode/servo/drafts/j850-stratasys/actions', 'SearchText');
 }
-if (fs.existsSync('../server/convocode/anonymous/drafts/demo-tt1/actions/GetTextFile.js')) {
-  load(path, '../convocode/anonymous/drafts/demo-tt1/actions', 'GetTextFile');
+if (fs.existsSync('../server/convocode/anonymous/drafts/j850-stratasys/actions/GetTextFile.js')) {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'GetTextFile');
 } else {
-  load(path, '../convocode/servo/drafts/demo-tt1/actions', 'GetTextFile');
+  load(path, '../convocode/servo/drafts/j850-stratasys/actions', 'GetTextFile');
 }
-
+if (fs.existsSync('../server/convocode/anonymous/drafts/j850-stratasys/actions/TrainNLU.js')) {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'TrainNLU');
+} else {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'TrainNLU');
+}
+if (fs.existsSync('../server/convocode/anonymous/drafts/j850-stratasys/actions/AddComment.js')) {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'AddComment');
+}
+if (fs.existsSync('../server/convocode/anonymous/drafts/j850-stratasys/actions/GetComments.js')) {
+  load(path, '../convocode/anonymous/drafts/j850-stratasys/actions', 'GetComments');
+}
 module.exports = B3Nodes;

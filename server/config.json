@@ -8,8 +8,8 @@
     "id": "servo"
   },
   "db": {
-    "name": "mongo",
-    "name1": "loki",
+    "name1": "mongo",
+    "name": "loki",
     "host": "chatflows.com",
     "username": "servoai",
     "password": "bestbots",

@@ -530,9 +530,9 @@ class BehaviorTree {
     if (!contextEtts) {
       return false;
     }
-    if (tick.target && tick.target.isFlowControl()) {
-      return false;
-    }
+    // if (tick.target && tick.target.isFlowControl()) {
+    //   return false;
+    // }
 
     dblogger.assert(contextEtts.contextManager && contextEtts.tick, 'context should not be without contextManager or tick');
     let isContextOnWaitState = contextEtts.contextManager && contextEtts.contextManager.node && contextEtts.contextManager.node.waitingForAnswer(contextEtts.tick);
@@ -666,7 +666,7 @@ class BehaviorTree {
     process.set('nodeCount', tick._nodeCount, this.id);
 
     return state;
-  };
+  }
 
 }
 module.exports = BehaviorTree;

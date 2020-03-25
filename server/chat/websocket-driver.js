@@ -112,94 +112,105 @@ class WebSocketDriver extends ChatDriverInterface {
    */
   processRequest(req, res) {
     return new Promise((resolve, reject1) => {
+      try {
 
-      var sessionObj = {};
-      sessionObj.responseObj = res;
-      var useNLU = req.data.useNLU;
-      // take directly from message
-      let fsm = fsmModel.getFSMSync(req.data.fsmId, req.data.userId);
 
-      // messageObj must carry intentId
-      if (useNLU) {
-
-        if (!fsm) {
-          return reject1('no such fsm. was the project published?');
+        var sessionObj = {};
+        sessionObj.responseObj = res;
+        var useNLU = req.data.useNLU;
+        // take directly from message
+        if (!req.data.userId) {
+          throw 'no userId on request. check config.json devId';
         }
-        if (fsm.properties.nlu && fsm.properties.nlu[fsm.properties.defaultLang] && fsm.properties.nlu[fsm.properties.defaultLang].engine) {
-          var nlu = PipeManager.getPipe(fsm.properties.nlu[fsm.properties.defaultLang].engine, fsm.properties.nlu[fsm.properties.defaultLang]);
+        let fsm = fsmModel.getFSMSync(req.data.fsmId, req.data.userId);
 
-          nlu.process(req.data.utterance).then((nluObj) => {
-            var messageObj = this.createMessageObject({
-                id: config.serverBaseDomain
-              }, {
-                id: req.data.processId
-              },
-              req.data.utterance, req.data.fsmId, req.data.payload, req.data.userId);
+        // messageObj must carry intentId
+        if (useNLU) {
 
-            messageObj.intentId = nluObj.intent;
-            messageObj.entities = nluObj.entities;
-            messageObj.userId = req.data.userId;
-            this.getCreateProcessAndMessage(messageObj, res, fsm).then((processObj) => {
-              processObj.volatile("sessionObj", sessionObj);
-              resolve(processObj.id);
-            }).catch((err) => {
-              dblogger.error("error in getCreateProcessAndMessage at " + this.protocolName(), err);
-              reject1({
-                message: err
+          if (!fsm) {
+            return reject1('no such fsm. was the project published?');
+          }
+          if (fsm.properties.nlu && fsm.properties.nlu[fsm.properties.defaultLang] && fsm.properties.nlu[fsm.properties.defaultLang].engine) {
+            var nlu = PipeManager.getPipe(fsm.properties.nlu[fsm.properties.defaultLang].engine, fsm.properties.nlu[fsm.properties.defaultLang]);
+
+            nlu.process(req.data.utterance).then((nluObj) => {
+              var messageObj = this.createMessageObject({
+                  id: config.serverBaseDomain
+                }, {
+                  id: req.data.processId
+                },
+                req.data.utterance, req.data.fsmId, req.data.payload, req.data.userId);
+
+              messageObj.intentId = nluObj.intent;
+              messageObj.entities = nluObj.entities;
+              messageObj.userId = req.data.userId;
+              this.getCreateProcessAndMessage(messageObj, res, fsm).then((processObj) => {
+                processObj.volatile("sessionObj", sessionObj);
+                resolve(processObj.id);
+              }).catch((err) => {
+                dblogger.error("error in getCreateProcessAndMessage at " + this.protocolName(), err);
+                reject1({
+                  message: err
+                });
               });
             });
+          } else {
+            dblogger.error('useNLU=true but no NLU is configured in fsm.properties. you might need to set defaultLang. resorting to useNLU=false');
+            useNLU = false;
+          }
+        }
+
+        if (!useNLU) {
+          var messageObj = this.createMessageObject({
+              id: config.serverBaseDomain
+            }, {
+              id: req.data.processId
+            },
+            req.data.utterance, req.data.fsmId, req, req.data.userId);
+          messageObj.entities = {};
+          messageObj.intentId = req.data.intentId ||
+            (req.data.payload && req.data.payload.intentId) ||
+            (req.command === b3.HANDSHAKE ? b3.WAKEUP : b3.NONE);
+
+          dblogger.flow('websocket-driver - req.data.payload-- ', req.data.payload);
+          if (req.data.payload) {
+            // ignore all clicks
+            if (req.data.payload.event !== 'setPage' &&
+              (req.data.payload.event === 'click' || req.data.payload.event === 'focusin' || req.data.payload.event === 'focusout')) {
+              return resolve('ignore');
+            }
+            if (req.data.payload.event === 'setPage') {
+              req.data.payload.entity = req.data.payload.event;
+            }
+            messageObj.addEntity(req.data.payload.entity, req.data.payload.value);
+          }
+
+          // in case the format is a simple object
+          let intentIdFound;
+          _.each(req.data.entities, (value, name) => {
+            messageObj.addEntity(name, value);
+            if (name.toString() === 'intentId') {
+              intentIdFound = true;
+            }
+          }); // treat the intent specially
+          if (!intentIdFound) {
+            messageObj.addEntity('intentId', messageObj.intentId);
+          }
+
+          this.getCreateProcessAndMessage(messageObj, res, fsm).then((processObj) => {
+            processObj.volatile("sessionObj", sessionObj);
+            resolve(processObj.id);
+          }).catch((err) => {
+            dblogger.error("error in getCreateProcessAndMessage at " + this.protocolName(), err);
+            reject1({
+              message: err
+            });
           });
-        } else {
-          dblogger.error('useNLU=true but no NLU is configured in fsm.properties. you might need to set defaultLang. resorting to useNLU=false');
-          useNLU = false;
         }
-      }
-
-      if (!useNLU) {
-        var messageObj = this.createMessageObject({
-            id: config.serverBaseDomain
-          }, {
-            id: req.data.processId
-          },
-          req.data.utterance, req.data.fsmId, req, req.data.userId);
-        messageObj.entities = {};
-        messageObj.intentId = req.data.intentId ||
-          (req.data.payload && req.data.payload.intentId) ||
-          (req.command === b3.HANDSHAKE ? b3.WAKEUP : b3.NONE);
-
-        dblogger.flow('websocket-driver - req.data.payload-- ', req.data.payload);
-        if (req.data.payload) {
-          // ignore all clicks
-          if (req.data.payload.event !== 'setPage' &&
-            (req.data.payload.event === 'click' || req.data.payload.event === 'focusin' || req.data.payload.event === 'focusout')) {
-            return resolve('ignore');
-          }
-          if (req.data.payload.event === 'setPage') {
-            req.data.payload.entity = req.data.payload.event;
-          }
-          messageObj.addEntity(req.data.payload.entity, req.data.payload.value);
-        }
-
-        // in case the format is a simple object
-        let intentIdFound;
-        _.each(req.data.entities, (value, name) => {
-          messageObj.addEntity(name, value);
-          if (name.toString() === 'intentId') {
-            intentIdFound = true;
-          }
-        }); // treat the intent specially
-        if (!intentIdFound) {
-          messageObj.addEntity('intentId', messageObj.intentId);
-        }
-
-        this.getCreateProcessAndMessage(messageObj, res, fsm).then((processObj) => {
-          processObj.volatile("sessionObj", sessionObj);
-          resolve(processObj.id);
-        }).catch((err) => {
-          dblogger.error("error in getCreateProcessAndMessage at " + this.protocolName(), err);
-          reject1({
-            message: err
-          });
+      } catch (ex) {
+        dblogger.error("error in processRequest " + JSON.stringify(ex));
+        reject1({
+          message: ex.message
         });
       }
     });

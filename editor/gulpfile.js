@@ -300,5 +300,7 @@ gulp.task('docs', function () {
 
 // COMMANDS ===================================================================
 gulp.task('build', ['_vendor', '_preload', '_app_build', 'docs']);
-gulp.task('dev', ['_vendor_dev', '_preload', '_app_dev','cp2server']);
+gulp.task('dev', ['_vendor_dev', '_preload', '_app_dev'], function () {
+  gulp.start('cp2server');
+});
 gulp.task('serve', ['_vendor_dev', '_preload', '_app_dev', 'docs', '_watch']);

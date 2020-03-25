@@ -103,8 +103,6 @@ npm test
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-## Demonstration:
-Cognility is a system that uses Servo's <a href="http://www.cognility.com" >chat bots for customer service automation</a>
 
 Copyright (c) 2016-2019 Servo Labs Inc
 

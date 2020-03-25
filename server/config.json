@@ -10,10 +10,10 @@
   "db": {
     "name1": "mongo",
     "name": "loki",
-    "host": "chatflows.com",
-    "username": "servoai",
-    "password": "bestbots",
-    "database": "ServoDB",
+    "host": "xxxx.com",
+    "username": "xxx",
+    "password": "pwd",
+    "database": "in mongo DB",
     "timeoutMSec": 4000
   },
   "readOnly": false,

@@ -1,6 +1,6 @@
 var config = require('config');
 //Html to image thing using node-webshot
-var webshot = require('webshot');
+//var webshot = require('webshot');
 var crypto = require('crypto');
 var _ = require('underscore');
 var Base64 = require("js-base64").Base64;
@@ -213,32 +213,32 @@ Utils.isCyclic = function (obj) {
 /**
  * use webshot to produce a jpg
  */
-Utils.htmlToImg = function (htmlSnippet) {
+// Utils.htmlToImg = function (htmlSnippet) {
 
-  htmlSnippet = '<div id="htmlSnippet" style="width: ' + config.html2img.width + 'px; padding: 10px;">' + htmlSnippet + '</div>';
+//   htmlSnippet = '<div id="htmlSnippet" style="width: ' + config.html2img.width + 'px; padding: 10px;">' + htmlSnippet + '</div>';
 
-  var promise = new Promise(function (resolve, reject) {
-    var img = crypto.randomBytes(12).toString('hex') + '.jpg';
+//   var promise = new Promise(function (resolve, reject) {
+//     var img = crypto.randomBytes(12).toString('hex') + '.jpg';
 
-    webshot(htmlSnippet, './' + config.html2img.generated_path + img, {
-      quality: 200,
-      //no need - phantomPath:process.cwd() + '/bin/phantomjs',
-      captureSelector: '#htmlSnippet',
-      defaultWhiteBackground: true,
-      customCSS: config.html2img.custom_css,
-      siteType: 'html'
-    }, function (err) {
-      if (!err) {
-        console.log('htmlToImg - Image generated - ' + img);
-        resolve(img);
-      } else {
-        reject(err);
-      }
-    });
-  });
+//     webshot(htmlSnippet, './' + config.html2img.generated_path + img, {
+//       quality: 200,
+//       //no need - phantomPath:process.cwd() + '/bin/phantomjs',
+//       captureSelector: '#htmlSnippet',
+//       defaultWhiteBackground: true,
+//       customCSS: config.html2img.custom_css,
+//       siteType: 'html'
+//     }, function (err) {
+//       if (!err) {
+//         console.log('htmlToImg - Image generated - ' + img);
+//         resolve(img);
+//       } else {
+//         reject(err);
+//       }
+//     });
+//   });
 
-  return promise;
-};
+//   return promise;
+// };
 
 Utils.safeAdd = function (obj, key, val) {
 
@@ -273,6 +273,143 @@ Utils.getMsSinceMidnight = function (d) {
   var e = new Date(d);
   return d - e.setHours(0, 0, 0, 0);
 };
+
+let _stopWordFilter = [
+  'a',
+  'able',
+  'about',
+  'across',
+  'after',
+  'all',
+  'almost',
+  'also',
+  'am',
+  'among',
+  'an',
+  'and',
+  'any',
+  'are',
+  'as',
+  'at',
+  'be',
+  'because',
+  'been',
+  'but',
+  'by',
+  'can',
+  'cannot',
+  'could',
+  'dear',
+  'did',
+  'do',
+  'does',
+  'either',
+  'else',
+  'ever',
+  'every',
+  'for',
+  'from',
+  'get',
+  'got',
+  'had',
+  'has',
+  'have',
+  'he',
+  'her',
+  'hers',
+  'him',
+  'his',
+  'how',
+  'however',
+  'i',
+  'if',
+  'in',
+  'into',
+  'is',
+  'it',
+  'its',
+  'just',
+  'least',
+  'let',
+  'like',
+  'likely',
+  'may',
+  'me',
+  'might',
+  'most',
+  'must',
+  'my',
+  'neither',
+  'no',
+  'nor',
+  'not',
+  'of',
+  //'off',
+  'often',
+  //'on',
+  'only',
+  'or',
+  'other',
+  'our',
+  'own',
+  'rather',
+  'said',
+  'say',
+  'says',
+  'she',
+  'should',
+  'since',
+  'so',
+  'some',
+  'than',
+  'that',
+  'the',
+  'their',
+  'them',
+  'then',
+  'there',
+  'these',
+  'they',
+  'this',
+  'tis',
+  'to',
+  'too',
+  'twas',
+  'us',
+  'wants',
+  'was',
+  'we',
+  'were',
+  'what',
+  'when',
+  'where',
+  'which',
+  'while',
+  'who',
+  'whom',
+  'why',
+  'will',
+  'with',
+  'would',
+  'yet',
+  'you',
+  'your'
+];
+/**
+ * remove stop words and return the text without
+ */
+Utils.removeStopWords = function (searchTerm) {
+  let splitByWords = (str = '') => {
+    return str.match(/\b(\w+)\b/g)
+  }
+
+  let words = splitByWords(searchTerm);
+  return words.filter((w) => {
+    return _stopWordFilter.indexOf(w) < 0;
+  }).join(' ')
+
+}
+
 
 /**
  * @param {string} path to fsm - fsm id in the form of <user id>/[drafts|fsms]/fsm name

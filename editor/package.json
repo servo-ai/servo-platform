@@ -62,6 +62,6 @@
     "mongojs": "^2.4.1",
     "morgan": "^1.8.1",
     "serve-favicon": "^2.4.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   }
 }
